@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kammari Cafe & Roastery | Gresik dan Surabaya</title>
+  <meta name="description" content="Kopi sangrai sendiri dan ruang yang tenang di Gresik dan Surabaya.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+  <header id="site-header"></header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__text">
+          <span class="kicker" data-in="1">Roastery di Gresik, ruang kerja di Surabaya</span>
+          <h1 class="h-xl" data-in="2">Ketenangan dalam setiap seduhan.</h1>
+          <p class="lede" data-in="3">Ruang yang teduh di tengah kota. Kami menyangrai biji pilihan Nusantara sendiri, lalu menyeduhnya di bangunan berarsitektur kayu, batu, dan cahaya alami.</p>
+          <div class="hero__cta" data-in="4">
+            <a class="btn" href="#cerita">Baca cerita kami</a>
+            <a class="btn btn--solid" href="menu.html">Lihat menu</a>
+          </div>
+        </div>
+        <div class="hero__art" data-in="3">
+          <figure class="photo arch photo--shade" role="img" aria-label="Foto bar sangrai Kammari">
+            <figcaption>Foto utama: bar kopi Kammari</figcaption>
+          </figure>
+          <div class="badge" aria-label="Sangrai hari ini: Argopuro Natural Lot 04">
+            <svg viewBox="0 0 148 148" aria-hidden="true">
+              <defs><path id="circ" d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/></defs>
+              <text><textPath href="#circ">Sangrai hari ini • Argopuro Natural Lot 04 • Markisa dan cokelat hitam •</textPath></text>
+            </svg>
+            <span aria-hidden="true">04</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero__facts">
+        <div class="wrap">
+          <div class="fact"><strong>100%</strong><span>biji pilihan Nusantara</span></div>
+          <div class="fact"><strong>2 ruang</strong><span>di Gresik dan Surabaya</span></div>
+          <div class="fact"><strong>Slow bar</strong><span>single origin, seduh manual</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cerita -->
+    <section class="section" id="cerita">
+      <div class="wrap story">
+        <div class="story__photos">
+          <figure class="photo" role="img" aria-label="Mesin sangrai pertama Kammari"></figure>
+          <figure class="photo" role="img" aria-label="Biji kopi disangrai"></figure>
+          <p class="story__est"><b>2019</b>Garasi kecil di Gresik, satu mesin sangrai, dan empat kursi.</p>
+        </div>
+        <div>
+          <span class="kicker">Akar dan filosofi</span>
+          <h2 class="h-lg" style="margin:18px 0 22px">Dari bengkel sangrai sederhana di Gresik menuju ruang teduh di Surabaya.</h2>
+          <p class="lede">Kammari lahir dari keinginan menciptakan ruang tempat seduhan kopi dibuat dengan teliti dan tidak terburu-buru. Nama kami diambil dari kata yang dekat dengan kami: kamar, tempat paling nyaman untuk berpikir.</p>
+          <div class="values">
+            <div class="value">
+              <span data-icon="leaf"></span>
+              <div><h3>Langsung dari petani</h3><p class="small">Kami bekerja sama dengan petani di Ijen, Argopuro, dan Dampit. Harga dibayar adil dan panen dicatat per lot.</p></div>
+            </div>
+            <div class="value">
+              <span data-icon="arch"></span>
+              <div><h3>Arsitektur yang ramah iklim</h3><p class="small">Kedua ruang kami memakai ventilasi alami, batu bata ekspos, dan kayu lokal. Banyak sudutnya menghadap taman.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu rekomendasi -->
+    <section class="section section--tint">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Pilihan kami</span>
+            <h2 class="h-lg">Menu yang paling sering dipesan</h2>
+          </div>
+          <div class="chips" id="featured-chips" role="group" aria-label="Filter menu">
+            <button class="chip" data-key="semua" aria-pressed="true">Semua</button>
+            <button class="chip" data-key="kopi" aria-pressed="false">Kopi</button>
+            <button class="chip" data-key="bakery" aria-pressed="false">Roti</button>
+            <button class="chip" data-key="makanan" aria-pressed="false">Makanan</button>
+          </div>
+        </div>
+        <div class="dishes" id="featured" aria-live="polite"></div>
+
+        <div class="picker">
+          <div>
+            <h3>Bingung mau pesan apa?</h3>
+            <p>Pilih suasana hatimu, kami carikan satu menu yang pas.</p>
+            <div class="chips" id="picker-moods" role="group" aria-label="Pilih suasana">
+              <button class="chip" data-mood="fokus" aria-pressed="false">Mau fokus</button>
+              <button class="chip" data-mood="santai" aria-pressed="false">Mau santai</button>
+              <button class="chip" data-mood="lapar" aria-pressed="false">Lapar</button>
+            </div>
+          </div>
+          <div class="picker__out" id="picker-out" aria-live="polite">
+            <span class="small">Pilih salah satu suasana di samping.</span>
+          </div>
+        </div>
+        <p style="margin-top:36px"><a class="btn" href="menu.html">Lihat semua menu</a></p>
+      </div>
+    </section>
+
+    <!-- Galeri -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Suasana</span>
+            <h2 class="h-lg">Sudut-sudut yang bisa kamu tempati</h2>
+          </div>
+          <p class="lede">Untuk berdiskusi pelan, membaca buku, atau menikmati tetesan kopi seduh manual.</p>
+        </div>
+        <div class="gallery">
+          <figure class="photo photo--shade g1" role="img" aria-label="Ruang utama Surabaya"><figcaption>Ruang duduk utama, Surabaya. Tanaman palem dan material lokal.</figcaption></figure>
+          <figure class="photo photo--shade g2" role="img" aria-label="Slow bar"><figcaption>Slow bar</figcaption></figure>
+          <figure class="photo photo--shade g3" role="img" aria-label="Halaman belakang Gresik"><figcaption>Teras teduh, Gresik</figcaption></figure>
+          <figure class="photo photo--shade g4" role="img" aria-label="Ruang sangrai"><figcaption>Ruang sangrai</figcaption></figure>
+          <figure class="photo photo--shade g5" role="img" aria-label="Sudut baca"><figcaption>Sudut baca</figcaption></figure>
+          <figure class="photo photo--shade g6" role="img" aria-label="Malam hari"><figcaption>Malam hari</figcaption></figure>
+        </div>
+        <div class="amenities">
+          <div class="amenity"><span data-icon="wifi"></span><div>Wi-Fi cepat<small>Nyaman untuk bekerja</small></div></div>
+          <div class="amenity"><span data-icon="plug"></span><div>Stopkontak di meja<small>Hampir di setiap sudut</small></div></div>
+          <div class="amenity"><span data-icon="leaf"></span><div>Area outdoor<small>Teduh dan berangin</small></div></div>
+          <div class="amenity"><span data-icon="moon"></span><div>Musala bersih<small>Sajadah dan tempat wudu</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cabang -->
+    <section class="section section--tint">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Dua rumah, satu kehangatan</span>
+            <h2 class="h-lg">Kunjungi cabang terdekat</h2>
+          </div>
+          <p class="lede">Roastery bersejarah di Gresik, atau ruang tenang di Ketintang, Surabaya.</p>
+        </div>
+        <div class="branches">
+          <article class="branch">
+            <iframe title="Peta Kammari Gresik" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Jl.+Samanhudi+No.17+Gresik&output=embed"></iframe>
+            <div class="branch__body">
+              <h3>Gresik, roastery asli</h3>
+              <p class="small">Jl. Samanhudi No.17, Kemuteran, Kec. Gresik, Kabupaten Gresik. Buka 09.00 sampai 23.00 WIB.</p>
+              <a class="link" href="https://maps.google.com/?q=Jl.+Samanhudi+No.17+Gresik" target="_blank" rel="noopener">Buka di Google Maps</a>
+            </div>
+          </article>
+          <article class="branch">
+            <iframe title="Peta Kammari Surabaya" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Jl.+Ketintang+Baru+II+Surabaya&output=embed"></iframe>
+            <div class="branch__body">
+              <h3>Surabaya, ruang tenang</h3>
+              <p class="small">Jl. Ketintang Baru II No. KAV 7, Ketintang, Kec. Gayungan, Surabaya. Buka 09.00 sampai 23.00 WIB.</p>
+              <a class="link" href="https://maps.google.com/?q=Jl.+Ketintang+Baru+II+Surabaya" target="_blank" rel="noopener">Buka di Google Maps</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="js/script.js"></script>
+</body>
+</html>

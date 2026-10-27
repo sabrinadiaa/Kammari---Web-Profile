@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menu | Kammari Cafe & Roastery</title>
+  <meta name="description" content="Menu kopi, non-kopi, roti, dan makanan Kammari di Gresik dan Surabaya.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="menu">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="kicker">Musim ini</span>
+        <h1 class="h-xl">Buku menu Kammari</h1>
+        <p class="lede">Kopi yang kami sangrai sendiri, teh, kakao, roti, dan makanan hangat. Pilih cabang untuk melihat menu yang tersedia.</p>
+        <div class="segmented" id="branch-toggle" role="group" aria-label="Pilih cabang">
+          <button data-branch="gresik" aria-pressed="true">Gresik, The Roastery</button>
+          <button data-branch="surabaya" aria-pressed="false">Surabaya, The Sanctuary</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="menu-bar">
+      <div class="wrap">
+        <p class="note" id="branch-note"></p>
+        <nav class="chips" id="cat-nav" aria-label="Kategori menu"></nav>
+      </div>
+    </div>
+
+    <div class="wrap" id="menu-root" aria-live="polite"></div>
+
+    <div class="wrap">
+      <section class="notes" aria-label="Catatan pesanan">
+        <div class="note-card">
+          <h2 class="h-md">Catatan pesanan dan dapur</h2>
+          <dl>
+            <div><dt>Pilihan diet dan alergi</dt><dd>Susu nabati tersedia: oat Rp 6.000, almond Rp 8.000. Beri tahu barista jika kamu alergi kacang atau gluten.</dd></div>
+            <div><dt>Jam dapur</dt><dd>Gresik 07.00 sampai 22.00 WIB, pesanan terakhir 21.15. Surabaya 08.00 sampai 23.00 WIB, pesanan terakhir 22.15.</dd></div>
+            <div><dt>Bahan</dt><dd>Semua hidangan dibuat segar tanpa pengawet buatan.</dd></div>
+          </dl>
+        </div>
+        <div class="qr">
+          <div class="qr__box" data-icon="qr" role="img" aria-label="Kode QR pesan dari meja"></div>
+          <div>
+            <h2 class="h-md" style="margin-bottom:10px">Pesan dari meja</h2>
+            <p class="small" style="color:#5a4538">Pindai kode QR di mejamu, pesan langsung dari ponsel, lalu bayar lewat QRIS, kartu, atau e-wallet.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div style="height:clamp(72px,10vw,140px)"></div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="js/script.js"></script>
+</body>
+</html>

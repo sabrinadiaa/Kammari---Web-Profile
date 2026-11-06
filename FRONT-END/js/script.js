@@ -5,8 +5,8 @@ const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Halo Kamm
 
 /* ---------- Ikon (SVG inline) ---------- */
 const ICON = {
-  wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.6-4.6A8.5 8.5 0 1 1 8 19.6L3 21z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-.8.7a3.6 3.6 0 0 1-1.7-1.7l.7-.8-1-2L9 9.5z"/></svg>',
-  ig: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".8" fill="currentColor"/></svg>',
+  wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.6-4.6A8.5 8.5 0 1 1 8 19.6L3 21z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-.8.7a3.6 3.6 0 0 1-1.7-1.7l.7-.8-1-2L9 9.5z"/></svg>',
+  ig: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>',
   menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
   cup: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3.5c-.8 1 .8 1.6 0 2.8M12 3.5c-.8 1 .8 1.6 0 2.8"/></svg>',
   leaf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-14 15-14 0 9-5 15-13 15"/><path d="M5 19c3-4 6-7 10-9"/></svg>',
@@ -43,10 +43,21 @@ if (header) {
       ${link("menu.html", "menu", "Menu")}
       ${link("fasilitas.html", "fasilitas", "Fasilitas")}
     </ul>
-    <div class="nav__actions">
-      <a class="icon-btn" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram Kammari">${ICON.ig}</a>
-      <a class="icon-btn icon-btn--wa" href="${WA_LINK}" target="_blank" rel="noopener" aria-label="Hubungi lewat WhatsApp">${ICON.wa}</a>
-      <button class="icon-btn nav__toggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="nav-links">${ICON.menu}</button>
+      <div class="nav__actions">
+      <!-- WhatsApp -->
+      <a class="icon-btn icon-btn--wa" href="${WA_LINK}" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <img src="assets/whatsapp.svg" alt="">
+      </a>
+
+      <!-- Instagram -->
+      <a class="icon-btn icon-btn--ig" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="assets/instagram.svg" alt="">
+      </a>
+
+      <!-- Menu -->
+      <button class="icon-btn nav__toggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="nav-links">
+        ${ICON.menu}
+      </button>
     </div>
   </div>`;
   const toggle = header.querySelector(".nav__toggle");
@@ -94,63 +105,383 @@ if (footer) {
 
 /* ---------- Data menu ---------- */
 const G = "gresik", S = "surabaya";
-const CATEGORIES = [
-  { id: "kopi", title: "Espresso dan seduh manual", note: "Disangrai segar di roastery Gresik dari biji arabika pilihan Nusantara." },
-  { id: "nonkopi", title: "Non-kopi dan penyegar", note: "Teh upacara, kakao Bali, dan seduhan rempah yang menenangkan." },
-  { id: "bakery", title: "Pastry dan roti", note: "Dipanggang dua kali sehari dengan mentega Prancis dan ragi alami." },
-  { id: "makanan", title: "Makanan utama", note: "Hidangan hangat dengan bumbu rempah autentik dan bahan baku segar." },
-];
-const MENU = [
-  { id: 1, cat: "kopi", name: "Kammari Aren Latte", desc: "Espresso house blend Nusantara, gula aren organik, susu segar, dan hint santan kelapa.", price: 28000, b: [G, S], tag: "Terlaris", mood: ["santai"] },
-  { id: 2, cat: "kopi", name: "Espresso Argopuro", desc: "Single origin Argopuro, natural process. Rasa markisa dan cokelat hitam.", price: 20000, b: [G, S], mood: ["fokus"] },
-  { id: 3, cat: "kopi", name: "Flat White", desc: "Double ristretto dengan susu mikro-foam yang halus dan manis alami.", price: 30000, b: [G, S], mood: ["fokus", "santai"] },
-  { id: 4, cat: "kopi", name: "V60 Single Origin", desc: "Seduh manual, biji berganti tiap minggu. Tanyakan catatan rasanya ke barista.", price: 35000, b: [G, S], tag: "Pilihan barista", mood: ["fokus"] },
-  { id: 5, cat: "kopi", name: "Tubruk Sangrai Gelap", desc: "Kopi tubruk dengan sangrai gelap khas roastery, disajikan dalam gelas kaca.", price: 18000, b: [G], mood: ["fokus"] },
-  { id: 6, cat: "kopi", name: "Cold Brew Tetes", desc: "Diteteskan perlahan selama 12 jam. Jernih, manis, dan rendah asam.", price: 32000, b: [S], mood: ["santai"] },
-  { id: 7, cat: "kopi", name: "Es Kopi Pandan", desc: "Espresso, susu, dan sirup pandan buatan sendiri.", price: 30000, b: [S], mood: ["santai"] },
-  { id: 8, cat: "nonkopi", name: "Matcha Latte Uji", desc: "Matcha Uji upacara dengan susu oat atau susu sapi. Tidak terlalu manis.", price: 32000, b: [G, S], tag: "Terlaris", mood: ["santai"] },
-  { id: 9, cat: "nonkopi", name: "Kakao Bali Panas", desc: "Cokelat pekat dari kakao Bali, dengan sedikit garam laut.", price: 30000, b: [G, S], mood: ["santai"] },
-  { id: 10, cat: "nonkopi", name: "Teh Melati Botanikal", desc: "Melati, serai, dan kulit jeruk. Disajikan dalam teko kecil untuk berdua.", price: 24000, b: [G, S], mood: ["fokus", "santai"] },
-  { id: 11, cat: "nonkopi", name: "Jeruk Kintamani Soda", desc: "Sari jeruk Kintamani, soda, dan daun mint. Segar dan tajam.", price: 26000, b: [S], mood: ["santai"] },
-  { id: 12, cat: "nonkopi", name: "Wedang Jahe Rempah", desc: "Jahe, kayu manis, cengkih, dan gula batu. Hangat di malam hari.", price: 22000, b: [G], mood: ["santai"] },
-  { id: 13, cat: "bakery", name: "Croissant Mentega", desc: "Berlapis renyah, dipanggang pagi dan sore. Habis lebih cepat dari perkiraan.", price: 32000, b: [G, S], tag: "Terlaris", mood: ["lapar"] },
-  { id: 14, cat: "bakery", name: "Roti Ragi Alami dan Selai Nanas", desc: "Fermentasi 24 jam, disajikan dengan mentega asin dan selai nanas Madura.", price: 28000, b: [G, S], mood: ["lapar", "fokus"] },
-  { id: 15, cat: "bakery", name: "Cheesecake Gula Aren", desc: "Krim keju lembut dengan dasar biskuit dan saus gula aren.", price: 38000, b: [G, S], mood: ["santai"] },
-  { id: 16, cat: "bakery", name: "Pain au Chocolat", desc: "Dua batang cokelat hitam dalam adonan mentega.", price: 34000, b: [S], mood: ["lapar"] },
-  { id: 17, cat: "makanan", name: "Nasi Rempah Ayam Suwir", desc: "Nasi hangat, ayam suwir bumbu kuning, telur, dan sambal matah.", price: 42000, b: [G, S], tag: "Terlaris", mood: ["lapar"] },
-  { id: 18, cat: "makanan", name: "Pasta Rica-rica", desc: "Spaghetti dengan saus rica-rica ayam. Pedas sedang, bisa diminta lebih.", price: 48000, b: [G, S], mood: ["lapar"] },
-  { id: 19, cat: "makanan", name: "Nasi Goreng Kampung", desc: "Teri, petai, dan telur mata sapi. Porsi untuk satu orang lapar.", price: 40000, b: [G], mood: ["lapar"] },
-  { id: 20, cat: "makanan", name: "Sandwich Ayam Panggang", desc: "Roti ragi alami, ayam panggang, selada, dan saus mustard madu.", price: 44000, b: [S], mood: ["lapar", "fokus"] },
-];
+const CATEGORIES = [];
+const MENU = [];
+let latestMenuRequest = 0;
+
+async function loadBranchMenu(branch) {
+  const requestId = ++latestMenuRequest;
+
+  try {
+    const response = await fetch(
+      `../BACKEND/api/menu.php?branch=${encodeURIComponent(branch)}`,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (requestId !== latestMenuRequest) return;
+
+    const items = data.items || [];
+
+    const catMap = new Map();
+
+    items.forEach(item => {
+      if (!catMap.has(item.category_slug)) {
+        catMap.set(item.category_slug, {
+          id: item.category_slug,
+          title: item.category_name,
+          note: item.category_description || ""
+        });
+      }
+    });
+
+    CATEGORIES.splice(
+      0,
+      CATEGORIES.length,
+      ...catMap.values()
+    );
+
+    MENU.splice(
+      0,
+      MENU.length,
+      ...items.map(item => ({
+        id: Number(item.id),
+        cat: item.category_slug,
+        name: item.name,
+        desc: item.description || "",
+        price: Number(item.price),
+        image: item.image || "",
+        b: [branch],
+        mood: [
+          "main-course",
+          "snack",
+          "makanan-penutup",
+          "combo-makassar",
+          "combo-penak"
+        ].includes(item.category_slug)
+          ? ["lapar", "santai"]
+          : ["santai", "fokus"]
+      }))
+    );
+
+    document.dispatchEvent(
+      new CustomEvent("kammari-menu-loaded", {
+        detail: { branch }
+      })
+    );
+
+  } catch (error) {
+    if (requestId !== latestMenuRequest) return;
+
+    console.error("Gagal memuat menu:", error);
+
+    document.dispatchEvent(
+      new CustomEvent("kammari-menu-error", {
+        detail: { branch }
+      })
+    );
+  }
+}
 const rupiah = n => "Rp " + n.toLocaleString("id-ID");
 const BRANCH_NAME = { gresik: "Gresik", surabaya: "Surabaya" };
 
+
 function dishCard(item, showBranch) {
-  const where = item.b.length === 2 ? "" : `<span class="tag tag--sage">Hanya di ${BRANCH_NAME[item.b[0]]}</span>`;
+  const where = item.b.length === 2
+    ? ""
+    : `<span class="tag tag--sage">
+         Hanya di ${BRANCH_NAME[item.b[0]]}
+       </span>`;
+
+  const badgeByCategory = {
+    "main-course": "CHEF'S PICK",
+    "snack": "SNACK",
+    "makanan-penutup": "DESSERT",
+    "signature": "SIGNATURE DRINK",
+    "tea-based": "TEA",
+    "coffee-based": "COFFEE",
+    "milk-based": "MILK BASED",
+    "menu-seasonal": "SEASONAL",
+    "combo-makassar": "COMBO",
+    "combo-penak": "COMBO"
+  };
+
+  const badge =
+    badgeByCategory[item.cat] || "KAMMARI PICK";
+
+  // Mengambil alamat gambar dari database
+  const imageStyle = item.image
+    ? `style="--src: url('${new URL(item.image, document.baseURI).href}')"`
+    : "";
+
   return `
-  <article class="dish">
-    <figure class="photo arch" role="img" aria-label="Foto ${item.name}"><figcaption>${item.name}</figcaption></figure>
-    <div class="dish__top"><h3>${item.name}</h3><span class="price">${rupiah(item.price)}</span></div>
-    <p>${item.desc}</p>
-    ${item.tag ? `<span class="tag">${item.tag}</span>` : ""}${showBranch ? where : ""}
-  </article>`;
+    <article class="dish">
+
+      <figure
+  class="photo arch"
+  role="img"
+  aria-label="Foto ${item.name}"
+  ${imageStyle}
+>
+  <figcaption>${item.name}</figcaption>
+</figure>
+
+      <div class="dish__top">
+        <h3>${item.name}</h3>
+        <span class="price">${rupiah(item.price)}</span>
+      </div>
+
+      <p>${item.desc}</p>
+
+      <span class="dish__badge dish__badge--${item.cat}">
+        ${badge}
+      </span>
+
+      ${showBranch ? where : ""}
+
+    </article>
+  `;
 }
 
+
 /* ---------- Beranda: menu rekomendasi + pemilih mood ---------- */
+
 const featured = document.getElementById("featured");
+
 if (featured) {
-  const groups = { semua: null, kopi: ["kopi"], bakery: ["bakery"], makanan: ["makanan"] };
-  const draw = key => {
-    const pool = MENU.filter(m => m.tag && (!groups[key] || groups[key].includes(m.cat)));
-    const list = (pool.length >= 3 ? pool : MENU.filter(m => !groups[key] || groups[key].includes(m.cat))).slice(0, 3);
-    featured.innerHTML = list.map(m => dishCard(m, false)).join("");
-  };
-  draw("semua");
-  document.querySelectorAll("#featured-chips .chip").forEach(btn =>
-    btn.addEventListener("click", () => {
-      document.querySelectorAll("#featured-chips .chip").forEach(b => b.setAttribute("aria-pressed", b === btn));
-      draw(btn.dataset.key);
-    }));
+  const chips = document.getElementById("featured-chips");
+
+  // Filter beranda sesuai kategori di database
+  const FILTERS = [
+  {
+    key: "semua",
+    label: "Semua",
+    cats: null
+  },
+  {
+    key: "kopi",
+    label: "Kopi",
+    cats: ["coffee-based", "kopi"]
+  },
+  {
+    key: "minuman",
+    label: "Minuman",
+    cats: [
+      "signature",
+      "tea-based",
+      "milk-based",
+      "menu-seasonal"
+    ]
+  },
+  {
+    key: "makanan",
+    label: "Makanan Berat",
+    cats: [
+      "main-course",
+      "makanan-utama",
+      "makanan-berat"
+    ]
+  },
+  {
+    key: "camilan",
+    label: "Camilan",
+    cats: [
+      "snack",
+      "makanan-ringan",
+      "makanan-penutup",
+      "dessert"
+    ]
+  },
+  {
+    key: "combo",
+    label: "Combo",
+    cats: [
+      "combo-makassar",
+      "combo-penak"
+    ]
+  }
+];
+
+  const FAVORITES = [
+  "Milo Malaysia Ashoy",
+  "Thai Basil Chicken",
+  "Mee Nyedas Kami",
+  "Kentang Goreng Masala",
+  "Teh Jasmine"
+];
+
+  let activeFilter = "semua";
+
+  const wrapper =
+    featured.closest(".featured-carousel-wrap");
+
+  document.querySelectorAll(".featured-carousel-nav")
+    .forEach(el => el.remove());
+
+  const nav = document.createElement("div");
+  nav.className = "featured-carousel-nav";
+
+  nav.innerHTML = `
+    <button class="carousel-arrow carousel-prev"
+            type="button" aria-label="Menu sebelumnya">
+      &lsaquo;
+    </button>
+    <button class="carousel-arrow carousel-next"
+            type="button" aria-label="Menu berikutnya">
+      &rsaquo;
+    </button>
+  `;
+
+  (wrapper || featured.parentElement)
+    .appendChild(nav);
+
+  const prevBtn = nav.querySelector(".carousel-prev");
+  const nextBtn = nav.querySelector(".carousel-next");
+
+  function updateArrows() {
+    const maxScroll =
+      featured.scrollWidth - featured.clientWidth;
+
+    prevBtn.hidden = featured.scrollLeft <= 2;
+    nextBtn.hidden =
+      maxScroll <= 2 ||
+      featured.scrollLeft >= maxScroll - 2;
+  }
+
+  // Tampilkan filter yang memiliki menu
+  function renderFilters() {
+    const available = FILTERS.filter(filter =>
+      filter.key === "semua" ||
+      MENU.some(item => filter.cats.includes(item.cat))
+    );
+
+    if (!available.some(f => f.key === activeFilter)) {
+      activeFilter = "semua";
+    }
+
+    chips.innerHTML = available.map(filter => `
+      <button type="button"
+              class="chip"
+              data-key="${filter.key}"
+              aria-pressed="${filter.key === activeFilter}">
+        ${filter.label}
+      </button>
+    `).join("");
+  }
+
+  // Isi kartu berasal dari MENU hasil API MySQL
+  function draw() {
+    const filter = FILTERS.find(
+      f => f.key === activeFilter
+    );
+
+    const matches = MENU.filter(item =>
+      !filter.cats || filter.cats.includes(item.cat)
+    );
+
+    // Utamakan menu yang sudah memiliki foto
+    const list = activeFilter === "semua"
+  ? [
+      ...FAVORITES
+        .map(name =>
+          MENU.find(item =>
+            item.name.toLowerCase() === name.toLowerCase()
+          )
+        )
+        .filter(Boolean),
+
+      ...matches.filter(item =>
+        !FAVORITES.some(name =>
+          name.toLowerCase() === item.name.toLowerCase()
+        )
+      )
+    ].slice(0, 5)
+
+  : matches
+      .sort((a, b) =>
+        Number(Boolean(b.image)) -
+        Number(Boolean(a.image))
+      )
+      .slice(0, 5);
+    
+    featured.innerHTML = list.length
+      ? list.map(item => dishCard(item, false)).join("")
+      : `<p class="empty">Belum ada menu pada kategori ini.</p>`;
+
+    featured.scrollLeft = 0;
+    requestAnimationFrame(updateArrows);
+  }
+
+  chips.addEventListener("click", event => {
+    const btn = event.target.closest("button[data-key]");
+    if (!btn || !chips.contains(btn)) return;
+
+    activeFilter = btn.dataset.key;
+
+    chips.querySelectorAll("button").forEach(b => {
+      b.setAttribute(
+        "aria-pressed",
+        String(b === btn)
+      );
+    });
+
+    draw();
+  });
+
+  function move(direction) {
+    const card = featured.querySelector(".dish");
+    if (!card) return;
+
+    const distance =
+      card.getBoundingClientRect().width + 24;
+
+    featured.scrollBy({
+      left: distance * direction,
+      behavior: "smooth"
+    });
+  }
+
+  prevBtn.addEventListener("click", () => move(-1));
+  nextBtn.addEventListener("click", () => move(1));
+
+  featured.addEventListener("scroll", updateArrows, {
+    passive: true
+  });
+
+  window.addEventListener("resize", updateArrows);
+
+  // Render ulang setelah data MySQL berhasil diambil
+  document.addEventListener(
+    "kammari-menu-loaded",
+    ({ detail }) => {
+      if (detail.branch !== "gresik") return;
+
+      renderFilters();
+      draw();
+    }
+  );
+
+  document.addEventListener(
+    "kammari-menu-error",
+    () => {
+      featured.textContent =
+        "Gagal memuat menu dari database.";
+      updateArrows();
+    }
+  );
+
+  featured.innerHTML =
+    `<p class="empty">Memuat pilihan menu...</p>`;
+
+  if (MENU.length) {
+    renderFilters();
+    draw();
+  }
 }
 
 const pickerOut = document.getElementById("picker-out");
@@ -159,41 +490,761 @@ if (pickerOut) {
     btn.addEventListener("click", () => {
       document.querySelectorAll("#picker-moods .chip").forEach(b => b.setAttribute("aria-pressed", b === btn));
       const pool = MENU.filter(m => m.mood.includes(btn.dataset.mood));
+      if (!pool.length) {
+        pickerOut.textContent = "Menu belum tersedia.";
+        return;
+      }
       const pick = pool[Math.floor(Math.random() * pool.length)];
       pickerOut.innerHTML = `<span class="small">Coba ini</span><h4>${pick.name}</h4><p class="small">${pick.desc}</p><span class="price">${rupiah(pick.price)}</span>`;
     }));
 }
 
+
 /* ---------- Halaman menu ---------- */
 const menuRoot = document.getElementById("menu-root");
+
 if (menuRoot) {
   let branch = "gresik";
-  const BRANCH_NOTE = {
-    gresik: "Gresik adalah roastery utama: sangrai mikro, manual brew, dan kopi rasa Jawa Timur.",
-    surabaya: "Surabaya adalah ruang kerja yang tenang: cold brew, minuman musiman, dan sudut baca.",
-  };
+
   const note = document.getElementById("branch-note");
   const catNav = document.getElementById("cat-nav");
 
-  catNav.innerHTML = CATEGORIES.map(c => `<a class="chip" href="#cat-${c.id}">${c.title.split(" dan ")[0]}</a>`).join("");
+  function renderMenu() {
+    // Hanya kategori yang mempunyai menu
+    const availableCategories = CATEGORIES.filter(cat =>
+      MENU.some(item => item.cat === cat.id)
+    );
 
-  const render = () => {
-    note.textContent = BRANCH_NOTE[branch];
-    menuRoot.innerHTML = CATEGORIES.map(c => {
-      const items = MENU.filter(m => m.cat === c.id && m.b.includes(branch));
+    note.textContent =
+      `${MENU.length} pilihan menu tersedia di cabang ` +
+      `${BRANCH_NAME[branch]}.`;
+
+    // Navigasi kategori dari database
+    catNav.innerHTML = availableCategories.map(cat => `
+      <a class="chip" href="#cat-${cat.id}">
+        ${cat.title}
+      </a>
+    `).join("");
+
+    if (!MENU.length) {
+      menuRoot.innerHTML =
+        `<p class="empty">Belum ada menu untuk cabang ini.</p>`;
+      return;
+    }
+
+    // Isi tiap kategori berdasarkan category_slug
+    menuRoot.innerHTML = availableCategories.map(cat => {
+      const items = MENU.filter(
+        item => item.cat === cat.id
+      );
+
       return `
-      <section class="menu-cat" id="cat-${c.id}" aria-labelledby="h-${c.id}">
-        <div class="menu-cat__head"><h2 class="h-lg" id="h-${c.id}">${c.title}</h2><p>${c.note}</p></div>
-        ${items.length ? `<div class="dishes">${items.map(m => dishCard(m, false)).join("")}</div>` : `<p class="empty">Belum ada menu di kategori ini untuk cabang ${BRANCH_NAME[branch]}.</p>`}
-      </section>`;
-    }).join("");
-  };
-  render();
+        <section class="menu-cat"
+                 id="cat-${cat.id}"
+                 aria-labelledby="h-${cat.id}">
 
-  document.querySelectorAll("#branch-toggle button").forEach(btn =>
-    btn.addEventListener("click", () => {
-      branch = btn.dataset.branch;
-      document.querySelectorAll("#branch-toggle button").forEach(b => b.setAttribute("aria-pressed", b === btn));
-      render();
-    }));
+          <div class="menu-cat__head">
+            <h2 class="h-lg" id="h-${cat.id}">
+              ${cat.title}
+            </h2>
+            <p>${cat.note || ""}</p>
+          </div>
+
+          <div class="dishes">
+            ${items.map(item =>
+        dishCard(item, false)
+      ).join("")}
+          </div>
+
+        </section>
+      `;
+    }).join("");
+  }
+
+  // Saat API mengirim data, tampilkan menu cabang aktif
+  document.addEventListener(
+    "kammari-menu-loaded",
+    ({ detail }) => {
+      if (detail.branch === branch) {
+        renderMenu();
+      }
+    }
+  );
+
+  document.addEventListener(
+    "kammari-menu-error",
+    ({ detail }) => {
+      if (detail.branch === branch) {
+        menuRoot.textContent =
+          "Gagal memuat menu. Periksa koneksi database.";
+      }
+    }
+  );
+
+  // Tombol cabang Gresik / Surabaya
+  document.querySelectorAll("#branch-toggle button")
+    .forEach(btn => {
+      btn.addEventListener("click", () => {
+        branch = btn.dataset.branch;
+
+        document.querySelectorAll(
+          "#branch-toggle button"
+        ).forEach(b => {
+          b.setAttribute(
+            "aria-pressed",
+            String(b === btn)
+          );
+        });
+
+        menuRoot.textContent = "Memuat menu...";
+        catNav.innerHTML = "";
+
+        loadBranchMenu(branch);
+      });
+    });
+
+  menuRoot.textContent = "Memuat menu...";
+}
+
+// Jalankan pengambilan data awal SATU KALI
+if (featured || menuRoot) {
+  loadBranchMenu("gresik");
+}
+
+/* ANIMASI SAAT SCROLL */
+function initScrollAnimation() {
+  const elements = document.querySelectorAll(
+    ".story__photos, .story > div:last-child, .section-head, .dish, .picker, .gallery, .amenities, .branches, .venue"
+  );
+
+  if (!("IntersectionObserver" in window)) {
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1
+    }
+  );
+
+  elements.forEach((element) => {
+    element.classList.add("reveal-on-scroll");
+    observer.observe(element);
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initScrollAnimation);
+} else {
+  initScrollAnimation();
+}
+
+/* PENDAFTARAN EVENT VIA WHATSAPP */
+document.querySelectorAll(".event-register").forEach(button => {
+  const eventName = button.dataset.event;
+
+  const message =
+    `Halo Kammari, saya ingin mendaftar event ${eventName}. ` +
+    `Boleh minta informasi biaya, kuota, dan cara pendaftarannya?`;
+
+  button.href =
+    `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+
+  button.target = "_blank";
+  button.rel = "noopener noreferrer";
+});
+
+/*INTERAKSI EVENT KAMMARI*/
+
+// DATA CONTOH - GANTI DENGAN EVENT ASLI
+const kammariEvents = {
+
+  // EVENT 1 - JUNK JOURNALING
+  JunkJournaling: {
+    title: "Junk Journaling",
+    status: "SELESAI",
+    past: true,
+    comingSoon: false,
+    date: "Event telah terlaksana",
+    location: "Kammari Cafe",
+    dateISO: "2026-10-18",
+    endDateISO: "2026-10-18",
+    description: "Kegiatan kreatif Junk Journaling bersama Kammari.",
+    poster: "assets/Poster-event-terlaksana/Junk-Journaling.png",
+    video: "assets/video-animasi-poster/junk_journaling_creative_motion.mp4"
+  },
+
+  // EVENT 2 - ART JOURNALING
+  ArtJournaling: {
+    title: "Weekend Art Journaling",
+    status: "SELESAI",
+    past: true,
+    comingSoon: false,
+    date: "Event telah terlaksana",
+    location: "Kammari Cafe",
+    dateISO: "2026-09-13",
+    endDateISO: "2026-09-13",
+    description: "Kegiatan kreatif Art Journaling bersama Kammari.",
+    poster: "assets/Poster-event-terlaksana/weekend-art-journaling.jpg",
+    video: ""
+  },
+
+
+
+  // EVENT 3 - CROCHET WORKSHOP
+  Crochet: {
+    title: "Crochet Workshop",
+    status: "EVENT MENDATANG",
+    past: false,
+    comingSoon: false,
+    date: "8 November 2026",
+    dateISO: "2026-11-08",
+    endDateISO: "2026-11-08",
+    location: "Kammari Cafe",
+
+    description:
+      "Yuk, eksplorasi kreativitas melalui Crochet! " +
+      "Buat karya unik menggunakan benang dan jarum crochet.",
+
+    poster: "assets/poster-event-mendatang/crochet_workshop.jpg",
+    video: ""
+  },
+
+  // EVENT 4 - TEMPLATE
+  event4: {
+    title: "Event Selanjutnya",
+    status: "COMING SOON",
+    past: false,
+    comingSoon: true,
+    date: "Belum diumumkan",
+    dateISO: "2026-11-08",
+    endDateISO: "2026-11-08",
+    location: "Kammari Cafe",
+
+    description:
+      "Informasi event ini akan segera hadir. " +
+      "Nantikan kegiatan menarik berikutnya bersama Kammari.",
+
+    poster: "",
+    video: ""
+  },
+
+  // EVENT 5 - TEMPLATE
+  event5: {
+    title: "Event Selanjutnya",
+    status: "COMING SOON",
+    past: false,
+    comingSoon: true,
+    date: "Belum diumumkan",
+    dateISO: "2026-11-08",
+    endDateISO: "2026-11-08",
+    location: "Kammari Cafe",
+
+    description:
+      "Informasi event ini akan segera hadir. " +
+      "Nantikan kegiatan menarik berikutnya bersama Kammari.",
+
+    poster: "",
+    video: ""
+  },
+
+  // EVENT 6 - TEMPLATE
+  event6: {
+    title: "Event Selanjutnya",
+    status: "COMING SOON",
+    past: false,
+    comingSoon: true,
+    date: "Belum diumumkan",
+    dateISO: "2026-11-08",
+    endDateISO: "2026-11-08",
+    location: "Kammari Cafe",
+
+    description:
+      "Informasi event ini akan segera hadir. " +
+      "Nantikan kegiatan menarik berikutnya bersama Kammari.",
+
+    poster: "",
+    video: ""
+  },
+
+  // EVENT 7 - TEMPLATE
+  event7: {
+    title: "Event Selanjutnya",
+    status: "COMING SOON",
+    past: false,
+    comingSoon: true,
+    date: "Belum diumumkan",
+    dateISO: "2026-11-08",
+    endDateISO: "2026-11-08",
+    location: "Kammari Cafe",
+
+    description:
+      "Informasi event ini akan segera hadir. " +
+      "Nantikan kegiatan menarik berikutnya bersama Kammari.",
+
+    poster: "",
+    video: ""
+  },
+
+  // EVENT 8 - TEMPLATE
+  event8: {
+    title: "Event Selanjutnya",
+    status: "COMING SOON",
+    past: false,
+    comingSoon: true,
+    date: "Belum diumumkan",
+    dateISO: "2026-11-08",
+    endDateISO: "2026-11-08",
+    location: "Kammari Cafe",
+
+    description:
+      "Informasi event ini akan segera hadir. " +
+      "Nantikan kegiatan menarik berikutnya bersama Kammari.",
+
+    poster: "",
+    video: ""
+  }
+
+};
+
+function todayJakarta() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(new Date());
+
+  const date = Object.fromEntries(
+    parts.map(part => [part.type, part.value])
+  );
+
+  return `${date.year}-${date.month}-${date.day}`;
+}
+
+function isFinished(event) {
+  return event.past === true ||
+    Boolean(
+      event.endDateISO &&
+      event.endDateISO < todayJakarta()
+    );
+}
+
+const eventGallery = document.getElementById("event-gallery");
+
+if (eventGallery) {
+  const expanded = document.getElementById("event-expanded");
+  const video = document.getElementById("event-video");
+  const poster = document.getElementById("event-poster");
+  const registerButton = document.getElementById("event-register");
+
+  let lastClicked = null;
+  let isClosing = false;
+
+  function getCardTransform(button) {
+    const gallery = eventGallery.getBoundingClientRect();
+    const card = button.getBoundingClientRect();
+
+    const x = card.left - gallery.left;
+    const y = card.top - gallery.top;
+
+    const scaleX = card.width / gallery.width;
+    const scaleY = card.height / gallery.height;
+
+    return `translate3d(${x}px, ${y}px, 0)
+          scale(${scaleX}, ${scaleY})`;
+  }
+
+  function openEvent(button) {
+    if (isClosing) return;
+    const data = kammariEvents[button.dataset.event];
+    if (!data) return;
+
+    lastClicked = button;
+
+    document.getElementById("event-status").textContent = data.status;
+    document.getElementById("event-detail-title").textContent = data.title;
+    document.getElementById("event-meta").textContent =
+      `${data.date} • ${data.location}`;
+
+    document.getElementById("event-description").textContent =
+      data.description;
+
+    // Gambar sebagai background cadangan
+    poster.style.backgroundImage = data.poster
+      ? `url("${data.poster}")`
+      : "linear-gradient(135deg, #f4d3ac, #c98f5c)";
+
+    // Video bergerak jika tersedia
+    video.pause();
+    video.classList.remove("is-ready");
+
+    if (data.video) {
+      video.src = data.video;
+      video.load();
+      video.play().catch(() => { });
+    } else {
+      video.removeAttribute("src");
+      video.load();
+    }
+
+    // Pendaftaran hanya untuk event mendatang
+    registerButton.hidden = data.past || data.comingSoon;
+
+    if (!data.past) {
+      const message =
+        `Halo Kammari, saya ingin mengetahui informasi ` +
+        `dan pendaftaran event ${data.title}.`;
+
+      registerButton.href =
+        `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+
+    // Hitung posisi kotak yang diklik
+
+    expanded.hidden = false;
+    eventGallery.classList.add("event-is-open");
+
+    const animation = expanded.animate(
+      [
+        { opacity: 0, transform: "scale(0.94)" },
+        { opacity: 1, transform: "scale(1)" }
+      ],
+      {
+        duration: 650,
+        easing: "cubic-bezier(0.22, 1, 0.36, 1)"
+      }
+    );
+
+    expanded.focus({ preventScroll: true });
+  }
+
+  function closeEvent() {
+    if (expanded.hidden || isClosing) return;
+
+    isClosing = true;
+
+    expanded.getAnimations().forEach(a => a.cancel());
+
+    const animation = expanded.animate(
+      [
+        { opacity: 1, transform: "scale(1)" },
+        { opacity: 0, transform: "scale(0.94)" }
+      ],
+      {
+        duration: 550,
+        easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+      }
+    );
+
+    animation.onfinish = () => {
+      expanded.hidden = true;
+      eventGallery.classList.remove("event-is-open");
+
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+      video.classList.remove("is-ready");
+
+      isClosing = false;
+
+      if (lastClicked) {
+        lastClicked.focus({ preventScroll: true });
+      }
+    };
+  }
+
+  video.addEventListener("loadeddata", () => {
+    video.classList.add("is-ready");
+  });
+
+  video.addEventListener("error", () => {
+    video.classList.remove("is-ready");
+  });
+
+  eventGallery.querySelectorAll(".event-tile").forEach(button => {
+
+    const data = kammariEvents[button.dataset.event];
+
+    if (!data) return;
+
+    if (isFinished(data)) {
+      button.style.display = "none";
+      return;
+    }
+
+    // Otomatis menambahkan poster jika sudah tersedia
+    if (data.poster && !button.querySelector(".event-tile__image")) {
+      const img = document.createElement("img");
+
+      img.className = "event-tile__image";
+      img.src = data.poster;
+      img.alt = `Poster ${data.title}`;
+      img.loading = "lazy";
+
+      button.prepend(img);
+    }
+
+  });
+
+  // Klik semua kartu event, termasuk kartu baru
+  eventGallery.addEventListener("click", (event) => {
+    const button = event.target.closest(".event-tile");
+
+    if (!button || !expanded.hidden) return;
+
+    const data = kammariEvents[button.dataset.event];
+
+    if (!data) {
+      console.warn("Data event tidak ditemukan:", button.dataset.event);
+      return;
+    }
+
+    event.stopPropagation();
+    openEvent(button);
+  });
+
+  // Klik di mana saja untuk kembali ke galeri
+  document.addEventListener("click", event => {
+    // Jika detail belum terbuka, abaikan
+    if (expanded.hidden) return;
+
+    // Jangan tutup saat tombol WhatsApp diklik
+    if (registerButton.contains(event.target)) return;
+
+    // Tutup detail event
+    closeEvent();
+  });
+}
+
+
+/* GALERI EVENT YANG SUDAH TERLAKSANA
+   Terpisah dari event mendatang */
+
+const pastEvents = [
+  ["Art Journaling", "art_journaling.jpg"],
+  ["Junk Journaling", "Junk-Journaling.png"],
+  ["Open Mic Bola", "open-mic-bola.jpg"],
+  ["Open Mic Jumpa Lagi", "open-mic-jumpa-lagi.jpg"],
+  ["Open Mic Lagi", "open-mic-lagi.jpg"],
+  ["Open Mic Listrik", "open-mic-listrik.jpg"],
+  ["Open Mic Perampasan Aset", "open-mic-perampasan-aset.jpg"],
+  ["Open Mic Tasyakuran", "open-mic-tasyakuran.jpg"],
+  ["Open Mic Tawa", "open-mic-tawa.jpg"],
+  ["Open Mic", "open-mic.jpg"],
+  ["Weekend Art Journaling", "weekend-art-journaling.jpg"]
+].map(([title, file]) => ({
+  title,
+  poster: `assets/Poster-event-terlaksana/${file}`
+}));
+
+// Jika belum ada event selesai, tampilkan placeholder
+if (pastEvents.length === 0) {
+  for (let i = 1; i <= 4; i++) {
+    pastEvents.push({
+      title: `Event ${i}`,
+      poster: ""
+    });
+  }
+}
+
+function initPastEventGallery() {
+  const gallery = document.getElementById("past-event-gallery");
+  const viewer = document.getElementById("past-event-viewer");
+  const viewerImage = document.getElementById("past-event-viewer-image");
+
+  if (!gallery || !viewer || !viewerImage) return;
+
+  pastEvents.forEach(event => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "past-event-card";
+    // Jika poster belum tersedia, tampilkan placeholder
+    if (!event.poster) {
+      button.classList.add("past-event-card--empty");
+
+      button.innerHTML = `
+    <span class="past-event-card__label">
+      <small>DOKUMENTASI MENYUSUL</small>
+      Event Sebelumnya
+    </span>
+  `;
+
+      button.addEventListener("click", () => {
+        viewerImage.removeAttribute("src");
+        viewerImage.style.display = "none";
+
+        viewer.showModal();
+        viewer.classList.add("is-placeholder");
+      });
+
+      gallery.appendChild(button);
+      return;
+    }
+    button.setAttribute("aria-label", `Lihat poster ${event.title}`);
+
+    const img = document.createElement("img");
+    img.src = event.poster;
+    img.alt = `Poster ${event.title}`;
+    img.loading = "lazy";
+
+    button.appendChild(img);
+
+    // Klik poster untuk memperbesar
+    button.addEventListener("click", () => {
+      viewer.classList.remove("is-placeholder");
+      viewerImage.style.display = "block";
+      viewerImage.src = event.poster;
+      viewerImage.alt = img.alt;
+      viewer.showModal();
+    });
+
+    gallery.appendChild(button);
+  });
+
+  // Klik di mana saja untuk menutup poster
+  viewer.addEventListener("click", () => {
+    if (viewer.classList.contains("is-closing")) return;
+
+    viewer.classList.add("is-closing");
+    viewer.addEventListener("animationend", () => {
+      viewer.close();
+      viewer.classList.remove("is-closing");
+    }, { once: true });
+  });
+}
+
+initPastEventGallery();
+
+
+/* POPUP OTOMATIS EVENT TERDEKAT */
+
+function showNearestEventPopup() {
+  // Hanya muncul di halaman utama
+  if (document.body.dataset.page !== "home") return;
+
+  // Cari event mendatang dengan tanggal terdekat
+  const next = Object.entries(kammariEvents)
+    .filter(([id, event]) => {
+      if (
+        event.past ||
+        event.comingSoon ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(event.dateISO || "")
+      ) return false;
+
+      return (
+        new Date(`${event.dateISO}T23:59:59`) >= new Date() &&
+        !!document.querySelector(
+          `#event-gallery .event-tile[data-event="${id}"]`
+        )
+      );
+    })
+    .sort((a, b) =>
+      a[1].dateISO.localeCompare(b[1].dateISO)
+    )[0];
+
+  // Tidak ada event terjadwal? Jangan tampilkan popup
+  if (!next) return;
+
+  const [eventId, event] = next;
+  const dialog = document.createElement("dialog");
+
+  dialog.className = "next-event-popup";
+  dialog.setAttribute("aria-labelledby", "next-event-title");
+
+  dialog.innerHTML = `
+    <div class="next-event-popup__layout">
+
+      <div class="next-event-popup__photo">
+        <img alt="">
+      </div>
+
+      <div class="next-event-popup__content">
+        <span class="next-event-popup__label">
+          EVENT TERDEKAT
+        </span>
+
+        <h2 id="next-event-title"></h2>
+        <p class="next-event-popup__meta"></p>
+        <p class="next-event-popup__desc"></p>
+
+        <div class="next-event-popup__actions">
+          <button type="button"
+                  class="next-event-popup__detail">
+            Lihat Detail Event
+          </button>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  dialog.querySelector("h2").textContent = event.title;
+
+  const formattedDate = new Date(
+    `${event.dateISO}T12:00:00`
+  ).toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+
+  dialog.querySelector(".next-event-popup__meta")
+    .textContent = `${formattedDate} • ${event.location}`;
+
+  dialog.querySelector(".next-event-popup__desc")
+    .textContent = event.description;
+
+  // Poster event
+  const image = dialog.querySelector("img");
+
+  if (event.poster) {
+    image.src = event.poster;
+    image.alt = `Poster ${event.title}`;
+  } else {
+    image.remove();
+  }
+
+  // Buka detail event yang sudah tersedia
+  dialog.querySelector(".next-event-popup__detail")
+    .addEventListener("click", (e) => {
+      e.stopPropagation();
+      dialog.close();
+
+      document.getElementById("event")
+        ?.scrollIntoView({ behavior: "smooth" });
+
+      document.querySelector(
+        `#event-gallery .event-tile[data-event="${eventId}"]`
+      )?.click();
+    });
+
+  // Klik area luar popup untuk menutup
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  dialog.addEventListener("close", () => dialog.remove());
+
+  document.body.appendChild(dialog);
+  dialog.showModal();
+}
+
+// Jalankan ketika halaman siap
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    showNearestEventPopup,
+    { once: true }
+  );
+} else {
+  showNearestEventPopup();
 }

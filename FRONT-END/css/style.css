@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playpen+Sans+Hebrew:wght@600&display=swap');
 
 /* ==========================================================
    Kammari Cafe & Roastery
@@ -18,7 +18,8 @@
   --sage: #6b7a57;
   --line: rgba(43, 30, 24, 0.14);
 
-  --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --serif: "DM Serif Display", Georgia, serif;
+  --logo-font: "Playpen Sans Hebrew", cursive;
   --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --gutter: clamp(20px, 5vw, 72px);
@@ -273,6 +274,7 @@ p {
   gap: 14px;
   text-decoration: none;
   color: var(--clay);
+  font-family: var(--logo-font);
 }
 
 .logo__text {
@@ -467,6 +469,16 @@ p {
 
 .hero h1 {
   margin: 22px 0 24px;
+  font-family: var(--serif);
+  font-weight: 400;
+}
+
+.brand-word {
+  font-family: "Playpen Sans Hebrew", cursive;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-variation-settings: normal;
+  color: var(--clay);
 }
 
 .hero .lede {
@@ -2569,4 +2581,20 @@ p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
+}
+
+.footer__brand div img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  filter: brightness(0) saturate(100%)
+          invert(31%) sepia(34%) saturate(1550%)
+          hue-rotate(342deg) brightness(88%);
+}
+
+.footer__brand div a {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
 }

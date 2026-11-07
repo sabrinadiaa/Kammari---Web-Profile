@@ -77,9 +77,16 @@ if (footer) {
       <div class="footer__brand">
         <a class="logo" href="index.html" aria-label="Kammari, ke beranda"><span class="logo__text">Kammari</span><i class="logo__dot" aria-hidden="true"></i><small>Cafe &amp; Roastery</small></a>
         <p>Kopi sangrai sendiri dan ruang yang nyaman untuk duduk lama, di Gresik dan Surabaya.</p>
-        <div style="display:flex;gap:10px">
-          <a class="icon-btn" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">${ICON.ig}</a>
-          <a class="icon-btn" href="${WA_LINK}" target="_blank" rel="noopener" aria-label="WhatsApp">${ICON.wa}</a>
+        <div style="display:flex;gap:18px">
+          <!-- WhatsApp -->
+          <a href="${WA_LINK}" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <img src="assets/whatsapp.svg" alt="">
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="assets/instagram.svg" alt="">
+          </a>
         </div>
       </div>
       <div>
@@ -198,22 +205,6 @@ function dishCard(item, showBranch) {
          Hanya di ${BRANCH_NAME[item.b[0]]}
        </span>`;
 
-  const badgeByCategory = {
-    "main-course": "CHEF'S PICK",
-    "snack": "SNACK",
-    "makanan-penutup": "DESSERT",
-    "signature": "SIGNATURE DRINK",
-    "tea-based": "TEA",
-    "coffee-based": "COFFEE",
-    "milk-based": "MILK BASED",
-    "menu-seasonal": "SEASONAL",
-    "combo-makassar": "COMBO",
-    "combo-penak": "COMBO"
-  };
-
-  const badge =
-    badgeByCategory[item.cat] || "KAMMARI PICK";
-
   // Mengambil alamat gambar dari database
   const imageStyle = item.image
     ? `style="--src: url('${new URL(item.image, document.baseURI).href}')"`
@@ -237,10 +228,6 @@ function dishCard(item, showBranch) {
       </div>
 
       <p>${item.desc}</p>
-
-      <span class="dish__badge dish__badge--${item.cat}">
-        ${badge}
-      </span>
 
       ${showBranch ? where : ""}
 

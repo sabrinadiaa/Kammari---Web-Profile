@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Nov 2026 pada 17.14
+-- Waktu pembuatan: 11 Nov 2026 pada 09.16
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -109,7 +109,7 @@ INSERT INTO `branch_menu_items` (`id`, `branch_id`, `category_id`, `name`, `slug
 (1, 1, 5, 'Milo Malaysia Ashoy', 'milo-malaysia-ashoy', 'Milo Malaysia dengan sentuhan ala Kaki555.', 'assets/Minuman/signature/milo-malaysia-ashoy.png', 15000.00, 1, 0, 15, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45'),
 (2, 1, 5, 'Oreo Shake', 'oreo-shake', 'Minuman creamy yang dipadukan dengan susu dan Oreo.', NULL, 15000.00, 1, 0, 16, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45'),
 (3, 1, 5, 'Trakubisu', 'trakubisu', 'Extrajoss atau Kukubima dicampur dengan susu.', NULL, 12000.00, 1, 0, 17, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45'),
-(4, 1, 5, 'Lemonade', 'lemonade', 'Es lemon ala Kaki 5.', NULL, 15000.00, 1, 0, 18, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45'),
+(4, 1, 5, 'Lemonade', 'lemonade', 'Es lemon ala Kaki555.', NULL, 15000.00, 1, 0, 18, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45'),
 (5, 1, 5, 'Air Mineral', 'air-mineral', 'Air segar.', NULL, 5000.00, 1, 0, 19, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45'),
 (6, 1, 6, 'Matcha Latte', 'matcha-latte', 'Racikan teh hijau Thailand dengan susu ala Kaki555.', NULL, 15000.00, 1, 0, 20, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45'),
 (7, 1, 6, 'Teh Tarik', 'teh-tarik', 'Racikan teh hitam dengan susu ala Kaki555.', NULL, 15000.00, 1, 0, 21, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45'),
@@ -144,10 +144,10 @@ INSERT INTO `branch_menu_items` (`id`, `branch_id`, `category_id`, `name`, `slug
 (36, 2, 5, 'Milo Malaysia Ashoy', 'milo-malaysia-ashoy', 'Milo Malaysia dengan sentuhan ala Kaki555.', 'assets/Minuman/signature/milo-malaysia-ashoy.png', 15000.00, 1, 0, 9, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
 (37, 2, 6, 'Matcha Latte', 'matcha-latte', 'Teh hijau dengan racikan susu.', NULL, 15000.00, 1, 0, 10, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
 (38, 2, 6, 'Teh Tarik', 'teh-tarik', 'Teh hitam dengan campuran susu.', NULL, 15000.00, 1, 0, 11, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
-(39, 2, 5, 'Es Lemonade', 'es-lemonade', 'Lemon yang diracik ala Kaki 5.', NULL, 13000.00, 1, 0, 12, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
+(39, 2, 5, 'Es Lemonade', 'es-lemonade', 'Lemon yang diracik ala Kaki555.', NULL, 13000.00, 1, 0, 12, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
 (40, 2, 6, 'Teh Leci', 'teh-leci', 'Teh hitam dengan racikan sirup buah leci.', NULL, 10000.00, 1, 0, 13, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
 (41, 2, 5, 'Trajosu dan Kukubisu', 'trajosu-dan-kukubisu', 'Minuman berbahan minuman energi yang dicampur susu dan es.', NULL, 10000.00, 1, 0, 14, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
-(42, 2, 7, 'Kopi Hitam Tubruk', 'kopi-hitam-tubruk', 'Kopi hitam ala Kaki 5.', NULL, 6000.00, 1, 0, 15, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
+(42, 2, 7, 'Kopi Hitam Tubruk', 'kopi-hitam-tubruk', 'Kopi hitam ala Kaki555.', NULL, 6000.00, 1, 0, 15, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
 (43, 2, 7, 'Kopi Susu Tubruk', 'kopi-susu-tubruk', 'Kopi hitam dengan racikan susu ala Kaki555.', NULL, 8000.00, 1, 0, 16, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
 (44, 2, 7, 'Kopi Susu Tujujati', 'kopi-susu-tujujati', 'Kopi susu Tujujati yang diracik oleh Kaki555.', NULL, 15000.00, 1, 0, 17, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
 (45, 2, 8, 'Es Susu Coklat', 'es-susu-coklat', 'Minuman es susu coklat.', 'assets/Minuman/milk-based/susu-coklat.jpg', 15000.00, 1, 0, 18, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
@@ -156,25 +156,21 @@ INSERT INTO `branch_menu_items` (`id`, `branch_id`, `category_id`, `name`, `slug
 (48, 2, 6, 'Es Teh Manis (Small)', 'es-teh-manis-small', 'Es teh manis ukuran Small.', 'assets/Minuman/tea-based/teh-manis-kami.jpg', 4000.00, 1, 0, 21, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
 (49, 2, 6, 'Es Teh Manis (Medium)', 'es-teh-manis-medium', 'Es teh manis ukuran Medium.', 'assets/Minuman/tea-based/teh-manis-kami.jpg', 6000.00, 1, 0, 22, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
 (50, 2, 6, 'Es Teh Manis (Large)', 'es-teh-manis-large', 'Es teh manis ukuran Large.', 'assets/Minuman/tea-based/teh-manis-kami.jpg', 10000.00, 1, 0, 23, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
-(51, 2, 5, 'Air Mineral', 'air-mineral', NULL, NULL, 5000.00, 1, 0, 24, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `brand_profiles`
---
-
-CREATE TABLE `brand_profiles` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `brand_name` varchar(150) NOT NULL,
-  `tagline` varchar(255) DEFAULT NULL,
-  `about` text DEFAULT NULL,
-  `history` text DEFAULT NULL,
-  `vision` text DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(51, 2, 5, 'Air Mineral', 'air-mineral', NULL, NULL, 5000.00, 1, 0, 24, 1, '2026-10-30 14:31:00', '2026-10-30 14:31:00'),
+(52, 1, 1, 'Thai Basil Chicken', 'thai-basil-chicken', 'Ayam cincang dengan bumbu khas Thailand dan kemangi, disajikan dengan nasi dan telur.', 'assets/Makanan/main-course/thai-basil-chicken.jpg', 22000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(53, 1, 1, 'Nasi Usus Krispy', 'nasi-usus-krispy', 'Nasi usus dengan bumbu ala Kaki555, disajikan dengan telur.', 'assets/Makanan/main-course/nasi-usus-krispy.png', 18000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(54, 1, 1, 'Tenshinhan', 'tenshinhan', 'Telur dadar crabstick dengan saus tare, disajikan bersama nasi.', 'assets/Makanan/main-course/tenshinhan.jpg', 15000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(55, 1, 1, 'Mee Goreng Kami', 'mee-goreng-kami', 'Mie goreng dengan bumbu khas Kaki555 dan telur.', NULL, 14000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(56, 1, 1, 'Mee Nyedas Kami', 'mee-nyedas-kami', 'Mie nyemek pedas dengan racikan bumbu cabai dan telur.', 'assets/Makanan/main-course/mee-nyedas-kami.png', 15000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(57, 1, 2, 'Kentang Goreng Masala', 'kentang-goreng-masala', 'Kentang dengan baluran rempah garam masala khas India.', 'assets/Makanan/snack/kentang-goreng-masala.jpg', 16000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(58, 1, 2, 'Kekian', 'kekian', 'Kekian goreng disajikan dengan saus sambal.', NULL, 15000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(59, 1, 2, 'Bontosan', 'bontosan', 'Hidangan ringan khas Jepara dengan saus sambal.', NULL, 10000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(60, 1, 2, 'Samosa', 'samosa', 'Pastri goreng berbentuk segitiga dengan isian daging berbumbu khas Timur Tengah.', 'assets/Makanan/snack/samosa.jpg', 16000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(61, 1, 2, 'Mix Platter', 'mix-platter', 'Perpaduan kentang, bontosan, dan kekian.', 'assets/Makanan/snack/mix-platter.png', 25000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(62, 1, 4, 'Es Krim Loti', 'es-krim-loti', 'Es krim dengan roti khas Melayu ala Kaki555.', 'assets/Makanan/makanan-penutup/es-krim-loti.jpg', 15000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(63, 1, 4, 'Cookies', 'cookies', 'Kue kering chocochips rasa coklat, greentea, atau red velvet.', NULL, 10000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(64, 1, 3, 'Nasi Putih', 'nasi-putih', 'Tambahan nasi putih.', NULL, 5000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19'),
+(65, 1, 3, 'Telur', 'telur', 'Tambahan telur.', NULL, 5000.00, 1, 0, 0, 1, '2026-11-06 17:30:19', '2026-11-06 17:30:19');
 
 -- --------------------------------------------------------
 
@@ -282,6 +278,19 @@ INSERT INTO `menu_categories` (`id`, `name`, `slug`, `description`, `sort_order`
 (10, 'Combo Makassar', 'combo-makassar', NULL, 10, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45'),
 (11, 'Combo Penak', 'combo-penak', NULL, 11, 1, '2026-10-30 14:24:45', '2026-10-30 14:24:45');
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `full_name` varchar(150) NOT NULL,
+  `email` varchar(190) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -309,12 +318,6 @@ ALTER TABLE `branch_menu_items`
   ADD KEY `fk_menu_category` (`category_id`);
 
 --
--- Indeks untuk tabel `brand_profiles`
---
-ALTER TABLE `brand_profiles`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indeks untuk tabel `events`
 --
 ALTER TABLE `events`
@@ -337,6 +340,13 @@ ALTER TABLE `menu_categories`
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -356,13 +366,7 @@ ALTER TABLE `branch_facilities`
 -- AUTO_INCREMENT untuk tabel `branch_menu_items`
 --
 ALTER TABLE `branch_menu_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
-
---
--- AUTO_INCREMENT untuk tabel `brand_profiles`
---
-ALTER TABLE `brand_profiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT untuk tabel `events`
@@ -380,7 +384,13 @@ ALTER TABLE `media_assets`
 -- AUTO_INCREMENT untuk tabel `menu_categories`
 --
 ALTER TABLE `menu_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

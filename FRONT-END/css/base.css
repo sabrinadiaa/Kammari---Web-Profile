@@ -5,16 +5,19 @@
    Dipakai di SEMUA halaman. */
 
 :root {
-  --paper: #f3f0ea;
-  --paper-2: #f3eadb;
-  --peach: #f4d3ac;
-  --peach-deep: #e8b27d;
-  --espresso: #2b1e18;
-  --soft: #6e5c50;
-  --clay: #a23f25;
-  --clay-dark: #7f2d19;
+  --paper: #f8f3ec;      /* putih hangat (dinding) */
+  --paper-2: #eadccb;    /* krem-cokelat muda untuk section tint */
+  --peach: #d6b088;      /* karamel / kayu muda: hero */
+  --peach-deep: #b8844f;
+  --espresso: #2b1a12;   /* cokelat gelap: teks & tombol */
+  --soft: #6e4f3c;       /* cokelat sedang: teks sekunder */
+  --clay: #a8352a;       /* merah bangku, sedikit condong bata */
+  --clay-dark: #7e231b;
+  --wood: #6b4128;       /* cokelat kayu (rak, bangku) */
+  --ochre: #c8923a;      /* oker lantai tegel (aksen kecil) */
   --sage: #6b7a57;
-  --line: rgba(43, 30, 24, 0.14);
+  --bean: #4a2e20;
+  --line: rgba(43, 26, 18, 0.16);
 
   --serif: "DM Serif Display", Georgia, serif;
   --logo-font: "Playpen Sans Hebrew", cursive;
@@ -293,23 +296,10 @@ p {
 
 /* Hero halaman dalam (menu, fasilitas, event) */
 .page-hero {
-  background: var(--peach);
+  background: var(--paper-2);
   padding-block: clamp(56px, 8vw, 110px) clamp(40px, 6vw, 72px);
   position: relative;
   overflow: hidden;
-}
-
-.page-hero::after {
-  content: "";
-  position: absolute;
-  right: -120px;
-  bottom: -220px;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(43, 30, 24, .18);
-  box-shadow: 0 0 0 46px rgba(43, 30, 24, 0), 0 0 0 47px rgba(43, 30, 24, .12), 0 0 0 100px rgba(43, 30, 24, 0), 0 0 0 101px rgba(43, 30, 24, .08);
-  pointer-events: none;
 }
 
 .page-hero h1 {
@@ -371,6 +361,15 @@ p {
   color: var(--soft);
   letter-spacing: .1em;
   text-transform: uppercase;
+}
+
+.logo__text,
+.brand-word {
+  font-family: "Playpen Sans Hebrew", "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-variation-settings: normal;
+  color: var(--clay);
 }
 
 .nav__links {
@@ -633,4 +632,29 @@ p {
     transform: none;
     transition: none;
   }
+}
+/* Ikon header: tanpa latar, merah bata */
+.nav__actions > a.icon-btn--wa,
+.nav__actions > a.icon-btn--ig {
+  background: none !important;
+  border: 0;
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
+  padding: 6px;
+  border-radius: 0;
+}
+
+.nav__actions > a.icon-btn--wa:hover,
+.nav__actions > a.icon-btn--ig:hover {
+  background: none !important;
+  transform: translateY(-2px);
+}
+
+.nav__actions .icon-btn img {
+  width: 24px;
+  height: 24px;
+  transition: transform .2s;
+  filter: brightness(0) saturate(100%) invert(31%) sepia(34%)
+          saturate(1550%) hue-rotate(342deg) brightness(88%) !important;
 }

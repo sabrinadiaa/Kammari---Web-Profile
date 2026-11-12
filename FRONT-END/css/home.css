@@ -1,14 +1,7 @@
-/* ==========================================================
-   Kammari Cafe & Roastery  |  HOME (Beranda)
-   Isi: hero, cerita, carousel Top 5 menu, picker, cabang
-   Catatan: kartu menu (.dish) ada di menu.css, jadi
-   halaman beranda perlu memuat base.css + home.css + menu.css
-   ========================================================== */
-
 /* Hero beranda */
 .hero {
   position: relative;
-  background: var(--peach);
+  background: var(--paper-2);   /* sebelumnya var(--peach) */
   overflow: hidden;
   padding-block: clamp(48px, 7vw, 96px) 0;
 }

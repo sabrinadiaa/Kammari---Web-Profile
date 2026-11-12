@@ -46,12 +46,12 @@ if (header) {
       <div class="nav__actions">
       <!-- WhatsApp -->
       <a class="icon-btn icon-btn--wa" href="${WA_LINK}" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <img src="assets/whatsapp.svg" alt="">
+        <img src="assets/wa.svg" alt="">
       </a>
 
       <!-- Instagram -->
       <a class="icon-btn icon-btn--ig" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-        <img src="assets/instagram.svg" alt="">
+        <img src="assets/ig.svg" alt="">
       </a>
 
       <!-- Menu -->
@@ -80,12 +80,12 @@ if (footer) {
         <div style="display:flex;gap:18px">
           <!-- WhatsApp -->
           <a href="${WA_LINK}" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <img src="assets/whatsapp.svg" alt="">
+            <img src="assets/wa.svg" alt="">
           </a>
 
           <!-- Instagram -->
           <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-            <img src="assets/instagram.svg" alt="">
+            <img src="assets/ig.svg" alt="">
           </a>
         </div>
       </div>

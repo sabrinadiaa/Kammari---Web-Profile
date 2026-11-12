@@ -1,7 +1,4 @@
-/* ==========================================================
-   Kammari Cafe & Roastery  |  FASILITAS
-   Isi: galeri, amenities, venue, mosaic, tabel perbandingan, CTA
-   ========================================================== */
+
 
 /*  Galeri  */
 .gallery {
@@ -212,7 +209,7 @@
 .venue--sage .flist svg,
 .venue--sage .stat b,
 .venue--sage .kicker {
-  color: var(--sage);
+  color: var(--clay);
 }
 
 .mosaic {

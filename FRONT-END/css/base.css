@@ -373,6 +373,15 @@ p {
   text-transform: uppercase;
 }
 
+.logo__text,
+.brand-word {
+  font-family: "Playpen Sans Hebrew", "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-variation-settings: normal;
+  color: var(--clay);
+}
+
 .nav__links {
   display: flex;
   gap: 6px;
@@ -633,4 +642,29 @@ p {
     transform: none;
     transition: none;
   }
+}
+/* Ikon header: tanpa latar, merah bata */
+.nav__actions > a.icon-btn--wa,
+.nav__actions > a.icon-btn--ig {
+  background: none !important;
+  border: 0;
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
+  padding: 6px;
+  border-radius: 0;
+}
+
+.nav__actions > a.icon-btn--wa:hover,
+.nav__actions > a.icon-btn--ig:hover {
+  background: none !important;
+  transform: translateY(-2px);
+}
+
+.nav__actions .icon-btn img {
+  width: 24px;
+  height: 24px;
+  transition: transform .2s;
+  filter: brightness(0) saturate(100%) invert(31%) sepia(34%)
+          saturate(1550%) hue-rotate(342deg) brightness(88%) !important;
 }

@@ -9,7 +9,7 @@ try {
 
     $branch = $_GET['branch'] ?? '';
 
-    $sql = "
+        $sql = "
         SELECT
             e.id,
             e.title,
@@ -23,9 +23,9 @@ try {
             b.name AS branch_name,
             b.slug AS branch_slug
         FROM events e
-        INNER JOIN branches b
+        LEFT JOIN branches b
             ON b.id = e.branch_id
-        WHERE b.is_active = 1
+        WHERE (b.id IS NULL OR b.is_active = 1)
         AND e.status <> 'cancelled'
     ";
 

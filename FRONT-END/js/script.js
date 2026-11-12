@@ -785,26 +785,16 @@ if (eventGallery) {
       isFinished(data) || data.comingSoon;
 
     if (!registerButton.hidden) {
-  const message =
-    `Halo Kammari, saya ingin mengetahui informasi ` +
-    `dan pendaftaran event ${data.title}.`;
+      const message =
+        `Halo Kammari, saya ingin mengetahui informasi ` +
+        `dan pendaftaran event ${data.title}.`;
 
-<<<<<<< HEAD
-  registerButton.href =
-    data.registrationUrl && /^https?:\/\//i.test(data.registrationUrl)
-      ? data.registrationUrl
-      : `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-}
-=======
       registerButton.href =
-      data.registrationUrl && /^https?:\/\//i.test(data.registrationUrl)
-      ? data.registrationUrl
-    : `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-  
->>>>>>> 8414ea4066688d8c1bbc8520a6b820482a305799
+        `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
 
-expanded.hidden = false;
-eventGallery.classList.add("event-is-open");
+    expanded.hidden = false;
+    eventGallery.classList.add("event-is-open");
 
     expanded.animate(
       [
@@ -957,6 +947,17 @@ function renderPastEvents() {
 
 
 /* ---------- Popup event terdekat ---------- */
+
+function todayJakarta() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(new Date());
+
+  return parts;
+}
 
 function showNearestEventPopup() {
   if (document.body.dataset.page !== "home") return;
@@ -1170,8 +1171,4 @@ if (document.readyState === "loading") {
   );
 } else {
   loadEventsFromDatabase();
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8414ea4066688d8c1bbc8520a6b820482a305799

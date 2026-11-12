@@ -46,12 +46,12 @@ if (header) {
       <div class="nav__actions">
       <!-- WhatsApp -->
       <a class="icon-btn icon-btn--wa" href="${WA_LINK}" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <img src="assets/whatsapp.svg" alt="">
+        <img src="assets/wa.svg" alt="">
       </a>
 
       <!-- Instagram -->
       <a class="icon-btn icon-btn--ig" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-        <img src="assets/instagram.svg" alt="">
+        <img src="assets/ig.svg" alt="">
       </a>
 
       <!-- Menu -->
@@ -789,11 +789,19 @@ if (eventGallery) {
     `Halo Kammari, saya ingin mengetahui informasi ` +
     `dan pendaftaran event ${data.title}.`;
 
+<<<<<<< HEAD
   registerButton.href =
     data.registrationUrl && /^https?:\/\//i.test(data.registrationUrl)
       ? data.registrationUrl
       : `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
 }
+=======
+      registerButton.href =
+      data.registrationUrl && /^https?:\/\//i.test(data.registrationUrl)
+      ? data.registrationUrl
+    : `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+  
+>>>>>>> 8414ea4066688d8c1bbc8520a6b820482a305799
 
 expanded.hidden = false;
 eventGallery.classList.add("event-is-open");
@@ -1162,4 +1170,8 @@ if (document.readyState === "loading") {
   );
 } else {
   loadEventsFromDatabase();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8414ea4066688d8c1bbc8520a6b820482a305799

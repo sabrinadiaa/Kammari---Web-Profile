@@ -18,6 +18,7 @@ try {
             e.start_at,
             e.end_at,
             e.poster,
+            e.video,
             e.registration_url,
             e.status,
             b.name AS branch_name,
@@ -26,7 +27,7 @@ try {
         INNER JOIN branches b
             ON b.id = e.branch_id
         WHERE b.is_active = 1
-        AND e.status <> 'cancelled'
+        AND e.status IN ("upcoming, ongoing, completed")
     ";
 
     $params = [];

@@ -649,45 +649,123 @@ document.querySelectorAll(".event-register").forEach(button => {
   button.rel = "noopener noreferrer";
 });
 
-/*INTERAKSI EVENT KAMMARI*/
 
-// DATA CONTOH - GANTI DENGAN EVENT ASLI
-const kammariEvents = {
+/* =====================================
+   SISTEM EVENT KAMMARI
+   Semua data event dikelola dari sini
+===================================== */
 
-  // EVENT 1 - JUNK JOURNALING
-  JunkJournaling: {
+/* =====================================
+   SISTEM EVENT KAMMARI
+   Event berpindah otomatis ke "Telah Terlaksana"
+   setelah dateISO / endDateISO lewat.
+   Event TANPA tanggal mengikuti flag "past".
+===================================== */
+
+const EVENTS = [
+
+  // ---------- EVENT YANG SUDAH TERLAKSANA (punya tanggal) ----------
+  {
+    id: "JunkJournaling",
     title: "Junk Journaling",
     status: "SELESAI",
     past: true,
     comingSoon: false,
-    date: "Event telah terlaksana",
-    location: "Kammari Cafe",
+    date: "18 Oktober 2026",
     dateISO: "2026-10-18",
     endDateISO: "2026-10-18",
+    location: "Kammari Cafe",
     description: "Kegiatan kreatif Junk Journaling bersama Kammari.",
     poster: "assets/Poster-event-terlaksana/Junk-Journaling.png",
     video: "assets/video-animasi-poster/junk_journaling_creative_motion.mp4"
   },
 
-  // EVENT 2 - ART JOURNALING
-  ArtJournaling: {
+  {
+    id: "ArtJournaling",
     title: "Weekend Art Journaling",
     status: "SELESAI",
     past: true,
     comingSoon: false,
-    date: "Event telah terlaksana",
-    location: "Kammari Cafe",
+    date: "13 September 2026",
     dateISO: "2026-09-13",
     endDateISO: "2026-09-13",
+    location: "Kammari Cafe",
     description: "Kegiatan kreatif Art Journaling bersama Kammari.",
     poster: "assets/Poster-event-terlaksana/weekend-art-journaling.jpg",
     video: ""
   },
 
 
+  // ---------- POSTER LAMA (tanpa tanggal, ikut flag "past") ----------
+  {
+    id: "OpenMicBola",
+    title: "Open Mic Bola",
+    status: "SELESAI",
+    past: true,
+    poster: "assets/Poster-event-terlaksana/open-mic-bola.jpg"
+  },
 
-  // EVENT 3 - CROCHET WORKSHOP
-  Crochet: {
+  {
+    id: "OpenMicJumpaLagi",
+    title: "Open Mic Jumpa Lagi",
+    status: "SELESAI",
+    past: true,
+    poster: "assets/Poster-event-terlaksana/open-mic-jumpa-lagi.jpg"
+  },
+
+  {
+    id: "OpenMicLagi",
+    title: "Open Mic Lagi",
+    status: "SELESAI",
+    past: true,
+    poster: "assets/Poster-event-terlaksana/open-mic-lagi.jpg"
+  },
+
+  {
+    id: "OpenMicListrik",
+    title: "Open Mic Listrik",
+    status: "SELESAI",
+    past: true,
+    poster: "assets/Poster-event-terlaksana/open-mic-listrik.jpg"
+  },
+
+  {
+    id: "OpenMicPerampasan",
+    title: "Open Mic Perampasan Aset",
+    status: "SELESAI",
+    past: true,
+    poster: "assets/Poster-event-terlaksana/open-mic-perampasan-aset.jpg"
+  },
+
+  {
+    id: "OpenMicTasyakuran",
+    title: "Open Mic Tasyakuran",
+    status: "SELESAI",
+    past: true,
+    poster: "assets/Poster-event-terlaksana/open-mic-tasyakuran.jpg"
+  },
+
+  {
+    id: "OpenMicTawa",
+    title: "Open Mic Tawa",
+    status: "SELESAI",
+    past: true,
+    poster: "assets/Poster-event-terlaksana/open-mic-tawa.jpg"
+  },
+
+  {
+    id: "OpenMic",
+    title: "Open Mic",
+    status: "SELESAI",
+    past: true,
+    poster: "assets/Poster-event-terlaksana/open-mic.jpg"
+  },
+
+
+  // ---------- EVENT MENDATANG (punya tanggal) ----------
+  // Setelah tanggalnya lewat, otomatis pindah ke "Telah Terlaksana".
+  {
+    id: "Crochet",
     title: "Crochet Workshop",
     status: "EVENT MENDATANG",
     past: false,
@@ -696,136 +774,179 @@ const kammariEvents = {
     dateISO: "2026-11-08",
     endDateISO: "2026-11-08",
     location: "Kammari Cafe",
-
     description:
       "Yuk, eksplorasi kreativitas melalui Crochet! " +
       "Buat karya unik menggunakan benang dan jarum crochet.",
-
     poster: "assets/poster-event-mendatang/crochet_workshop.jpg",
     video: ""
   },
 
-  // EVENT 4 - TEMPLATE
-  event4: {
+
+  // ---------- TEMPLATE COMING SOON ----------
+  // Jangan beri dateISO di sini. Kalau event sudah pasti,
+  // ganti isinya: comingSoon: false, status, date, dateISO, poster.
+  {
+    id: "event4",
     title: "Event Selanjutnya",
     status: "COMING SOON",
     past: false,
     comingSoon: true,
     date: "Belum diumumkan",
-    dateISO: "2026-11-08",
-    endDateISO: "2026-11-08",
     location: "Kammari Cafe",
-
     description:
       "Informasi event ini akan segera hadir. " +
       "Nantikan kegiatan menarik berikutnya bersama Kammari.",
-
     poster: "",
     video: ""
   },
 
-  // EVENT 5 - TEMPLATE
-  event5: {
+  {
+    id: "event5",
     title: "Event Selanjutnya",
     status: "COMING SOON",
     past: false,
     comingSoon: true,
     date: "Belum diumumkan",
-    dateISO: "2026-11-08",
-    endDateISO: "2026-11-08",
     location: "Kammari Cafe",
-
     description:
       "Informasi event ini akan segera hadir. " +
       "Nantikan kegiatan menarik berikutnya bersama Kammari.",
-
     poster: "",
     video: ""
   },
 
-  // EVENT 6 - TEMPLATE
-  event6: {
+  {
+    id: "event6",
     title: "Event Selanjutnya",
     status: "COMING SOON",
     past: false,
     comingSoon: true,
     date: "Belum diumumkan",
-    dateISO: "2026-11-08",
-    endDateISO: "2026-11-08",
     location: "Kammari Cafe",
-
     description:
       "Informasi event ini akan segera hadir. " +
       "Nantikan kegiatan menarik berikutnya bersama Kammari.",
-
     poster: "",
     video: ""
   },
 
-  // EVENT 7 - TEMPLATE
-  event7: {
+  {
+    id: "event7",
     title: "Event Selanjutnya",
     status: "COMING SOON",
     past: false,
     comingSoon: true,
     date: "Belum diumumkan",
-    dateISO: "2026-11-08",
-    endDateISO: "2026-11-08",
     location: "Kammari Cafe",
-
     description:
       "Informasi event ini akan segera hadir. " +
       "Nantikan kegiatan menarik berikutnya bersama Kammari.",
-
     poster: "",
     video: ""
   },
 
-  // EVENT 8 - TEMPLATE
-  event8: {
+  {
+    id: "event8",
     title: "Event Selanjutnya",
     status: "COMING SOON",
     past: false,
     comingSoon: true,
     date: "Belum diumumkan",
-    dateISO: "2026-11-08",
-    endDateISO: "2026-11-08",
     location: "Kammari Cafe",
-
     description:
       "Informasi event ini akan segera hadir. " +
       "Nantikan kegiatan menarik berikutnya bersama Kammari.",
-
     poster: "",
     video: ""
   }
 
-};
+];
+
+
+/* ---------- Pengaturan dasar ---------- */
+
+const eventGallery = document.getElementById("event-gallery");
+const pastGallery = document.getElementById("past-event-gallery");
+
+const getEvent = id =>
+  EVENTS.find(event => event.id === id);
 
 function todayJakarta() {
-  const parts = new Intl.DateTimeFormat("en-GB", {
+  return new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Jakarta",
     year: "numeric",
     month: "2-digit",
     day: "2-digit"
-  }).formatToParts(new Date());
+  }).format(new Date());
+}
 
-  const date = Object.fromEntries(
-    parts.map(part => [part.type, part.value])
+// Selesai otomatis jika hari terakhir event sudah lewat
+const isFinished = event => {
+  if (event.comingSoon) return false;
+
+  const lastDay = event.endDateISO || event.dateISO;
+  if (lastDay) return lastDay < todayJakarta();
+
+  return event.past === true;
+};
+
+/* ---------- Membuat kartu event otomatis ---------- */
+
+function renderUpcomingEvents() {
+  if (!eventGallery) return;
+
+  const expanded = document.getElementById("event-expanded");
+
+  // Hapus kartu sebelumnya, bukan detail event
+  eventGallery.querySelectorAll(".event-tile")
+    .forEach(card => card.remove());
+
+  const upcoming = EVENTS.filter(event =>
+    !isFinished(event)
   );
 
-  return `${date.year}-${date.month}-${date.day}`;
+  upcoming.forEach((event, index) => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className =
+      `photo event-tile g${(index % 5) + 1}`;
+
+    button.dataset.event = event.id;
+
+    if (!event.poster) {
+      button.classList.add("event-tile--placeholder");
+    } else {
+      const img = document.createElement("img");
+
+      img.className = "event-tile__image";
+      img.src = event.poster;
+      img.alt = `Poster ${event.title}`;
+      img.loading = "lazy";
+
+      button.appendChild(img);
+    }
+
+    const label = document.createElement("span");
+    label.className = "event-tile__label";
+
+    const small = document.createElement("small");
+    small.textContent = event.status;
+
+    const title = document.createTextNode(event.title);
+
+    label.appendChild(small);
+    label.appendChild(title);
+
+    button.appendChild(label);
+
+    // Kartu diletakkan sebelum detail event
+    eventGallery.insertBefore(button, expanded);
+  });
 }
 
-function isFinished(event) {
-  return event.past === true ||
-    Boolean(
-      event.endDateISO &&
-      event.endDateISO < todayJakarta()
-    );
-}
 
-const eventGallery = document.getElementById("event-gallery");
+/* ---------- Detail event ---------- */
 
 if (eventGallery) {
   const expanded = document.getElementById("event-expanded");
@@ -836,57 +957,46 @@ if (eventGallery) {
   let lastClicked = null;
   let isClosing = false;
 
-  function getCardTransform(button) {
-    const gallery = eventGallery.getBoundingClientRect();
-    const card = button.getBoundingClientRect();
-
-    const x = card.left - gallery.left;
-    const y = card.top - gallery.top;
-
-    const scaleX = card.width / gallery.width;
-    const scaleY = card.height / gallery.height;
-
-    return `translate3d(${x}px, ${y}px, 0)
-          scale(${scaleX}, ${scaleY})`;
-  }
-
   function openEvent(button) {
     if (isClosing) return;
-    const data = kammariEvents[button.dataset.event];
+
+    const data = getEvent(button.dataset.event);
     if (!data) return;
 
     lastClicked = button;
 
-    document.getElementById("event-status").textContent = data.status;
-    document.getElementById("event-detail-title").textContent = data.title;
+    document.getElementById("event-status").textContent =
+      data.status || "";
+
+    document.getElementById("event-detail-title").textContent =
+      data.title;
+
     document.getElementById("event-meta").textContent =
-      `${data.date} • ${data.location}`;
+      `${data.date || ""} • ${data.location || "Kammari Cafe"}`;
 
     document.getElementById("event-description").textContent =
-      data.description;
+      data.description || "";
 
-    // Gambar sebagai background cadangan
     poster.style.backgroundImage = data.poster
       ? `url("${data.poster}")`
       : "linear-gradient(135deg, #f4d3ac, #c98f5c)";
 
-    // Video bergerak jika tersedia
     video.pause();
     video.classList.remove("is-ready");
 
     if (data.video) {
       video.src = data.video;
       video.load();
-      video.play().catch(() => { });
+      video.play().catch(() => {});
     } else {
       video.removeAttribute("src");
       video.load();
     }
 
-    // Pendaftaran hanya untuk event mendatang
-    registerButton.hidden = data.past || data.comingSoon;
+    registerButton.hidden =
+      isFinished(data) || data.comingSoon;
 
-    if (!data.past) {
+    if (!registerButton.hidden) {
       const message =
         `Halo Kammari, saya ingin mengetahui informasi ` +
         `dan pendaftaran event ${data.title}.`;
@@ -895,12 +1005,10 @@ if (eventGallery) {
         `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
     }
 
-    // Hitung posisi kotak yang diklik
-
     expanded.hidden = false;
     eventGallery.classList.add("event-is-open");
 
-    const animation = expanded.animate(
+    expanded.animate(
       [
         { opacity: 0, transform: "scale(0.94)" },
         { opacity: 1, transform: "scale(1)" }
@@ -919,7 +1027,9 @@ if (eventGallery) {
 
     isClosing = true;
 
-    expanded.getAnimations().forEach(a => a.cancel());
+    expanded.getAnimations().forEach(animation =>
+      animation.cancel()
+    );
 
     const animation = expanded.animate(
       [
@@ -943,165 +1053,103 @@ if (eventGallery) {
 
       isClosing = false;
 
-      if (lastClicked) {
-        lastClicked.focus({ preventScroll: true });
-      }
+      lastClicked?.focus({ preventScroll: true });
     };
   }
 
-  video.addEventListener("loadeddata", () => {
-    video.classList.add("is-ready");
-  });
+  video.addEventListener("loadeddata", () =>
+    video.classList.add("is-ready")
+  );
 
-  video.addEventListener("error", () => {
-    video.classList.remove("is-ready");
-  });
+  video.addEventListener("error", () =>
+    video.classList.remove("is-ready")
+  );
 
-  eventGallery.querySelectorAll(".event-tile").forEach(button => {
-
-    const data = kammariEvents[button.dataset.event];
-
-    if (!data) return;
-
-    if (isFinished(data)) {
-      button.style.display = "none";
-      return;
-    }
-
-    // Otomatis menambahkan poster jika sudah tersedia
-    if (data.poster && !button.querySelector(".event-tile__image")) {
-      const img = document.createElement("img");
-
-      img.className = "event-tile__image";
-      img.src = data.poster;
-      img.alt = `Poster ${data.title}`;
-      img.loading = "lazy";
-
-      button.prepend(img);
-    }
-
-  });
-
-  // Klik semua kartu event, termasuk kartu baru
-  eventGallery.addEventListener("click", (event) => {
+  eventGallery.addEventListener("click", event => {
     const button = event.target.closest(".event-tile");
 
     if (!button || !expanded.hidden) return;
-
-    const data = kammariEvents[button.dataset.event];
-
-    if (!data) {
-      console.warn("Data event tidak ditemukan:", button.dataset.event);
-      return;
-    }
 
     event.stopPropagation();
     openEvent(button);
   });
 
-  // Klik di mana saja untuk kembali ke galeri
   document.addEventListener("click", event => {
-    // Jika detail belum terbuka, abaikan
     if (expanded.hidden) return;
-
-    // Jangan tutup saat tombol WhatsApp diklik
     if (registerButton.contains(event.target)) return;
 
-    // Tutup detail event
     closeEvent();
   });
 }
 
 
-/* GALERI EVENT YANG SUDAH TERLAKSANA
-   Terpisah dari event mendatang */
+/* ---------- Galeri event yang sudah terlaksana ---------- */
 
-const pastEvents = [
-  ["Art Journaling", "art_journaling.jpg"],
-  ["Junk Journaling", "Junk-Journaling.png"],
-  ["Open Mic Bola", "open-mic-bola.jpg"],
-  ["Open Mic Jumpa Lagi", "open-mic-jumpa-lagi.jpg"],
-  ["Open Mic Lagi", "open-mic-lagi.jpg"],
-  ["Open Mic Listrik", "open-mic-listrik.jpg"],
-  ["Open Mic Perampasan Aset", "open-mic-perampasan-aset.jpg"],
-  ["Open Mic Tasyakuran", "open-mic-tasyakuran.jpg"],
-  ["Open Mic Tawa", "open-mic-tawa.jpg"],
-  ["Open Mic", "open-mic.jpg"],
-  ["Weekend Art Journaling", "weekend-art-journaling.jpg"]
-].map(([title, file]) => ({
-  title,
-  poster: `assets/Poster-event-terlaksana/${file}`
-}));
+function renderPastEvents() {
+  if (!pastGallery) return;
 
-// Jika belum ada event selesai, tampilkan placeholder
-if (pastEvents.length === 0) {
-  for (let i = 1; i <= 4; i++) {
-    pastEvents.push({
-      title: `Event ${i}`,
-      poster: ""
-    });
-  }
-}
-
-function initPastEventGallery() {
-  const gallery = document.getElementById("past-event-gallery");
   const viewer = document.getElementById("past-event-viewer");
   const viewerImage = document.getElementById("past-event-viewer-image");
 
-  if (!gallery || !viewer || !viewerImage) return;
+  if (!viewer || !viewerImage) return;
+
+  pastGallery.innerHTML = "";
+
+  const pastEvents = EVENTS.filter(isFinished);
 
   pastEvents.forEach(event => {
     const button = document.createElement("button");
+
     button.type = "button";
     button.className = "past-event-card";
-    // Jika poster belum tersedia, tampilkan placeholder
-    if (!event.poster) {
+    button.setAttribute(
+      "aria-label",
+      `Lihat poster ${event.title}`
+    );
+
+    if (event.poster) {
+      const img = document.createElement("img");
+
+      img.src = event.poster;
+      img.alt = `Poster ${event.title}`;
+      img.loading = "lazy";
+
+      button.appendChild(img);
+    } else {
       button.classList.add("past-event-card--empty");
 
       button.innerHTML = `
-    <span class="past-event-card__label">
-      <small>DOKUMENTASI MENYUSUL</small>
-      Event Sebelumnya
-    </span>
-  `;
+        <span class="past-event-card__label">
+          <small>DOKUMENTASI MENYUSUL</small>
+          ${event.title}
+        </span>
+      `;
+    }
 
-      button.addEventListener("click", () => {
+    button.addEventListener("click", () => {
+      if (event.poster) {
+        viewer.classList.remove("is-placeholder");
+        viewerImage.style.display = "block";
+        viewerImage.src = event.poster;
+        viewerImage.alt = `Poster ${event.title}`;
+      } else {
+        viewer.classList.add("is-placeholder");
         viewerImage.removeAttribute("src");
         viewerImage.style.display = "none";
+      }
 
-        viewer.showModal();
-        viewer.classList.add("is-placeholder");
-      });
-
-      gallery.appendChild(button);
-      return;
-    }
-    button.setAttribute("aria-label", `Lihat poster ${event.title}`);
-
-    const img = document.createElement("img");
-    img.src = event.poster;
-    img.alt = `Poster ${event.title}`;
-    img.loading = "lazy";
-
-    button.appendChild(img);
-
-    // Klik poster untuk memperbesar
-    button.addEventListener("click", () => {
-      viewer.classList.remove("is-placeholder");
-      viewerImage.style.display = "block";
-      viewerImage.src = event.poster;
-      viewerImage.alt = img.alt;
       viewer.showModal();
     });
 
-    gallery.appendChild(button);
+    pastGallery.appendChild(button);
   });
 
-  // Klik di mana saja untuk menutup poster
+  // Tutup viewer saat area luar poster diklik
   viewer.addEventListener("click", () => {
     if (viewer.classList.contains("is-closing")) return;
 
     viewer.classList.add("is-closing");
+
     viewer.addEventListener("animationend", () => {
       viewer.close();
       viewer.classList.remove("is-closing");
@@ -1109,114 +1157,94 @@ function initPastEventGallery() {
   });
 }
 
-initPastEventGallery();
 
+/* ---------- Popup event terdekat ---------- */
 
-/* POPUP OTOMATIS EVENT TERDEKAT */
+function todayJakarta() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(new Date());
+
+  return parts;
+}
 
 function showNearestEventPopup() {
-  // Hanya muncul di halaman utama
   if (document.body.dataset.page !== "home") return;
 
-  // Cari event mendatang dengan tanggal terdekat
-  const next = Object.entries(kammariEvents)
-    .filter(([id, event]) => {
-      if (
-        event.past ||
-        event.comingSoon ||
-        !/^\d{4}-\d{2}-\d{2}$/.test(event.dateISO || "")
-      ) return false;
-
-      return (
-        new Date(`${event.dateISO}T23:59:59`) >= new Date() &&
-        !!document.querySelector(
-          `#event-gallery .event-tile[data-event="${id}"]`
-        )
-      );
-    })
+  const next = EVENTS
+    .filter(event =>
+      !isFinished(event) &&
+      !event.comingSoon &&
+      /^\d{4}-\d{2}-\d{2}$/.test(event.dateISO || "") &&
+      event.dateISO >= todayJakarta() &&
+      document.querySelector(
+        `#event-gallery .event-tile[data-event="${event.id}"]`
+      )
+    )
     .sort((a, b) =>
-      a[1].dateISO.localeCompare(b[1].dateISO)
+      a.dateISO.localeCompare(b.dateISO)
     )[0];
 
-  // Tidak ada event terjadwal? Jangan tampilkan popup
   if (!next) return;
 
-  const [eventId, event] = next;
   const dialog = document.createElement("dialog");
-
   dialog.className = "next-event-popup";
-  dialog.setAttribute("aria-labelledby", "next-event-title");
 
   dialog.innerHTML = `
     <div class="next-event-popup__layout">
-
       <div class="next-event-popup__photo">
         <img alt="">
       </div>
 
       <div class="next-event-popup__content">
-        <span class="next-event-popup__label">
-          EVENT TERDEKAT
-        </span>
-
-        <h2 id="next-event-title"></h2>
+        <span class="next-event-popup__label">EVENT TERDEKAT</span>
+        <h2></h2>
         <p class="next-event-popup__meta"></p>
         <p class="next-event-popup__desc"></p>
 
         <div class="next-event-popup__actions">
-          <button type="button"
-                  class="next-event-popup__detail">
+          <button type="button" class="next-event-popup__detail">
             Lihat Detail Event
           </button>
         </div>
       </div>
-
     </div>
   `;
 
-  dialog.querySelector("h2").textContent = event.title;
+  dialog.querySelector("h2").textContent = next.title;
 
-  const formattedDate = new Date(
-    `${event.dateISO}T12:00:00`
-  ).toLocaleDateString("id-ID", {
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  });
+  dialog.querySelector(".next-event-popup__meta").textContent =
+    `${next.date} • ${next.location}`;
 
-  dialog.querySelector(".next-event-popup__meta")
-    .textContent = `${formattedDate} • ${event.location}`;
+  dialog.querySelector(".next-event-popup__desc").textContent =
+    next.description || "";
 
-  dialog.querySelector(".next-event-popup__desc")
-    .textContent = event.description;
-
-  // Poster event
   const image = dialog.querySelector("img");
 
-  if (event.poster) {
-    image.src = event.poster;
-    image.alt = `Poster ${event.title}`;
+  if (next.poster) {
+    image.src = next.poster;
+    image.alt = `Poster ${next.title}`;
   } else {
     image.remove();
   }
 
-  // Buka detail event yang sudah tersedia
   dialog.querySelector(".next-event-popup__detail")
-    .addEventListener("click", (e) => {
-      e.stopPropagation();
+    .addEventListener("click", () => {
       dialog.close();
 
       document.getElementById("event")
         ?.scrollIntoView({ behavior: "smooth" });
 
       document.querySelector(
-        `#event-gallery .event-tile[data-event="${eventId}"]`
+        `#event-gallery .event-tile[data-event="${next.id}"]`
       )?.click();
     });
 
-  // Klik area luar popup untuk menutup
-  dialog.addEventListener("click", (e) => {
-    if (e.target === dialog) dialog.close();
+  dialog.addEventListener("click", event => {
+    if (event.target === dialog) dialog.close();
   });
 
   dialog.addEventListener("close", () => dialog.remove());
@@ -1225,7 +1253,12 @@ function showNearestEventPopup() {
   dialog.showModal();
 }
 
-// Jalankan ketika halaman siap
+
+/* ---------- Jalankan sistem event ---------- */
+
+renderUpcomingEvents();
+renderPastEvents();
+
 if (document.readyState === "loading") {
   document.addEventListener(
     "DOMContentLoaded",
@@ -1235,3 +1268,4 @@ if (document.readyState === "loading") {
 } else {
   showNearestEventPopup();
 }
+

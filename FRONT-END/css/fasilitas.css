@@ -1,0 +1,364 @@
+/* ==========================================================
+   Kammari Cafe & Roastery  |  FASILITAS
+   Isi: galeri, amenities, venue, mosaic, tabel perbandingan, CTA
+   ========================================================== */
+
+/*  Galeri  */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 120px;
+  gap: 16px;
+}
+
+.gallery .photo {
+  border-radius: var(--r-md);
+}
+
+.gallery .g1 {
+  grid-column: span 7;
+  grid-row: span 4;
+}
+
+.gallery .g2 {
+  grid-column: span 5;
+  grid-row: span 2;
+}
+
+.gallery .g3 {
+  grid-column: span 5;
+  grid-row: span 2;
+}
+
+.gallery .g4 {
+  grid-column: span 4;
+  grid-row: span 3;
+}
+
+.gallery .g5 {
+  grid-column: span 4;
+  grid-row: span 3;
+}
+
+.gallery .g6 {
+  grid-column: span 4;
+  grid-row: span 3;
+}
+
+.amenities {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.amenity {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 18px 0;
+  font-size: .95rem;
+}
+
+.amenity+.amenity {
+  padding-left: 20px;
+}
+
+.amenity svg {
+  width: 22px;
+  height: 22px;
+  color: var(--clay);
+  flex: none;
+}
+
+.amenity small {
+  display: block;
+  color: var(--soft);
+  font-size: .82rem;
+  line-height: 1.3;
+}
+
+@media (max-width: 860px) {
+  .gallery {
+    grid-auto-rows: 90px;
+    gap: 10px;
+  }
+
+  .gallery .g1 {
+    grid-column: span 12;
+    grid-row: span 3;
+  }
+
+  .gallery .g2,
+  .gallery .g3 {
+    grid-column: span 6;
+    grid-row: span 2;
+  }
+
+  .gallery .g4,
+  .gallery .g5,
+  .gallery .g6 {
+    grid-column: span 4;
+    grid-row: span 2;
+  }
+
+  .amenities {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .amenity+.amenity {
+    padding-left: 0;
+  }
+}
+
+/*  Halaman fasilitas  */
+.venue {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+}
+
+.venue--flip {
+  grid-template-columns: .9fr 1.1fr;
+}
+
+.venue__intro {
+  margin-bottom: 48px;
+  max-width: 62ch;
+}
+
+.venue__intro h2 {
+  margin: 16px 0 14px;
+}
+
+.venue__addr {
+  font-size: .94rem;
+  color: var(--soft);
+  margin-top: 10px;
+}
+
+.venue__main .photo {
+  aspect-ratio: 16/11;
+  border-radius: var(--r-md);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.stat {
+  padding: 18px 0 0;
+}
+
+.stat+.stat {
+  padding-left: 20px;
+  border-left: 1px solid var(--line);
+}
+
+.stat b {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.7rem;
+  color: var(--clay);
+  line-height: 1.1;
+}
+
+.stat span {
+  font-size: .86rem;
+  color: var(--soft);
+}
+
+.flist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.flist li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.flist li:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.flist svg {
+  width: 28px;
+  height: 28px;
+  color: var(--clay);
+  margin-top: 3px;
+}
+
+.flist h3 {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.flist p {
+  color: var(--soft);
+  font-size: .95rem;
+}
+
+.venue--sage .flist svg,
+.venue--sage .stat b,
+.venue--sage .kicker {
+  color: var(--sage);
+}
+
+.mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 72px;
+}
+
+.mosaic .photo {
+  aspect-ratio: 3/4;
+  border-radius: var(--arch);
+}
+
+.mosaic .photo:nth-child(even) {
+  margin-top: 36px;
+}
+
+@media (max-width: 900px) {
+
+  .venue,
+  .venue--flip {
+    grid-template-columns: 1fr;
+  }
+
+  .mosaic {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/*  Tabel perbandingan  */
+.compare-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--paper);
+}
+
+.compare {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+.compare th,
+.compare td {
+  padding: 20px 24px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+  font-size: .98rem;
+}
+
+.compare tr:last-child th,
+.compare tr:last-child td {
+  border-bottom: 0;
+}
+
+.compare thead th {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.4rem;
+  background: var(--paper-2);
+}
+
+.compare thead small {
+  display: block;
+  font: 400 .85rem var(--sans);
+  color: var(--soft);
+}
+
+.compare tbody th {
+  font-weight: 600;
+  width: 32%;
+}
+
+.compare tbody th small {
+  display: block;
+  font-weight: 400;
+  color: var(--soft);
+}
+
+.compare td b {
+  font-weight: 600;
+}
+
+/*  CTA  */
+.cta {
+  background: var(--espresso);
+  color: var(--paper);
+  border-radius: var(--r-md);
+  padding: clamp(36px, 6vw, 80px);
+  display: grid;
+  grid-template-columns: 1.3fr .7fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta h2 {
+  margin: 16px 0 18px;
+}
+
+.cta p {
+  color: rgba(251, 246, 236, .75);
+  max-width: 50ch;
+}
+
+.cta .kicker {
+  color: var(--peach-deep);
+}
+
+.cta__btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.cta__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.cta__list li {
+  padding: 16px 0;
+  border-top: 1px solid rgba(251, 246, 236, .2);
+  font-size: .98rem;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.cta__list svg {
+  width: 20px;
+  height: 20px;
+  color: var(--peach-deep);
+  flex: none;
+}
+
+@media (max-width: 860px) {
+  .cta {
+    grid-template-columns: 1fr;
+  }
+}

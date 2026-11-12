@@ -7,7 +7,7 @@
    ========================================================== */
 
 :root {
-  --paper: #fbf6ec;
+  --paper: #f3f0ea;
   --paper-2: #f3eadb;
   --peach: #f4d3ac;
   --peach-deep: #e8b27d;
@@ -2598,3 +2598,4 @@ p {
   padding: 0 !important;
   border-radius: 0 !important;
 }
+

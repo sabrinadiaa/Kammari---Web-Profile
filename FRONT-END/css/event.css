@@ -1,0 +1,825 @@
+/* ==========================================================
+   Kammari Cafe & Roastery  |  EVENT
+   Isi: kartu event, galeri event interaktif, galeri event
+   yang sudah terlaksana, popup event terdekat, poster Instagram
+   Catatan: urutan aturan dipertahankan seperti file asli
+   (beberapa selector sengaja ditimpa di bagian bawah).
+   ========================================================== */
+
+/* EVENT KAMMARI */
+
+.event-section {
+  background: var(--paper);
+}
+
+.event-category {
+  margin-top: 54px;
+}
+
+.event-category-title {
+  font-family: var(--serif);
+  font-size: 2rem;
+  margin-bottom: 24px;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.event-card {
+  background: #f3eadb;
+  border: 1px solid rgba(43, 30, 24, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(43, 30, 24, 0.08);
+}
+
+.event-card summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.event-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.event-status {
+  display: inline-block;
+  background: #e1ebd8;
+  color: #506d3b;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.event-status--past {
+  background: #e5ded3;
+  color: #76685e;
+}
+
+.event-date {
+  color: var(--clay);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin-top: 24px;
+}
+
+.event-card h3 {
+  font-size: 1.65rem;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.event-card summary p {
+  color: var(--soft);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.event-more {
+  color: var(--clay);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 24px;
+}
+
+.event-card[open] .event-more {
+  color: var(--espresso);
+}
+
+.event-detail {
+  padding: 24px 28px 28px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.event-detail p {
+  color: var(--soft);
+  font-size: 0.93rem;
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+
+.event-detail strong {
+  color: var(--espresso);
+}
+
+.event-register {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 12px 20px;
+  background: var(--clay);
+  color: #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.event-register:hover {
+  background: var(--clay-dark);
+}
+
+.event-card--past {
+  background: #f0e9df;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .event-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+  .event-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .event-category-title {
+    font-size: 1.65rem;
+  }
+
+  .event-card summary {
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-card {
+    transition: none;
+  }
+}
+
+/* EVENT INTERACTIVE GALLERY */
+
+.event-gallery {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Kotak event */
+.event-gallery .event-tile {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--sans);
+  color: #fff;
+}
+
+.event-tile__label {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.event-tile__label small {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  opacity: 0.85;
+}
+
+.event-gallery .event-tile:hover {
+  filter: brightness(1.06);
+}
+
+.event-gallery .event-tile:focus-visible {
+  outline: 3px solid var(--clay);
+  outline-offset: 3px;
+}
+
+/* Detail mengisi keseluruhan frame */
+.event-expanded {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--espresso);
+  color: white;
+}
+
+.event-expanded[hidden] {
+  display: none !important;
+}
+
+/* Gambar cadangan jika video belum tersedia */
+.event-expanded__poster {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Video background */
+.event-expanded__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.event-expanded__video.is-ready {
+  opacity: 0.75;
+}
+
+/* Gradasi agar teks tetap terbaca */
+.event-expanded__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(25, 15, 10, 0.94) 0%,
+      rgba(25, 15, 10, 0.65) 45%,
+      rgba(25, 15, 10, 0.1) 100%);
+  pointer-events: none;
+}
+
+/* Isi detail event */
+.event-expanded__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 720px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: clamp(24px, 5vw, 56px);
+}
+
+.event-expanded__status {
+  display: inline-block;
+  color: #f4d3ac;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+
+.event-expanded__content h3 {
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 16px;
+}
+
+.event-expanded__content p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.event-expanded__meta {
+  font-weight: 600;
+}
+
+/* Tombol pendaftaran */
+.event-register {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 18px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  background: var(--clay);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.event-register:hover {
+  background: var(--clay-dark);
+}
+
+.event-register[hidden] {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .event-tile__label {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    font-size: 0.85rem;
+  }
+
+  .event-expanded__content {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-gallery .event-tile {
+    transition: none;
+  }
+}
+
+/* TEMPLATE EVENT KOSONG */
+.event-gallery .event-tile--placeholder {
+  background-image: linear-gradient(145deg,
+      #f4d3ac,
+      #c98f5c);
+
+  cursor: default;
+  opacity: 1;
+}
+
+.event-gallery .event-tile--placeholder:hover {
+  filter: none;
+}
+
+.event-gallery .event-tile--placeholder .event-tile__label {
+  color: #fff;
+}
+
+/* Poster event aktif */
+.event-gallery .event-tile:not(.event-tile--placeholder) {
+  background-size: cover;
+  background-position: center;
+}
+
+/* FOTO JUNK JOURNALING */
+.event-gallery .event-tile {
+  position: relative;
+}
+
+.event-gallery .event-tile__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Teks tetap di atas gambar */
+.event-gallery .event-tile__label {
+  z-index: 3;
+}
+
+/* Background detail event blur */
+.event-expanded__poster {
+  filter: blur(9px) brightness(0.62);
+}
+
+.event-expanded__video {
+  filter: blur(9px) brightness(0.65);
+  transform: scale(1.03);
+}
+
+/* Teks detail tetap jelas */
+.event-expanded__content {
+  position: relative;
+  z-index: 3;
+}
+
+/* SEMUA TEMPLATE EVENT BISA DIKLIK */
+
+.event-gallery .event-tile--placeholder {
+  cursor: pointer;
+  transition:
+    filter 0.3s ease,
+    transform 0.3s ease;
+}
+
+.event-gallery .event-tile--placeholder:hover {
+  filter: brightness(1.08);
+}
+
+.event-gallery .event-tile--placeholder:active {
+  transform: scale(0.98);
+}
+
+/* Smooth zoom untuk detail event */
+.event-expanded {
+  transform-origin: top left;
+  backface-visibility: hidden;
+}
+
+.event-expanded__content {
+  backface-visibility: hidden;
+}
+
+/* GALERI EVENT YANG SUDAH TERLAKSANA */
+
+.past-events-section {
+  background: var(--paper-2);
+}
+
+.past-event-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.past-event-card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--paper);
+  cursor: pointer;
+  aspect-ratio: 3 / 4;
+  transition:
+    transform 0.4s cubic-bezier(.22, 1, .36, 1),
+    box-shadow 0.4s ease;
+}
+
+.past-event-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.past-event-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 16px 32px rgba(43, 30, 24, 0.15);
+}
+
+/* Popup poster */
+.past-event-viewer {
+  position: fixed;
+  max-width: min(90vw, 600px);
+  max-height: 90vh;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;
+  cursor: zoom-out;
+}
+
+.past-event-viewer[open] {
+  animation: pastOpen 0.45s cubic-bezier(.22, 1, .36, 1);
+}
+
+.past-event-viewer.is-closing {
+  animation: pastClose 0.35s ease-in forwards;
+}
+
+.past-event-viewer::backdrop {
+  background: rgba(25, 18, 14, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.past-event-viewer img {
+  display: block;
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+@keyframes pastOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pastClose {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .past-event-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .past-event-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .past-event-card,
+  .past-event-viewer[open],
+  .past-event-viewer.is-closing {
+    animation-duration: 0.01ms;
+    transition: none;
+  }
+}
+
+/* PLACEHOLDER EVENT LAMA */
+
+.past-event-card--empty {
+  background: linear-gradient(
+    145deg,
+    #f4d3ac,
+    #c98f5c
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  cursor: default;
+  box-shadow: none;
+}
+
+.past-event-card__label {
+  color: #2b1e18;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  padding: 20px;
+}
+
+.past-event-card__label small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+
+.past-event-card--empty:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.past-event-card--empty {
+  cursor: pointer;
+}
+
+.past-event-card--empty:hover {
+  transform: translateY(-6px);
+}
+
+.past-event-viewer.is-placeholder {
+  width: min(90vw, 480px);
+  min-height: 280px;
+  background: #f3eadb;
+  display: none;
+  place-items: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.past-event-viewer.is-placeholder[open] {
+  display: grid;
+}
+
+.past-event-viewer.is-placeholder::before {
+  content: "Dokumentasi belum tersedia";
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  color: var(--espresso);
+}
+
+/* POPUP EVENT TERDEKAT */
+
+.next-event-popup {
+  width: min(92vw, 760px);
+  max-height: 90vh;
+  padding: 0;
+  border: none;
+  border-radius: 22px;
+  overflow: auto;
+  background: var(--paper);
+  color: var(--espresso);
+  box-shadow: 0 25px 80px rgba(20, 10, 5, 0.25);
+}
+
+.next-event-popup::backdrop {
+  background: rgba(30, 20, 15, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.next-event-popup[open] {
+  animation: nextEventOpen 0.6s
+    cubic-bezier(.22, 1, .36, 1);
+}
+
+.next-event-popup__layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+}
+
+.next-event-popup__photo {
+  background: linear-gradient(145deg, #f4d3ac, #c98f5c);
+  min-height: 350px;
+}
+
+.next-event-popup__photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  object-fit: cover;
+}
+
+.next-event-popup__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 36px;
+}
+
+.next-event-popup__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--clay);
+}
+
+.next-event-popup__content h2 {
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+}
+
+.next-event-popup__meta,
+.next-event-popup__desc {
+  color: var(--soft);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.next-event-popup__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.next-event-popup__actions button {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--clay);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+
+.next-event-popup__detail {
+  background: var(--clay);
+  color: white;
+}
+
+.next-event-popup__actions button:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes nextEventOpen {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .next-event-popup__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .next-event-popup__photo,
+  .next-event-popup__photo img {
+    min-height: 0;
+    height: 220px;
+  }
+
+  .next-event-popup__content {
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .next-event-popup[open] {
+    animation: none;
+  }
+
+  .next-event-popup__actions button {
+    transition: none;
+  }
+}
+
+/* EVENT DENGAN POSTER INSTAGRAM */
+
+.event-ig-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--paper-2);
+}
+
+.event-ig-card .instagram-media {
+  margin: 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.event-ig-card iframe {
+  pointer-events: none;
+}
+
+.event-gallery .event-ig-card__button {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Detail tersembunyi tidak boleh menutupi kartu */
+.event-expanded[hidden] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Kartu event bisa menerima klik */
+.event-gallery .event-tile {
+  position: relative;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/*SAMAKAN UKURAN GALERI EVENT*/
+
+/* Layout seperti galeri event terlaksana */
+#event-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  gap: 22px;
+}
+
+/* Semua kartu berukuran sama */
+#event-gallery > .event-tile {
+  grid-column: auto;
+  grid-row: auto;
+
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 3 / 4;
+
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Tablet: 3 kolom */
+@media (max-width: 900px) {
+  #event-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* HP: 2 kolom */
+@media (max-width: 600px) {
+  #event-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}

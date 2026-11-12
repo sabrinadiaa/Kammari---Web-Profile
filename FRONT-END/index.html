@@ -11,7 +11,12 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/event.css">
+
+
 </head>
 
 <body data-page="home">
@@ -31,8 +36,8 @@
           </div>
         </div>
         <div class="hero__art" data-in="3">
-          <figure class="photo arch photo--shade" role="img" aria-label="Foto bar sangrai Kammari">
-            <figcaption>Foto utama: bar kopi Kammari</figcaption>
+          <figure class="photo arch photo--shade" role="img" aria-label="Foto bar sangrai Kammari"
+          style="--src:url('../assets/foto-fasilitas/img4.webp')">
           </figure>
           <div class="badge" aria-label="Sangrai hari ini: Argopuro Natural Lot 04">
             <svg viewBox="0 0 148 148" aria-hidden="true">
@@ -120,7 +125,7 @@
         <div class="section-head">
           <div>
             <h2 class="h-lg">Cerita dan Kegiatan di<br>
-            <span class="brand-word">Kammari</span><span>
+            <span class="brand-word">Kammari</span>
             </h2>
           </div>
           <p class="lede">
@@ -131,49 +136,15 @@
 
         <div class="gallery event-gallery" id="event-gallery">
 
-
-
-          <!-- EVENT UTAMA: CROCHET WORKSHOP -->
-          <button class="photo photo--shade g1 event-tile" type="button" data-event="Crochet">
-          </button>
-
-          <!-- EVENT SELANJUTNYA -->
-          <button class="photo g2 event-tile event-tile--placeholder" type="button" data-event="event7">
-            <span class="event-tile__label">
-              <small>COMING SOON</small>
-              Event Selanjutnya
-            </span>
-          </button>
-
-          <button class="photo g3 event-tile event-tile--placeholder" type="button" data-event="event4">
-            <span class="event-tile__label">
-              <small>COMING SOON</small>
-              Event Selanjutnya
-            </span>
-          </button>
-
-          <button class="photo g4 event-tile event-tile--placeholder" type="button" data-event="event5">
-            <span class="event-tile__label">
-              <small>COMING SOON</small>
-              Event Selanjutnya
-            </span>
-          </button>
-
-          <button class="photo g5 event-tile event-tile--placeholder" type="button" data-event="event6">
-            <span class="event-tile__label">
-              <small>COMING SOON</small>
-              Event Selanjutnya
-            </span>
-          </button>
-
           <!-- DETAIL EVENT YANG MEMBESAR -->
-          <div class="event-expanded" id="event-expanded" role="dialog" aria-modal="true"
-            aria-labelledby="event-detail-title" tabindex="-1" hidden>
+          <div class="event-expanded" id="event-expanded" 
+          role="dialog" 
+          aria-modal="true"
+          aria-labelledby="event-detail-title" 
+          tabindex="-1" hidden>
 
             <div class="event-expanded__poster" id="event-poster"></div>
-
             <video class="event-expanded__video" id="event-video" muted loop playsinline preload="none"></video>
-
             <div class="event-expanded__shade"></div>
 
             <div class="event-expanded__content">
@@ -183,7 +154,7 @@
               <p id="event-description"></p>
 
               <a class="event-register" id="event-register" href="#" target="_blank" rel="noopener">
-                Daftar via WhatsApp;
+                Daftar via WhatsApp
               </a>
             </div>
           </div>
@@ -238,7 +209,7 @@
               src="https://www.google.com/maps?q=KAMMARI%2C%20Jl.%20Samanhudi%20No.17%2C%20Gresik&output=embed">
             </iframe>
             <div class="branch__body">
-              <h3>Gresik, Roastery Asli</h3>
+              <h3>Surabaya</h3>
               <p class="small branch__description">
                 Ruang nyaman untuk bersantai dan menikmati kopi
                 di Jl. Ketintang Baru II No. Kav. 7, Surabaya.
@@ -257,7 +228,7 @@
               src="https://www.google.com/maps?q=KAMMARI%2C%20Jl.%20Ketintang%20Baru%20II%20No.KAV%207%2C%20Surabaya&output=embed">
             </iframe>
             <div class="branch__body">
-              <h3>Surabaya, Ruang Tenang</h3>
+              <h3>Gresik</h3>
               <p class="small branch__description">
                 Roastery utama Kammari yang berlokasi di
                 Jl. Samanhudi No. 17, Kemuteran, Gresik.

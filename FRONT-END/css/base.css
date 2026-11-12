@@ -5,16 +5,19 @@
    Dipakai di SEMUA halaman. */
 
 :root {
-  --paper: #f3f0ea;
-  --paper-2: #f3eadb;
-  --peach: #f4d3ac;
-  --peach-deep: #e8b27d;
-  --espresso: #2b1e18;
-  --soft: #6e5c50;
-  --clay: #a23f25;
-  --clay-dark: #7f2d19;
+  --paper: #f8f3ec;      /* putih hangat (dinding) */
+  --paper-2: #eadccb;    /* krem-cokelat muda untuk section tint */
+  --peach: #d6b088;      /* karamel / kayu muda: hero */
+  --peach-deep: #b8844f;
+  --espresso: #2b1a12;   /* cokelat gelap: teks & tombol */
+  --soft: #6e4f3c;       /* cokelat sedang: teks sekunder */
+  --clay: #a8352a;       /* merah bangku, sedikit condong bata */
+  --clay-dark: #7e231b;
+  --wood: #6b4128;       /* cokelat kayu (rak, bangku) */
+  --ochre: #c8923a;      /* oker lantai tegel (aksen kecil) */
   --sage: #6b7a57;
-  --line: rgba(43, 30, 24, 0.14);
+  --bean: #4a2e20;
+  --line: rgba(43, 26, 18, 0.16);
 
   --serif: "DM Serif Display", Georgia, serif;
   --logo-font: "Playpen Sans Hebrew", cursive;
@@ -293,23 +296,10 @@ p {
 
 /* Hero halaman dalam (menu, fasilitas, event) */
 .page-hero {
-  background: var(--peach);
+  background: var(--paper-2);
   padding-block: clamp(56px, 8vw, 110px) clamp(40px, 6vw, 72px);
   position: relative;
   overflow: hidden;
-}
-
-.page-hero::after {
-  content: "";
-  position: absolute;
-  right: -120px;
-  bottom: -220px;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(43, 30, 24, .18);
-  box-shadow: 0 0 0 46px rgba(43, 30, 24, 0), 0 0 0 47px rgba(43, 30, 24, .12), 0 0 0 100px rgba(43, 30, 24, 0), 0 0 0 101px rgba(43, 30, 24, .08);
-  pointer-events: none;
 }
 
 .page-hero h1 {

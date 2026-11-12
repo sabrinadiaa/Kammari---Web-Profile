@@ -1,7 +1,7 @@
 /* Hero beranda */
 .hero {
   position: relative;
-  background: var(--peach);
+  background: var(--paper-2);   /* sebelumnya var(--peach) */
   overflow: hidden;
   padding-block: clamp(48px, 7vw, 96px) 0;
 }

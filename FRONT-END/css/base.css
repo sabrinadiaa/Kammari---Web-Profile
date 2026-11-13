@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playpen+Sans+Hebrew:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playpen+Sans+Hebrew:wght@600&family=Shrikhand&display=swap');
 
 /* Kammari Cafe & Roastery  |  BASE
    Isi: variabel, reset, komponen umum, HEADER, FOOTER
@@ -20,6 +20,7 @@
   --line: rgba(43, 26, 18, 0.16);
 
   --serif: "DM Serif Display", Georgia, serif;
+  --display: "norman-variable", "DM Serif Display", Georgia, serif;
   --logo-font: "Playpen Sans Hebrew", cursive;
   --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
 
@@ -301,6 +302,7 @@ p {
   position: relative;
   overflow: hidden;
 }
+
 
 .page-hero h1 {
   margin: 20px 0 18px;

@@ -6,17 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kammari Cafe & Roastery | Gresik dan Surabaya</title>
   <meta name="description" content="Kopi sangrai sendiri dan ruang yang tenang di Gresik dan Surabaya.">
+
+  <!-- Hanken Grotesk (teks isi) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Norman Variable (judul) dari Adobe Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/KODE_KAMU.css">
+
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/menu.css">
   <link rel="stylesheet" href="css/event.css">
-
-
 </head>
 
 <body data-page="home">
@@ -24,35 +26,54 @@
 
   <main>
     <!-- Hero -->
-    <section class="hero">
-      <div class="wrap hero__grid">
-        <div class="hero__text">
-          <h1 class="h-xl" data-in="2">Ketenangan dalam setiap seduhan.</h1>
-          <p class="lede" data-in="3">Ruang yang teduh di tengah kota. Kami menyangrai biji pilihan Nusantara sendiri,
-            lalu menyeduhnya di bangunan berarsitektur kayu, batu, dan cahaya alami.</p>
-          <div class="hero__cta" data-in="4">
-            <a class="btn" href="#cerita">Baca cerita kami</a>
-            <a class="btn btn--solid" href="menu.html">Lihat menu</a>
+    <section class="hero hero--wave">
+      <div class="hero__panel">
+        <div class="wrap hero__board">
+
+          <div class="hero__text" data-in="2">
+            <h1>Ketenangan dalam setiap seduhan.</h1>
+            <p class="lede">Ruang yang teduh di tengah kota. Kami menyangrai biji pilihan Nusantara sendiri,
+              lalu menyeduhnya di bangunan berarsitektur kayu, batu, dan cahaya alami.</p>
+            <div class="hero__cta">
+              <a class="btn" href="#cerita">Baca cerita kami</a>
+              <a class="btn btn--solid" href="menu.html">Lihat menu</a>
+            </div>
+
+            <div class="badge" aria-label="Kopi Asik, Momen Manis, Aroma Rileks, Istimewa">
+              <svg viewBox="0 0 148 148" aria-hidden="true">
+                <defs>
+                  <path id="circ" d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" />
+                </defs>
+                <text>
+                  <textPath href="#circ">Kopi Asik • Momen Manis • Aroma Rileks • Istimewa. •</textPath>
+                </text>
+              </svg>
+              <span class="badge__icon" aria-hidden="true">
+                <img src="assets/music.svg" alt="">
+              </span>
+            </div>
           </div>
-        </div>
-        <div class="hero__art" data-in="3">
-          <figure class="photo arch photo--shade" role="img" aria-label="Foto bar sangrai Kammari"
-          style="--src:url(..\assets\fasilitas\gresik\dinding-pajangan-seni.jpg)">
+
+          <figure class="photo round tile tile--r1" data-in="3" role="img" aria-label="Interior Kammari"
+            style="--src:url(assets/fasilitas/gresik/dinding-pajangan-seni.jpg)">
+            <figcaption>Ruang</figcaption>
           </figure>
-          <div class="badge" aria-label="Sangrai hari ini: Argopuro Natural Lot 04">
-            <svg viewBox="0 0 148 148" aria-hidden="true">
-              <defs>
-                <path id="circ" d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" />
-              </defs>
-              <text>
-                <textPath href="#circ">Sangrai hari ini • Argopuro Natural Lot 04 • Markisa dan cokelat hitam •
-                </textPath>
-              </text>
-            </svg>
-            <span aria-hidden="true">04</span>
-          </div>
+          <figure class="photo round tile tile--r2" data-in="3" role="img" aria-label="Kopi seduh manual"
+            style="--src:url(assets/hero/kopi.jpg)">
+            <figcaption>Slow bar</figcaption>
+          </figure>
+          <figure class="photo round tile tile--b1" data-in="4" role="img" aria-label="Biji kopi sangrai"
+            style="--src:url(assets/hero/biji.jpg)">
+            <figcaption>Roastery</figcaption>
+          </figure>
+          <figure class="photo round tile tile--b2" data-in="4" role="img" aria-label="Suasana Kammari"
+            style="--src:url(assets/hero/suasana.jpg)">
+            <figcaption>Suasana</figcaption>
+          </figure>
+
         </div>
       </div>
+
       <div class="hero__facts">
         <div class="wrap">
           <div class="fact"><strong>100%</strong><span>biji pilihan Nusantara</span></div>

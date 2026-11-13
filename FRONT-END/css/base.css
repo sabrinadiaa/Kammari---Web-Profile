@@ -4,6 +4,16 @@
    Isi: variabel, reset, komponen umum, HEADER, FOOTER
    Dipakai di SEMUA halaman. */
 
+
+@font-face {
+  font-family: "Belgiano Serif";
+  src: url("../assets/fonts/Belgiano Serif 2.ttf") format("truetype");
+  font-weight: 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 :root {
   --paper: #f8f3ec;      /* putih hangat (dinding) */
   --paper-2: #eadccb;    /* krem-cokelat muda untuk section tint */
@@ -19,8 +29,8 @@
   --bean: #4a2e20;
   --line: rgba(43, 26, 18, 0.16);
 
-  --serif: "DM Serif Display", Georgia, serif;
-  --display: "norman-variable", "DM Serif Display", Georgia, serif;
+  --serif: "Belgiano Serif", Georgia, serif;
+  --display: "Belgiano Serif", Georgia, serif;
   --logo-font: "Playpen Sans Hebrew", cursive;
   --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
 
@@ -66,7 +76,7 @@ h2,
 h3,
 h4 {
   font-family: var(--serif);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.1;
   margin: 0;
   letter-spacing: -0.015em;

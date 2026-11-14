@@ -1,0 +1,432 @@
+
+/* =====================================
+   KAMMARI CAFE - OWNER LOGIN
+   ===================================== */
+
+/* WARNA UTAMA */
+:root {
+  --cream: #f8f4ed;
+  --white: #ffffff;
+  --brown: #38251e;
+  --brown-light: #6d5548;
+  --terracotta: #ad6245;
+  --terracotta-hover: #915039;
+  --border: #e8ded2;
+  --muted: #8e8075;
+}
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+  min-height: 100vh;
+}
+
+/* =====================================
+   LAYOUT LOGIN
+   ===================================== */
+
+.login-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+/* =====================================
+   BAGIAN KIRI - BRAND
+   ===================================== */
+
+.login-brand {
+  background: var(--brown);
+  color: var(--cream);
+  padding: 65px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* DEKORASI SEDERHANA */
+.login-brand::after {
+  content: "";
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50%;
+
+  bottom: -220px;
+  right: -180px;
+
+  pointer-events: none;
+}
+
+/* LOGO */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #c5a98e;
+  border-radius: 50%;
+
+  font-family: 'Playfair Display', serif;
+  font-size: 23px;
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+
+/* CONTENT */
+.brand-content {
+  max-width: 470px;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #d9b89a;
+  margin-bottom: 22px;
+}
+
+.brand-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: clamp(38px, 4vw, 56px);
+  line-height: 1.2;
+  margin-bottom: 22px;
+}
+
+.brand-content h1 span {
+  color: #d7af90;
+}
+
+.brand-description {
+  color: #cdbdb1;
+  font-size: 15px;
+  line-height: 1.9;
+  max-width: 390px;
+}
+
+.brand-footer {
+  font-size: 12px;
+  color: #ab9588;
+}
+
+/* =====================================
+   BAGIAN KANAN - LOGIN
+   ===================================== */
+
+.login-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 50px 30px;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 410px;
+}
+
+/* HEADER */
+.login-header {
+  margin-bottom: 36px;
+}
+
+.welcome-label {
+  color: var(--terracotta);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 13px;
+}
+
+.login-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 37px;
+  margin-bottom: 12px;
+}
+
+.login-header > p:not(.welcome-label) {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =====================================
+   FORM LOGIN
+   ===================================== */
+
+.form-group {
+  margin-bottom: 23px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-group input {
+  width: 100%;
+  height: 52px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  padding: 0 15px;
+
+  background: var(--white);
+
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--brown);
+
+  outline: none;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form-group input::placeholder {
+  color: #aa9d93;
+}
+
+.form-group input:focus {
+  border-color: var(--terracotta);
+  box-shadow: 0 0 0 3px rgba(173,98,69,0.1);
+}
+
+/* PASSWORD */
+.password-input {
+  padding-right: 65px !important;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  background: none;
+  border: none;
+
+  color: var(--terracotta);
+  font-size: 12px;
+  font-weight: 700;
+
+  padding: 7px;
+  cursor: pointer;
+}
+
+/* REMEMBER ME */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 29px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--brown-light);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.remember-me input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--terracotta);
+}
+
+/* =====================================
+   TOMBOL LOGIN
+   ===================================== */
+
+.login-button {
+  width: 100%;
+  height: 52px;
+
+  background: var(--terracotta);
+  color: var(--white);
+
+  border: none;
+  border-radius: 10px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-button:hover {
+  background: var(--terracotta-hover);
+}
+
+.login-button:focus-visible,
+.toggle-password:focus-visible {
+  outline: 3px solid #d9b89a;
+  outline-offset: 3px;
+}
+
+/* PESAN LOGIN */
+.login-message {
+  display: none;
+
+  margin-top: 16px;
+  padding: 12px;
+
+  font-size: 13px;
+  line-height: 1.6;
+
+  color: #955234;
+  background: #fff6ed;
+
+  border: 1px solid #e5c8b5;
+  border-radius: 9px;
+}
+
+.login-message.show {
+  display: block;
+}
+
+/* =====================================
+   FOOTER LOGIN
+   ===================================== */
+
+.login-footer {
+  text-align: center;
+
+  margin-top: 35px;
+  padding-top: 24px;
+
+  border-top: 1px solid var(--border);
+}
+
+.login-footer p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.login-footer a {
+  color: var(--terracotta);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* =====================================
+   RESPONSIVE TABLET & MOBILE
+   ===================================== */
+
+@media (max-width: 850px) {
+
+  .login-container {
+    grid-template-columns: 1fr;
+  }
+
+  .login-brand {
+    min-height: 230px;
+    padding: 30px;
+    gap: 35px;
+  }
+
+  .brand-content h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+
+  .brand-description {
+    font-size: 13px;
+  }
+
+  .brand-label {
+    margin-bottom: 12px;
+  }
+
+  .brand-footer {
+    display: none;
+  }
+
+  .login-section {
+    padding: 55px 25px;
+  }
+
+  .login-header h2 {
+    font-size: 32px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .login-brand {
+    padding: 25px;
+  }
+
+  .logo-text {
+    font-size: 21px;
+  }
+
+  .brand-content h1 {
+    font-size: 27px;
+  }
+
+  .login-section {
+    padding: 40px 22px;
+  }
+
+  .login-header h2 {
+    font-size: 29px;
+  }
+
+}

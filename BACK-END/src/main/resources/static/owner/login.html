@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login Owner | Kammari Café</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS Login -->
+  <link rel="stylesheet" href="css/login.css">
+
+  <!-- JavaScript Login -->
+  <script src="js/login.js" defer></script>
+</head>
+
+<body>
+
+  <main class="login-container">
+
+    <!-- BAGIAN KIRI: BRAND KAMMARI -->
+    <section class="login-brand">
+
+      <div class="brand-logo">
+        <div class="logo-icon">K</div>
+        <span class="logo-text">KAMMARI</span>
+      </div>
+
+      <div class="brand-content">
+
+        <p class="brand-label">
+          Owner Management System
+        </p>
+
+        <h1>
+          Kelola Kammari,<br>
+          <span>Dalam Satu Ruang.</span>
+        </h1>
+
+        <p class="brand-description">
+          Satu tempat untuk mengelola menu, event,
+          fasilitas, dan informasi cabang Kammari Café
+          dengan lebih mudah dan terorganisir.
+        </p>
+
+      </div>
+
+      <div class="brand-footer">
+        © 2026 Kammari Café. All rights reserved.
+      </div>
+
+    </section>
+
+
+    <!-- BAGIAN KANAN: FORM LOGIN -->
+    <section class="login-section">
+
+      <div class="login-box">
+
+        <div class="login-header">
+
+          <p class="welcome-label">
+            Welcome Back
+          </p>
+
+          <h2>Masuk sebagai Owner</h2>
+
+          <p>
+            Silakan masuk menggunakan akun Owner
+            untuk mengakses dashboard Kammari Café.
+          </p>
+
+        </div>
+
+
+        <!-- FORM -->
+        <form id="loginForm">
+
+          <!-- EMAIL -->
+          <div class="form-group">
+
+            <label for="email">
+              Email
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Masukkan email Owner"
+              autocomplete="username"
+              required
+            >
+
+          </div>
+
+
+          <!-- PASSWORD -->
+          <div class="form-group">
+
+            <label for="password">
+              Password
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="password-input"
+                placeholder="Masukkan password"
+                autocomplete="current-password"
+                required
+              >
+
+              <button
+                type="button"
+                id="togglePassword"
+                class="toggle-password"
+                aria-label="Tampilkan password"
+                aria-pressed="false"
+              >
+                Lihat
+              </button>
+              
+            </div>
+
+          </div>
+
+
+          <!-- REMEMBER ME -->
+          <div class="form-options">
+
+            <label class="remember-me">
+
+              <input
+                type="checkbox"
+                id="remember"
+              >
+
+              Ingat email saya
+
+            </label>
+
+          </div>
+
+
+          <!-- TOMBOL LOGIN -->
+          <button
+            type="submit"
+            class="login-button"
+          >
+            Masuk ke Dashboard
+          </button>
+
+          <!-- PESAN LOGIN -->
+          <p
+            id="loginMessage"
+            class="login-message"
+            role="status"
+            aria-live="polite"
+          ></p>
+
+        </form>
+
+
+        <!-- FOOTER -->
+        <div class="login-footer">
+
+          <p>
+            Kembali ke website utama?
+            <a href="../index.html">
+              Kunjungi Kammari
+            </a>
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

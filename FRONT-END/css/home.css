@@ -15,6 +15,7 @@
     "b1   b2   r2";
   gap: 14px;
   padding-bottom: clamp(24px, 3vw, 40px);
+  align-items: stretch;
 }
 
 .hero__text {
@@ -22,6 +23,9 @@
   position: relative;
   align-self: center;
   padding: 8px 0 12px;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
 }
 
 .hero h1 {
@@ -40,7 +44,8 @@
   font-size: .95rem;
   line-height: 1.65;
   margin-bottom: 22px;
-  max-width: 44ch;
+  max-width: 80ch;
+  width: 100%;
 }
 
 .hero__cta {
@@ -118,8 +123,8 @@
 }
 
 .badge .badge__icon img {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   object-fit: contain;
   filter: brightness(0) saturate(100%) invert(31%) sepia(34%)
           saturate(1550%) hue-rotate(342deg) brightness(88%);
@@ -323,8 +328,8 @@
   }
 
   .badge {
-    width: 92px;
-    height: 92px;
+    width: 70px;
+    height: 70px;
     right: 0;
     bottom: -10px;
   }
@@ -571,3 +576,224 @@
   }
 }
 
+.arch-band {
+  background: var(--paper);      /* bukan cokelat lagi: cokelatnya sekarang ada di dalam SVG */
+  overflow: hidden;
+  line-height: 0;
+}
+
+.arch-band__svg {
+  position: relative;
+  left: 50%;
+  display: block;
+  width: max(100%, 900px);
+  height: auto;
+  overflow: visible;
+  transform: translateX(-50%);
+}
+
+.arch-band__bg  { fill: var(--espresso); }   /* samakan dengan warna pita foto */
+.arch-band__cap { fill: var(--paper); }
+
+/* krem di dalam, garis cokelat gelap di tepi, font logo */
+.arch-band__text {
+  font-family: "Playpen Sans Hebrew", "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 64px;
+  letter-spacing: .02em;
+  fill: var(--paper);
+  stroke: var(--espresso);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  user-select: none;
+}
+
+@media (min-width: 861px) {
+  .hero__text {
+    padding-right: 12px;
+  }
+
+  .hero h1 {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero h1 {
+    max-width: 100%;
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+  }
+
+  .hero .lede {
+    max-width: 100%;
+  }
+}
+
+
+/* Tampilan cerita Kammari pada mobile */
+@media (max-width: 560px) {
+
+  .story {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-areas:
+      "photos title"
+      "photos description"
+      "values values";
+    column-gap: 16px;
+    row-gap: 20px;
+    align-items: start;
+  }
+
+  /* Membuat isi cerita bisa diatur dalam grid */
+  .story > div:last-child {
+    display: contents;
+  }
+
+  /* Foto di sebelah kiri */
+  .story__photos {
+    grid-area: photos;
+    position: relative;
+    width: 100%;
+    height: 290px;
+    min-width: 0;
+  }
+
+  .story__photos .photo:nth-child(1) {
+    left: 0;
+    top: 0;
+    width: 85%;
+    height: 78%;
+  }
+
+  .story__photos .photo:nth-child(2) {
+    right: 0;
+    bottom: 0;
+    width: 75%;
+    height: 62%;
+  }
+
+  .story__est {
+    left: 0;
+    bottom: 0;
+  }
+
+  .story__est b {
+    font-size: 1.8rem;
+  }
+
+  /* Judul cerita di sebelah kanan */
+  .story h2 {
+    grid-area: title;
+    font-size: clamp(1.35rem, 5vw, 1.7rem);
+    line-height: 1.15;
+    margin: 0 0 10px !important;
+    min-width: 0;
+  }
+
+  /* Deskripsi cerita */
+  .story > div:last-child > .lede {
+    grid-area: description;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+    min-width: 0;
+  }
+
+  /* Dua informasi dipindahkan ke bawah */
+  .values {
+    grid-area: values;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 0;
+  }
+
+  .value {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 10px;
+    min-width: 0;
+  }
+
+  .value svg {
+    width: 24px;
+    height: 24px;
+    margin-top: 0;
+  }
+
+  .value h3 {
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  .value .small {
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+}
+
+.story__photos .photo {
+  overflow: hidden;
+  margin: 0;
+}
+
+.story__photos .photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.story__caption {
+  position: absolute;
+  font-family: "Autery", cursive;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #a84326;
+  z-index: 2;
+}
+
+/* Tulisan kanan atas: sedikit turun */
+.story__caption--top {
+  top: 25%;
+  right: -5%;
+  transform: rotate(-5deg);
+}
+
+/* Tulisan kiri bawah: sedikit ke kanan */
+.story__caption--bottom {
+  bottom: 10%;
+  left: 5%;
+  transform: rotate(-5deg);
+}
+
+@media (max-width: 600px) {
+
+  .story__photos {
+    position: relative;
+    overflow: visible;
+  }
+
+  /* Tulisan kanan atas */
+  .story__caption--top {
+    top: -8%;
+    right: -8%;
+    left: auto;
+    z-index: 10;
+    transform: rotate(-5deg);
+  }
+
+  /* Tulisan kiri bawah */
+  .story__caption--bottom {
+    bottom: 8%;
+    left: -10px;
+    right: auto;
+    z-index: 10;
+    transform: rotate(-5deg);
+  }
+
+}

@@ -2,7 +2,9 @@
 
 /* Kammari Cafe & Roastery  |  BASE
    Isi: variabel, reset, komponen umum, HEADER, FOOTER
-   Dipakai di SEMUA halaman. */
+   Dipakai di SEMUA halaman.
+
+   Ukuran seluruh halaman diatur oleh 'zoom' di blok html (cari kata UKURAN). */
 
 
 @font-face {
@@ -13,11 +15,19 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Autery";
+  src: url("../assets/fonts/Autery.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 :root {
   --paper: #f8f3ec;      /* putih hangat (dinding) */
   --paper-2: #eadccb;    /* krem-cokelat muda untuk section tint */
-  --peach: #d6b088;      /* karamel / kayu muda: hero */
+  --peach: #d6b088;      /* karamel / kayu muda */
   --peach-deep: #b8844f;
   --espresso: #2b1a12;   /* cokelat gelap: teks & tombol */
   --soft: #6e4f3c;       /* cokelat sedang: teks sekunder */
@@ -34,8 +44,9 @@
   --logo-font: "Playpen Sans Hebrew", cursive;
   --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --gutter: clamp(20px, 5vw, 72px);
-  --max: 1200px;
+  --gutter: clamp(24px, 4vw, 70px);
+  --max: 1480px;
+  --nav-h: 58px;
   --r-sm: 10px;
   --r-md: 20px;
   --arch: 999px 999px 18px 18px;
@@ -49,6 +60,7 @@
 
 html {
   scroll-behavior: smooth;
+  zoom: 0.85;   /* UKURAN: perkecil SELURUH halaman. 0.85 = 85%. Ubah angkanya: 0.8 lebih kecil, 0.9 lebih besar */
 }
 
 body {
@@ -108,7 +120,7 @@ p {
 }
 
 .section {
-  padding-block: clamp(72px, 10vw, 140px);
+  padding-block: clamp(30px, 4vw, 60px);
 }
 
 .section--tint {
@@ -203,7 +215,7 @@ p {
   height: 18px;
 }
 
-/*Foto (placeholder siap diganti) */
+/* Foto (placeholder siap diganti) */
 .photo {
   position: relative;
   margin: 0;
@@ -213,9 +225,9 @@ p {
     var(--src, none),
     radial-gradient(
       120% 90% at 30% 15%,
-      #fbe0bf 0%,
+      #e8cfae 0%,
       var(--peach) 38%,
-      #c98f5c 100%
+      #a8733f 100%
     );
 
   background-size: cover;
@@ -320,7 +332,7 @@ p {
 }
 
 .page-hero .lede {
-  color: #5a4538;
+  color: var(--soft);
 }
 
 /* HEADER */
@@ -338,7 +350,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  height: var(--nav-h);
 }
 
 .logo {
@@ -413,7 +425,7 @@ p {
 
 .nav__actions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -436,57 +448,35 @@ p {
   color: var(--paper);
 }
 
-.icon-btn--wa {
-  background: var(--clay);
-  color: #fff;
-}
-
-.icon-btn--wa:hover {
-  background: var(--clay-dark);
-}
-
 .icon-btn svg {
   width: 19px;
   height: 19px;
 }
 
-/* Pengaturan ikon header */
-.nav__actions {
-  gap: 8px;
+/* Ikon sosial header (WhatsApp & Instagram): tanpa latar, merah bata */
+.nav__actions > a.icon-btn--wa,
+.nav__actions > a.icon-btn--ig {
+  background: none !important;
+  border: 0;
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
+  padding: 6px;
+  border-radius: 0;
 }
 
-.nav__actions>a.icon-btn {
-  width: 42px;
-  height: 42px;
-  flex: 0 0 42px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
+.nav__actions > a.icon-btn--wa:hover,
+.nav__actions > a.icon-btn--ig:hover {
+  background: none !important;
+  transform: translateY(-2px);
 }
 
-.nav__actions>a.icon-btn svg {
-  width: 19px;
-  height: 19px;
-}
-
-.nav__actions>a.icon-btn--wa {
-  background: #f3eadb;
-  color: #a23f25;
-}
-
-.nav__actions>a.icon-btn--ig {
-  background: #a23f25;
-  color: #f3eadb;
-}
-
-.nav__actions>a.icon-btn--wa:hover {
-  background: #eadfce;
-  color: #a23f25;
-}
-
-.nav__actions>a.icon-btn--ig:hover {
-  background: #7f2d19;
-  color: #f3eadb;
+.nav__actions .icon-btn img {
+  width: 24px;
+  height: 24px;
+  transition: transform .2s;
+  filter: brightness(0) saturate(100%) invert(31%) sepia(34%)
+          saturate(1550%) hue-rotate(342deg) brightness(88%) !important;
 }
 
 .nav__toggle {
@@ -506,7 +496,7 @@ p {
 
   .nav__links {
     position: absolute;
-    inset: 72px 0 auto 0;
+    inset: var(--nav-h) 0 auto 0;
     flex-direction: column;
     background: var(--paper);
     border-bottom: 1px solid var(--line);
@@ -644,29 +634,4 @@ p {
     transform: none;
     transition: none;
   }
-}
-/* Ikon header: tanpa latar, merah bata */
-.nav__actions > a.icon-btn--wa,
-.nav__actions > a.icon-btn--ig {
-  background: none !important;
-  border: 0;
-  width: auto;
-  height: auto;
-  flex: 0 0 auto;
-  padding: 6px;
-  border-radius: 0;
-}
-
-.nav__actions > a.icon-btn--wa:hover,
-.nav__actions > a.icon-btn--ig:hover {
-  background: none !important;
-  transform: translateY(-2px);
-}
-
-.nav__actions .icon-btn img {
-  width: 24px;
-  height: 24px;
-  transition: transform .2s;
-  filter: brightness(0) saturate(100%) invert(31%) sepia(34%)
-          saturate(1550%) hue-rotate(342deg) brightness(88%) !important;
 }

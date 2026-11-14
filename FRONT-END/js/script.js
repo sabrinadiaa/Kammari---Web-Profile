@@ -1172,3 +1172,36 @@ if (document.readyState === "loading") {
 } else {
   loadEventsFromDatabase();
 }
+
+/* ---------- Pita lengkung: tulisan "kammari" berjalan ---------- */
+(function archMarquee() {
+  const tp = document.getElementById("arch-tp");
+  const probe = document.getElementById("arch-probe");
+  if (!tp || !probe) return;
+
+  const UNIT = "kammari •\u00A0";   // satu kata + 1 spasi: makin sedikit spasi, makin rapat
+  const SPEED = 0.04;             // px per milidetik (0.04 = 40 px/detik)
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let unitW = 0, pos = 0, last = 0;
+
+  function build() {
+    probe.textContent = UNIT;
+    unitW = probe.getComputedTextLength();
+    if (!unitW) return;
+    tp.textContent = UNIT.repeat(Math.ceil(2300 / unitW) + 2);
+  }
+
+  function tick(t) {
+    if (!last) last = t;
+    pos = (pos + (t - last) * SPEED) % unitW;
+    last = t;
+    tp.setAttribute("startOffset", -pos);
+    requestAnimationFrame(tick);
+  }
+
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    build();
+    if (unitW && !reduce) requestAnimationFrame(tick);
+  });
+})();

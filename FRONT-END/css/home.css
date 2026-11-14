@@ -130,6 +130,39 @@
           saturate(1550%) hue-rotate(342deg) brightness(88%);
 }
 
+
+/* Interaksi badge musik */
+button.badge {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+button.badge:hover {
+  transform: scale(1.05);
+}
+
+button.badge:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 5px;
+}
+
+/* Animasi ketika musik diputar */
+.badge.is-playing .badge__icon img {
+  animation: music-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes music-pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -430,7 +463,7 @@
 /* Posisi tombol tepat di samping kartu ketiga */
 .featured-carousel-wrap>.featured-carousel-nav {
   position: absolute;
-  top: 30%;
+  top: 50%;
   right: 0;
   transform: translateY(-50%);
   display: flex;
@@ -451,7 +484,7 @@
   border: none;
   background: transparent;
   color: var(--espresso);
-  font: 400 38px/1 var(--sans);
+  font: 700 38px/1 var(--sans);
   cursor: pointer;
   transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -473,23 +506,47 @@
   }
 }
 
-/* HP: 1 kartu */
+
+/* HP: 2 kolom dengan posisi selang-seling */
 @media (max-width: 560px) {
+
   .featured-carousel-wrap {
-    padding-right: 42px;
+    padding-right: 0;
   }
 
-  #featured.dishes>.dish {
-    flex-basis: 100%;
+  #featured.dishes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
     width: 100%;
+    overflow: visible;
+    scroll-snap-type: none;
   }
 
-  .featured-carousel-nav .carousel-arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 32px;
+  #featured.dishes > .dish {
+    width: 100%;
+    min-width: 0;
+    flex: none;
+    scroll-snap-align: none;
+  }
+
+  /* Kartu genap turun sedikit */
+  #featured.dishes > .dish:nth-child(even) {
+    transform: translateY(30px);
+  }
+
+  /* Bentuk lengkungan bagian atas */
+  #featured.dishes > .dish {
+    border-radius: 100px 100px 0 0;
+    overflow: hidden;
+  }
+
+  /* Hilangkan tombol carousel di HP */
+  .featured-carousel-nav {
+    display: none;
   }
 }
+
 
 /* Cabang */
 .branches {
@@ -751,7 +808,7 @@
 .story__caption {
   position: absolute;
   font-family: "Autery", cursive;
-  font-size: 20px;
+  font-size: 21px;
   line-height: 1.4;
   color: #a84326;
   z-index: 2;
@@ -760,7 +817,7 @@
 /* Tulisan kanan atas: sedikit turun */
 .story__caption--top {
   top: 25%;
-  right: -5%;
+  right: -1%;
   transform: rotate(-5deg);
 }
 
@@ -789,11 +846,143 @@
 
   /* Tulisan kiri bawah */
   .story__caption--bottom {
-    bottom: 8%;
+    bottom: 5%;
     left: -10px;
     right: auto;
     z-index: 10;
     transform: rotate(-5deg);
   }
 
+}
+
+/* Mengurangi jarak kosong di atas cerita pada desktop */
+@media (min-width: 861px) {
+  #cerita.section {
+    padding-top: 28px;
+  }
+}
+/* Posisi tulisan di sebelah kanan judul */
+.featured-intro {
+  flex: 0 1 430px;
+  max-width: 430px;
+  margin: 0;
+}
+
+/* Tampilan HP */
+@media (max-width: 768px) {
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .featured-intro {
+    flex: none;
+    max-width: 100%;
+  }
+}
+
+
+/* Spotify Player */
+
+.spotify-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  width: min(352px, calc(100vw - 32px));
+  padding: 12px;
+  background: var(--paper);
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(43, 30, 24, .2);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(15px);
+  transition: .3s ease;
+}
+
+.spotify-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.spotify-panel__header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 42px 12px 4px;
+  color: var(--espresso);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#spotify-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: var(--espresso);
+  color: white;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+#spotify-embed {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+@media (max-width: 560px) {
+  .spotify-panel {
+    right: 12px;
+    bottom: 12px;
+    width: calc(100vw - 24px);
+  }
+}
+
+
+.spotify-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.spotify-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  color: var(--espresso);
+}
+
+#spotify-close {
+  border: none;
+  background: none;
+  font-size: 25px;
+  cursor: pointer;
+  color: var(--espresso);
+}
+
+#spotify-embed {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+@media (max-width: 560px) {
+  .spotify-panel {
+    right: 12px;
+    bottom: 12px;
+    width: calc(100vw - 24px);
+  }
 }

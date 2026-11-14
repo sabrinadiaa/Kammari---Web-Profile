@@ -238,78 +238,18 @@ function dishCard(item, showBranch) {
 
 /* ---------- Beranda: menu rekomendasi + pemilih mood ---------- */
 
+
 const featured = document.getElementById("featured");
 
 if (featured) {
-  const chips = document.getElementById("featured-chips");
-
-  // Filter beranda sesuai kategori di database
-  const FILTERS = [
-  {
-    key: "semua",
-    label: "Semua",
-    cats: null
-  },
-  {
-    key: "kopi",
-    label: "Kopi",
-    cats: ["coffee-based", "kopi"]
-  },
-  {
-    key: "minuman",
-    label: "Minuman",
-    cats: [
-      "signature",
-      "tea-based",
-      "milk-based",
-      "menu-seasonal"
-    ]
-  },
-  {
-    key: "makanan",
-    label: "Makanan Berat",
-    cats: [
-      "main-course",
-      "makanan-utama",
-      "makanan-berat"
-    ]
-  },
-  {
-    key: "camilan",
-    label: "Camilan",
-    cats: [
-      "snack",
-      "makanan-ringan",
-      "makanan-penutup",
-      "dessert"
-    ]
-  },
-  {
-    key: "combo",
-    label: "Combo",
-    cats: [
-      "combo-makassar",
-      "combo-penak"
-    ]
-  }
-];
-
-  const FAVORITES = [
-  "Milo Malaysia Ashoy",
-  "Thai Basil Chicken",
-  "Mee Nyedas Kami",
-  "Kentang Goreng Masala",
-  "Teh Jasmine"
-];
-
-  let activeFilter = "semua";
-
   const wrapper =
     featured.closest(".featured-carousel-wrap");
 
+  // Hapus navigasi lama jika ada
   document.querySelectorAll(".featured-carousel-nav")
     .forEach(el => el.remove());
 
+  // Tombol panah carousel
   const nav = document.createElement("div");
   nav.className = "featured-carousel-nav";
 
@@ -324,11 +264,18 @@ if (featured) {
     </button>
   `;
 
-  (wrapper || featured.parentElement)
-    .appendChild(nav);
+  (wrapper || featured.parentElement).appendChild(nav);
 
   const prevBtn = nav.querySelector(".carousel-prev");
   const nextBtn = nav.querySelector(".carousel-next");
+
+  const FAVORITES = [
+    "Milo Malaysia Ashoy",
+    "Thai Basil Chicken",
+    "Mee Nyedas Kami",
+    "Kentang Goreng Masala",
+    "Teh Jasmine"
+  ];
 
   function updateArrows() {
     const maxScroll =
@@ -340,40 +287,9 @@ if (featured) {
       featured.scrollLeft >= maxScroll - 2;
   }
 
-  // Tampilkan filter yang memiliki menu
-  function renderFilters() {
-    const available = FILTERS.filter(filter =>
-      filter.key === "semua" ||
-      MENU.some(item => filter.cats.includes(item.cat))
-    );
-
-    if (!available.some(f => f.key === activeFilter)) {
-      activeFilter = "semua";
-    }
-
-    chips.innerHTML = available.map(filter => `
-      <button type="button"
-              class="chip"
-              data-key="${filter.key}"
-              aria-pressed="${filter.key === activeFilter}">
-        ${filter.label}
-      </button>
-    `).join("");
-  }
-
-  // Isi kartu berasal dari MENU hasil API MySQL
+  // Tampilkan menu rekomendasi tanpa filter kategori
   function draw() {
-    const filter = FILTERS.find(
-      f => f.key === activeFilter
-    );
-
-    const matches = MENU.filter(item =>
-      !filter.cats || filter.cats.includes(item.cat)
-    );
-
-    // Utamakan menu yang sudah memiliki foto
-    const list = activeFilter === "semua"
-  ? [
+    const list = [
       ...FAVORITES
         .map(name =>
           MENU.find(item =>
@@ -382,43 +298,20 @@ if (featured) {
         )
         .filter(Boolean),
 
-      ...matches.filter(item =>
+      ...MENU.filter(item =>
         !FAVORITES.some(name =>
           name.toLowerCase() === item.name.toLowerCase()
         )
       )
-    ].slice(0, 5)
+    ].slice(0, 5);
 
-  : matches
-      .sort((a, b) =>
-        Number(Boolean(b.image)) -
-        Number(Boolean(a.image))
-      )
-      .slice(0, 5);
-    
     featured.innerHTML = list.length
       ? list.map(item => dishCard(item, false)).join("")
-      : `<p class="empty">Belum ada menu pada kategori ini.</p>`;
+      : `<p class="empty">Belum ada menu tersedia.</p>`;
 
     featured.scrollLeft = 0;
     requestAnimationFrame(updateArrows);
   }
-
-  chips.addEventListener("click", event => {
-    const btn = event.target.closest("button[data-key]");
-    if (!btn || !chips.contains(btn)) return;
-
-    activeFilter = btn.dataset.key;
-
-    chips.querySelectorAll("button").forEach(b => {
-      b.setAttribute(
-        "aria-pressed",
-        String(b === btn)
-      );
-    });
-
-    draw();
-  });
 
   function move(direction) {
     const card = featured.querySelector(".dish");
@@ -442,13 +335,10 @@ if (featured) {
 
   window.addEventListener("resize", updateArrows);
 
-  // Render ulang setelah data MySQL berhasil diambil
   document.addEventListener(
     "kammari-menu-loaded",
     ({ detail }) => {
       if (detail.branch !== "gresik") return;
-
-      renderFilters();
       draw();
     }
   );
@@ -466,10 +356,10 @@ if (featured) {
     `<p class="empty">Memuat pilihan menu...</p>`;
 
   if (MENU.length) {
-    renderFilters();
     draw();
   }
 }
+
 
 const pickerOut = document.getElementById("picker-out");
 if (pickerOut) {
@@ -1196,3 +1086,154 @@ if (document.readyState === "loading") {
     if (unitW && !reduce) requestAnimationFrame(tick);
   });
 })();
+
+
+
+/* ---------- SPOTIFY PLAYER KAMMARI ---------- */
+
+const musicToggle = document.getElementById("music-toggle");
+const spotifyPanel = document.getElementById("spotify-panel");
+const spotifyEmbed = document.getElementById("spotify-embed");
+const spotifyClose = document.getElementById("spotify-close");
+
+const PLAYLIST_URI =
+  "spotify:playlist:2XGX0bicft4fkI7nTD8Ze7";
+
+let spotifyController = null;
+let isPlaying = false;
+let userRequestedPlay = false;
+
+// Buka atau tutup panel
+function setSpotifyPanel(open) {
+  if (!spotifyPanel) return;
+
+  spotifyPanel.classList.toggle("is-open", open);
+  spotifyPanel.setAttribute("aria-hidden", String(!open));
+}
+
+// Update status badge
+function updateMusicStatus(playing) {
+  isPlaying = playing;
+
+  if (musicToggle) {
+    musicToggle.classList.toggle("is-playing", playing);
+    musicToggle.setAttribute("aria-pressed", String(playing));
+  }
+}
+
+// Menunggu Spotify API siap
+window.onSpotifyIframeApiReady = (IFrameAPI) => {
+
+  if (!spotifyEmbed) return;
+
+  IFrameAPI.createController(
+    spotifyEmbed,
+    {
+      uri: PLAYLIST_URI,
+      width: "100%",
+      height: "352"
+    },
+    (controller) => {
+
+      spotifyController = controller;
+
+      // Memantau status pemutaran
+      controller.addListener("playback_update", (event) => {
+        updateMusicStatus(!event.data.isPaused);
+      });
+
+      // Ketika Spotify siap
+      controller.addListener("ready", () => {
+
+        if (userRequestedPlay) {
+          controller.play();
+          userRequestedPlay = false;
+        } else {
+          // Mencoba autoplay ketika website dibuka.
+          // Browser mungkin tetap memblokirnya.
+          controller.play();
+        }
+
+      });
+
+    }
+  );
+};
+
+// Memuat Spotify iFrame API
+const spotifyScript = document.createElement("script");
+
+spotifyScript.src =
+  "https://open.spotify.com/embed/iframe-api/v1";
+
+spotifyScript.async = true;
+
+document.head.appendChild(spotifyScript);
+
+// Klik badge musik
+if (musicToggle) {
+
+  musicToggle.addEventListener("click", () => {
+
+    const panelIsOpen =
+      spotifyPanel.classList.contains("is-open");
+
+    setSpotifyPanel(true);
+
+    if (!spotifyController) {
+      userRequestedPlay = true;
+      return;
+    }
+
+    // Jika player sedang bermain dan panel baru dibuka,
+    // cukup tampilkan player tanpa menghentikan lagu.
+    if (!panelIsOpen && isPlaying) {
+      return;
+    }
+
+    if (isPlaying) {
+      spotifyController.pause();
+    } else {
+      spotifyController.play();
+    }
+
+  });
+
+}
+
+// Klik tombol X
+if (spotifyClose) {
+
+  spotifyClose.addEventListener("click", () => {
+
+    // Musik ikut berhenti ketika player ditutup
+    if (spotifyController) {
+      spotifyController.pause();
+    }
+
+    updateMusicStatus(false);
+    setSpotifyPanel(false);
+
+  });
+
+}
+
+
+/* Tutup Spotify Player ketika klik di luar popup */
+
+document.addEventListener("click", (event) => {
+
+  if (!spotifyPanel || !musicToggle) return;
+
+  const clickedInsidePopup =
+    spotifyPanel.contains(event.target);
+
+  const clickedMusicBadge =
+    musicToggle.contains(event.target);
+
+  // Tutup popup jika klik di luar popup dan badge
+  if (!clickedInsidePopup && !clickedMusicBadge) {
+    setSpotifyPanel(false);
+  }
+
+});

@@ -23,77 +23,175 @@
 <body data-page="home">
   <header id="site-header"></header>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero hero--wave">
-      <div class="hero__panel">
-        <div class="wrap hero__board">
 
-          <div class="hero__text" data-in="2">
-            <h1>Ketenangan Dalam Setiap Seduhan.</h1>
-            <p class="lede">Ruang yang teduh di tengah kota. Kami menyangrai biji pilihan Nusantara sendiri,
-              lalu menyeduhnya di bangunan berarsitektur kayu, batu, dan cahaya alami.</p>
-            <div class="hero__cta">
-              <a class="btn" href="#cerita">Baca cerita kami</a>
-              <a class="btn btn--solid" href="menu.html">Lihat menu</a>
+    <main>
+      <!-- Hero -->
+      <section class="hero hero--wave">
+        <div class="hero__panel">
+          <div class="wrap hero__board">
+
+            <div class="hero__text" data-in="2">
+
+              <h1>Ketenangan Dalam Setiap Seduhan.</h1>
+
+              <p class="lede">
+                Ruang yang teduh di tengah kota. Kami menyangrai biji pilihan Nusantara sendiri,
+                lalu menyeduhnya di bangunan berarsitektur kayu, batu, dan cahaya alami.
+              </p>
+
+              <div class="hero__cta">
+                <a class="btn" href="#cerita">Baca cerita kami</a>
+                <a class="btn btn--solid" href="menu.html">Lihat menu</a>
+              </div>
+
+              <!-- Music Badge -->
+              <button
+                class="badge"
+                id="music-toggle"
+                type="button"
+                aria-label="Putar atau jeda musik Kammari"
+                aria-pressed="false"
+              >
+                <svg viewBox="0 0 148 148" aria-hidden="true">
+                  <defs>
+                    <path
+                      id="circ"
+                      d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"
+                    />
+                  </defs>
+
+                  <text>
+                    <textPath href="#circ">
+                      Kopi Asik • Momen Manis • Aroma Rileks • Istimewa. •
+                    </textPath>
+                  </text>
+                </svg>
+
+                <span class="badge__icon" aria-hidden="true">
+                  <img src="assets/music.svg" alt="">
+                </span>
+              </button>
+
+              <!-- Spotify Player -->
+              <div
+                class="spotify-panel"
+                id="spotify-panel"
+                aria-hidden="true"
+              >
+                <div class="spotify-panel__header">
+                  <span>Now Playing · Kammari</span>
+
+                  <button
+                    type="button"
+                    id="spotify-close"
+                    aria-label="Tutup pemutar musik"
+                  >
+                    &times;
+                  </button>
+                </div>
+
+                <div id="spotify-embed"></div>
+              </div>
+
             </div>
 
-            <div class="badge" aria-label="Kopi Asik, Momen Manis, Aroma Rileks, Istimewa">
-              <svg viewBox="0 0 148 148" aria-hidden="true">
-                <defs>
-                  <path id="circ" d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" />
-                </defs>
-                <text>
-                  <textPath href="#circ">Kopi Asik • Momen Manis • Aroma Rileks • Istimewa. •</textPath>
-                </text>
-              </svg>
-              <span class="badge__icon" aria-hidden="true">
-                <img src="assets/music.svg" alt="">
-              </span>
-            </div>
+            <!-- Hero Images -->
+            <figure
+              class="photo round tile tile--r1"
+              data-in="3"
+              role="img"
+              aria-label="Interior Kammari"
+              style="--src:url(../assets/fasilitas/gresik/area-baca-dan-meja.jpg)"
+            >
+            </figure>
+
+            <figure
+              class="photo round tile tile--r2"
+              data-in="3"
+              role="img"
+              aria-label="Kopi seduh manual"
+              style="--src:url(../assets/fasilitas/gresik/area-duduk-dekat-jendela.jpg)"
+            >
+            </figure>
+
+            <figure
+              class="photo round tile tile--b1"
+              data-in="4"
+              role="img"
+              aria-label="Biji kopi sangrai"
+              style="--src:url(../assets/fasilitas/gresik/ruang-utama-pajangan-seni.jpeg)"
+            >
+            </figure>
+
+            <figure
+              class="photo round tile tile--b2"
+              data-in="4"
+              role="img"
+              aria-label="Suasana Kammari"
+              style="--src:url(../assets/fasilitas/gresik/papan-menu-dan-dekorasi.jpg)"
+            >
+            </figure>
+
           </div>
-
-          <figure class="photo round tile tile--r1" data-in="3" role="img" aria-label="Interior Kammari"
-            style="--src:url(../assets/fasilitas/gresik/area-baca-dan-meja.jpg)">
-          </figure>
-          <figure class="photo round tile tile--r2" data-in="3" role="img" aria-label="Kopi seduh manual"
-            style="--src:url(../assets/fasilitas/gresik/area-duduk-dekat-jendela.jpg)">
-          </figure>
-          <figure class="photo round tile tile--b1" data-in="4" role="img" aria-label="Biji kopi sangrai"
-            style="--src:url(../assets/fasilitas/gresik/ruang-utama-pajangan-seni.jpeg)">
-          </figure>
-          <figure class="photo round tile tile--b2" data-in="4" role="img" aria-label="Suasana Kammari"
-            style="--src:url(../assets/fasilitas/gresik/papan-menu-dan-dekorasi.jpg)">
-          </figure>
-
         </div>
+      </section>
+
+
+      <!-- Pita cokelat + lengkung + tulisan bergerak -->
+      <div class="arch-band">
+
+        <svg
+          class="arch-band__svg"
+          viewBox="0 0 1440 250"
+          role="img"
+          aria-label="Kammari"
+        >
+
+          <defs>
+            <path
+              id="arch-path"
+              d="M-300 265.45 Q720 4.55 1740 265.45"
+            />
+          </defs>
+
+          <!-- Latar cokelat -->
+          <rect
+            class="arch-band__bg"
+            x="-300"
+            y="-4"
+            width="2040"
+            height="260"
+          />
+
+          <!-- Area krem di bawah lengkungan -->
+          <path
+            class="arch-band__cap"
+            d="M-300 160 Q720 -30 1740 160 V260 H-300 Z"
+          />
+
+          <!-- Pengukur lebar teks -->
+          <text
+            id="arch-probe"
+            class="arch-band__text"
+            x="0"
+            y="0"
+            visibility="hidden"
+          ></text>
+
+          <!-- Tulisan mengikuti lengkungan -->
+          <text class="arch-band__text">
+            <textPath
+              id="arch-tp"
+              href="#arch-path"
+              startOffset="0"
+            >kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;</textPath>
+          </text>
+
+        </svg>
+
       </div>
 
-      
-    </section>
 
-        <!-- Pita cokelat + lengkung + tulisan bergerak -->
-      <div class="arch-band">
-      <svg class="arch-band__svg" viewBox="0 0 1440 250" role="img" aria-label="Kammari">
-        <defs>
-          <path id="arch-path" d="M-300 265.45 Q720 4.55 1740 265.45" />
-        </defs>
-
-        <!-- latar cokelat (melebihi tepi supaya tidak ada celah) -->
-        <rect class="arch-band__bg" x="-300" y="-4" width="2040" height="260" />
-
-        <!-- area krem di bawah lengkungan (melebihi tepi kiri, kanan, bawah) -->
-        <path class="arch-band__cap" d="M-300 160 Q720 -30 1740 160 V260 H-300 Z" />
-
-        <!-- pengukur lebar teks (tidak terlihat) -->
-        <text id="arch-probe" class="arch-band__text" x="0" y="0" visibility="hidden"></text>
-
-        <!-- tulisan mengikuti lengkungan -->
-        <text class="arch-band__text">
-          <textPath id="arch-tp" href="#arch-path" startOffset="0">kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;kammari&#160;</textPath>
-        </text>
-      </svg>
-    </div>
 
     <!-- Cerita -->
     <section class="section" id="cerita">
@@ -113,8 +211,8 @@
 
           <!-- Tulisan kanan atas foto -->
           <div class="story__caption story__caption--top">
-            A little piece of Kammari,
-            <br>made with love.
+            A little piece of 
+            <br>Kammari.
           </div>
 
           <!-- Tulisan kiri bawah foto -->
@@ -163,21 +261,24 @@
     <!-- Menu rekomendasi -->
     <section class="section section--tint">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2 class="h-lg">Menu yang paling sering dipesan</h2>
-          </div>
-          <div class="chips" id="featured-chips" role="group" aria-label="Filter menu">
-
-            <button class="chip" data-key="semua" aria-pressed="true">Semua</button>
-
-          </div>
+              <div class="section-head">
+        <div>
+          <h2 class="h-lg">Menu yang paling sering dipesan</h2>
         </div>
+
+        <p class="lede featured-intro">
+        Setiap menu punya cerita dan cita rasa tersendiri. 
+        Temukan pilihan favoritmu untuk menemani setiap kunjungan di Kammari.
+        </p>
+      </div>
+
         <div class="featured-carousel-wrap">
           <div class="dishes" id="featured" aria-live="polite"></div>
         </div>
 
-        <p style="margin-top:36px"><a class="btn" href="menu.html">Lihat semua menu</a></p>
+        <p style="margin-top:36px; text-align:center;">
+          <a class="btn" href="menu.html">Lihat semua menu</a>
+        </p>
       </div>
     </section>
 

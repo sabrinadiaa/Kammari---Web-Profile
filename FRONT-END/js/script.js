@@ -660,15 +660,6 @@ const pastGallery = document.getElementById("past-event-gallery");
 const getEvent = id =>
   EVENTS.find(event => event.id === id);
 
-function todayJakarta() {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Jakarta",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-  }).format(new Date());
-}
-
 // Selesai otomatis jika hari terakhir event sudah lewat
 const isFinished = event => {
   if (event.past === true) return true;

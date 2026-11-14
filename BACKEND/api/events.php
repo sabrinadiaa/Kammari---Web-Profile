@@ -27,8 +27,8 @@ try {
         LEFT JOIN branches b
             ON b.id = e.branch_id
         WHERE b.is_active = 1
-        AND e.status IN ("upcoming", "ongoing", "completed")";
-
+        AND e.status IN ('upcoming', 'ongoing', 'completed')
+    ";
     $params = [];
 
     if ($branch !== '') {

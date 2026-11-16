@@ -297,7 +297,7 @@ const MUSIC_TRACKS = [
 ];
 const MUSIC_VOLUME = 0.3;      // 0 (sunyi) sampai 1 (penuh)
 const MUSIC_AUTOSTART = true;  // coba putar otomatis saat pertama kali membuka website
-const MUSIC_SHUFFLE = false;   // true = urutan lagu diacak (tetap sama selama pengunjung di website)
+const MUSIC_SHUFFLE = true;   // true = urutan lagu diacak (tetap sama selama pengunjung di website)
 
 const STATE_KEY = "kammari-music-state"; // posisi lagu selama kunjungan (sessionStorage)
 const CHOICE_KEY = "kammari-music";      // pilihan pengunjung: "off" jika pernah dimatikan (localStorage)

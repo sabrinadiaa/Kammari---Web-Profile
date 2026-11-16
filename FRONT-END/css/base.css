@@ -612,6 +612,47 @@ p {
   }
 }
 
+/* TOMBOL MUSIK (halaman selain Beranda, dibuat otomatis oleh js/music.js) */
+.music-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--clay);
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(80, 40, 10, .18);
+  transition: transform .2s ease;
+}
+
+.music-fab:hover {
+  transform: scale(1.06);
+}
+
+.music-fab svg {
+  width: 22px;
+  height: 22px;
+}
+
+.music-fab.is-playing svg {
+  animation: music-fab-pulse .8s ease-in-out infinite alternate;
+}
+
+@keyframes music-fab-pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-fab.is-playing svg { animation: none; }
+}
+
 /* ANIMASI SCROLL REVEAL (umum) */
 .reveal-on-scroll {
   opacity: 0;

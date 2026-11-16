@@ -2,7 +2,42 @@
    Diekstrak dari script.js tanpa mengubah logika fitur. */
 
 
-/* ---------- HERO: Background otomatis berganti (slide ke kanan) ---------- */
+/* ---------- HERO: Animasi pergantian font Kammari ---------- */
+
+(function heroFontAnimation() {
+  const heroWord = document.getElementById("hero-word");
+
+  if (!heroWord) return;
+
+  // Font yang sudah digunakan atau tersedia di project
+  const fonts = [
+    '"Playpen Sans Hebrew", cursive',
+    '"Belgiano Serif", Georgia, serif',
+    '"Autery", cursive',
+    'Georgia, serif'
+  ];
+
+  let currentFont = 0;
+
+  const CHANGE_INTERVAL = 2500;
+  const FADE_DURATION = 250;
+
+  setInterval(() => {
+    heroWord.classList.add("is-font-changing");
+
+    setTimeout(() => {
+      currentFont = (currentFont + 1) % fonts.length;
+
+      heroWord.style.fontFamily = fonts[currentFont];
+
+      heroWord.classList.remove("is-font-changing");
+    }, FADE_DURATION);
+
+  }, CHANGE_INTERVAL);
+})();
+
+/* ---------- HERO: Background Slideshow (Slide ke kanan) ---------- */
+
 (function heroSlideshow() {
   const firstBg = document.querySelector(".scene__bg");
   if (!firstBg) return;
@@ -10,18 +45,18 @@
   const scene = firstBg.parentElement;
 
   const backgrounds = [
-    "../assets/fasilitas/gresik/ruang-utama-pajangan-seni.jpeg", // gambar awal di HTML
+    "../assets/fasilitas/gresik/ruang-utama-pajangan-seni.jpeg",
     "../assets/fasilitas/gresik/kursi-outdoor-dinding-vintage.jpeg",
     "../assets/fasilitas/gresik/area-bar-peracikan.jpg",
     "../assets/fasilitas/gresik/rak-buku-area-duduk.jpeg",
     "../assets/fasilitas/gresik/papan-identitas-fasad.jpg"
   ];
 
-  const INTERVAL = 3000;   // jeda antar gambar
-  const SLIDE_TIME = 1000; // durasi geser (ms)
+  const INTERVAL = 3000;
+  const SLIDE_TIME = 1000;
   const EASE = "cubic-bezier(.65, 0, .35, 1)";
 
-  // Preload supaya tidak kedip saat gambar baru muncul
+  // Preload seluruh gambar
   backgrounds.forEach(src => {
     const img = new Image();
     img.src = src;
@@ -30,25 +65,37 @@
   let currentIndex = 0;
   let current = firstBg;
 
+  // Pastikan foto awal sesuai dengan daftar slideshow
+  current.style.setProperty(
+    "--src",
+    `url("${backgrounds[0]}")`
+  );
+
   function slideNext() {
     currentIndex = (currentIndex + 1) % backgrounds.length;
 
-    // Layer baru, diletakkan di luar layar sebelah kanan
     const next = document.createElement("div");
     next.className = "scene__bg";
-    next.style.setProperty("--src", `url("${backgrounds[currentIndex]}")`);
+
+    next.style.setProperty(
+      "--src",
+      `url("${backgrounds[currentIndex]}")`
+    );
+
     next.style.transition = "none";
     next.style.transform = "translateX(100%) scale(1.06)";
+
     scene.insertBefore(next, current.nextSibling);
 
-    // Paksa browser menghitung posisi awal sebelum animasi dimulai
+    // Memastikan posisi awal terbaca browser
     next.getBoundingClientRect();
 
     const transition = `transform ${SLIDE_TIME}ms ${EASE}`;
+
     next.style.transition = transition;
     current.style.transition = transition;
 
-    // Layer baru masuk dari kanan, layer lama keluar ke kiri
+    // Animasi foto baru masuk dari kanan
     next.style.transform = "translateX(0) scale(1.06)";
     current.style.transform = "translateX(-100%) scale(1.06)";
 
@@ -63,6 +110,7 @@
 
   setInterval(slideNext, INTERVAL);
 })();
+
 
 const featured = document.getElementById("featured");
 
@@ -234,155 +282,157 @@ if (pickerOut) {
   });
 })();
 
-/* ---------- SPOTIFY PLAYER KAMMARI ---------- */
+/* ==========================================================
+   MUSIK LATAR KAMMARI (dipakai di SEMUA halaman)
+   - Memutar beberapa file audio sendiri secara berurutan.
+   - Saat pindah halaman, lagu dan posisinya dilanjutkan.
+   Pasang di tiap halaman HTML, sebelum </body>:
+   <script src="js/music.js" defer></script>
+   ========================================================== */
 
-const musicToggle = document.getElementById("music-toggle");
-const spotifyPanel = document.getElementById("spotify-panel");
-const spotifyEmbed = document.getElementById("spotify-embed");
-const spotifyClose = document.getElementById("spotify-close");
+// Daftar lagu (alamat relatif terhadap file HTML)
+const MUSIC_TRACKS = [
+  "assets/audio/lagu-1.mp3",
+  "assets/audio/lagu-2.mp3",
+  "../assets/audio/lagu-3.mp3",
+];
+const MUSIC_VOLUME = 0.5;      // 0 (sunyi) sampai 1 (penuh)
+const MUSIC_AUTOSTART = true;  // coba putar otomatis saat pertama kali membuka website
+const MUSIC_SHUFFLE = false;   // true = urutan lagu diacak (tetap sama selama pengunjung di website)
 
-const PLAYLIST_URI =
-  "spotify:playlist:2XGX0bicft4fkI7nTD8Ze7";
+const STATE_KEY = "kammari-music-state"; // posisi lagu selama kunjungan (sessionStorage)
+const CHOICE_KEY = "kammari-music";      // pilihan pengunjung: "off" jika pernah dimatikan (localStorage)
 
-let spotifyController = null;
-let isPlaying = false;
-let userRequestedPlay = false;
-
-// Buka atau tutup panel
-function setSpotifyPanel(open) {
-  if (!spotifyPanel) return;
-
-  spotifyPanel.classList.toggle("is-open", open);
-  spotifyPanel.setAttribute("aria-hidden", String(!open));
+/* ---------- Tombol musik ---------- */
+// Di Beranda sudah ada badge #music-toggle. Di halaman lain tombol kecil dibuat otomatis.
+let musicToggle = document.getElementById("music-toggle");
+if (!musicToggle) {
+  musicToggle = document.createElement("button");
+  musicToggle.id = "music-toggle";
+  musicToggle.type = "button";
+  musicToggle.className = "music-fab";
+  musicToggle.setAttribute("aria-pressed", "false");
+  musicToggle.setAttribute("aria-label", "Putar musik");
+  musicToggle.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>';
+  document.body.appendChild(musicToggle);
 }
 
-// Update status badge
+/* ---------- Penyimpanan ---------- */
+function readState() {
+  try { return JSON.parse(sessionStorage.getItem(STATE_KEY)); } catch (e) { return null; }
+}
+function writeState(data) {
+  try { sessionStorage.setItem(STATE_KEY, JSON.stringify(data)); } catch (e) {}
+}
+function musicWasTurnedOff() {
+  try { return localStorage.getItem(CHOICE_KEY) === "off"; } catch (e) { return false; }
+}
+function saveMusicChoice(on) {
+  try { localStorage.setItem(CHOICE_KEY, on ? "on" : "off"); } catch (e) {}
+}
+
+/* ---------- Susunan lagu ---------- */
+const saved = readState();
+let playlist;
+if (saved && Array.isArray(saved.order) && saved.order.length === MUSIC_TRACKS.length &&
+    saved.order.every(t => MUSIC_TRACKS.includes(t))) {
+  playlist = saved.order;               // lanjutkan urutan yang sama dari halaman sebelumnya
+} else {
+  playlist = [...MUSIC_TRACKS];
+  if (MUSIC_SHUFFLE) {
+    for (let i = playlist.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
+    }
+  }
+}
+
+let trackIndex = saved && saved.i < playlist.length ? saved.i : 0;
+let failedInARow = 0;
+let leaving = false; // true saat halaman sedang ditinggalkan
+
+const bgMusic = new Audio(playlist[trackIndex]);
+bgMusic.volume = MUSIC_VOLUME;
+bgMusic.preload = "auto";
+bgMusic.loop = playlist.length === 1;
+
+// Lanjutkan dari detik terakhir halaman sebelumnya
+if (saved && saved.t > 0) {
+  const gap = Math.min((Date.now() - saved.at) / 1000, 5); // waktu yang terpakai saat pindah halaman
+  const resumeAt = saved.t + (saved.playing ? gap : 0);
+  bgMusic.addEventListener("loadedmetadata", () => {
+    try { bgMusic.currentTime = resumeAt; } catch (e) {}
+  }, { once: true });
+}
+
+function saveState() {
+  if (leaving && bgMusic.ended) return;
+  writeState({
+    order: playlist,
+    i: trackIndex,
+    t: bgMusic.currentTime || 0,
+    playing: !bgMusic.paused && !bgMusic.ended,
+    at: Date.now(),
+  });
+}
+
+/* ---------- Pemutaran ---------- */
+function playNextTrack() {
+  trackIndex = (trackIndex + 1) % playlist.length;
+  bgMusic.src = playlist[trackIndex];
+  bgMusic.play().catch(() => {});
+}
+bgMusic.addEventListener("ended", playNextTrack);
+
+// Lagu yang gagal dimuat dilewati. Berhenti kalau semua lagu bermasalah.
+bgMusic.addEventListener("error", () => {
+  console.warn("Lagu tidak ditemukan atau tidak bisa diputar: " + playlist[trackIndex]);
+  failedInARow++;
+  if (failedInARow < playlist.length) playNextTrack();
+});
+bgMusic.addEventListener("playing", () => { failedInARow = 0; });
+
+// Tampilan tombol (ikon berdenyut saat musik jalan)
 function updateMusicStatus(playing) {
-  isPlaying = playing;
-
-  if (musicToggle) {
-    musicToggle.classList.toggle("is-playing", playing);
-    musicToggle.setAttribute("aria-pressed", String(playing));
-  }
+  musicToggle.classList.toggle("is-playing", playing);
+  musicToggle.setAttribute("aria-pressed", String(playing));
+  musicToggle.setAttribute("aria-label", playing ? "Jeda musik" : "Putar musik");
 }
-
-// Menunggu Spotify API siap
-window.onSpotifyIframeApiReady = (IFrameAPI) => {
-
-  if (!spotifyEmbed) return;
-
-  IFrameAPI.createController(
-    spotifyEmbed,
-    {
-      uri: PLAYLIST_URI,
-      width: "100%",
-      height: "352"
-    },
-    (controller) => {
-
-      spotifyController = controller;
-
-      // Memantau status pemutaran
-      controller.addListener("playback_update", (event) => {
-        updateMusicStatus(!event.data.isPaused);
-      });
-
-      // Ketika Spotify siap
-      controller.addListener("ready", () => {
-
-        if (userRequestedPlay) {
-          controller.play();
-          userRequestedPlay = false;
-        } else {
-          // Mencoba autoplay ketika website dibuka.
-          // Browser mungkin tetap memblokirnya.
-          controller.play();
-        }
-
-      });
-
-    }
-  );
-};
-
-// Memuat Spotify iFrame API
-const spotifyScript = document.createElement("script");
-
-spotifyScript.src =
-  "https://open.spotify.com/embed/iframe-api/v1";
-
-spotifyScript.async = true;
-
-document.head.appendChild(spotifyScript);
-
-// Klik badge musik
-if (musicToggle) {
-
-  musicToggle.addEventListener("click", () => {
-
-    const panelIsOpen =
-      spotifyPanel.classList.contains("is-open");
-
-    setSpotifyPanel(true);
-
-    if (!spotifyController) {
-      userRequestedPlay = true;
-      return;
-    }
-
-    // Jika player sedang bermain dan panel baru dibuka,
-    // cukup tampilkan player tanpa menghentikan lagu.
-    if (!panelIsOpen && isPlaying) {
-      return;
-    }
-
-    if (isPlaying) {
-      spotifyController.pause();
-    } else {
-      spotifyController.play();
-    }
-
-  });
-
-}
-
-// Klik tombol X
-if (spotifyClose) {
-
-  spotifyClose.addEventListener("click", () => {
-
-    // Musik ikut berhenti ketika player ditutup
-    if (spotifyController) {
-      spotifyController.pause();
-    }
-
-    updateMusicStatus(false);
-    setSpotifyPanel(false);
-
-  });
-
-}
-
-
-/* Tutup Spotify Player ketika klik di luar popup */
-
-document.addEventListener("click", (event) => {
-
-  if (!spotifyPanel || !musicToggle) return;
-
-  const clickedInsidePopup =
-    spotifyPanel.contains(event.target);
-
-  const clickedMusicBadge =
-    musicToggle.contains(event.target);
-
-  // Tutup popup jika klik di luar popup dan badge
-  if (!clickedInsidePopup && !clickedMusicBadge) {
-    setSpotifyPanel(false);
-  }
-
+bgMusic.addEventListener("play", () => { updateMusicStatus(true); saveState(); });
+bgMusic.addEventListener("pause", () => {
+  if (leaving || bgMusic.ended) return; // jeda otomatis saat pindah halaman / akhir lagu: abaikan
+  updateMusicStatus(false);
+  saveState();
 });
 
+// Simpan posisi terus-menerus supaya halaman berikutnya bisa melanjutkan
+bgMusic.addEventListener("timeupdate", saveState);
+window.addEventListener("pagehide", () => { saveState(); leaving = true; });
 
-// Memuat data menu pilihan setelah handler beranda siap.
-loadBranchMenu("gresik");
+// Klik tombol: putar atau jeda
+musicToggle.addEventListener("click", () => {
+  if (bgMusic.paused) {
+    bgMusic.play().then(() => saveMusicChoice(true)).catch(() => {});
+  } else {
+    bgMusic.pause();
+    saveMusicChoice(false);
+  }
+});
+
+/* ---------- Mulai otomatis ---------- */
+// Halaman pertama: ikuti MUSIC_AUTOSTART. Halaman berikutnya: lanjutkan jika tadi sedang menyala.
+const shouldStart = saved ? saved.playing : (MUSIC_AUTOSTART && !musicWasTurnedOff());
+
+if (shouldStart) {
+  bgMusic.play().catch(() => {
+    // Browser memblokir putar otomatis: mulai saat pengunjung pertama kali mengklik/menyentuh halaman
+    const events = ["click", "keydown", "touchend"];
+    function startOnFirstTouch(e) {
+      events.forEach(ev => document.removeEventListener(ev, startOnFirstTouch));
+      if (musicToggle.contains(e.target)) return; // biarkan tombol musik yang mengatur
+      bgMusic.play().catch(() => {});
+    }
+    events.forEach(ev => document.addEventListener(ev, startOnFirstTouch));
+  });
+}

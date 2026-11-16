@@ -14,16 +14,17 @@
   background: #b99a7d;
 }
 
-/* Foto latar blur */
 .scene__bg {
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background: var(--src) center / cover no-repeat;
-  filter: blur(1.5px) saturate(.8);
+  z-index: 0;
+  background-image: var(--src);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(4px) saturate(.8);
   transform: scale(1.06);
-  transition: opacity 1s ease-in-out;
-  opacity: 1;
+  pointer-events: none;
 }
 
 /* Overlay cokelat muda */
@@ -78,6 +79,7 @@
 }
 
 /* Tulisan raksasa di tengah */
+/* Tulisan Kammari di tengah hero */
 .scene__word {
   position: absolute;
   left: 0;
@@ -87,14 +89,33 @@
   z-index: 1;
   margin: 0;
   text-align: center;
-  font-family: "Playpen Sans Hebrew", "Segoe UI", system-ui, sans-serif;
+
+  font-family: var(--logo-font);
   font-weight: 600;
   font-size: clamp(4rem, 15vw, 12.5rem);
   line-height: .95;
   letter-spacing: 0;
-  font-variation-settings: normal;
-  color: var(--paper);
+
+  color: var(--clay);
   text-shadow: 0 10px 40px rgba(43, 26, 18, .25);
+}
+
+/* Setiap huruf */
+.hero-letter {
+  display: inline-block;
+  font-family: var(--logo-font);
+  color: var(--clay);
+
+  transition:
+    color .3s ease,
+    transform .3s ease;
+}
+
+/* Ketika kursor menyentuh satu huruf */
+.hero-letter:hover {
+  font-family: var(--display);
+  color: var(--paper);
+  transform: translateY(-8px);
 }
 
 /* Keterangan kecil kiri & kanan */

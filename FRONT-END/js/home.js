@@ -284,10 +284,6 @@ if (pickerOut) {
 
 /* ==========================================================
    MUSIK LATAR KAMMARI (dipakai di SEMUA halaman)
-   - Memutar beberapa file audio sendiri secara berurutan.
-   - Saat pindah halaman, lagu dan posisinya dilanjutkan.
-   Pasang di tiap halaman HTML, sebelum </body>:
-   <script src="js/music.js" defer></script>
    ========================================================== */
 
 // Daftar lagu (alamat relatif terhadap file HTML)

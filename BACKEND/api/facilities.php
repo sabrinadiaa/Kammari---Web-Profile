@@ -16,6 +16,7 @@ try {
             f.description,
             f.image,
             f.icon,
+            f.type,
             b.slug AS branch
         FROM branch_facilities AS f
         INNER JOIN branches AS b

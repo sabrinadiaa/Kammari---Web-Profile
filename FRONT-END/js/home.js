@@ -1,8 +1,68 @@
 /* Kammari Café — beranda.js
    Diekstrak dari script.js tanpa mengubah logika fitur. */
 
-/* ---------- Beranda: menu rekomendasi + pemilih mood ---------- */
 
+/* ---------- HERO: Background otomatis berganti (slide ke kanan) ---------- */
+(function heroSlideshow() {
+  const firstBg = document.querySelector(".scene__bg");
+  if (!firstBg) return;
+
+  const scene = firstBg.parentElement;
+
+  const backgrounds = [
+    "../assets/fasilitas/gresik/ruang-utama-pajangan-seni.jpeg", // gambar awal di HTML
+    "../assets/fasilitas/gresik/kursi-outdoor-dinding-vintage.jpeg",
+    "../assets/fasilitas/gresik/area-bar-peracikan.jpg",
+    "../assets/fasilitas/gresik/rak-buku-area-duduk.jpeg",
+    "../assets/fasilitas/gresik/papan-identitas-fasad.jpg"
+  ];
+
+  const INTERVAL = 3000;   // jeda antar gambar
+  const SLIDE_TIME = 1000; // durasi geser (ms)
+  const EASE = "cubic-bezier(.65, 0, .35, 1)";
+
+  // Preload supaya tidak kedip saat gambar baru muncul
+  backgrounds.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+
+  let currentIndex = 0;
+  let current = firstBg;
+
+  function slideNext() {
+    currentIndex = (currentIndex + 1) % backgrounds.length;
+
+    // Layer baru, diletakkan di luar layar sebelah kanan
+    const next = document.createElement("div");
+    next.className = "scene__bg";
+    next.style.setProperty("--src", `url("${backgrounds[currentIndex]}")`);
+    next.style.transition = "none";
+    next.style.transform = "translateX(100%) scale(1.06)";
+    scene.insertBefore(next, current.nextSibling);
+
+    // Paksa browser menghitung posisi awal sebelum animasi dimulai
+    next.getBoundingClientRect();
+
+    const transition = `transform ${SLIDE_TIME}ms ${EASE}`;
+    next.style.transition = transition;
+    current.style.transition = transition;
+
+    // Layer baru masuk dari kanan, layer lama keluar ke kiri
+    next.style.transform = "translateX(0) scale(1.06)";
+    current.style.transform = "translateX(-100%) scale(1.06)";
+
+    const old = current;
+    current = next;
+
+    setTimeout(() => {
+      old.remove();
+      next.style.transition = "";
+    }, SLIDE_TIME);
+  }
+
+  setInterval(slideNext, INTERVAL);
+})();
 
 const featured = document.getElementById("featured");
 

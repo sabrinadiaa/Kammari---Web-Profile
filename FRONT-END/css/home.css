@@ -1,91 +1,167 @@
-/* Hero beranda */
-.hero {
+/* ==========================================================
+   HOME (Beranda)
+   Isi: hero baru (.scene), badge musik, cerita, picker,
+   carousel menu, cabang, player Spotify
+   ========================================================== */
+
+/* ===== Hero baru (.scene) ===== */
+
+/* Hero background */
+.scene {
   position: relative;
-  background: var(--paper-2);
+  isolation: isolate;
   overflow: hidden;
+  background: #b99a7d;
 }
 
-/* Papan hero: teks + 4 kartu berbentuk L terbalik */
-.hero__board {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr .85fr;
-  grid-template-rows: auto clamp(150px, 17vw, 210px);
-  grid-template-areas:
-    "text text r1"
-    "b1   b2   r2";
-  gap: 14px;
-  padding-bottom: clamp(24px, 3vw, 40px);
-  align-items: stretch;
+/* Foto latar blur */
+.scene__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--src) center / cover no-repeat;
+  filter: blur(1.5px) saturate(.8);
+  transform: scale(1.06);
+  transition: opacity 1s ease-in-out;
+  opacity: 1;
 }
 
-.hero__text {
-  grid-area: text;
+/* Overlay cokelat muda */
+.scene__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(190, 157, 125, .40) 0%,
+    rgba(133, 102, 77, .58) 100%
+  );
+}
+
+
+/* Panggung */
+.scene__stage {
   position: relative;
-  align-self: center;
-  padding: 8px 0 12px;
-  width: 100%;
-  max-width: none;
-  min-width: 0;
+  width: min(100% - 2 * var(--gutter), var(--max));
+  height: clamp(420px, 44vw, 540px);   /* tinggi hero: ubah di sini */
+  margin-inline: auto;
 }
 
-.hero h1 {
-  margin: 0 0 16px;
-  max-width: 14ch;
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: clamp(2.6rem, 6vw, 5rem);
-  line-height: 1;
-  letter-spacing: -0.01em;
-  font-variation-settings: normal;
-}
-
-.hero .lede {
-  color: #5a4538;
-  font-size: .95rem;
-  line-height: 1.65;
-  margin-bottom: 22px;
-  max-width: 80ch;
-  width: 100%;
-}
-
-.hero__cta {
+/* Tombol kiri atas */
+.scene__cta {
+  position: absolute;
+  top: clamp(20px, 3vw, 36px);
+  left: 0;
+  z-index: 4;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 
-.hero .btn {
-  padding: 11px 22px;
-  font-size: .9rem;
+.scene__cta .btn {
+  padding: 10px 20px;
+  font-size: .88rem;
 }
 
-/* Kartu */
-.tile {
-  min-height: 0;
-  box-shadow: 0 14px 30px rgba(60, 30, 10, .16);
-}
-
-.tile--r1 { grid-area: r1; }
-.tile--r2 { grid-area: r2; }
-.tile--b1 { grid-area: b1; }
-.tile--b2 { grid-area: b2; }
-
-.tile figcaption {
-  top: 12px;
-  bottom: auto;
-  left: 12px;
-  right: auto;
-  padding: 3px 12px;
-  border: 1px solid var(--clay);
-  border-radius: 999px;
-  background: rgba(248, 243, 236, .92);
+/* Tombol "Baca cerita kami": list oren sesuai warna ikon musik */
+.scene__cta .btn--light {
+  background: var(--paper);
   color: var(--clay);
-  font-size: .75rem;
+  border: 2px solid var(--clay);
   font-weight: 600;
-  text-shadow: none;
+  transition: background .2s ease, color .2s ease;
 }
 
-/* Badge berputar (di pojok area teks) */
+.scene__cta .btn--light:hover {
+  background: var(--clay);
+  color: var(--paper);
+}
+
+/* Tulisan raksasa di tengah */
+.scene__word {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 46%;
+  translate: 0 -50%;
+  z-index: 1;
+  margin: 0;
+  text-align: center;
+  font-family: "Playpen Sans Hebrew", "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(4rem, 15vw, 12.5rem);
+  line-height: .95;
+  letter-spacing: 0;
+  font-variation-settings: normal;
+  color: var(--paper);
+  text-shadow: 0 10px 40px rgba(43, 26, 18, .25);
+}
+
+/* Keterangan kecil kiri & kanan */
+.scene__note {
+  position: absolute;
+  bottom: clamp(64px, 8vw, 120px);
+  z-index: 2;
+  width: clamp(130px, 16vw, 210px);
+  margin: 0;
+  font-size: .9rem;
+  line-height: 1.4;
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(43, 26, 18, .55);
+}
+
+.scene__note--l { left: clamp(0px, 3vw, 40px); }
+.scene__note--r { right: clamp(0px, 3vw, 40px); text-align: right; }
+
+/* Tepi bawah bergelombang */
+.scene__wave {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  height: clamp(50px, 7vw, 110px);
+  fill: var(--paper);
+}
+
+/* Badge musik di hero baru: pojok kanan atas */
+.scene .badge {
+  top: clamp(14px, 2.4vw, 28px);
+  right: 0;
+  bottom: auto;
+  width: 84px;
+  height: 84px;
+  z-index: 4;
+}
+
+/* Animasi masuk hero, satu kali saat halaman dibuka */
+.scene [data-in] {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: rise .9s cubic-bezier(.2, .7, .2, 1) forwards;
+}
+
+.scene [data-in="1"] { animation-delay: .05s; }
+.scene [data-in="2"] { animation-delay: .18s; }
+.scene [data-in="3"] { animation-delay: .3s; }
+.scene [data-in="4"] { animation-delay: .42s; }
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .scene__stage { height: 440px; }
+  .scene__note { display: none; }
+  .scene__cta .btn { padding: 9px 16px; font-size: .8rem; }
+  .scene .badge { width: 56px; height: 56px; }
+}
+
+/* ===== Badge berputar (tombol musik) ===== */
 .badge {
   position: absolute;
   right: 2%;
@@ -175,101 +251,6 @@ button.badge:focus-visible {
   color: var(--clay);
 }
 
-
-.hero__facts {
-  background: var(--espresso);
-  color: var(--paper);
-}
-
-.hero__facts .wrap {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.fact { 
-  padding: 18px 0; 
-  display: flex; 
-  align-items: baseline; 
-  gap: 14px; 
-  flex-wrap: wrap; 
-}
-
-.fact strong { 
-  font-family: var(--serif); 
-  font-size: 1.5rem; 
-  font-weight: 400; 
-}
-
-.fact span { 
-  font-size: .82rem; 
-  opacity: .7; }
-
-/* animasi masuk hero, satu kali saat halaman dibuka */
-.hero [data-in] {
-  opacity: 0;
-  transform: translateY(18px);
-  animation: rise .9s cubic-bezier(.2, .7, .2, 1) forwards;
-}
-
-.hero [data-in="1"] {
-  animation-delay: .05s;
-}
-
-.hero [data-in="2"] {
-  animation-delay: .18s;
-}
-
-.hero [data-in="3"] {
-  animation-delay: .3s;
-}
-
-.hero [data-in="4"] {
-  animation-delay: .42s;
-}
-
-@keyframes rise {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Latar bergelombang untuk hero */
-.hero--wave {
-  background: var(--espresso);
-  padding: clamp(10px, 1.8vw, 24px) clamp(10px, 1.8vw, 24px) 0;
-}
-
-.hero__panel {
-  position: relative;
-  background-color: var(--paper-2);
-  border-radius: 28px;
-  padding-top: clamp(32px, 4.5vw, 64px);
-  overflow: hidden;
-
-  background-image:
-    radial-gradient(circle at 50% 0,    var(--espresso) 17px, transparent 18px),
-    radial-gradient(circle at 50% 100%, var(--espresso) 17px, transparent 18px),
-    radial-gradient(circle at 0 50%,    var(--espresso) 17px, transparent 18px),
-    radial-gradient(circle at 100% 50%, var(--espresso) 17px, transparent 18px);
-  background-size: 56px 18px, 56px 18px, 18px 56px, 18px 56px;
-  background-position: 0 0, 0 100%, 0 0, 100% 0;
-  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-}
-
-
-@media (max-width: 860px) {
-
-  .hero__facts .wrap {
-    grid-template-columns: 1fr;
-  }
-
-  .fact + .fact {
-  padding-left: 28px;
-  border-left: 1px solid rgba(251, 246, 236, .18);
-  }
-}
-
 /* Cerita */
 .story {
   display: grid;
@@ -348,34 +329,6 @@ button.badge:focus-visible {
 .value h3 {
   font-size: 1.2rem;
   margin-bottom: 6px;
-}
-
-@media (max-width: 860px) {
-  .hero__board {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 170px 170px;
-    grid-template-areas:
-      "text text"
-      "r1   r2"
-      "b1   b2";
-  }
-
-  .badge {
-    width: 70px;
-    height: 70px;
-    right: 0;
-    bottom: -10px;
-  }
-
-  .hero__facts .wrap {
-    grid-template-columns: 1fr;
-  }
-
-  .fact + .fact {
-    padding-left: 0;
-    border-left: 0;
-    border-top: 1px solid rgba(251, 246, 236, .18);
-  }
 }
 
 /* Picker rekomendasi  */
@@ -618,7 +571,7 @@ button.badge:focus-visible {
     animation: none;
   }
 
-  .hero [data-in] {
+  .scene [data-in] {
     animation: none;
     opacity: 1;
     transform: none;
@@ -630,60 +583,6 @@ button.badge:focus-visible {
 
   .featured-carousel-nav .carousel-arrow {
     transition: none;
-  }
-}
-
-.arch-band {
-  background: var(--paper);      /* bukan cokelat lagi: cokelatnya sekarang ada di dalam SVG */
-  overflow: hidden;
-  line-height: 0;
-}
-
-.arch-band__svg {
-  position: relative;
-  left: 50%;
-  display: block;
-  width: max(100%, 900px);
-  height: auto;
-  overflow: visible;
-  transform: translateX(-50%);
-}
-
-.arch-band__bg  { fill: var(--espresso); }   /* samakan dengan warna pita foto */
-.arch-band__cap { fill: var(--paper); }
-
-/* krem di dalam, garis cokelat gelap di tepi, font logo */
-.arch-band__text {
-  font-family: "Playpen Sans Hebrew", "Segoe UI", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 64px;
-  letter-spacing: .02em;
-  fill: var(--paper);
-  stroke: var(--espresso);
-  stroke-width: 3;
-  stroke-linejoin: round;
-  paint-order: stroke;
-  user-select: none;
-}
-
-@media (min-width: 861px) {
-  .hero__text {
-    padding-right: 12px;
-  }
-
-  .hero h1 {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 860px) {
-  .hero h1 {
-    max-width: 100%;
-    font-size: clamp(2.2rem, 6vw, 3.5rem);
-  }
-
-  .hero .lede {
-    max-width: 100%;
   }
 }
 

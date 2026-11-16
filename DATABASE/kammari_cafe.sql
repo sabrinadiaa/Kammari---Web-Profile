@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Nov 2026 pada 07.13
+-- Waktu pembuatan: 16 Nov 2026 pada 05.09
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -77,6 +77,62 @@ CREATE TABLE `branch_facilities` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `branch_facilities`
+--
+
+INSERT INTO `branch_facilities` (`id`, `branch_id`, `name`, `description`, `image`, `icon`, `type`, `is_available`, `sort_order`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Sudut Duduk Kursi Kayu', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/sudut-duduk-kursi-kayu.jpg', NULL, 'highlight', 1, 79, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(2, 1, 'Area Baca dan Meja', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/area-baca-dan-meja.jpg', NULL, 'highlight', 1, 80, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(3, 1, 'Sudut Buku dan Dekorasi', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/sudut-buku-dan-dekorasi.jpg', NULL, 'highlight', 1, 81, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(4, 1, 'Ruang Utama dan Meja Bar', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/ruang-utama-dan-meja-bar.jpg', NULL, 'highlight', 1, 82, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(5, 1, 'Kursi Bar Dekat Jendela', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/kursi-bar-dekat-jendela.jpg', NULL, 'highlight', 1, 83, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(6, 1, 'Area Duduk Dekat Jendela', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/area-duduk-dekat-jendela.jpg', NULL, 'highlight', 1, 84, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(7, 1, 'Rak Buku dan Pajangan', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/rak-buku-dan-pajangan.jpg', NULL, 'highlight', 1, 85, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(8, 1, 'Rak Buku Tampak Depan', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/rak-buku-tampak-depan.jpg', NULL, 'highlight', 1, 86, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(9, 1, 'Area Pintu Masuk', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/area-pintu-masuk.jpg', NULL, 'highlight', 1, 87, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(10, 1, 'Sudut Duduk Jendela', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/sudut-duduk-jendela.jpg', NULL, 'highlight', 1, 88, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(11, 1, 'Sudut Display Buku', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/sudut-display-buku.jpg', NULL, 'highlight', 1, 89, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(12, 1, 'Dinding Pajangan Seni', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/dinding-pajangan-seni.jpg', NULL, 'highlight', 1, 90, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(13, 1, 'Area Bar dan Peracikan', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/area-bar-peracikan.jpg', NULL, 'highlight', 1, 91, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(14, 1, 'Sudut Galeri Dinding', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/sudut-galeri-dinding.jpg', NULL, 'highlight', 1, 92, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(15, 1, 'Sudut Perlengkapan Minuman', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/sudut-perlengkapan-minuman.jpg', NULL, 'highlight', 1, 93, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(16, 1, 'Tampak Depan dengan Tanaman', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/tampak-depan-dengan-tanaman.jpg', NULL, 'highlight', 1, 94, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(17, 1, 'Papan Menu dan Dekorasi', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/papan-menu-dan-dekorasi.jpg', NULL, 'highlight', 1, 95, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(18, 1, 'Pintu Masuk Bergaya Vintage', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/pintu-masuk-vintage.jpg', NULL, 'highlight', 1, 96, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(19, 1, 'Sudut Area Acara', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/sudut-area-acara.jpg', NULL, 'highlight', 1, 97, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(20, 1, 'Tampak Depan Malam Hari', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/tampak-depan-malam.jpg', NULL, 'highlight', 1, 98, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(21, 1, 'Area Bar dengan Pengunjung', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/area-bar-dengan-pengunjung.jpg', NULL, 'highlight', 1, 99, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(22, 1, 'Area Duduk Outdoor Vintage', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/area-duduk-outdoor-vintage.jpg', NULL, 'highlight', 1, 100, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(23, 1, 'Teras Hijau', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/teras-hijau.jpg', NULL, 'highlight', 1, 101, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(24, 1, 'Ruang Pameran Seni', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/ruang-pameran-seni.jpg', NULL, 'highlight', 1, 102, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(25, 1, 'Papan Identitas dan Fasad', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/papan-identitas-fasad.jpg', NULL, 'highlight', 1, 103, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(26, 1, 'Area Duduk Samping', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/area-duduk-samping.jpg', NULL, 'highlight', 1, 104, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(27, 1, 'Area Bar dan Audio', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/area-bar-dan-audio.jpg', NULL, 'highlight', 1, 105, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(28, 1, 'Lorong Depan Kafe Malam Hari', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/lorong-depan-kafe-malam.jpg', NULL, 'highlight', 1, 106, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(29, 1, 'Pajangan Manifesto', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/pajangan-manifesto.jpg', NULL, 'highlight', 1, 107, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(30, 1, 'Fasad dan Pintu Masuk', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/fasad-dan-pintu-masuk.jpg', NULL, 'highlight', 1, 108, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(31, 1, 'Halaman dengan Tanaman', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/halaman-dengan-tanaman.jpg', NULL, 'highlight', 1, 109, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(32, 1, 'Kolase Suasana Kafe 01', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/kolase-suasana-kafe-01.jpeg', NULL, 'highlight', 1, 110, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(33, 1, 'Kursi Outdoor Dinding Vintage', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/kursi-outdoor-dinding-vintage.jpeg', NULL, 'highlight', 1, 111, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(34, 1, 'Tampak Depan Kafe Siang Hari', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/tampak-depan-kafe-siang.jpeg', NULL, 'highlight', 1, 112, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(35, 1, 'Rak Buku Area Duduk', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/rak-buku-area-duduk.jpeg', NULL, 'highlight', 1, 113, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(36, 1, 'Kolase Suasana Kafe 02', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/kolase-suasana-kafe-02.jpeg', NULL, 'highlight', 1, 114, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(37, 1, 'Meja Outdoor Bawah Jendela', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/meja-outdoor-bawah-jendela.jpeg', NULL, 'highlight', 1, 115, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(38, 1, 'Sudut Meja Bundar', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/sudut-meja-bundar.jpeg', NULL, 'highlight', 1, 116, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(39, 1, 'Rak Dekorasi dan Kursi Kayu', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/rak-dekorasi-dan-kursi-kayu.jpeg', NULL, 'highlight', 1, 117, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(40, 1, 'Ruang Duduk dengan Logo Kammari', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/ruang-duduk-logo-kammari.jpeg', NULL, 'highlight', 1, 118, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(41, 1, 'Ruang Utama dengan Pajangan Seni', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/gresik/ruang-utama-pajangan-seni.jpeg', NULL, 'highlight', 1, 119, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(42, 2, 'Area Duduk Outdoor Surabaya', 'Dokumentasi fasilitas dan suasana Kammari', 'assets/fasilitas/surabaya/area-duduk-outdoor-surabaya.jpg', NULL, 'highlight', 1, 120, '2026-11-12 07:37:56', '2026-11-12 07:37:56'),
+(43, 2, 'Area Duduk Utama', 'Suasana area duduk bersama dengan interior terang dan atap kayu terbuka.', 'assets/fasilitas/surabaya/area-duduk-utama-surabaya.webp', 'arch', 'highlight', 1, -80, '2026-11-15 15:20:52', '2026-11-15 15:20:52'),
+(44, 2, 'Suasana Ruang Komunal', 'Area berkumpul dengan meja dan kursi di bawah struktur atap kayu.', 'assets/fasilitas/surabaya/suasana-ruang-komunal-surabaya.webp', 'arch', 'highlight', 1, -79, '2026-11-15 15:20:52', '2026-11-15 15:20:52'),
+(45, 2, 'Interior Atap Kayu', 'Sudut ruang utama dengan struktur atap kayu yang menjadi ciri suasana interior.', 'assets/fasilitas/surabaya/interior-atap-kayu-surabaya.webp', 'arch', 'highlight', 1, -78, '2026-11-15 15:20:52', '2026-11-15 15:20:52'),
+(46, 2, 'Ruang Duduk Terang', 'Area duduk dengan pencahayaan alami dan susunan meja yang terbuka.', 'assets/fasilitas/surabaya/ruang-duduk-terang-surabaya.webp', 'arch', 'highlight', 1, -77, '2026-11-15 15:20:52', '2026-11-15 15:20:52'),
+(47, 2, 'Sudut Karya Seni', 'Pajangan karya seni berwarna pada salah satu dinding ruangan.', 'assets/fasilitas/surabaya/sudut-karya-seni-surabaya.webp', 'arch', 'facility', 1, -76, '2026-11-15 15:20:52', '2026-11-15 15:20:52'),
+(48, 2, 'Dinding Galeri Seni', 'Sudut ruang dengan deretan karya seni di dinding.', 'assets/fasilitas/surabaya/dinding-galeri-seni-surabaya.webp', 'arch', 'facility', 1, -75, '2026-11-15 15:20:52', '2026-11-15 15:20:52'),
+(49, 2, 'Sudut Duduk Tenang', 'Area duduk kecil yang terlihat dari pintu penghubung ruangan.', 'assets/fasilitas/surabaya/sudut-duduk-privat-surabaya.webp', 'arch', 'facility', 1, -74, '2026-11-15 15:20:52', '2026-11-15 15:20:52'),
+(50, 2, 'Area Counter', 'Area counter dan informasi menu yang tampak dari sisi ruang utama.', 'assets/fasilitas/surabaya/area-counter-surabaya.webp', 'arch', 'facility', 1, -73, '2026-11-15 15:20:52', '2026-11-15 15:20:52');
 
 -- --------------------------------------------------------
 
@@ -187,6 +243,7 @@ CREATE TABLE `events` (
   `start_at` datetime DEFAULT NULL,
   `end_at` datetime DEFAULT NULL,
   `poster` varchar(500) DEFAULT NULL,
+  `video` varchar(500) DEFAULT NULL,
   `registration_url` varchar(1000) DEFAULT NULL,
   `status` enum('draft','upcoming','ongoing','completed','cancelled') NOT NULL DEFAULT 'draft',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -197,22 +254,22 @@ CREATE TABLE `events` (
 -- Dumping data untuk tabel `events`
 --
 
-INSERT INTO `events` (`id`, `branch_id`, `title`, `slug`, `description`, `start_at`, `end_at`, `poster`, `registration_url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'A Letter to Myself', 'a-letter-to-myself', 'Kegiatan journaling bersama di Kammari Gresik.', '2026-11-28 09:30:00', '2026-11-28 12:00:00', 'assets/poster-event-mendatang/a-letter-to-myself.jpg', NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(2, NULL, 'Open Mic Meskipun Hujan', 'open-mic-meskipun-hujan', 'Open Mic di Kammari.', '2026-11-13 19:30:00', NULL, 'assets/poster-event-mendatang/open-mic-meskipun-hujan.jpg', NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(3, NULL, 'Walking Tour', 'walking-tour', 'Walking tour di Aston Gresik. Poster mencantumkan jadwal setiap Selasa.', NULL, NULL, 'assets/poster-event-mendatang/walking-tour.jpg', NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(4, 1, 'Crochet Workshop', 'crochet-workshop', 'Workshop crochet untuk pemula di Kammari Gresik.', '2026-11-08 15:00:00', '2026-11-08 17:00:00', 'assets/poster-event-mendatang/crochet_workshop.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(5, 1, 'Art Journaling', 'art-journaling', 'Kegiatan art journaling bersama Kammari.', NULL, NULL, 'assets/Poster-event-terlaksana/art_journaling.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(6, 1, 'Junk Journaling', 'junk-journaling', 'Workshop kreatif junk journaling.', '2026-10-18 09:30:00', '2026-10-18 12:00:00', 'assets/Poster-event-terlaksana/Junk-Journaling.png', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(7, NULL, 'Open Mic Bola', 'open-mic-bola', 'Kegiatan Open Mic di Kammari.', '2026-07-10 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-bola.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(8, NULL, 'Open Mic Jumpa Lagi', 'open-mic-jumpa-lagi', 'Kegiatan Open Mic bertema Jumpa Lagi.', '2026-09-04 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-jumpa-lagi.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(9, NULL, 'Open Mic Lagi', 'open-mic-lagi', 'Kegiatan Open Mic bersama komunitas Stand Up Indo Gresik.', '2026-08-21 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-lagi.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(10, NULL, 'Open Mic Listrik', 'open-mic-listrik', 'Kegiatan Open Mic bertema Listrik.', NULL, NULL, 'assets/Poster-event-terlaksana/open-mic-listrik.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(11, NULL, 'Open Mic Perampasan Aset', 'open-mic-perampasan-aset', 'Kegiatan Open Mic bertema Perampasan Aset Sah.', '2026-09-11 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-perampasan-aset.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(12, NULL, 'Open Mic Tasyakuran', 'open-mic-tasyakuran', 'Kegiatan Open Mic bertema Malam Tasyakuran.', '2026-08-07 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-tasyakuran.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(13, NULL, 'Open Mic Tawa', 'open-mic-tawa', 'Kegiatan Open Mic Tawa-Tawa di Kammari.', '2026-07-24 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-tawa.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(14, NULL, 'Open Mic', 'open-mic', 'Kegiatan Open Mic di Kammari.', '2026-10-30 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(15, 1, 'Weekend Art Journaling', 'weekend-art-journaling', 'Kegiatan kreatif Weekend Art Journaling.', '2026-09-13 09:30:00', '2026-09-13 12:00:00', 'assets/Poster-event-terlaksana/weekend-art-journaling.jpg', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00');
+INSERT INTO `events` (`id`, `branch_id`, `title`, `slug`, `description`, `start_at`, `end_at`, `poster`, `video`, `registration_url`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 'A Letter to Myself', 'a-letter-to-myself', 'Kegiatan journaling bersama di Kammari Gresik.', '2026-11-28 09:30:00', '2026-11-28 12:00:00', 'assets/poster-event-mendatang/a-letter-to-myself.jpg', NULL, NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
+(2, 1, 'Open Mic Meskipun Hujan', 'open-mic-meskipun-hujan', 'Open Mic di Kammari.', '2026-11-13 19:30:00', NULL, 'assets/poster-event-mendatang/open-mic-meskipun-hujan.jpg', NULL, NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(3, 1, 'Walking Tour', 'walking-tour', 'Walking tour di Aston Gresik. Poster mencantumkan jadwal setiap Selasa.', NULL, NULL, 'assets/poster-event-mendatang/walking-tour.jpg', NULL, NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(4, 1, 'Crochet Workshop', 'crochet-workshop', 'Workshop crochet untuk pemula di Kammari Gresik.', '2026-11-08 15:00:00', '2026-11-08 17:00:00', 'assets/poster-event-mendatang/crochet_workshop.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
+(5, 1, 'Art Journaling', 'art-journaling', 'Kegiatan art journaling bersama Kammari.', NULL, NULL, 'assets/Poster-event-terlaksana/art_journaling.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
+(6, 1, 'Junk Journaling', 'junk-journaling', 'Workshop kreatif junk journaling.', '2026-10-18 09:30:00', '2026-10-18 12:00:00', 'assets/Poster-event-terlaksana/Junk-Journaling.png', 'assets/video-animasi-poster/junk_journaling_creative_motion.mp4', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:10:24'),
+(7, 1, 'Open Mic Bola', 'open-mic-bola', 'Kegiatan Open Mic di Kammari.', '2026-07-10 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-bola.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(8, 1, 'Open Mic Jumpa Lagi', 'open-mic-jumpa-lagi', 'Kegiatan Open Mic bertema Jumpa Lagi.', '2026-09-04 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-jumpa-lagi.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(9, 1, 'Open Mic Lagi', 'open-mic-lagi', 'Kegiatan Open Mic bersama komunitas Stand Up Indo Gresik.', '2026-08-21 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-lagi.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(10, 1, 'Open Mic Listrik', 'open-mic-listrik', 'Kegiatan Open Mic bertema Listrik.', NULL, NULL, 'assets/Poster-event-terlaksana/open-mic-listrik.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(11, 1, 'Open Mic Perampasan Aset', 'open-mic-perampasan-aset', 'Kegiatan Open Mic bertema Perampasan Aset Sah.', '2026-09-11 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-perampasan-aset.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(12, 1, 'Open Mic Tasyakuran', 'open-mic-tasyakuran', 'Kegiatan Open Mic bertema Malam Tasyakuran.', '2026-08-07 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-tasyakuran.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(13, 1, 'Open Mic Tawa', 'open-mic-tawa', 'Kegiatan Open Mic Tawa-Tawa di Kammari.', '2026-07-24 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-tawa.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(14, 1, 'Open Mic', 'open-mic', 'Kegiatan Open Mic di Kammari.', '2026-10-30 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
+(15, 1, 'Weekend Art Journaling', 'weekend-art-journaling', 'Kegiatan kreatif Weekend Art Journaling.', '2026-09-13 09:30:00', '2026-09-13 12:00:00', 'assets/Poster-event-terlaksana/weekend-art-journaling.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00');
 
 -- --------------------------------------------------------
 
@@ -457,7 +514,7 @@ ALTER TABLE `branches`
 -- AUTO_INCREMENT untuk tabel `branch_facilities`
 --
 ALTER TABLE `branch_facilities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT untuk tabel `branch_menu_items`

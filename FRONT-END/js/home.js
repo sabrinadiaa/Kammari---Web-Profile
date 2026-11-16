@@ -290,9 +290,12 @@ if (pickerOut) {
 const MUSIC_TRACKS = [
   "assets/audio/lagu-1.mp3",
   "assets/audio/lagu-2.mp3",
-  "../assets/audio/lagu-3.mp3",
+  "assets/audio/lagu-3.mp3",
+  "assets/audio/lagu-4.mp3",
+  "assets/audio/lagu-5.mp3",
+  "assets/audio/lagu-6.mp3"
 ];
-const MUSIC_VOLUME = 0.5;      // 0 (sunyi) sampai 1 (penuh)
+const MUSIC_VOLUME = 0.3;      // 0 (sunyi) sampai 1 (penuh)
 const MUSIC_AUTOSTART = true;  // coba putar otomatis saat pertama kali membuka website
 const MUSIC_SHUFFLE = false;   // true = urutan lagu diacak (tetap sama selama pengunjung di website)
 

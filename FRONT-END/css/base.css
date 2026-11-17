@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playpen+Sans+Hebrew:wght@600&family=Shrikhand&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&family=Playpen+Sans+Hebrew:wght@600&family=Shrikhand&display=swap');
 /* Kammari Cafe & Roastery  |  BASE
    Isi: variabel, reset, komponen umum, HEADER, FOOTER
    Dipakai di SEMUA halaman.
@@ -39,8 +38,8 @@
   --bean: #4a2e20;
   --line: rgba(43, 26, 18, 0.16);
 
-  --serif: "Belgiano Serif", Georgia, serif;
-  --display: "Belgiano Serif", Georgia, serif;
+  --serif: "Baskervville", Georgia, serif;
+  --display: "Baskervville", Georgia, serif;
   --logo-font: "Playpen Sans Hebrew", cursive;
   --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
 

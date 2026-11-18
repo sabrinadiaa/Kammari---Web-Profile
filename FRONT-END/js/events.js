@@ -407,7 +407,7 @@ async function loadEventsFromDatabase() {
 
   try {
     const response = await fetch(
-      "../BACKEND/api/events.php",
+      "/api/events",
       { cache: "no-store" }
     );
 

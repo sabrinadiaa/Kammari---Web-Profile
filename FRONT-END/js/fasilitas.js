@@ -283,7 +283,7 @@ function getKammariPhotoPool(result, branch) {
       if (!cache[slug]) {
 
         const response = await fetch(
-          `../BACKEND/api/facilities.php?branch=${encodeURIComponent(slug)}`,
+          `/api/facilities?branch=${encodeURIComponent(slug)}`,
           { cache: "no-store" }
         );
 
@@ -489,7 +489,7 @@ function getKammariPhotoPool(result, branch) {
   // Mengambil foto dari database per cabang
   async function getBranchPhotos(branch) {
     const response = await fetch(
-      `../BACKEND/api/facilities.php?branch=${encodeURIComponent(branch)}`,
+      `/api/facilities?branch=${encodeURIComponent(branch)}`,
       { cache: "no-store" }
     );
 
@@ -844,7 +844,7 @@ async function loadFacilityHeroCarousel(branch = "gresik") {
   dotsWrap.innerHTML = "";
 
   try {
-    const response = await fetch(`../BACKEND/api/facilities.php?branch=${encodeURIComponent(branch)}`, {
+    const response = await fetch(`/api/facilities?branch=${encodeURIComponent(branch)}`, {
       cache: "no-store"
     });
 
@@ -1183,7 +1183,7 @@ if (document.body.dataset.page === "fasilitas") {
 
     try {
       const response = await fetch(
-        `../BACKEND/api/facilities.php?branch=${encodeURIComponent(branch)}`,
+        `/api/facilities?branch=${encodeURIComponent(branch)}`,
         { cache: "no-store" }
       );
 

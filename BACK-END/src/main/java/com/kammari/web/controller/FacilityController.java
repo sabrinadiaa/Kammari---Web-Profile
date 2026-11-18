@@ -30,15 +30,17 @@ public class FacilityController {
 
         try {
             var facilities = jdbc.queryForList("""
-                    SELECT f.id, f.name, f.description, f.image, f.icon,
-                           b.slug AS branch
-                    FROM branch_facilities AS f
-                    INNER JOIN branches AS b ON b.id = f.branch_id
-                    WHERE b.slug = ?
-                      AND b.is_active = 1
-                      AND f.is_available = 1
-                    ORDER BY f.sort_order ASC
-                    """, selectedBranch);
+                SELECT f.id, f.name, f.description, f.image, f.icon,
+                    f.type,
+                    b.slug AS branch
+                FROM branch_facilities AS f
+                INNER JOIN branches AS b ON b.id = f.branch_id
+                WHERE b.slug = ?
+                AND b.is_active = 1
+                AND f.is_available = 1
+                ORDER BY f.sort_order ASC
+                """, selectedBranch);
+
 
             return ResponseEntity.ok(Map.of(
                     "branch", selectedBranch,

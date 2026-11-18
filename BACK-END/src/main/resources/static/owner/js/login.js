@@ -52,49 +52,48 @@ document.addEventListener("DOMContentLoaded", () => {
   // 3. PROSES FORM LOGIN
   // =====================================
 
-  loginForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
+  loginForm.addEventListener("submit", (event) => {
 
-  const email = emailInput.value.trim();
-  const password = passwordInput.value;
+    event.preventDefault();
 
-  loginMessage.classList.remove("show");
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
 
-  if (!email || !password) {
-    showMessage("Email dan password wajib diisi.");
-    return;
-  }
+    loginMessage.classList.remove("show");
 
-  try {
-    const csrfResponse = await fetch("/api/auth/csrf", { cache: "no-store" });
-    if (!csrfResponse.ok) {
-      showMessage("Gagal menyiapkan login. Muat ulang halaman.");
+    if (!email || !password) {
+      showMessage("Email dan password wajib diisi.");
       return;
     }
 
-    const csrf = await csrfResponse.json();
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { [csrf.headerName]: csrf.token },
-      body: new URLSearchParams({ email, password })
-    });
-
-    if (response.status === 204) {
-      window.location.assign("/owner/dashboard.html");
-    } else if (response.status === 401) {
-      showMessage("Email atau password salah.");
+    // Simpan hanya email, bukan password
+    if (rememberInput.checked) {
+      localStorage.setItem("kammari_owner_email", email);
     } else {
-      showMessage(`Login gagal diproses (${response.status}).`);
+      localStorage.removeItem("kammari_owner_email");
     }
-  } catch (error) {
-    console.error("Gagal memproses login:", error);
-    showMessage("Respons login gagal diproses. Cek tab Network atau Console.");
-  }
 
-  if (response.status === 204) {
-    window.location.assign("/owner/dashboard.html");
-    return;
+    // Autentikasi belum dihubungkan ke backend.
+    // Jangan menganggap login berhasil atau
+    // mengarahkan pengguna ke dashboard.
+
+    showMessage(
+      "Tampilan login sudah siap. " +
+      "Autentikasi Owner belum terhubung " +
+      "dengan backend PHP."
+    );
+
+  });
+
+  // =====================================
+  // 4. MENAMPILKAN PESAN
+  // =====================================
+
+  function showMessage(message) {
+
+    loginMessage.textContent = message;
+    loginMessage.classList.add("show");
+
   }
-});
 
 });

@@ -11,47 +11,169 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap"
     rel="stylesheet">
+
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/menu.css">
- 
-
 </head>
 
 <body data-page="menu">
   <header id="site-header"></header>
 
   <main>
-    <section class="page-hero">
-      <div class="wrap">
-        <h1 class="h-xl">
-          Buku menu<br>
-          <span class="brand-word">Kammari</span>
-        </h1>
-        <p class="lede">
-          Jelajahi pilihan makanan, camilan, minuman, dan
-          menu spesial Kammari. Pilih cabang Gresik atau
-          Surabaya untuk melihat menu dan harga yang tersedia.
-        </p>
-        <div class="segmented" id="branch-toggle" role="group" aria-label="Pilih cabang">
-          <button data-branch="gresik" aria-pressed="true">Gresik</button>
-          <button data-branch="surabaya" aria-pressed="false">Surabaya</button>
+
+    <!-- ===== HERO ===== -->
+    <section class="menu-hero">
+      <div class="wrap menu-hero__grid">
+        <div class="menu-hero__text">
+          <p class="eyebrow">Menu Kami</p>
+          <h1 class="h-xl">Nikmati Racikan<br>Terbaik Setiap Hari</h1>
+          <p class="menu-hero__sub">Diseduh dengan hati • Hangat &amp; autentik</p>
+          <p class="lede">
+            Dari biji kopi pilihan nusantara hingga hidangan dapur rumahan yang
+            menemani obrolan panjangmu di cabang Surabaya maupun Gresik.
+          </p>
+
+          <!-- Pemilih cabang (menggantikan tombol "Lihat Menu").
+               data-branch & aria-pressed dipakai menu.js, jangan diubah -->
+          <div class="menu-hero__pick">
+            <p class="menu-hero__pick-label">Pilih cabang untuk melihat menu</p>
+            <div class="segmented" id="branch-toggle" role="group" aria-label="Pilih cabang">
+              <button data-branch="surabaya" aria-pressed="false">Surabaya</button>
+              <button data-branch="gresik" aria-pressed="false">Gresik</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kartu carousel: diisi otomatis dari database oleh menu.js -->
+        <div class="menu-hero__carousel">
+          <button class="car-btn" id="car-prev" aria-label="Sebelumnya">&lsaquo;</button>
+          <div class="car-track" id="car-track"></div>
+          <button class="car-btn" id="car-next" aria-label="Berikutnya">&rsaquo;</button>
         </div>
       </div>
+
+      <!-- Gelombang bawah hero -->
+      <div class="menu-hero__wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M0,70 C240,20 480,20 720,60 C960,100 1200,100 1440,40 L1440,120 L0,120 Z" fill="currentColor" />
+        </svg>
+      </div>
+
     </section>
 
-    <div class="menu-bar">
-      <div class="wrap">
-        <p class="note" id="branch-note"></p>
-        <nav class="chips" id="cat-nav" aria-label="Kategori menu"></nav>
-      </div>
-    </div>
+    <div id="menu-page">
 
-    <div class="wrap" id="menu-root" aria-live="polite"></div>
-    <div style="height:clamp(72px,10vw,140px)"></div>
+      <!-- ===== Intro (foto: assets/menu-page.png, diatur di menu.css) ===== -->
+      <section class="menu-intro">
+        <div class="wrap">
+          <div class="menu-intro__inner">
+            <div class="menu-intro__text">
+              <p class="eyebrow">Menu Kami</p>
+              <h2 class="h-lg">Menu Kammari</h2>
+              <p>
+                Pilihan sajian kopi, minuman, dan hidangan yang diolah dengan
+                bahan berkualitas dan cita rasa khas Kammari.
+              </p>
+            </div>
+            <div class="menu-intro__art" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Detail cabang (muncul setelah memilih cabang) ===== -->
+      <section class="branch-detail" id="branch-detail" hidden>
+        <div class="wrap bd__top">
+          <div class="bd__left">
+            <p class="crumb">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              Menu <span>/</span> <b id="bd-crumb"></b>
+            </p>
+            <h2 class="h-xl" id="bd-title"></h2>
+
+            <div class="pills" role="group" aria-label="Pilih cabang">
+              <button class="pill" data-branch="surabaya" aria-pressed="false">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10l1-5h14l1 5M4 10v10h16V10M4 10a2.7 2.7 0 005.3 0 2.7 2.7 0 005.4 0A2.7 2.7 0 0020 10M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>
+                Surabaya
+              </button>
+              <button class="pill" data-branch="gresik" aria-pressed="false">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10l1-5h14l1 5M4 10v10h16V10M4 10a2.7 2.7 0 005.3 0 2.7 2.7 0 005.4 0A2.7 2.7 0 0020 10M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>
+                Gresik
+              </button>
+            </div>
+          </div>
+          <p class="bd__desc" id="bd-desc"></p>
+        </div>
+
+        <!-- Menu Andalan: dari kolom is_recommended, kalau kosong diambil menu minuman berfoto pertama -->
+        <div class="feature" id="feature" hidden>
+          <div class="wrap">
+            <div class="feature__card">
+              <div class="feature__bg" aria-hidden="true"></div>
+              <div class="feature__photo" id="ft-art" aria-hidden="true"></div>
+
+              <svg class="feature__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,0 H1440 V10 C1190,52 900,56 640,40 C400,26 200,44 0,58 Z" fill="currentColor" />
+              </svg>
+
+              <div class="feature__text">
+                <p class="eyebrow">Menu Andalan</p>
+                <h3 id="ft-name"></h3>
+                <p id="ft-desc"></p>
+                <a href="#menu-minuman" class="btn-light" id="ft-more">Lihat Detail <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Tab Makanan / Minuman ===== -->
+      <div class="menu-tabs">
+        <div class="wrap menu-tabs__row">
+          <a href="#menu-makanan" class="mtab is-active" data-tab="makanan">Makanan</a>
+          <a href="#menu-minuman" class="mtab" data-tab="minuman">Minuman</a>
+          <span class="menu-tabs__line" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <p class="wrap menu-status" id="menu-status" aria-live="polite">Memuat menu...</p>
+
+      <!-- ===== Daftar menu ===== -->
+      <section class="menu-list" id="menu-makanan" data-group="makanan">
+        <div class="wrap">
+          <div class="menu-list__head">
+            <h2 class="h-lg">Menu Makanan</h2>
+            <div class="mchips" role="group" aria-label="Kategori makanan"></div>
+          </div>
+          <div class="mslider">
+            <button class="mnav" data-dir="-1" aria-label="Sebelumnya">&lsaquo;</button>
+            <div class="mviewport"><div class="mtrack"></div></div>
+            <button class="mnav" data-dir="1" aria-label="Berikutnya">&rsaquo;</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="menu-list" id="menu-minuman" data-group="minuman">
+        <div class="wrap">
+          <div class="menu-list__head">
+            <h2 class="h-lg">Menu Minuman</h2>
+            <div class="mchips" role="group" aria-label="Kategori minuman"></div>
+          </div>
+          <div class="mslider">
+            <button class="mnav" data-dir="-1" aria-label="Sebelumnya">&lsaquo;</button>
+            <div class="mviewport"><div class="mtrack"></div></div>
+            <button class="mnav" data-dir="1" aria-label="Berikutnya">&rsaquo;</button>
+          </div>
+        </div>
+      </section>
+
+      <div style="height:clamp(72px,10vw,140px)"></div>
+    </div>
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="js/script.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/home.js"></script>
 </body>
 
 </html>

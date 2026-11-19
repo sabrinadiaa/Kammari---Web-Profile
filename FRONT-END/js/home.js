@@ -230,7 +230,11 @@ if (featured) {
 
   if (MENU.length) {
     draw();
+  } else {
+    // Ambil menu Gresik dari API untuk carousel Beranda
+    loadBranchMenu("gresik");
   }
+
 }
 
 

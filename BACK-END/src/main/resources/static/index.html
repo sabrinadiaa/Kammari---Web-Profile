@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-  
+
 
 
   <link rel="stylesheet" href="css/base.css">
@@ -28,10 +28,7 @@
     <section class="scene">
 
       <!-- Foto latar (ganti nama file untuk mengganti latar) -->
-      <div
-        class="scene__bg"
-        style="--src: url('../assets/fasilitas/gresik/ruang-utama-pajangan-seni.jpeg')"
-      ></div>
+      <div class="scene__bg" style="--src: url('../assets/fasilitas/gresik/ruang-utama-pajangan-seni.jpeg')"></div>
 
       <!-- Panggung: wadah yang memberi tinggi pada hero -->
       <div class="scene__stage">
@@ -42,19 +39,11 @@
         </div>
 
         <!-- Music Badge (kanan atas) -->
-        <button
-          class="badge"
-          id="music-toggle"
-          type="button"
-          aria-label="Putar atau jeda musik Kammari"
-          aria-pressed="false"
-        >
+        <button class="badge" id="music-toggle" type="button" aria-label="Putar atau jeda musik Kammari"
+          aria-pressed="false">
           <svg viewBox="0 0 148 148" aria-hidden="true">
             <defs>
-              <path
-                id="circ"
-                d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"
-              />
+              <path id="circ" d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" />
             </defs>
 
             <text>
@@ -71,7 +60,9 @@
 
         <!-- Tulisan raksasa di belakang foto -->
         <h1 class="scene__word" data-in="1" aria-label="Kammari">
-          <span class="hero-letter">K</span><span class="hero-letter">a</span><span class="hero-letter">m</span><span class="hero-letter">m</span><span class="hero-letter">a</span><span class="hero-letter">r</span><span class="hero-letter">i</span>
+          <span class="hero-letter">K</span><span class="hero-letter">a</span><span class="hero-letter">m</span><span
+            class="hero-letter">m</span><span class="hero-letter">a</span><span class="hero-letter">r</span><span
+            class="hero-letter">i</span>
         </h1>
 
         <!-- Keterangan kecil kiri & kanan -->
@@ -254,17 +245,119 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <h2 class="h-lg">Kunjungi cabang terdekat</h2>
+            <h2 class="h-lg">Perjalanan kecil, <em>cerita besar.</em></h2>
           </div>
           <p class="lede">
-            Temukan suasana khas Kammari di dua lokasi,
-            Gresik dan Surabaya.
+            Dua cabang, dua suasana. Yuk, jelajahi Kammari
+            dan temukan tempat yang paling dekat denganmu.
           </p>
         </div>
-        <div class="branches">
-          <article class="branch">
-            <iframe title="Peta Kammari Gresik" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=KAMMARI%2C%20Jl.%20Samanhudi%20No.17%2C%20Gresik&output=embed">
+
+        <!-- ===== JELAJAHI KAMMARI ===== -->
+        <div class="jk-explore" id="jk-explore">
+
+          <p class="jk-eyebrow">JELAJAHI KAMMARI</p>
+
+
+          <!-- ===== ILUSTRASI JELAJAHI KAMMARI ===== -->
+          <div class="jk-art">
+
+            <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" role="group"
+              aria-label="Jelajahi dua cabang Kammari">
+
+              <!-- OUTLET GRESIK -->
+              <g class="jk-outlet" data-jk-choice="gresik" role="button" tabindex="0" aria-label="Pilih Kammari Gresik"
+                aria-pressed="false">
+
+                <image href="assets/fasilitas/gresik/kammari-gresik-sketsa.png" x="12" y="5" width="305" height="225"
+                  preserveAspectRatio="xMidYMid meet" pointer-events="none" />
+
+                <text x="165" y="264" class="jk-svg-label">
+                  GRESIK
+                </text>
+
+                <!-- Area klik tanpa garis kotak -->
+                <rect x="10" y="5" width="310" height="265"
+                  style="fill:transparent;stroke:none;pointer-events:all;cursor:pointer;" />
+              </g>
+
+              <!-- OUTLET SURABAYA -->
+              <g class="jk-outlet" data-jk-choice="surabaya" role="button" tabindex="0"
+                aria-label="Pilih Kammari Surabaya" aria-pressed="false">
+
+                <image href="assets/fasilitas/surabaya/kammari-surabaya-sketsa.png" x="686" y="5" width="305"
+                  height="225" preserveAspectRatio="xMidYMid meet" pointer-events="none" />
+
+                <text x="839" y="264" class="jk-svg-label">
+                  SURABAYA
+                </text>
+
+                <!-- Area klik tanpa garis kotak -->
+                <rect x="682" y="5" width="310" height="265"
+                  style="fill:transparent;stroke:none;pointer-events:all;cursor:pointer;" />
+              </g>
+
+              <!-- JALAN MELENGKUNG -->
+              <path id="jk-road" d="M320 214 C390 164 437 256 505 212 S626 168 682 214" fill="none" stroke="#aa8e79"
+                stroke-width="3" stroke-dasharray="7 10" stroke-linecap="round" />
+
+              <!-- ORANG BERLARI --->
+              <g id="jk-runner" fill="none" stroke="#573b2a" stroke-width="2.8" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+
+                <g class="jk-runner-body">
+
+                  <!-- Kepala -->
+                  <circle cx="0" cy="-18" r="5" fill="#573b2a" stroke="none" />
+
+                  <!-- Badan sedikit condong -->
+                  <path d="M0 -11 L-3 3" />
+
+                  <!-- Tangan belakang -->
+                  <g class="jk-runner-arm jk-arm-back">
+                    <path d="M-1 -8 L-10 -4 L-14 2" />
+                  </g>
+
+                  <!-- Tangan depan -->
+                  <g class="jk-runner-arm jk-arm-front">
+                    <path d="M0 -8 L9 -4 L13 -9" />
+                  </g>
+
+                  <!-- Kaki belakang -->
+                  <g class="jk-runner-leg jk-leg-back">
+                    <path d="M-3 3 L-11 10 L-17 15" />
+                  </g>
+
+                  <!-- Kaki depan -->
+                  <g class="jk-runner-leg jk-leg-front">
+                    <path d="M-3 3 L8 9 L14 17" />
+                  </g>
+
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Tombol tracking -->
+          <div class="jk-actions">
+            <button type="button" id="jk-nearest" class="jk-primary">
+              Temukan Cabang Terdekat
+            </button>
+          </div>
+
+          <!-- Keterangan hasil tracking -->
+          <p id="jk-status" role="status" aria-live="polite">
+            Klik outlet atau temukan cabang yang paling dekat denganmu.
+          </p>
+
+        </div>
+
+        <!-- ===== AKHIR ILUSTRASI ===== -->
+
+        <div class="branches" id="jk-branches">
+          <article class="branch" data-branch="surabaya">
+            <iframe title="Peta Kammari Surabaya" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=KAMMARI%2C%20Jl.%20Ketintang%20Baru%20II%20No.KAV%207%2C%20Surabaya&output=embed">
             </iframe>
             <div class="branch__body">
               <h3>Surabaya</h3>
@@ -281,9 +374,9 @@
               </a>
             </div>
           </article>
-          <article class="branch">
-            <iframe title="Peta Kammari Surabaya" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=KAMMARI%2C%20Jl.%20Ketintang%20Baru%20II%20No.KAV%207%2C%20Surabaya&output=embed">
+          <article class="branch" data-branch="gresik">
+            <iframe title="Peta Kammari Gresik" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=KAMMARI%2C%20Jl.%20Samanhudi%20No.17%2C%20Gresik&output=embed">
             </iframe>
             <div class="branch__body">
               <h3>Gresik</h3>
@@ -306,7 +399,7 @@
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="js/core.js"></script>
+  <script src="js/core.js?v=20261118"></script>
   <script src="js/menu.js"></script>
   <script src="js/home.js"></script>
   <script src="js/events.js"></script>

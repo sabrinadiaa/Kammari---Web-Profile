@@ -1545,3 +1545,98 @@ button.badge:focus-visible {
     animation: none;
   }
 }
+
+
+/* ADEGAN KEJAR-KEJARAN */
+
+#jk-runner {
+  pointer-events: none;
+}
+
+#jk-runner .jk-runner-body,
+#jk-runner .jk-runner-arm,
+#jk-runner .jk-runner-leg {
+  transform-box: fill-box;
+  transform-origin: center top;
+}
+
+#jk-runner.is-running .jk-runner-body {
+  animation: jk-chase-bounce .22s
+             ease-in-out infinite alternate;
+}
+
+#jk-runner.is-running .jk-arm-front,
+#jk-runner.is-running .jk-leg-back {
+  animation: jk-chase-swing-a .38s
+             ease-in-out infinite;
+}
+
+#jk-runner.is-running .jk-arm-back,
+#jk-runner.is-running .jk-leg-front {
+  animation: jk-chase-swing-b .38s
+             ease-in-out infinite;
+}
+
+/* Biar setiap orang tidak bergerak seragam */
+#jk-runner .jk-chaser:nth-child(2)
+.jk-runner-body {
+  animation-delay: -.12s;
+}
+
+#jk-runner .jk-chaser:nth-child(3)
+.jk-runner-body {
+  animation-delay: -.20s;
+}
+
+#jk-runner .jk-chaser:nth-child(4)
+.jk-runner-body {
+  animation-delay: -.08s;
+}
+
+/* Ayunan tangan dan kaki */
+@keyframes jk-chase-swing-a {
+  0%, 100% {
+    transform: rotate(-30deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+}
+
+@keyframes jk-chase-swing-b {
+  0%, 100% {
+    transform: rotate(30deg);
+  }
+  50% {
+    transform: rotate(-30deg);
+  }
+}
+
+/* Badan sedikit memantul */
+@keyframes jk-chase-bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2px);
+  }
+}
+
+/* Tulisan kecil di atas */
+.jk-chase-caption {
+  fill: #ad6547;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .6px;
+}
+
+/* Hormati pengaturan pengurangan animasi */
+@media (prefers-reduced-motion: reduce) {
+  #jk-runner.is-running .jk-runner-body,
+  #jk-runner.is-running .jk-runner-arm,
+  #jk-runner.is-running .jk-runner-leg {
+    animation: none;
+  }
+}
+

@@ -490,32 +490,105 @@ if (shouldStart) {
 
   // Tempatkan mobil di atas jalan
   // Tempatkan runner di atas jalan
+
+  let arahRunner = 1;
+
   function drawRunner(progress) {
-    const distance = progress * length;
-    const p = road.getPointAtLength(distance);
 
-    const prev = road.getPointAtLength(
-      Math.max(0, distance - 2)
-    );
+    const panjangJalan = road.getTotalLength();
+    const jarakUtama = progress * panjangJalan;
 
-    const next = road.getPointAtLength(
-      Math.min(length, distance + 2)
-    );
+    // Tentukan arah gerakan
+    if (progress > position + 0.00001) {
+      arahRunner = 1;
+    } else if (progress < position - 0.00001) {
+      arahRunner = -1;
+    }
 
-    const angle = Math.atan2(
-      next.y - prev.y,
-      next.x - prev.x
-    ) * 180 / Math.PI;
+    // Jarak antar karakter dalam satuan SVG
+    // Urutan: pengejar 1, 2, 3, pembawa kopi
+    const jarakPengejar = [185, 145, 100, 0];
 
-    runner.setAttribute(
-      "transform",
-      `translate(${p.x} ${p.y - 18}) rotate(${angle})`
-    );
+    // Hapus transform rombongan lama,
+    // karena sekarang setiap orang mengikuti jalan sendiri
+    runner.removeAttribute("transform");
+
+    const rombongan = runner.querySelector(".jk-chase-pack");
+
+    if (rombongan) {
+      rombongan.removeAttribute("transform");
+    }
+
+    const orangOrang = runner.querySelectorAll(".jk-chaser");
+
+    orangOrang.forEach((orang, index) => {
+
+      const jarakBelakang = jarakPengejar[index] ?? 0;
+
+      // Pengejar selalu berada di belakang pembawa kopi
+      const jarakOrang = Math.max(
+        0,
+        Math.min(
+          panjangJalan,
+          jarakUtama - arahRunner * jarakBelakang
+        )
+      );
+
+      // Titik posisi masing-masing orang di jalan
+      const titik = road.getPointAtLength(jarakOrang);
+
+      const titikSebelum = road.getPointAtLength(
+        Math.max(0, jarakOrang - 2)
+      );
+
+      const titikSesudah = road.getPointAtLength(
+        Math.min(panjangJalan, jarakOrang + 2)
+      );
+
+      // Kemiringan mengikuti lengkungan jalan
+      const sudut = Math.atan2(
+        titikSesudah.y - titikSebelum.y,
+        titikSesudah.x - titikSebelum.x
+      ) * 180 / Math.PI;
+
+      // Hadap kiri ketika berlari menuju Gresik
+      const hadap = arahRunner === -1 ? -1 : 1;
+
+      // Posisi kaki dibuat mendekati permukaan jalan
+      orang.setAttribute(
+        "transform",
+        `translate(${titik.x} ${titik.y - 15})
+       rotate(${sudut})
+       scale(${hadap} 1)`
+      );
+
+    });
+
+    // Tulisan mengikuti orang pembawa kopi
+    const tulisan = runner.querySelector(".jk-chase-caption");
+
+    if (tulisan) {
+      const titikDepan = road.getPointAtLength(
+        Math.max(0, Math.min(panjangJalan, jarakUtama))
+      );
+
+      tulisan.setAttribute(
+        "x",
+        titikDepan.x - arahRunner * 35
+      );
+
+      tulisan.setAttribute(
+        "y",
+        titikDepan.y - 52
+      );
+    }
 
     position = progress;
   }
 
-  // Gerakkan runner mengikuti jalan
+
+  /* 4 ORANG KEJAR-KEJARAN*/
+
   function moveRunner(destination) {
     cancelAnimationFrame(animationId);
 
@@ -523,12 +596,13 @@ if (shouldStart) {
     const duration = 1800;
     let start = null;
 
-    // Tangan dan kaki mulai bergerak
+    // Mulai animasi tangan dan kaki
     runner.classList.add("is-running");
 
     if (reduceMotion) {
       drawRunner(destination);
       runner.classList.remove("is-running");
+      animationId = null;
       return;
     }
 
@@ -542,6 +616,7 @@ if (shouldStart) {
 
       const easing = t * t * (3 - 2 * t);
 
+      // Gerakkan semua karakter sesuai jalannya
       drawRunner(
         from + (destination - from) * easing
       );

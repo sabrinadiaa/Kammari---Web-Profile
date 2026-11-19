@@ -5,9 +5,7 @@
 
 /* ============ MULAI: menu-data.js ============ */
 
-/* Alamat API menu.
-   - Proyek PHP (versi Anda sekarang) : "../BACKEND/api/menu.php"
-   - Proyek Spring Boot (BACK-END/)   : "/api/menu"                          */
+/* Alamat API menu (Spring Boot: MenuController → GET /api/menu?branch=gresik|surabaya) */
 const MENU_API = "/api/menu";
 
 /* ---------- Data menu ---------- */
@@ -143,12 +141,11 @@ function dishCard(item, showBranch) {
 const menuPage = document.getElementById("menu-page");
 
 if (menuPage) {
-  const PER_PAGE = 4;   // maksimal menu tampil per halaman slider
+  const AUTO_EVERY = 3000;     // jeda geser daftar menu (ms) = 3 detik
+  const SLIDE_MS = 700;        // lama animasi daftar menu — samakan dengan .mc di menu.css
+  const SPOT_EVERY = 2500;     // jeda geser spotlight hero (ms)
+  const SPOT_SLIDE = 600;      // lama animasi spotlight — samakan dengan .spot__photo di menu.css
 
-  /* Kategori sesuai tabel menu_categories di database.
-     Urutan di sini = urutan sort_order di database.
-     Kalau menambah kategori baru di database, tambahkan slug-nya di sini
-     (tanpa ini, kategori baru tetap tampil di daftar Makanan). */
   const GROUP_OF = {
     "main-course": "makanan",
     "snack": "makanan",
@@ -169,38 +166,24 @@ if (menuPage) {
     return i < 0 ? 99 : i;
   };
 
-  /* Alamat dari tabel branches. Deskripsi boleh Anda ubah. */
-  const BRANCH_INFO = {
-    gresik: {
-      addr: "Jl. Samanhudi No.17, Kemuteran, Kec. Gresik, Kabupaten Gresik, Jawa Timur.",
-      desc: "Cabang Gresik hadir dengan suasana yang lebih homely, hangat, dan menenangkan. Nikmati pilihan kopi, aneka teh dan minuman susu, camilan favorit, hingga menu makanan yang mengenyangkan."
-    },
-    surabaya: {
-      addr: "Jl. Ketintang Baru II No.KAV 7, Ketintang, Kec. Gayungan, Surabaya, Jawa Timur.",
-      desc: "Cabang Surabaya di kawasan Ketintang menghadirkan kopi, minuman, dan hidangan Kammari yang pas untuk menemani waktu santai, bekerja, atau berkumpul."
-    }
-  };
-
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-  let branch = null;      // null = belum pilih cabang → tampilkan semua menu
+  let branch = null;
   let reqId = 0;
   let items = [];
+  let query = "";
   const groups = {
-    makanan: { catIndex: -1, page: 0, cats: [], list: [] },
-    minuman: { catIndex: -1, page: 0, cats: [], list: [] }
+    makanan: { catIndex: -1, cats: [], list: [], view: [], center: 0, busy: false, paused: false },
+    minuman: { catIndex: -1, cats: [], list: [], view: [], center: 0, busy: false, paused: false }
   };
 
-  /* ---------- Gambar dari folder assets ----------
-     Kolom `image` di database berisi path seperti
-     "assets/Minuman/signature/oreo-shake.png".
-     Jika file tidak ada, <img> dibuang dan bentuk bulat tetap tampil. */
-  const imgTag = (it, cls = "") => it.image
-    ? `<img ${cls ? `class="${cls}" ` : ""}src="${esc(new URL(it.image, document.baseURI).href)}"
-            alt="${esc(it.name)}" loading="lazy" decoding="async" onerror="this.remove()">`
+  const imgSrc = p => new URL(p, document.baseURI).href;
+  const imgTag = (it, lazy = true) => it.image
+    ? `<img src="${esc(imgSrc(it.image))}" alt="${esc(it.name)}"
+            ${lazy ? 'loading="lazy"' : ""} decoding="async" onerror="this.remove()">`
     : "";
 
   /* ---------- Ambil data ---------- */
@@ -221,7 +204,6 @@ if (menuPage) {
       price: Number(i.price),
       image: i.image || "",
       available: i.is_available === undefined ? true : Number(i.is_available) !== 0,
-      recommended: Number(i.is_recommended) === 1,
       priceVaries: false
     }));
   }
@@ -238,8 +220,6 @@ if (menuPage) {
       );
       if (id !== reqId) return;
 
-      // Kalau dua cabang digabung: menu yang sama (kategori + slug) cukup sekali.
-      // Jika harganya beda, tampilkan harga terendah dengan label "Mulai".
       const map = new Map();
       lists.flat().forEach(i => {
         const key = i.cat + "|" + (i.slug || i.name.toLowerCase());
@@ -252,7 +232,6 @@ if (menuPage) {
         if (!ex.image && i.image) ex.image = i.image;
       });
       items = [...map.values()];
-
       status.hidden = true;
     } catch (err) {
       if (id !== reqId) return;
@@ -262,16 +241,21 @@ if (menuPage) {
     }
 
     buildGroups();
-    renderHero();
-    renderFeature();
+    renderSpot();
+    renderHead();
     Object.keys(groups).forEach(k => render(k));
   }
+
+  const matches = i => {
+    const q = query.trim().toLowerCase();
+    return !q || (i.name + " " + i.desc + " " + i.catName).toLowerCase().includes(q);
+  };
 
   function buildGroups() {
     Object.entries(groups).forEach(([key, g]) => {
       g.list = items
-        .filter(i => groupOf(i.cat) === key)
-        .sort((a, b) => rank(a.cat) - rank(b.cat));   // urutan kategori mengikuti database
+        .filter(i => groupOf(i.cat) === key && matches(i))
+        .sort((a, b) => rank(a.cat) - rank(b.cat));
 
       const map = new Map();
       g.list.forEach(i => {
@@ -279,42 +263,65 @@ if (menuPage) {
       });
       g.cats = [...map.values()];
       g.catIndex = -1;
-      g.page = 0;
     });
   }
 
-  /* ---------- Slider ---------- */
-  const inCat = (g, c) =>
-    c < 0 ? g.list : g.list.filter(i => i.cat === g.cats[c].id);
-  const pagesIn = (g, c) =>
-    Math.max(1, Math.ceil(inCat(g, c).length / PER_PAGE));
+  /* ---------- Carousel daftar menu (melingkar, 5 menu terlihat) ----------
+     Tiap menu punya posisi relatif ke menu tengah: 0 = tengah (sorotan),
+     ±1 dan ±2 = kiri/kanan (agak blur). Lebih dari ±2 disembunyikan. */
+  const inCat = (g, c) => c < 0 ? g.list : g.list.filter(i => i.cat === g.cats[c].id);
 
-  // Hitung posisi berikutnya. Di akhir kategori → lompat ke kategori sebelah.
-  function step(g, dir) {
-    const c = g.catIndex, p = g.page;
-    if (dir > 0) {
-      if (p < pagesIn(g, c) - 1) return { c, p: p + 1 };
-      if (c >= 0 && c < g.cats.length - 1) return { c: c + 1, p: 0 };
-      return null;
-    }
-    if (p > 0) return { c, p: p - 1 };
-    if (c > 0) return { c: c - 1, p: pagesIn(g, c - 1) - 1 };
-    return null;
+  const rel = (i, c, n) => {
+    let o = (((i - c) % n) + n) % n;
+    if (o > Math.floor(n / 2)) o -= n;
+    return o;
+  };
+  const bucket = o => (o < -2 ? "l" : o > 2 ? "r" : String(o));
+
+  function setNow(el, o) {                 // pindah tanpa animasi
+    el.style.transition = "none";
+    el.dataset.o = bucket(o);
+    void el.offsetWidth;
+    el.style.transition = "";
+  }
+
+  function place(key, init = false) {
+    const g = groups[key];
+    const sec = $(`[data-group="${key}"]`);
+    const n = g.view.length;
+
+    $$(".mc", sec).forEach(el => {
+      const o = rel(Number(el.dataset.i), g.center, n);
+      const prev = el._o === undefined ? o : el._o;
+      clearTimeout(el._tp);
+
+      if (init) {
+        setNow(el, o);
+      } else if (Math.abs(o - prev) > 1) {
+        // menu "membungkus" ke sisi seberang: geser keluar dulu, lalu muncul dari sisi lain
+        el.dataset.o = prev < o ? "l" : "r";
+        el._tp = setTimeout(() => setNow(el, o), SLIDE_MS + 20);
+      } else {
+        el.dataset.o = bucket(o);
+      }
+      el._o = o;
+    });
   }
 
   function go(key, dir) {
     const g = groups[key];
-    const next = step(g, dir);
-    if (!next) return;
-    g.catIndex = next.c;
-    g.page = next.p;
-    render(key, dir);
+    const n = g.view.length;
+    if (n < 2 || g.busy) return;
+    g.busy = true;
+    setTimeout(() => { g.busy = false; }, SLIDE_MS + 40);
+    g.center = (g.center + dir + n) % n;
+    place(key);
   }
 
-  function itemHTML(it) {
+  function itemHTML(it, i) {
     const price = (it.priceVaries ? "Mulai " : "") + rupiah(it.price);
     return `
-      <article class="mi${it.available ? "" : " is-soldout"}">
+      <article class="mi mc${it.available ? "" : " is-soldout"}" data-i="${i}">
         <div class="mi__img">${imgTag(it)}</div>
         <h3>${esc(it.name)}</h3>
         <span class="mi__price">${price}</span>
@@ -322,38 +329,34 @@ if (menuPage) {
       </article>`;
   }
 
-  function render(key, dir = 0) {
+  function render(key) {
     const g = groups[key];
     const sec = $(`[data-group="${key}"]`);
     const track = $(".mtrack", sec);
 
-    // Chip kategori (nama dari database)
     $(".mchips", sec).innerHTML =
       `<button class="mchip" data-cat="-1" aria-pressed="${g.catIndex < 0}">Semua</button>` +
       g.cats.map((c, i) =>
         `<button class="mchip" data-cat="${i}" aria-pressed="${g.catIndex === i}">${esc(c.title)}</button>`
       ).join("");
 
-    // Isi (maks. 4 menu per halaman)
-    const shown = inCat(g, g.catIndex).slice(g.page * PER_PAGE, (g.page + 1) * PER_PAGE);
-    track.className = "mtrack";
-    track.innerHTML = shown.length
-      ? shown.map(itemHTML).join("")
-      : `<p class="mempty">Belum ada menu.</p>`;
-    if (dir) {
-      void track.offsetWidth;   // restart animasi
-      track.classList.add(dir > 0 ? "in-next" : "in-prev");
-    }
+    g.view = inCat(g, g.catIndex);
+    g.center = 0;
+    track.classList.toggle("is-empty", !g.view.length);
+    track.innerHTML = g.view.length
+      ? g.view.map(itemHTML).join("")
+      : `<p class="mempty">${query.trim() ? "Menu yang dicari tidak ditemukan." : "Belum ada menu."}</p>`;
 
-    // Panah
-    $$(".mnav", sec).forEach(btn => {
-      btn.disabled = !step(g, Number(btn.dataset.dir));
-    });
+    if (g.view.length) place(key, true);
+    $$(".mnav", sec).forEach(btn => { btn.disabled = g.view.length < 2; });
   }
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function initSliders() {
     $$("[data-group]").forEach(sec => {
       const key = sec.dataset.group;
+      const g = groups[key];
 
       $$(".mnav", sec).forEach(btn =>
         btn.addEventListener("click", () => go(key, Number(btn.dataset.dir))));
@@ -361,12 +364,11 @@ if (menuPage) {
       $(".mchips", sec).addEventListener("click", e => {
         const chip = e.target.closest(".mchip");
         if (!chip) return;
-        groups[key].catIndex = Number(chip.dataset.cat);
-        groups[key].page = 0;
+        g.catIndex = Number(chip.dataset.cat);
         render(key);
       });
 
-      // Geser (swipe): kiri = berikutnya, kanan = sebelumnya
+      // Geser (swipe)
       const vp = $(".mviewport", sec);
       let startX = null;
       vp.addEventListener("pointerdown", e => { startX = e.clientX; });
@@ -377,126 +379,192 @@ if (menuPage) {
         if (Math.abs(dx) > 50) go(key, dx < 0 ? 1 : -1);
       });
       vp.addEventListener("pointercancel", () => { startX = null; });
+
+      // Otomatis geser kanan → kiri tiap 3 detik; jeda saat kursor di atasnya
+      vp.addEventListener("mouseenter", () => { g.paused = true; });
+      vp.addEventListener("mouseleave", () => { g.paused = false; });
+      if (!reduceMotion.matches) {
+        setInterval(() => {
+          if (!g.paused && !document.hidden && g.view.length >= 3) go(key, 1);
+        }, AUTO_EVERY);
+      }
     });
   }
 
-  /* ---------- Hero: carousel kartu dari database ---------- */
-  // Satu menu berfoto per kategori, minuman lebih dulu.
-  function featuredPicks() {
-    const seen = new Set();
-    return items
+  /* ---------- Hero: spotlight foto menu ---------- */
+  const spotEl = $("#spot");
+  const spotTrack = $("#spot-track");
+  const spotDots = $("#spot-dots");
+  let spotTimer = null, spotBusy = false, spotIdx = 0, spotLen = 0;
+
+  const spotN = () => Number.parseInt(getComputedStyle(spotEl).getPropertyValue("--n"), 10) || 3;
+  const spotCenter = () => Math.floor(spotN() / 2);
+
+  function spotPicks() {
+    const withImg = items
       .filter(i => i.image && i.available)
-      .sort((a, b) =>
-        (groupOf(a.cat) === "minuman" ? 0 : 1) - (groupOf(b.cat) === "minuman" ? 0 : 1) ||
-        rank(a.cat) - rank(b.cat))
-      .filter(i => !seen.has(i.cat) && seen.add(i.cat));
+      .sort((a, b) => rank(a.cat) - rank(b.cat));
+    const seen = new Set();
+    const by = { minuman: [], makanan: [] };
+    withImg.forEach(i => {
+      if (!seen.has(i.cat)) { seen.add(i.cat); by[groupOf(i.cat)].push(i); }
+    });
+    const out = [];
+    for (let k = 0; k < Math.max(by.minuman.length, by.makanan.length); k++) {
+      if (by.minuman[k]) out.push(by.minuman[k]);
+      if (by.makanan[k]) out.push(by.makanan[k]);
+    }
+    withImg.forEach(i => { if (out.length < 10 && !out.includes(i)) out.push(i); });
+    return out.slice(0, 10);
   }
 
-  function renderHero() {
-    const picks = featuredPicks();
+  function markCenter() {
+    if (!spotTrack) return;
+    const c = spotCenter();
+    [...spotTrack.children].forEach((el, i) => el.classList.toggle("is-center", i === c));
+  }
 
-    // Kartu carousel
-    const track = $("#car-track");
-    if (track && picks.length) {
-      track.innerHTML = picks.slice(0, 6).map(it => `
-        <article class="car-card">
-          <div class="car-card__photo">${imgTag(it)}</div>
-          <div class="car-card__body">
-            <h3>${esc(it.name)}</h3>
-            <span class="car-card__price">${(it.priceVaries ? "Mulai " : "") + rupiah(it.price)}</span>
-            <a class="car-card__btn" href="#menu-${groupOf(it.cat)}" data-focus-cat="${esc(it.cat)}">Lihat Detail</a>
-          </div>
-        </article>`).join("");
+  function updateDots() {
+    if (!spotDots || !spotLen) return;
+    const a = ((spotIdx % spotLen) + spotLen) % spotLen;
+    [...spotDots.children].forEach((d, i) => d.classList.toggle("is-active", i === a));
+  }
+
+  function spotMove(dir) {
+    if (spotBusy || !spotTrack || spotTrack.children.length <= spotN()) return;
+    spotBusy = true;
+    spotIdx += dir;
+    updateDots();
+
+    if (dir > 0) {
+      const kids = [...spotTrack.children];
+      const c = spotCenter();
+      kids[c].classList.remove("is-center");
+      kids[c + 1].classList.add("is-center");
+
+      spotTrack.style.transition = `transform ${SPOT_SLIDE}ms cubic-bezier(.65,0,.35,1)`;
+      spotTrack.style.transform = "translateX(calc(-100% / var(--n)))";
+
+      setTimeout(() => {
+        spotTrack.style.transition = "none";
+        spotTrack.appendChild(spotTrack.firstElementChild);
+        spotTrack.style.transform = "translateX(0)";
+        void spotTrack.offsetWidth;
+        spotBusy = false;
+      }, SPOT_SLIDE + 30);
+    } else {
+      spotTrack.style.transition = "none";
+      spotTrack.insertBefore(spotTrack.lastElementChild, spotTrack.firstElementChild);
+      spotTrack.style.transform = "translateX(calc(-100% / var(--n)))";
+      void spotTrack.offsetWidth;
+      markCenter();
+      spotTrack.style.transition = `transform ${SPOT_SLIDE}ms cubic-bezier(.65,0,.35,1)`;
+      spotTrack.style.transform = "translateX(0)";
+      setTimeout(() => { spotBusy = false; }, SPOT_SLIDE + 30);
     }
   }
 
-  /* ---------- Cabang ---------- */
-  function renderFeature() {
-    const box = $("#feature");
-    const pool = items.filter(i => i.available);
-    const pick =
-      pool.find(i => i.recommended && i.image) ||
-      pool.find(i => groupOf(i.cat) === "minuman" && i.image) ||
-      pool.find(i => i.image) ||
-      pool[0];
-    if (!branch || !pick) { box.hidden = true; return; }
+  function stopSpot() { clearInterval(spotTimer); spotTimer = null; }
+  function startSpot() {
+    stopSpot();
+    if (reduceMotion.matches || !spotTrack || spotTrack.children.length <= spotN()) return;
+    spotTimer = setInterval(() => spotMove(1), SPOT_EVERY);
+  }
 
-    box.hidden = false;
-    $("#ft-name").textContent = pick.name;
-    $("#ft-desc").textContent = pick.desc || "";
-    $("#ft-art").innerHTML = imgTag(pick);
+  function renderSpot() {
+    if (!spotTrack) return;
+    stopSpot();
+    spotBusy = false;
+    spotTrack.style.transition = "none";
+    spotTrack.style.transform = "translateX(0)";
 
-    const more = $("#ft-more");
-    more.href = "#menu-" + groupOf(pick.cat);
-    more.dataset.focusCat = pick.cat;
+    const base = spotPicks();
+    if (!base.length) {
+      spotTrack.innerHTML = "";
+      if (spotDots) spotDots.innerHTML = "";
+      return;
+    }
+    spotLen = base.length;
+    spotIdx = 0;
+
+    let list = base;
+    while (list.length < 8) list = list.concat(base);
+
+    // Susun supaya foto pertama berada di posisi tengah
+    const total = list.length, c = spotCenter();
+    const ordered = list.map((_, p) => list[(p - c + total) % total]);
+
+    spotTrack.innerHTML = ordered.map(it =>
+      `<div class="spot__item"><div class="spot__photo">${imgTag(it, false)}</div></div>`).join("");
+    if (spotDots) {
+      spotDots.innerHTML = base.map(() => `<span class="spot__dot"></span>`).join("");
+    }
+    markCenter();
+    updateDots();
+    startSpot();
+  }
+
+  if (spotEl) {
+    spotEl.addEventListener("mouseenter", stopSpot);
+    spotEl.addEventListener("mouseleave", startSpot);
+    document.addEventListener("visibilitychange", () => document.hidden ? stopSpot() : startSpot());
+    window.addEventListener("resize", markCenter);
+
+    const manual = dir => { spotMove(dir); startSpot(); };
+    $("#spot-prev")?.addEventListener("click", () => manual(-1));
+    $("#spot-next")?.addEventListener("click", () => manual(1));
+  }
+
+  /* ---------- Kartu "Daftar Menu" (setelah pilih cabang) ---------- */
+  function renderHead() {
+    const box = $("#branch-detail");
+    box.hidden = !branch;
+    if (!branch) return;
+    $("#bd-branch").textContent = BRANCH_NAME[branch];
   }
 
   function setBranch(b) {
     branch = b;
 
-    // Sinkronkan semua tombol cabang (pemilih di hero + pill di detail)
     $$("[data-branch]").forEach(btn =>
       btn.setAttribute("aria-pressed", String(btn.dataset.branch === b)));
 
-    const addr = $("#branch-address");
-    if (addr) {
-      addr.textContent = b ? BRANCH_INFO[b].addr : "Pilih cabang untuk melihat alamat kedai.";
-    }
+    query = "";
+    const search = $("#menu-search");
+    if (search) search.value = "";
 
-    const det = $("#branch-detail");
-    det.hidden = !b;
-    if (b) {
-      const name = BRANCH_NAME[b];
-      $("#bd-crumb").textContent = "Cabang " + name;
-      $("#bd-title").innerHTML = `Menu Cabang<br>${esc(name)}`;
-      $("#bd-desc").textContent = BRANCH_INFO[b].desc;
-    }
+    $("#bd-branch").textContent = b ? BRANCH_NAME[b] : "";
+    $("#branch-detail").hidden = !b;
     loadMenu();
-  }
-
-  function setTab(key) {
-    $$(".mtab").forEach(t => t.classList.toggle("is-active", t.dataset.tab === key));
   }
 
   /* ---------- Event ---------- */
   document.addEventListener("click", e => {
-    // Tombol cabang
     const btn = e.target.closest("[data-branch]");
     if (btn) {
       const b = btn.dataset.branch;
-      setBranch(b === branch ? null : b);   // klik cabang aktif = batal pilih (tampil semua)
-      if (branch && btn.closest(".menu-hero")) {
+      setBranch(b === branch ? null : b);
+      if (branch) {
         $("#branch-detail").scrollIntoView({ behavior: "smooth", block: "start" });
       }
-      return;
-    }
-
-    // "Find out more" / "Lihat Detail" → buka kategori terkait
-    const link = e.target.closest("[data-focus-cat]");
-    if (link) {
-      const cat = link.dataset.focusCat;
-      const key = groupOf(cat);
-      const g = groups[key];
-      const idx = g.cats.findIndex(c => c.id === cat);
-      if (idx >= 0) { g.catIndex = idx; g.page = 0; render(key); }
-      setTab(key);
-      return;
-    }
-
-    // Tab Makanan / Minuman
-    const tab = e.target.closest(".mtab");
-    if (tab) setTab(tab.dataset.tab);
+     }
   });
 
-  // Panah carousel hero
-  const carTrack = $("#car-track");
-  if (carTrack) {
-    $("#car-prev").addEventListener("click", () => carTrack.scrollBy({ left: -180, behavior: "smooth" }));
-    $("#car-next").addEventListener("click", () => carTrack.scrollBy({ left: 180, behavior: "smooth" }));
+  const searchBox = $("#menu-search");
+  let searchTimer;
+  if (searchBox) {
+    searchBox.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        query = searchBox.value;
+        buildGroups();
+        Object.keys(groups).forEach(k => render(k));
+      }, 150);
+    });
   }
 
   initSliders();
-  setBranch(null);   // awal: belum pilih cabang → semua menu
+  setBranch(null);
 }
 
 /* ============ SELESAI: menu.js ============ */

@@ -44,96 +44,54 @@
           </div>
         </div>
 
-        <!-- Kartu carousel: diisi otomatis dari database oleh menu.js -->
-        <div class="menu-hero__carousel">
-          <button class="car-btn" id="car-prev" aria-label="Sebelumnya">&lsaquo;</button>
-          <div class="car-track" id="car-track"></div>
-          <button class="car-btn" id="car-next" aria-label="Berikutnya">&rsaquo;</button>
+        <!-- Spotlight foto menu: diisi otomatis dari database oleh menu.js,
+             geser sendiri ke kiri tiap beberapa detik (tanpa nama & harga) -->
+        <div class="spot" id="spot" aria-label="Foto menu pilihan">
+          <button type="button" class="spot__arrow spot__arrow--prev" id="spot-prev" aria-label="Sebelumnya">&lsaquo;</button>
+
+          <div class="spot__viewport">
+            <div class="spot__track" id="spot-track"></div>
+          </div>
+
+          <svg class="spot__arc" viewBox="0 0 600 36" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 6 Q300 44 600 6" fill="none" stroke="rgba(255,214,170,.4)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <div class="spot__dots" id="spot-dots" aria-hidden="true"></div>
+
+          <button type="button" class="spot__arrow spot__arrow--next" id="spot-next" aria-label="Berikutnya">&rsaquo;</button>
         </div>
       </div>
-
-      <!-- Gelombang bawah hero -->
-      <div class="menu-hero__wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-          <path d="M0,70 C240,20 480,20 720,60 C960,100 1200,100 1440,40 L1440,120 L0,120 Z" fill="currentColor" />
-        </svg>
-      </div>
-
     </section>
 
     <div id="menu-page">
 
-      <!-- ===== Intro (foto: assets/menu-page.png, diatur di menu.css) ===== -->
-      <section class="menu-intro">
+      <!-- ===== Kartu "Daftar Menu" (muncul setelah memilih cabang) ===== -->
+      <section class="menu-head" id="branch-detail" aria-labelledby="mh-title" hidden>
         <div class="wrap">
-          <div class="menu-intro__inner">
-            <div class="menu-intro__text">
-              <p class="eyebrow">Menu Kami</p>
-              <h2 class="h-lg">Menu Kammari</h2>
+          <div class="mh">
+            <div class="mh__photo" aria-hidden="true"></div>
+
+            <div class="mh__title">
+              <p class="mh__eyebrow">Daftar menu <span aria-hidden="true">&bull;</span> Cabang <span id="bd-branch"></span></p>
+              <h2 id="mh-title">Makanan &amp; Minuman</h2>
+            </div>
+
+                        <div class="mh__body">
               <p>
-                Pilihan sajian kopi, minuman, dan hidangan yang diolah dengan
-                bahan berkualitas dan cita rasa khas Kammari.
+                Semua hidangan dimasak langsung setelah dipesan (<em>freshly cooked</em>).
+                Pilih kategori makanan atau minuman di bawah untuk menyaring daftar menu.
               </p>
+              <label class="mh__search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <input type="search" id="menu-search" placeholder="Cari mie, tenshinhan, kopi..."
+                       aria-label="Cari menu" autocomplete="off">
+              </label>
             </div>
-            <div class="menu-intro__art" aria-hidden="true"></div>
-          </div>
-        </div>
-      </section>
+          </div>      <!-- ← penutup .mh -->
+        </div>        <!-- ← penutup .wrap -->
+      </section>      <!-- ← penutup #branch-detail -->
 
-      <!-- ===== Detail cabang (muncul setelah memilih cabang) ===== -->
-      <section class="branch-detail" id="branch-detail" hidden>
-        <div class="wrap bd__top">
-          <div class="bd__left">
-            <p class="crumb">
-              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
-              Menu <span>/</span> <b id="bd-crumb"></b>
-            </p>
-            <h2 class="h-xl" id="bd-title"></h2>
-
-            <div class="pills" role="group" aria-label="Pilih cabang">
-              <button class="pill" data-branch="surabaya" aria-pressed="false">
-                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10l1-5h14l1 5M4 10v10h16V10M4 10a2.7 2.7 0 005.3 0 2.7 2.7 0 005.4 0A2.7 2.7 0 0020 10M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>
-                Surabaya
-              </button>
-              <button class="pill" data-branch="gresik" aria-pressed="false">
-                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10l1-5h14l1 5M4 10v10h16V10M4 10a2.7 2.7 0 005.3 0 2.7 2.7 0 005.4 0A2.7 2.7 0 0020 10M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>
-                Gresik
-              </button>
-            </div>
-          </div>
-          <p class="bd__desc" id="bd-desc"></p>
-        </div>
-
-        <!-- Menu Andalan: dari kolom is_recommended, kalau kosong diambil menu minuman berfoto pertama -->
-        <div class="feature" id="feature" hidden>
-          <div class="wrap">
-            <div class="feature__card">
-              <div class="feature__bg" aria-hidden="true"></div>
-              <div class="feature__photo" id="ft-art" aria-hidden="true"></div>
-
-              <svg class="feature__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,0 H1440 V10 C1190,52 900,56 640,40 C400,26 200,44 0,58 Z" fill="currentColor" />
-              </svg>
-
-              <div class="feature__text">
-                <p class="eyebrow">Menu Andalan</p>
-                <h3 id="ft-name"></h3>
-                <p id="ft-desc"></p>
-                <a href="#menu-minuman" class="btn-light" id="ft-more">Lihat Detail <span aria-hidden="true">&rarr;</span></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== Tab Makanan / Minuman ===== -->
-      <div class="menu-tabs">
-        <div class="wrap menu-tabs__row">
-          <a href="#menu-makanan" class="mtab is-active" data-tab="makanan">Makanan</a>
-          <a href="#menu-minuman" class="mtab" data-tab="minuman">Minuman</a>
-          <span class="menu-tabs__line" aria-hidden="true"></span>
-        </div>
-      </div>
+      <p class="wrap menu-status" id="menu-status" aria-live="polite">Memuat menu...</p>
 
       <p class="wrap menu-status" id="menu-status" aria-live="polite">Memuat menu...</p>
 

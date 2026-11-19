@@ -285,10 +285,11 @@ if (menuPage) {
     el.style.transition = "";
   }
 
-  function place(key, init = false) {
+  function place(key, init = false, steps = 1) {
     const g = groups[key];
     const sec = $(`[data-group="${key}"]`);
     const n = g.view.length;
+    const wrapAt = steps > 1 ? 2 : 1;
 
     $$(".mc", sec).forEach(el => {
       const o = rel(Number(el.dataset.i), g.center, n);
@@ -297,8 +298,7 @@ if (menuPage) {
 
       if (init) {
         setNow(el, o);
-      } else if (Math.abs(o - prev) > 1) {
-        // menu "membungkus" ke sisi seberang: geser keluar dulu, lalu muncul dari sisi lain
+      } else if (Math.abs(o - prev) > wrapAt) {
         el.dataset.o = prev < o ? "l" : "r";
         el._tp = setTimeout(() => setNow(el, o), SLIDE_MS + 20);
       } else {
@@ -316,6 +316,17 @@ if (menuPage) {
     setTimeout(() => { g.busy = false; }, SLIDE_MS + 40);
     g.center = (g.center + dir + n) % n;
     place(key);
+  }
+
+  function goTo(key, index) {
+    const g = groups[key];
+    const n = g.view.length;
+    if (n < 2 || g.busy || index === g.center) return;
+    const steps = Math.abs(rel(index, g.center, n));
+    g.busy = true;
+    setTimeout(() => { g.busy = false; }, SLIDE_MS + 40);
+    g.center = index;
+    place(key, false, steps);
   }
 
   function itemHTML(it, i) {
@@ -360,6 +371,13 @@ if (menuPage) {
 
       $$(".mnav", sec).forEach(btn =>
         btn.addEventListener("click", () => go(key, Number(btn.dataset.dir))));
+      
+      // Klik menu di kiri/kanan → menu itu pindah ke tengah
+      $(".mtrack", sec).addEventListener("click", e => {
+        const card = e.target.closest(".mc");
+        if (!card || card.dataset.o === "0") return;
+        goTo(key, Number(card.dataset.i));
+      });
 
       $(".mchips", sec).addEventListener("click", e => {
         const chip = e.target.closest(".mchip");
@@ -380,14 +398,6 @@ if (menuPage) {
       });
       vp.addEventListener("pointercancel", () => { startX = null; });
 
-      // Otomatis geser kanan → kiri tiap 3 detik; jeda saat kursor di atasnya
-      vp.addEventListener("mouseenter", () => { g.paused = true; });
-      vp.addEventListener("mouseleave", () => { g.paused = false; });
-      if (!reduceMotion.matches) {
-        setInterval(() => {
-          if (!g.paused && !document.hidden && g.view.length >= 3) go(key, 1);
-        }, AUTO_EVERY);
-      }
     });
   }
 

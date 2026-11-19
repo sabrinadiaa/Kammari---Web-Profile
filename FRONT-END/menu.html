@@ -14,6 +14,7 @@
 
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/menu.css">
+  <link rel="icon" href="data:,">
 </head>
 
 <body data-page="menu">
@@ -72,28 +73,19 @@
             <div class="mh__photo" aria-hidden="true"></div>
 
             <div class="mh__title">
-              <p class="mh__eyebrow">Daftar menu <span aria-hidden="true">&bull;</span> Cabang <span id="bd-branch"></span></p>
               <h2 id="mh-title">Makanan &amp; Minuman</h2>
+              <p class="mh__eyebrow">Cabang <span id="bd-branch"></span></p>
             </div>
 
-                        <div class="mh__body">
-              <p>
-                Semua hidangan dimasak langsung setelah dipesan (<em>freshly cooked</em>).
-                Pilih kategori makanan atau minuman di bawah untuk menyaring daftar menu.
-              </p>
-              <label class="mh__search">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-                <input type="search" id="menu-search" placeholder="Cari mie, tenshinhan, kopi..."
-                       aria-label="Cari menu" autocomplete="off">
-              </label>
-            </div>
-          </div>      <!-- ← penutup .mh -->
+            <label class="mh__search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <input type="search" id="menu-search" placeholder="Cari menu..." aria-label="Cari menu" autocomplete="off">
+            </label>
+          </div>
         </div>        <!-- ← penutup .wrap -->
       </section>      <!-- ← penutup #branch-detail -->
 
-      <p class="wrap menu-status" id="menu-status" aria-live="polite">Memuat menu...</p>
-
-      <p class="wrap menu-status" id="menu-status" aria-live="polite">Memuat menu...</p>
+      <p class="wrap menu-status" id="menu-status" aria-live="polite" hidden></p>
 
       <!-- ===== Daftar menu ===== -->
       <section class="menu-list" id="menu-makanan" data-group="makanan">

@@ -3,8 +3,13 @@
 
 /* Kammari Cafe & Roastery — script.js */
 
-const WA_NUMBER = "6281234567890"; // ganti dengan nomor WhatsApp cafe (format 62...)
-const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Halo Kammari, saya ingin reservasi.")}`;
+const WA_NUMBER = "6281230230104";
+
+const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+  "Halo Kammari, saya ingin bertanya mengenai informasi cafe."
+)}`;
+
+const IG_LINK = "https://www.instagram.com/______kammari/";
 
 /* ---------- Ikon (SVG inline) ---------- */
 const ICON = {
@@ -57,7 +62,7 @@ if (header) {
       </a>
 
       <!-- Instagram -->
-      <a class="icon-btn icon-btn--ig" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+      <a class="icon-btn icon-btn--ig" href="${IG_LINK}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
         <img src="assets/ig.svg" alt="">
       </a>
 
@@ -90,9 +95,8 @@ if (footer) {
             <img src="assets/wa.svg" alt="">
           </a>
 
-          <!-- Instagram -->
-          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-            <img src="assets/ig.svg" alt="">
+          <a href="${IG_LINK}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <img src="assets/ig.svg" alt="Instagram">
           </a>
         </div>
       </div>

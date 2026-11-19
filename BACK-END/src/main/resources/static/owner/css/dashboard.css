@@ -1,0 +1,969 @@
+
+/* ============================================
+   KAMMARI OWNER DASHBOARD
+   CLEAN LAYOUT — SINGLE STYLESHEET
+============================================ */
+
+/* 1. DESIGN TOKENS */
+
+:root {
+  --coffee: #35271F;
+  --coffee-hover: #49372C;
+
+  --accent: #984015;
+  --accent-hover: #7D3515;
+
+  --background: #F8F3ED;
+  --surface: #FFFCF8;
+  --cream: #EDE1D5;
+
+  --accent-soft: #F2E1D5;
+
+  --text: #35271F;
+  --muted: #857468;
+  --border: #E7DBCF;
+  --white: #FFFFFF;
+
+  --sidebar-width: 238px;
+
+  --font-main: "Hanken Grotesk", Arial, sans-serif;
+}
+
+/* 2. RESET */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background: var(--background);
+  color: var(--text);
+
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+svg {
+  width: 19px;
+  height: 19px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* 3. APPLICATION LAYOUT */
+
+/*
+  Sidebar dan main content adalah
+  dua kolom terpisah.
+
+  Tidak menggunakan margin negatif
+  atau positioning yang membuat
+  konten bertumpuk.
+*/
+
+.dashboard-layout {
+  display: grid;
+
+  grid-template-columns:
+    var(--sidebar-width)
+    minmax(0, 1fr);
+
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+
+  padding: 30px 18px 22px;
+
+  background: var(--coffee);
+  color: #F8F2EC;
+
+  overflow-y: auto;
+}
+
+.main-wrapper {
+  min-width: 0;
+  width: 100%;
+}
+
+/* 4. SIDEBAR BRAND */
+
+.sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 12px;
+  margin: 0 11px 55px;
+}
+
+.sidebar-brand .brand-logo {
+  width: 182px;
+  height: auto;
+  max-width: 100%;
+
+  object-fit: contain;
+  object-position: left center;
+
+  filter:
+    brightness(0)
+    invert(94%)
+    sepia(8%)
+    saturate(250%)
+    hue-rotate(337deg);
+}
+
+.sidebar-brand > span {
+  color: #D5BBAB;
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.8px;
+}
+
+/* 5. SIDEBAR NAVIGATION */
+
+.sidebar-label {
+  margin: 0 12px 15px;
+
+  color: #C6A994;
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.9px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  min-height: 47px;
+  padding: 0 14px;
+
+  border-radius: 9px;
+
+  color: #EBDDD2;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  transition:
+    background .2s,
+    color .2s;
+}
+
+.nav-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, .07);
+  color: #FFFFFF;
+}
+
+.nav-link.active {
+  background: #F5EADF;
+  color: var(--coffee);
+  font-weight: 700;
+}
+
+/* 6. SIDEBAR FOOTER */
+
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.sidebar-branch {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 0 12px;
+  margin: 0;
+
+  color: #D3BAA7;
+  font-size: 11px;
+}
+
+.branch-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  background: #C99578;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-height: 45px;
+  width: 100%;
+  padding: 0 14px;
+
+  border: 1px solid #6B5548;
+  border-radius: 9px;
+
+  background: transparent;
+  color: #FFFFFF;
+
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, .07);
+}
+
+.logout-button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.sidebar-bottom small {
+  color: #B09A8A;
+  font-size: 10px;
+  text-align: center;
+}
+
+/* 7. TOPBAR */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  width: 100%;
+  min-height: 74px;
+
+  padding: 13px clamp(24px, 3vw, 42px);
+
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-left,
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-width: 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.breadcrumb > span {
+  color: var(--muted);
+}
+
+.breadcrumb strong {
+  font-weight: 700;
+}
+
+.website-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.website-link:hover {
+  color: var(--accent);
+}
+
+.website-link svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* 8. OWNER PROFILE */
+
+.owner-profile {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding-left: 20px;
+
+  border-left: 1px solid var(--border);
+}
+
+.owner-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  background: #EADBCD;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.owner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.owner-info strong {
+  font-size: 11px;
+}
+
+.owner-info small {
+  display: block;
+  max-width: 185px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.sidebar-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 39px;
+  height: 39px;
+  padding: 0;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: var(--surface);
+  color: var(--coffee);
+}
+
+/* 9. MAIN CONTENT SPACING */
+
+/*
+  Penting:
+
+  Semua elemen dashboard berada
+  di dalam .content-inner.
+
+  Jadi jarak kiri dan kanan selalu
+  konsisten untuk:
+  - Dashboard heading
+  - Welcome banner
+  - Ringkasan Menu
+  - Pengelolaan
+*/
+
+.dashboard-content {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+
+  margin: 0;
+  padding: 0;
+}
+
+.content-inner {
+  width: min(100%, 1440px);
+
+  margin-inline: auto;
+
+  padding:
+    34px
+    clamp(24px, 3.2vw, 48px)
+    42px;
+}
+
+.content-inner > * {
+  min-width: 0;
+}
+
+/* 10. PAGE HEADING */
+
+.page-heading {
+  margin-bottom: 23px;
+}
+
+.eyebrow {
+  display: block;
+
+  color: var(--accent);
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+
+.page-heading h1 {
+  margin: 8px 0 0;
+
+  font-size: 29px;
+  font-weight: 700;
+
+  letter-spacing: -.8px;
+  line-height: 1.2;
+}
+
+/* 11. WELCOME BANNER */
+
+.welcome-banner {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.4fr)
+    minmax(260px, .6fr);
+
+  width: 100%;
+  min-height: 218px;
+
+  margin: 0 0 31px;
+
+  overflow: hidden;
+
+  border: 1px solid #E5D6C8;
+  border-radius: 13px;
+
+  background: var(--cream);
+}
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  min-width: 0;
+  padding: 27px 35px;
+}
+
+.welcome-label {
+  color: var(--accent);
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+
+.welcome-content h2 {
+  margin: 11px 0 8px;
+
+  font-size: clamp(24px, 2.1vw, 30px);
+  font-weight: 700;
+
+  line-height: 1.22;
+  letter-spacing: -.8px;
+}
+
+.welcome-content p {
+  margin: 0;
+  max-width: 420px;
+
+  color: #6F5E52;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.welcome-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+
+  min-height: 40px;
+  margin-top: 18px;
+  padding: 0 17px;
+
+  border-radius: 8px;
+
+  background: var(--accent);
+  color: #FFFFFF;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  transition: background .18s;
+}
+
+.welcome-button:hover {
+  background: var(--accent-hover);
+}
+
+.welcome-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 12. WELCOME PHOTO */
+
+.welcome-image {
+  position: relative;
+  min-width: 0;
+  min-height: 218px;
+
+  background: #C9B8A8;
+  overflow: hidden;
+}
+
+.welcome-image img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+/* 13. SECTION TITLES */
+
+.statistics-section,
+.management-section {
+  margin-bottom: 31px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.4px;
+}
+
+.data-status {
+  margin: 0;
+
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+
+  text-align: right;
+}
+
+/* 14. STATISTICS GRID */
+
+.statistics-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 15px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  min-width: 0;
+  min-height: 125px;
+
+  padding: 19px;
+
+  border: 1px solid var(--border);
+  border-radius: 11px;
+
+  background: var(--surface);
+}
+
+.stat-icon,
+.management-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  border-radius: 9px;
+
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.stat-icon {
+  width: 42px;
+  height: 42px;
+}
+
+.stat-icon svg,
+.management-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+/* 15. STATISTICS DATA */
+
+.stat-data {
+  min-width: 0;
+}
+
+.stat-data > span {
+  color: #77675B;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stat-data strong {
+  display: block;
+
+  margin: 7px 0 5px;
+
+  font-size: 35px;
+  font-weight: 700;
+
+  letter-spacing: -1px;
+  line-height: 1.05;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-data p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* 16. MANAGEMENT LIST */
+
+.management-list {
+  overflow: hidden;
+
+  border: 1px solid var(--border);
+  border-radius: 11px;
+
+  background: var(--surface);
+}
+
+.management-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  min-height: 82px;
+  padding: 16px 23px;
+
+  transition: background .18s;
+}
+
+.management-item + .management-item {
+  border-top: 1px solid var(--border);
+}
+
+.management-item:hover {
+  background: #F5EBE2;
+}
+
+.management-icon {
+  width: 43px;
+  height: 43px;
+
+  border: 1px solid #E7D9CD;
+}
+
+.management-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.management-info strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.management-info small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.management-arrow {
+  color: var(--accent);
+  font-size: 20px;
+
+  transition: transform .18s;
+}
+
+.management-item:hover .management-arrow {
+  transform: translateX(4px);
+}
+
+/* 17. FOOTER */
+
+.dashboard-footer {
+  padding-top: 20px;
+
+  border-top: 1px solid var(--border);
+
+  color: #A09387;
+
+  text-align: center;
+  font-size: 11px;
+}
+
+/* 18. SMALLER LAPTOP */
+
+@media (max-width: 1100px) {
+
+  .content-inner {
+    padding-inline: 28px;
+  }
+
+  .statistics-grid {
+    gap: 11px;
+  }
+
+  .stat-card {
+    padding: 16px;
+    gap: 11px;
+  }
+
+  .stat-data strong {
+    font-size: 31px;
+  }
+
+  .welcome-banner {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(220px, .75fr);
+  }
+}
+
+/* 19. TABLET */
+
+@media (max-width: 900px) {
+
+  .dashboard-layout {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: var(--sidebar-width);
+
+    transform: translateX(-100%);
+    transition: transform .25s;
+
+    box-shadow:
+      12px 0 30px rgba(0, 0, 0, .1);
+  }
+
+  .sidebar.open,
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .main-wrapper {
+    width: 100%;
+    margin: 0;
+  }
+
+  .sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .topbar {
+    padding-inline: 24px;
+  }
+
+  .content-inner {
+    padding: 27px 24px 34px;
+  }
+}
+
+/* 20. MOBILE */
+
+@media (max-width: 680px) {
+
+  .topbar-left,
+  .topbar-right {
+    gap: 11px;
+  }
+
+  .owner-info {
+    display: none;
+  }
+
+  .owner-profile {
+    padding-left: 12px;
+  }
+
+  .welcome-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-content {
+    min-height: 205px;
+    padding: 27px;
+  }
+
+  .welcome-image {
+    height: 175px;
+    min-height: 175px;
+  }
+
+  .statistics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+  .data-status {
+    text-align: left;
+  }
+}
+
+/* 21. SMALL MOBILE */
+
+@media (max-width: 420px) {
+
+  .topbar {
+    padding: 12px 16px;
+  }
+
+  .content-inner {
+    padding: 24px 17px 30px;
+  }
+
+  .breadcrumb {
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  .website-text {
+    display: none;
+  }
+
+  .website-link svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .page-heading h1 {
+    font-size: 27px;
+  }
+
+  .welcome-content h2 {
+    font-size: 24px;
+  }
+
+  .management-item {
+    padding: 15px 16px;
+  }
+
+  .management-icon {
+    width: 39px;
+    height: 39px;
+  }
+}
+
+/* 22. REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: .01ms !important;
+  }
+}

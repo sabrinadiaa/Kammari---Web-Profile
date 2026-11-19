@@ -1,432 +1,767 @@
 
-/* =====================================
-   KAMMARI CAFE - OWNER LOGIN
-   ===================================== */
+/* =========================================
+   KAMMARI CAFÉ & ROASTERY
+   OWNER LOGIN — CLEAN PREMIUM DESIGN
+========================================= */
 
-/* WARNA UTAMA */
+
+/* =========================================
+   1. COLORS & TYPOGRAPHY
+========================================= */
+
 :root {
-  --cream: #f8f4ed;
-  --white: #ffffff;
-  --brown: #38251e;
-  --brown-light: #6d5548;
-  --terracotta: #ad6245;
-  --terracotta-hover: #915039;
-  --border: #e8ded2;
-  --muted: #8e8075;
+  --background: #F1ECE5;
+  --surface: #FBF8F4;
+  --white: #FFFFFF;
+
+  --coffee: #35271F;
+  --coffee-hover: #4D392E;
+
+  --text: #34271F;
+  --muted: #94877C;
+
+  --border: #E5DCD2;
+  --accent: #AE765B;
+
+  --shadow: 0 22px 65px rgba(53, 39, 31, .10);
+
+  --font-main: "Hanken Grotesk", sans-serif;
 }
 
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
+
+/* =========================================
+   2. RESET
+========================================= */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+}
+
 body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--brown);
+  margin: 0;
   min-height: 100vh;
+
+  background: var(--background);
+  color: var(--text);
+
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* =====================================
-   LAYOUT LOGIN
-   ===================================== */
-
-.login-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 100vh;
+button,
+input {
+  font: inherit;
 }
 
-/* =====================================
-   BAGIAN KIRI - BRAND
-   ===================================== */
+button {
+  cursor: pointer;
+}
 
-.login-brand {
-  background: var(--brown);
-  color: var(--cream);
-  padding: 65px;
+img {
+  display: block;
+}
 
+[hidden] {
+  display: none !important;
+}
+
+
+/* =========================================
+   3. MAIN PAGE
+========================================= */
+
+.login-page {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
-  position: relative;
-  overflow: hidden;
-}
-
-/* DEKORASI SEDERHANA */
-.login-brand::after {
-  content: "";
-  position: absolute;
-
-  width: 450px;
-  height: 450px;
-
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 50%;
-
-  bottom: -220px;
-  right: -180px;
-
-  pointer-events: none;
-}
-
-/* LOGO */
-.brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-icon {
-  width: 43px;
-  height: 43px;
-
-  display: flex;
   align-items: center;
   justify-content: center;
 
-  border: 1px solid #c5a98e;
-  border-radius: 50%;
+  width: 100%;
 
-  font-family: 'Playfair Display', serif;
-  font-size: 23px;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  padding: 34px 24px;
 }
 
-.logo-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 25px;
-  letter-spacing: 2px;
-}
 
-/* CONTENT */
-.brand-content {
-  max-width: 470px;
-  position: relative;
-  z-index: 1;
-}
+/* TOP LABEL */
 
-.brand-label {
+.page-label {
+  margin: 0 0 22px;
+
+  color: var(--coffee);
+
   font-size: 11px;
+  font-weight: 700;
+
   letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #d9b89a;
-  margin-bottom: 22px;
+  line-height: 1.4;
+
+  text-align: center;
 }
 
-.brand-content h1 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 500;
-  font-size: clamp(38px, 4vw, 56px);
-  line-height: 1.2;
-  margin-bottom: 22px;
-}
 
-.brand-content h1 span {
-  color: #d7af90;
-}
+/* =========================================
+   4. LOGIN CARD
+========================================= */
 
-.brand-description {
-  color: #cdbdb1;
-  font-size: 15px;
-  line-height: 1.9;
-  max-width: 390px;
-}
+.login-shell {
+  display: grid;
 
-.brand-footer {
-  font-size: 12px;
-  color: #ab9588;
-}
+  grid-template-columns:
+    minmax(0, 1.08fr)
+    minmax(0, 0.92fr);
 
-/* =====================================
-   BAGIAN KANAN - LOGIN
-   ===================================== */
-
-.login-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 50px 30px;
-}
-
-.login-box {
   width: 100%;
-  max-width: 410px;
+  max-width: 1115px;
+
+  min-height: 630px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(53, 39, 31, .06);
+  border-radius: 24px;
+
+  background: var(--surface);
+
+  box-shadow: var(--shadow);
 }
 
-/* HEADER */
-.login-header {
-  margin-bottom: 36px;
-}
 
-.welcome-label {
-  color: var(--terracotta);
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 2px;
-  margin-bottom: 13px;
-}
+/* =========================================
+   5. LEFT PANEL — PHOTO
+========================================= */
 
-.login-header h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  font-size: 37px;
-  margin-bottom: 12px;
-}
-
-.login-header > p:not(.welcome-label) {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-/* =====================================
-   FORM LOGIN
-   ===================================== */
-
-.form-group {
-  margin-bottom: 23px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.input-wrapper {
+.login-visual {
   position: relative;
+  isolation: isolate;
+
+  min-width: 0;
+  min-height: 630px;
+
+  overflow: hidden;
+
+  background: #8B7967;
 }
 
-.form-group input {
+
+/* INTERIOR PHOTO */
+
+.visual-image {
+  position: absolute;
+  inset: 0;
+
+  z-index: 0;
+
+  display: block;
+
   width: 100%;
-  height: 52px;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+
+/* PHOTO OVERLAY */
+
+.visual-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background: linear-gradient(
+    180deg,
+    rgba(22, 16, 12, .16) 0%,
+    rgba(22, 16, 12, .18) 40%,
+    rgba(22, 16, 12, .26) 100%
+  );
+}
+
+
+/* =========================================
+   6. KAMMARI BRANDING
+========================================= */
+
+/*
+  Logo sengaja diperbesar dan ditempatkan
+  di tengah foto.
+
+  Tidak ada tulisan CAFÉ & ROASTERY
+  tambahan di bawahnya.
+*/
+
+.visual-brand {
+  position: absolute;
+  z-index: 2;
+
+  top: 48%;
+  left: 50%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 90%;
+  max-width: 620px;
+
+  text-align: center;
+
+  transform: translate(-50%, -50%);
+}
+
+
+/* WORDMARK KAMMARI */
+
+.kammari-wordmark {
+  display: block;
+
+  width: 100%;
+  max-width: 540px;
+
+  height: auto;
+
+  object-fit: contain;
+
+  /*
+    Bentuk logo asli dipertahankan.
+    Warna hitam diubah menjadi putih
+    agar terlihat di atas foto.
+  */
+
+  filter:
+    brightness(0)
+    invert(1)
+    drop-shadow(0 2px 10px rgba(0, 0, 0, .28));
+
+  opacity: 1;
+}
+
+
+/* LOCATION */
+
+.visual-location {
+  position: absolute;
+  z-index: 2;
+
+  bottom: 28px;
+  left: 20px;
+  right: 20px;
+
+  color: rgba(255,255,255,.95);
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.visual-location span {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+
+/* =========================================
+   7. RIGHT PANEL — LOGIN
+========================================= */
+
+.login-panel {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+  min-height: 630px;
+
+  padding: 48px 42px;
+
+  background: var(--surface);
+}
+
+
+/* FORM CONTAINER */
+
+.login-panel-inner {
+  width: 100%;
+  max-width: 360px;
+}
+
+
+/* =========================================
+   8. LOGIN HEADER
+========================================= */
+
+.login-header {
+  margin-bottom: 38px;
+}
+
+
+/* SMALL EYEBROW */
+
+.form-eyebrow {
+  margin: 0 0 15px;
+
+  color: var(--accent);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+
+/* MAIN TITLE */
+
+.form-title {
+  margin: 0 0 12px;
+
+  color: var(--coffee);
+
+  font-family: var(--font-main);
+
+  font-size: 35px;
+  font-weight: 600;
+
+  line-height: 1.2;
+  letter-spacing: -1.4px;
+}
+
+
+/* SUBTITLE */
+
+.form-subtitle {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+  font-weight: 400;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================
+   9. LOGIN FORM
+========================================= */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 22px;
+}
+
+
+/* FORM FIELD */
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.field-group label {
+  color: var(--text);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  line-height: 1.4;
+}
+
+
+/* INPUT */
+
+.field-group input {
+  display: block;
+
+  width: 100%;
+  height: 51px;
+
+  padding: 0 16px;
 
   border: 1px solid var(--border);
-  border-radius: 10px;
-
-  padding: 0 15px;
-
-  background: var(--white);
-
-  font-family: inherit;
-  font-size: 14px;
-  color: var(--brown);
+  border-radius: 8px;
 
   outline: none;
 
+  background: var(--white);
+  color: var(--coffee);
+
+  font-size: 13px;
+
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+    border-color .2s ease,
+    box-shadow .2s ease;
 }
 
-.form-group input::placeholder {
-  color: #aa9d93;
+
+/* PLACEHOLDER */
+
+.field-group input::placeholder {
+  color: #AEA198;
+  opacity: 1;
 }
 
-.form-group input:focus {
-  border-color: var(--terracotta);
-  box-shadow: 0 0 0 3px rgba(173,98,69,0.1);
+
+/* INPUT FOCUS */
+
+.field-group input:focus {
+  border-color: var(--accent);
+
+  box-shadow:
+    0 0 0 3px rgba(174, 118, 91, .10);
 }
 
-/* PASSWORD */
-.password-input {
-  padding-right: 65px !important;
+
+/* =========================================
+   10. PASSWORD
+========================================= */
+
+.password-field {
+  position: relative;
+  width: 100%;
 }
+
+.password-field input {
+  padding-right: 75px;
+}
+
+
+/* SHOW / HIDE BUTTON */
 
 .toggle-password {
   position: absolute;
-  right: 13px;
+
   top: 50%;
+  right: 9px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 54px;
+  height: 35px;
+
+  padding: 0 8px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--accent);
+
+  font-size: 12px;
+  font-weight: 600;
 
   transform: translateY(-50%);
 
-  background: none;
-  border: none;
+  transition: background .2s ease;
+}
 
-  color: var(--terracotta);
+.toggle-password:hover {
+  background: #F5EEE8;
+}
+
+
+/* =========================================
+   11. LOGIN STATUS
+========================================= */
+
+.login-message {
+  margin: -8px 0 0;
+
+  color: #A34C3E;
+
   font-size: 12px;
-  font-weight: 700;
-
-  padding: 7px;
-  cursor: pointer;
+  line-height: 1.6;
 }
 
-/* REMEMBER ME */
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-bottom: 29px;
+.login-message:empty {
+  display: none;
 }
 
-.remember-me {
-  display: flex;
-  align-items: center;
-  gap: 9px;
 
-  color: var(--brown-light);
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.remember-me input {
-  width: 15px;
-  height: 15px;
-  accent-color: var(--terracotta);
-}
-
-/* =====================================
-   TOMBOL LOGIN
-   ===================================== */
+/* =========================================
+   12. LOGIN BUTTON
+========================================= */
 
 .login-button {
-  width: 100%;
-  height: 52px;
+  display: flex;
 
-  background: var(--terracotta);
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  width: 100%;
+  min-height: 51px;
+
+  margin-top: 2px;
+  padding: 0 20px;
+
+  border: 1px solid var(--coffee);
+  border-radius: 8px;
+
+  background: var(--coffee);
   color: var(--white);
 
-  border: none;
-  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
 
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-
-  cursor: pointer;
-  transition: background 0.2s;
+  transition:
+    background .2s ease,
+    border-color .2s ease;
 }
 
 .login-button:hover {
-  background: var(--terracotta-hover);
+  background: var(--coffee-hover);
+  border-color: var(--coffee-hover);
 }
 
-.login-button:focus-visible,
-.toggle-password:focus-visible {
-  outline: 3px solid #d9b89a;
+.login-button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.login-button svg {
+  flex-shrink: 0;
+}
+
+
+/* =========================================
+   13. FOOTER
+========================================= */
+
+.form-footer {
+  margin: 36px 0 0;
+
+  color: #A89B8F;
+
+  font-size: 11px;
+  text-align: center;
+}
+
+.copyright {
+  margin: 20px 0 0;
+
+  color: #A89B8F;
+
+  font-size: 10px;
+  text-align: center;
+}
+
+
+/* =========================================
+   14. ACCESSIBILITY
+========================================= */
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
-/* PESAN LOGIN */
-.login-message {
-  display: none;
 
-  margin-top: 16px;
-  padding: 12px;
+/* =========================================
+   15. LAPTOP / TABLET
+========================================= */
 
-  font-size: 13px;
-  line-height: 1.6;
+@media (max-width: 1000px) {
 
-  color: #955234;
-  background: #fff6ed;
+  .login-shell {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr);
 
-  border: 1px solid #e5c8b5;
-  border-radius: 9px;
-}
-
-.login-message.show {
-  display: block;
-}
-
-/* =====================================
-   FOOTER LOGIN
-   ===================================== */
-
-.login-footer {
-  text-align: center;
-
-  margin-top: 35px;
-  padding-top: 24px;
-
-  border-top: 1px solid var(--border);
-}
-
-.login-footer p {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.login-footer a {
-  color: var(--terracotta);
-  text-decoration: none;
-  font-weight: 700;
-}
-
-.login-footer a:hover {
-  text-decoration: underline;
-}
-
-/* =====================================
-   RESPONSIVE TABLET & MOBILE
-   ===================================== */
-
-@media (max-width: 850px) {
-
-  .login-container {
-    grid-template-columns: 1fr;
+    min-height: 580px;
   }
 
-  .login-brand {
-    min-height: 230px;
-    padding: 30px;
-    gap: 35px;
+  .login-visual,
+  .login-panel {
+    min-height: 580px;
   }
 
-  .brand-content h1 {
+  .login-panel {
+    padding: 40px 30px;
+  }
+
+  .form-title {
+    font-size: 31px;
+  }
+
+  .visual-brand {
+    width: 88%;
+  }
+
+  .kammari-wordmark {
+    max-width: 470px;
+  }
+}
+
+
+/* =========================================
+   16. TABLET PORTRAIT / MOBILE
+========================================= */
+
+@media (max-width: 760px) {
+
+  .login-page {
+    justify-content: flex-start;
+    padding: 25px 18px;
+  }
+
+  .page-label {
+    margin-bottom: 17px;
+  }
+
+  .login-shell {
+    grid-template-columns:
+      minmax(0, 1fr);
+
+    max-width: 520px;
+    min-height: auto;
+
+    border-radius: 18px;
+  }
+
+  .login-visual {
+    min-height: 260px;
+    height: 260px;
+  }
+
+  .visual-image {
+    object-position: center 48%;
+  }
+
+  .visual-brand {
+    width: 82%;
+    max-width: 420px;
+    top: 50%;
+  }
+
+  .kammari-wordmark {
+    max-width: 360px;
+  }
+
+  .visual-location {
+    bottom: 16px;
+    font-size: 9px;
+  }
+
+  .login-panel {
+    min-height: auto;
+    padding: 42px 35px;
+  }
+
+  .login-panel-inner {
+    max-width: 390px;
+  }
+
+  .login-header {
+    margin-bottom: 30px;
+  }
+
+  .form-title {
     font-size: 30px;
-    margin-bottom: 10px;
   }
 
-  .brand-description {
-    font-size: 13px;
+  .form-footer {
+    margin-top: 32px;
   }
-
-  .brand-label {
-    margin-bottom: 12px;
-  }
-
-  .brand-footer {
-    display: none;
-  }
-
-  .login-section {
-    padding: 55px 25px;
-  }
-
-  .login-header h2 {
-    font-size: 32px;
-  }
-
 }
+
+
+/* =========================================
+   17. SMALL MOBILE
+========================================= */
 
 @media (max-width: 480px) {
 
-  .login-brand {
-    padding: 25px;
+  .login-page {
+    padding: 18px 14px;
   }
 
-  .logo-text {
-    font-size: 21px;
+  .page-label {
+    font-size: 10px;
+    letter-spacing: 2px;
   }
 
-  .brand-content h1 {
-    font-size: 27px;
+  .login-shell {
+    border-radius: 14px;
   }
 
-  .login-section {
-    padding: 40px 22px;
+  .login-visual {
+    height: 205px;
+    min-height: 205px;
   }
 
-  .login-header h2 {
-    font-size: 29px;
+  .visual-brand {
+    width: 84%;
+    max-width: 320px;
+    top: 50%;
   }
 
+  .kammari-wordmark {
+    max-width: 280px;
+  }
+
+  .login-panel {
+    padding: 35px 25px 38px;
+  }
+
+  .form-eyebrow {
+    font-size: 9px;
+  }
+
+  .form-title {
+    font-size: 28px;
+  }
+
+  .form-subtitle {
+    font-size: 12px;
+  }
+
+  .login-form {
+    gap: 20px;
+  }
+
+  .field-group input {
+    height: 49px;
+  }
+
+  .form-footer {
+    margin-top: 30px;
+  }
+}
+
+
+/* =========================================
+   18. REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: .01ms !important;
+  }
 }

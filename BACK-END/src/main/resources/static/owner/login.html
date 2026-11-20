@@ -1,188 +1,238 @@
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Login Owner | Kammari Café</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta
+    name="description"
+    content="Portal Owner Kammari Café & Roastery">
+
+  <title>Login Owner | Kammari </title>
+
+  <!-- GOOGLE FONTS -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
 
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS LOGIN OWNER -->
+  <link
     rel="stylesheet"
-  >
+    href="/owner/css/login.css">
 
-  <!-- CSS Login -->
-  <link rel="stylesheet" href="css/login.css">
-
-  <!-- JavaScript Login -->
-  <script src="js/login.js" defer></script>
+  <!-- JAVASCRIPT LOGIN EXISTING -->
+  <script
+    src="/owner/js/login.js"
+    defer></script>
 </head>
 
 <body>
 
-  <main class="login-container">
+  <main class="login-page">
 
-    <!-- BAGIAN KIRI: BRAND KAMMARI -->
-    <section class="login-brand">
-
-      <div class="brand-logo">
-        <div class="logo-icon">K</div>
-        <span class="logo-text">KAMMARI</span>
-      </div>
-
-      <div class="brand-content">
-
-        <p class="brand-label">
-          Owner Management System
-        </p>
-
-        <h1>
-          Kelola Kammari,<br>
-          <span>Dalam Satu Ruang.</span>
-        </h1>
-
-        <p class="brand-description">
-          Satu tempat untuk mengelola menu, event,
-          fasilitas, dan informasi cabang Kammari Café
-          dengan lebih mudah dan terorganisir.
-        </p>
-
-      </div>
-
-      <div class="brand-footer">
-        © 2026 Kammari Café. All rights reserved.
-      </div>
-
-    </section>
+    <!-- PAGE LABEL -->
+    <p class="page-label">
+      OWNER PORTAL
+    </p>
 
 
-    <!-- BAGIAN KANAN: FORM LOGIN -->
-    <section class="login-section">
+    <!-- MAIN LOGIN CARD -->
+    <section
+      class="login-shell"
+      aria-label="Login Owner Kammari">
 
-      <div class="login-box">
 
-        <div class="login-header">
+      <!-- =====================================
+           LEFT PANEL — KAMMARI BRANDING
+      ===================================== -->
+      <div class="login-visual">
 
-          <p class="welcome-label">
-            Welcome Back
-          </p>
+        <!-- FOTO ASLI KAMMARI -->
+        <img
+          class="visual-image"
+          src="/assets/fasilitas/gresik/ruang-utama-dan-meja-bar.jpg"
+          alt="Suasana interior Kammari Café"
+          loading="eager">
 
-          <h2>Masuk sebagai Owner</h2>
+        <!-- PHOTO OVERLAY -->
+        <div
+          class="visual-overlay"
+          aria-hidden="true">
+        </div>
 
-          <p>
-            Silakan masuk menggunakan akun Owner
-            untuk mengakses dashboard Kammari Café.
-          </p>
+
+        <!-- CENTER BRANDING -->
+        <div class="visual-brand">
+
+          <!-- LOGO KAMMARI DARI ASSETS -->
+          <img
+            class="kammari-wordmark"
+            src="/owner/assets/kammari-wordmark-transparent.png"
+            alt="KAMMARI">
 
         </div>
 
 
-        <!-- FORM -->
-        <form id="loginForm">
+        <!-- LOCATION -->
+        <div class="visual-location">
+          GRESIK <span>·</span> SURABAYA
+        </div>
 
-          <!-- EMAIL -->
-          <div class="form-group">
-
-            <label for="email">
-              Email
-            </label>
-
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Masukkan email Owner"
-              autocomplete="username"
-              required
-            >
-
-          </div>
+      </div>
 
 
-          <!-- PASSWORD -->
-          <div class="form-group">
 
-            <label for="password">
-              Password
-            </label>
+      <!-- =====================================
+           RIGHT PANEL — LOGIN FORM
+      ===================================== -->
+      <div class="login-panel">
 
-            <div class="input-wrapper">
+        <div class="login-panel-inner">
+
+
+          <!-- LOGIN HEADER -->
+          <header class="login-header">
+
+            <p class="form-eyebrow">
+              KAMMARI MANAGEMENT
+            </p>
+
+            <h1 class="form-title">
+              Login Owner
+            </h1>
+
+            <p class="form-subtitle">
+              Masuk untuk mengelola Kammari.
+            </p>
+
+          </header>
+
+
+          <!-- LOGIN FORM -->
+          <form
+            id="loginForm"
+            class="login-form"
+            method="post">
+
+
+            <!-- USERNAME -->
+            <div class="field-group">
+
+              <label for="email">
+                Username
+              </label>
+
+              <!--
+                ID dan name email dipertahankan
+                karena backend existing masih
+                menggunakan autentikasi email.
+              -->
 
               <input
-                type="password"
-                id="password"
-                name="password"
-                class="password-input"
-                placeholder="Masukkan password"
-                autocomplete="current-password"
-                required
-              >
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Username"
+                autocomplete="username"
+                spellcheck="false"
+                required>
 
-              <button
-                type="button"
-                id="togglePassword"
-                class="toggle-password"
-                aria-label="Tampilkan password"
-                aria-pressed="false"
-              >
-                Lihat
-              </button>
-              
             </div>
 
-          </div>
 
 
-          <!-- REMEMBER ME -->
-          <div class="form-options">
+            <!-- PASSWORD -->
+            <div class="field-group">
 
-            <label class="remember-me">
+              <label for="password">
+                Password
+              </label>
 
-              <input
-                type="checkbox"
-                id="remember"
-              >
+              <div class="password-field">
 
-              Ingat email saya
-
-            </label>
-
-          </div>
-
-
-          <!-- TOMBOL LOGIN -->
-          <button
-            type="submit"
-            class="login-button"
-          >
-            Masuk ke Dashboard
-          </button>
-
-          <!-- PESAN LOGIN -->
-          <p
-            id="loginMessage"
-            class="login-message"
-            role="status"
-            aria-live="polite"
-          ></p>
-
-        </form>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  autocomplete="current-password"
+                  required>
 
 
-        <!-- FOOTER -->
-        <div class="login-footer">
+                <!-- SHOW / HIDE PASSWORD -->
+                <button
+                  type="button"
+                  id="togglePassword"
+                  class="toggle-password"
+                  aria-label="Tampilkan password"
+                  aria-pressed="false">
 
-          <p>
-            Kembali ke website utama?
-            <a href="../index.html">
-              Kunjungi Kammari
-            </a>
+                  Lihat
+
+                </button>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- STATUS LOGIN -->
+            <p
+              id="loginMessage"
+              class="login-message"
+              role="status"
+              aria-live="polite">
+            </p>
+
+
+
+            <!-- LOGIN BUTTON -->
+            <button
+              type="submit"
+              id="loginButton"
+              class="login-button">
+
+              <span>Masuk</span>
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true">
+
+                <path d="M5 12h14"/>
+                <path d="m13 6 6 6-6 6"/>
+
+              </svg>
+
+            </button>
+
+          </form>
+
+
+
+          <!-- FORM FOOTER -->
+          <p class="form-footer">
+            Kammari Café & Roastery
           </p>
 
         </div>
@@ -190,6 +240,12 @@
       </div>
 
     </section>
+
+
+    <!-- COPYRIGHT -->
+    <footer class="copyright">
+      © Kammari
+    </footer>
 
   </main>
 

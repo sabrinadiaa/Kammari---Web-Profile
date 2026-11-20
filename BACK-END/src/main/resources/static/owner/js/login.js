@@ -1,99 +1,131 @@
 
-// =====================================
-// KAMMARI CAFE - OWNER LOGIN
-// =====================================
-
 document.addEventListener("DOMContentLoaded", () => {
-
-  // AMBIL ELEMEN
-  const loginForm = document.getElementById("loginForm");
+  const form = document.getElementById("loginForm");
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
-  const togglePassword = document.getElementById("togglePassword");
-  const rememberInput = document.getElementById("remember");
-  const loginMessage = document.getElementById("loginMessage");
+  const toggle = document.getElementById("togglePassword");
+  const remember = document.getElementById("remember");
+  const message = document.getElementById("loginMessage");
+  const submitButton = form.querySelector('button[type="submit"]');
 
-  // =====================================
-  // 1. TAMPILKAN / SEMBUNYIKAN PASSWORD
-  // =====================================
+  function showMessage(text) {
+    message.textContent = text;
+    message.classList.add("show");
+  }
 
-  togglePassword.addEventListener("click", () => {
+  function clearMessage() {
+    message.textContent = "";
+    message.classList.remove("show");
+  }
 
-    const isHidden = passwordInput.type === "password";
+  toggle.addEventListener("click", () => {
+    const hidden = passwordInput.type === "password";
 
-    passwordInput.type = isHidden ? "text" : "password";
-
-    togglePassword.textContent = isHidden ? "Tutup" : "Lihat";
-
-    togglePassword.setAttribute(
-      "aria-pressed",
-      String(isHidden)
-    );
-
-    togglePassword.setAttribute(
+    passwordInput.type = hidden ? "text" : "password";
+    toggle.textContent = hidden ? "Tutup" : "Lihat";
+    toggle.setAttribute("aria-pressed", String(hidden));
+    toggle.setAttribute(
       "aria-label",
-      isHidden ? "Sembunyikan password" : "Tampilkan password"
+      hidden ? "Sembunyikan password" : "Tampilkan password"
     );
-
   });
-
-  // =====================================
-  // 2. INGAT EMAIL OWNER
-  // =====================================
 
   const savedEmail = localStorage.getItem("kammari_owner_email");
 
-  if (savedEmail) {
+  if (savedEmail && remember) {
     emailInput.value = savedEmail;
-    rememberInput.checked = true;
+    remember.checked = true;
   }
 
-  // =====================================
-  // 3. PROSES FORM LOGIN
-  // =====================================
+  async function getCsrfToken() {
+    const response = await fetch("/api/auth/csrf", {
+      credentials: "same-origin",
+      cache: "no-store"
+    });
 
-  loginForm.addEventListener("submit", (event) => {
+    if (!response.ok) {
+      throw new Error("Gagal mengambil token CSRF.");
+    }
 
+    return response.json();
+  }
+
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    clearMessage();
 
     const email = emailInput.value.trim();
     const password = passwordInput.value;
-
-    loginMessage.classList.remove("show");
 
     if (!email || !password) {
       showMessage("Email dan password wajib diisi.");
       return;
     }
 
-    // Simpan hanya email, bukan password
-    if (rememberInput.checked) {
-      localStorage.setItem("kammari_owner_email", email);
-    } else {
-      localStorage.removeItem("kammari_owner_email");
+    if (!emailInput.validity.valid) {
+      showMessage("Format email tidak valid.");
+      return;
     }
 
-    // Autentikasi belum dihubungkan ke backend.
-    // Jangan menganggap login berhasil atau
-    // mengarahkan pengguna ke dashboard.
+    submitButton.disabled = true;
+    submitButton.textContent = "Memeriksa akun...";
 
-    showMessage(
-      "Tampilan login sudah siap. " +
-      "Autentikasi Owner belum terhubung " +
-      "dengan backend PHP."
-    );
+    try {
+      const csrf = await getCsrfToken();
 
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          [csrf.headerName]: csrf.token
+        },
+        body: new URLSearchParams({ email, password })
+      });
+
+      if (response.status === 401) {
+        showMessage("Email atau password salah.");
+        return;
+      }
+
+      if (response.status === 403) {
+        showMessage(
+          "Permintaan ditolak. Muat ulang halaman dan coba lagi."
+        );
+        return;
+      }
+
+      if (response.status !== 204) {
+        showMessage("Login gagal. Status: " + response.status);
+        return;
+      }
+
+      const check = await fetch("/api/owner/me", {
+        credentials: "same-origin",
+        cache: "no-store"
+      });
+
+      if (!check.ok) {
+        showMessage("Sesi Owner belum valid.");
+        return;
+      }
+
+      if (remember?.checked) {
+        localStorage.setItem("kammari_owner_email", email);
+      } else {
+        localStorage.removeItem("kammari_owner_email");
+      }
+
+      window.location.replace("/owner/dashboard.html");
+
+    } catch (error) {
+      console.error("Login Owner:", error);
+      showMessage(
+        "Tidak dapat menghubungi Spring Boot. Periksa server."
+      );
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Masuk ke Dashboard";
+    }
   });
-
-  // =====================================
-  // 4. MENAMPILKAN PESAN
-  // =====================================
-
-  function showMessage(message) {
-
-    loginMessage.textContent = message;
-    loginMessage.classList.add("show");
-
-  }
-
 });

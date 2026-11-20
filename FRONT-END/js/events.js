@@ -320,6 +320,20 @@ function todayJakarta() {
 function showNearestEventPopup() {
   if (document.body.dataset.page !== "home") return;
 
+  // Jangan membuat popup kedua jika sudah ada
+  if (document.querySelector(".next-event-popup")) return;
+
+  // Batasi popup sekali setiap 5 jam
+  const POPUP_KEY = "kammari_event_popup_last_shown";
+  const FIVE_HOURS = 5 * 60 * 60 * 1000;
+
+  const lastShown = Number(localStorage.getItem(POPUP_KEY) || 0);
+
+  if (lastShown && Date.now() - lastShown < FIVE_HOURS) {
+    return;
+  }
+
+  // Cari event terdekat yang belum selesai
   const next = EVENTS
     .filter(event =>
       !isFinished(event) &&
@@ -330,11 +344,11 @@ function showNearestEventPopup() {
         `#event-gallery .event-tile[data-event="${event.id}"]`
       )
     )
-    .sort((a, b) =>
-      a.dateISO.localeCompare(b.dateISO)
-    )[0];
+    .sort((a, b) => a.dateISO.localeCompare(b.dateISO))[0];
 
+  // Tidak ada event mendatang
   if (!next) return;
+
 
   const dialog = document.createElement("dialog");
   dialog.className = "next-event-popup";
@@ -397,6 +411,12 @@ function showNearestEventPopup() {
 
   document.body.appendChild(dialog);
   dialog.showModal();
+
+  // Catat waktu popup benar-benar ditampilkan
+  localStorage.setItem(
+    "kammari_event_popup_last_shown",
+    String(Date.now())
+  );
 }
 
 

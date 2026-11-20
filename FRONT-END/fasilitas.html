@@ -12,8 +12,9 @@
     href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/fasilitas.css">
+  <!-- ?v= : naikkan angkanya setiap CSS diubah supaya browser tidak memakai cache lama -->
+  <link rel="stylesheet" href="css/base.css?v=8">
+  <link rel="stylesheet" href="css/fasilitas.css?v=8">
 
 </head>
 
@@ -97,7 +98,7 @@
         <div class="venue__intro">
           <span class="kicker">Jl. Samanhudi No.17, Gresik</span>
           <h2 class="h-lg">
-            Gresik, roastery dan halaman bersama
+            Gresik, ruang kreatif dan kebersamaan
           </h2>
           <p class="lede">
             Berawal dari rumah tua dengan sentuhan arsitektur tempo dulu, Kammari Gresik hadir 
@@ -233,7 +234,7 @@
       <div class="wrap">
         <div class="venue__intro">
           <span class="kicker">Jl. Ketintang Baru II KAV 7, Surabaya</span>
-          <h2 class="h-lg">Surabaya, ruang tenang di tengah kota</h2>
+          <h2 class="h-lg">Surabaya, hangat di tengah hiruk pikuk</h2>
           <p class="lede">
             Membawa semangat ruang kreatif Kammari ke tengah kota, 
             cabang Surabaya hadir dengan nuansa vintage art minimalis. 
@@ -270,10 +271,26 @@
             </li>
 
             <li>
+              <span data-icon="palette"></span>
+              <div>
+                <h3>Art Space</h3>
+                <p>Ruang untuk mendukung kegiatan seni, kreativitas, dan aktivitas komunitas.</p>
+              </div>
+            </li>
+
+            <li>
               <span data-icon="door"></span>
               <div>
                 <h3>Toilet</h3>
                 <p>Fasilitas toilet untuk menunjang kenyamanan pengunjung selama berada di Kammari.</p>
+              </div>
+            </li>
+
+            <li>
+              <span data-icon="car"></span>
+              <div>
+                <h3>Area Parkir</h3>
+                <p>Tersedia area parkir untuk kendaraan roda dua dan roda empat.</p>
               </div>
             </li>
 
@@ -363,67 +380,6 @@
 
     </section>
 
-    <!-- Perbandingan -->
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="kicker">Lebih lengkap</span>
-            <h2 class="h-lg">Mana cabang yang cocok untukmu?</h2>
-          </div>
-          <p class="lede">Pilih sesuai kebutuhan: kerja sendirian dengan tenang, rapat bersama klien, atau ngobrol
-            santai.</p>
-        </div>
-        <div class="compare-wrap">
-          <table class="compare">
-            <thead>
-              <tr>
-                <th scope="col">Fasilitas</th>
-                <th scope="col">Gresik<small>Roastery dan halaman bersama</small></th>
-                <th scope="col">Surabaya<small>Urban sanctuary</small></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Wi-Fi<small>Stabil untuk video call</small></th>
-                <td>100 Mbps</td>
-                <td>150 Mbps serat optik</td>
-              </tr>
-              <tr>
-                <th scope="row">Stopkontak<small>Aman untuk laptop dan gawai</small></th>
-                <td>Di 90% meja</td>
-                <td>Di semua meja, plus USB-C</td>
-              </tr>
-              <tr>
-                <th scope="row">Ruang rapat<small>Smart TV, papan tulis, AC</small></th>
-                <td>1 ruang (10 sampai 14 orang)</td>
-                <td>2 ruang (6 dan 8 sampai 10 orang)</td>
-              </tr>
-              <tr>
-                <th scope="row">Zona merokok dan bebas rokok</th>
-                <td>Halaman terbuka belakang</td>
-                <td>Hanya semi-outdoor</td>
-              </tr>
-              <tr>
-                <th scope="row">Hewan peliharaan</th>
-                <td>Boleh di halaman terbuka</td>
-                <td>Hanya area outdoor</td>
-              </tr>
-              <tr>
-                <th scope="row">Musala</th>
-                <td>Ada, 8 jemaah</td>
-                <td>Ada, 12 jemaah</td>
-              </tr>
-              <tr>
-                <th scope="row">Roastery di tempat</th>
-                <td>Ada, tur sangrai bisa dipesan</td>
-                <td>Tidak ada, hanya bar seduh</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
 
     <!-- Reservasi -->
     <section class="section" style="padding-top:0">
@@ -433,18 +389,38 @@
             <span class="kicker">Reservasi privat</span>
             <h2 class="h-lg">Mau reservasi ruang rapat atau acara di<br><span class="brand-word">Kammari?</span>
             </h2>
-            <p>Kami menyediakan paket sewa mulai per jam sampai sewa seluruh area untuk acara ulang tahun, peluncuran
-              produk, atau workshop. Paket sudah termasuk menu kopi dan pastry.</p>
             <div class="cta__btns">
               <a class="btn btn--solid" href="" id="reserve-wa" target="_blank" rel="noopener">Hubungi kami lewat
                 WhatsApp</a>
             </div>
           </div>
-          <ul class="cta__list">
-            <li><span data-icon="check"></span>Reservasi cepat, 08.00 sampai 21.00 WIB</li>
-            <li><span data-icon="check"></span>Paket menu dan katering khusus</li>
-            <li><span data-icon="check"></span>Fasilitas AV dan audio lengkap</li>
-          </ul>
+
+          <!-- Polaroid (kolom kanan). Ganti nama file di src untuk mengganti foto. -->
+          <div class="cta__polaroids" aria-hidden="true">
+
+            <figure class="polaroid polaroid--1">
+              <img src="assets/fasilitas/gresik/pajangan-manifesto.jpg" alt="" loading="lazy">
+            </figure>
+
+            <figure class="polaroid polaroid--2">
+              <img src="assets/fasilitas/gresik/ruang-pameran-seni.jpg" alt="" loading="lazy">
+            </figure>
+
+            <figure class="polaroid polaroid--3">
+              <img src="assets/fasilitas/gresik/sudut-display-buku.jpg" alt="" loading="lazy">
+            </figure>
+
+            <figure class="polaroid polaroid--4">
+              <img src="assets/fasilitas/gresik/teras-hijau.jpg" alt="" loading="lazy">
+            </figure>
+
+            <!-- Foto tambahan 5 -->
+            <figure class="polaroid polaroid--5">
+              <img src="assets/fasilitas/gresik/sudut-duduk-jendela.jpg" alt="" loading="lazy">
+            </figure>
+
+          </div>
+
         </div>
       </div>
     </section>

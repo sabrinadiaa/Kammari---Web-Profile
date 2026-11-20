@@ -675,3 +675,130 @@ p {
     transition: none;
   }
 }
+
+
+/* POPUP WHATSAPP KAMMARI - DUA CABANG */
+
+.kammari-wa-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(440px, calc(100vw - 32px));
+  max-width: 440px;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: 18px;
+  background: #faf5ee;
+  color: #352219;
+  overflow: auto;
+  box-shadow: 0 24px 80px rgba(30, 18, 12, 0.25);
+}
+
+.kammari-wa-dialog::backdrop {
+  background: rgba(30, 20, 15, 0.55);
+  backdrop-filter: blur(5px);
+}
+
+.kammari-wa-content {
+  position: relative;
+  padding: 38px 30px 30px;
+  text-align: left;
+}
+
+.kammari-wa-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #79675a;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.kammari-wa-close:hover {
+  background: #eee2d4;
+}
+
+.kammari-wa-label {
+  display: block;
+  margin-bottom: 12px;
+  color: #b04434;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.kammari-wa-content h2 {
+  margin: 0 0 10px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 34px;
+  font-weight: 400;
+  color: #352219;
+}
+
+.kammari-wa-description {
+  margin: 0 0 25px;
+  color: #806c5e;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.kammari-wa-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.kammari-wa-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 19px 18px;
+  border: 1px solid #e0d1c2;
+  border-radius: 12px;
+  background: #fffaf4;
+  color: #352219;
+  text-decoration: none;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+
+.kammari-wa-option:hover {
+  background: #f2e6d8;
+  border-color: #b04434;
+  transform: translateY(-2px);
+}
+
+.kammari-wa-option strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.kammari-wa-option small {
+  display: block;
+  color: #8b7768;
+  font-size: 12px;
+}
+
+.kammari-wa-option > span:last-child {
+  color: #b04434;
+  font-size: 22px;
+}
+
+@media (max-width: 480px) {
+  .kammari-wa-content {
+    padding: 35px 22px 24px;
+  }
+
+  .kammari-wa-content h2 {
+    font-size: 29px;
+  }
+}

@@ -32,11 +32,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(190, 157, 125, .40) 0%,
-    rgba(133, 102, 77, .58) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(190, 157, 125, .40) 0%,
+      rgba(133, 102, 77, .58) 100%);
 }
 
 
@@ -44,7 +42,8 @@
 .scene__stage {
   position: relative;
   width: min(100% - 2 * var(--gutter), var(--max));
-  height: clamp(420px, 44vw, 540px);   /* tinggi hero: ubah di sini */
+  height: clamp(420px, 44vw, 540px);
+  /* tinggi hero: ubah di sini */
   margin-inline: auto;
 }
 
@@ -79,7 +78,7 @@
 }
 
 /* Tulisan raksasa di tengah */
-/* Tulisan Kammari di tengah hero */
+/* Logo Kammari di tengah hero */
 .scene__word {
   position: absolute;
   left: 0;
@@ -88,34 +87,49 @@
   translate: 0 -50%;
   z-index: 1;
   margin: 0;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  filter: drop-shadow(0 10px 40px rgba(43, 26, 18, .25));
+}
 
-  font-family: var(--logo-font);
+.hero-logo {
+  width: clamp(280px, 62vw, 1000px);
+  height: auto;
+  overflow: visible;
+}
+
+/* Tiap huruf */
+.hero-logo .hl {
+  fill: var(--clay);              /* warna sama dengan web */
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transition: fill .3s ease, transform .3s ease;
+  cursor: default;
+}
+
+.hero-logo .hl,
+.hero-logo .hl-text {
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transition: fill .3s ease, transform .3s ease;
+}
+
+.hero-logo .hl-text {
+  fill: var(--clay);
   font-weight: 600;
-  font-size: clamp(4rem, 15vw, 12.5rem);
-  line-height: .95;
-  letter-spacing: 0;
-
-  color: var(--clay);
-  text-shadow: 0 10px 40px rgba(43, 26, 18, .25);
+  user-select: none;
 }
 
-/* Setiap huruf */
-.hero-letter {
-  display: inline-block;
-  font-family: var(--logo-font);
-  color: var(--clay);
-
-  transition:
-    color .3s ease,
-    transform .3s ease;
+.hero-logo .hl-text:hover {
+  fill: var(--paper);
+  transform: translateY(-14px);
 }
 
-/* Ketika kursor menyentuh satu huruf */
-.hero-letter:hover {
-  font-family: var(--display);
-  color: var(--paper);
-  transform: translateY(-8px);
+/* Hover satu huruf: warna berubah dan huruf naik sedikit */
+.hero-logo .hl:hover {
+  fill: var(--paper);
+  transform: translateY(-14px);   /* ukuran SVG lebih kecil dari layar, jadi angka dibuat lebih besar dari 8 */
 }
 
 /* Keterangan kecil kiri & kanan */
@@ -131,8 +145,14 @@
   text-shadow: 0 1px 10px rgba(43, 26, 18, .55);
 }
 
-.scene__note--l { left: clamp(0px, 3vw, 40px); }
-.scene__note--r { right: clamp(0px, 3vw, 40px); text-align: right; }
+.scene__note--l {
+  left: clamp(0px, 3vw, 40px);
+}
+
+.scene__note--r {
+  right: clamp(0px, 3vw, 40px);
+  text-align: right;
+}
 
 /* Tepi bawah bergelombang */
 .scene__wave {
@@ -149,10 +169,8 @@
 /* Badge musik di hero baru: pojok kanan atas */
 .scene .badge {
   top: clamp(14px, 2.4vw, 28px);
-  right: 0;
+  right: 24px;
   bottom: auto;
-  width: 84px;
-  height: 84px;
   z-index: 4;
 }
 
@@ -163,10 +181,21 @@
   animation: rise .9s cubic-bezier(.2, .7, .2, 1) forwards;
 }
 
-.scene [data-in="1"] { animation-delay: .05s; }
-.scene [data-in="2"] { animation-delay: .18s; }
-.scene [data-in="3"] { animation-delay: .3s; }
-.scene [data-in="4"] { animation-delay: .42s; }
+.scene [data-in="1"] {
+  animation-delay: .05s;
+}
+
+.scene [data-in="2"] {
+  animation-delay: .18s;
+}
+
+.scene [data-in="3"] {
+  animation-delay: .3s;
+}
+
+.scene [data-in="4"] {
+  animation-delay: .42s;
+}
 
 @keyframes rise {
   to {
@@ -176,92 +205,18 @@
 }
 
 @media (max-width: 760px) {
-  .scene__stage { height: 440px; }
-  .scene__note { display: none; }
-  .scene__cta .btn { padding: 9px 16px; font-size: .8rem; }
-  .scene .badge { width: 56px; height: 56px; }
-}
-
-/* ===== Badge berputar (tombol musik) ===== */
-.badge {
-  position: absolute;
-  right: 2%;
-  bottom: 4%;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: var(--paper);
-  display: grid;
-  place-items: center;
-  color: var(--clay);
-  box-shadow: 0 10px 30px rgba(80, 40, 10, .18);
-  z-index: 3;
-}
-
-.badge svg {
-  width: 100%;
-  height: 100%;
-  animation: spin 26s linear infinite;
-}
-
-.badge text {
-  font-family: var(--sans);
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: .14em;
-  fill: currentColor;
-}
-
-.badge .badge__icon {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-}
-
-.badge .badge__icon img {
-  width: 25px;
-  height: 25px;
-  object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(31%) sepia(34%)
-          saturate(1550%) hue-rotate(342deg) brightness(88%);
-}
-
-
-/* Interaksi badge musik */
-button.badge {
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font: inherit;
-}
-
-button.badge:hover {
-  transform: scale(1.05);
-}
-
-button.badge:focus-visible {
-  outline: 2px solid var(--clay);
-  outline-offset: 5px;
-}
-
-/* Animasi ketika musik diputar */
-.badge.is-playing .badge__icon img {
-  animation: music-pulse 0.8s ease-in-out infinite alternate;
-}
-
-@keyframes music-pulse {
-  from {
-    transform: scale(1);
+  .scene__stage {
+    height: 440px;
   }
-  to {
-    transform: scale(1.2);
+
+  .scene__note {
+    display: none;
   }
-}
 
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
+  .scene__cta .btn {
+    padding: 9px 16px;
+    font-size: .8rem;
+  }
 }
 
 .brand-word {
@@ -497,7 +452,7 @@ button.badge:focus-visible {
     scroll-snap-type: none;
   }
 
-  #featured.dishes > .dish {
+  #featured.dishes>.dish {
     width: 100%;
     min-width: 0;
     flex: none;
@@ -505,12 +460,12 @@ button.badge:focus-visible {
   }
 
   /* Kartu genap turun sedikit */
-  #featured.dishes > .dish:nth-child(even) {
+  #featured.dishes>.dish:nth-child(even) {
     transform: translateY(30px);
   }
 
   /* Bentuk lengkungan bagian atas */
-  #featured.dishes > .dish {
+  #featured.dishes>.dish {
     border-radius: 100px 100px 0 0;
     overflow: hidden;
   }
@@ -588,9 +543,6 @@ button.badge:focus-visible {
 
 /* Reduced motion (beranda) */
 @media (prefers-reduced-motion: reduce) {
-  .badge svg {
-    animation: none;
-  }
 
   .scene [data-in] {
     animation: none;
@@ -624,7 +576,7 @@ button.badge:focus-visible {
   }
 
   /* Membuat isi cerita bisa diatur dalam grid */
-  .story > div:last-child {
+  .story>div:last-child {
     display: contents;
   }
 
@@ -670,7 +622,7 @@ button.badge:focus-visible {
   }
 
   /* Deskripsi cerita */
-  .story > div:last-child > .lede {
+  .story>div:last-child>.lede {
     grid-area: description;
     font-size: 0.85rem;
     line-height: 1.6;
@@ -781,6 +733,7 @@ button.badge:focus-visible {
     padding-top: 28px;
   }
 }
+
 /* Posisi tulisan di sebelah kanan judul */
 .featured-intro {
   flex: 0 1 430px;
@@ -906,3 +859,705 @@ button.badge:focus-visible {
     width: calc(100vw - 24px);
   }
 }
+
+/* JELAJAHI MAPS KAMMARI */
+
+.jk-explore {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  overflow: visible;
+}
+
+/* Label kecil */
+.jk-eyebrow {
+  color: #8a6a55;
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Ilustrasi */
+.jk-art {
+  width: 100%;
+  margin: 4px auto 8px;
+}
+
+.jk-art svg {
+  width: 100%;
+  height: auto;
+  max-height: 290px;
+  overflow: visible;
+}
+
+.jk-svg-label {
+  fill: #624637;
+  text-anchor: middle;
+  font-size: 15px;
+  font-family: Georgia, serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Tombol */
+.jk-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.jk-primary,
+.jk-choice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 11px 19px;
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background .25s ease,
+    color .25s ease,
+    border-color .25s ease,
+    transform .25s ease;
+}
+
+.jk-primary {
+  border: 1px solid var(--jk-brown);
+  background: var(--jk-brown);
+  color: #fffaf4;
+}
+
+.jk-primary:hover {
+  background: var(--jk-accent);
+  border-color: var(--jk-accent);
+  transform: translateY(-2px);
+}
+
+.jk-primary:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+.jk-choice {
+  background: transparent;
+  border: 1px solid #bea998;
+  color: var(--jk-brown);
+}
+
+.jk-choice:hover,
+.jk-choice.is-active {
+  background: #e9d8c9;
+  border-color: var(--jk-accent);
+  color: var(--jk-brown);
+}
+
+.jk-or {
+  color: #806b5b;
+  font-size: 12px;
+}
+
+/* Informasi interaksi */
+.jk-status {
+  margin: 17px auto 0;
+  color: #7b6251;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Sorot kartu pilihan */
+#jk-branches .branch {
+  position: relative;
+  transition:
+    outline-color .3s ease,
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+#jk-branches .branch.jk-active {
+  outline: 2px solid var(--clay, #a8352a);
+  outline-offset: 2px;
+  box-shadow: 0 12px 30px rgba(65, 35, 18, .1);
+}
+
+#jk-branches .branch.jk-active::after {
+  content: attr(data-jk-tag);
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  padding: 7px 11px;
+  background: #a8352a;
+  border-radius: 999px;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* Layar HP */
+@media (max-width: 700px) {
+  .jk-explore {
+    padding: 20px 12px;
+    border-radius: 16px;
+  }
+
+  .jk-eyebrow {
+    font-size: 9px;
+  }
+
+  .jk-actions {
+    gap: 9px;
+  }
+
+  .jk-primary {
+    width: 100%;
+  }
+
+  .jk-or {
+    flex-basis: 100%;
+    text-align: center;
+  }
+
+  .jk-choice {
+    flex: 1;
+  }
+
+  .jk-svg-label {
+    font-size: 17px;
+  }
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+
+  .jk-primary,
+  .jk-choice,
+  #jk-branches .branch {
+    transition: none;
+  }
+}
+
+/* Detail cabang hanya muncul setelah dipilih */
+#jk-branches[hidden],
+#jk-branches .branch[hidden] {
+  display: none !important;
+}
+
+/* Kedua peta tampil berdampingan */
+#jk-branches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 100%;
+  margin: 28px auto 0;
+}
+
+/* Highlight cabang yang dipilih */
+#jk-branches .branch.jk-active {
+  outline: 2px solid #a85035;
+  outline-offset: 2px;
+  box-shadow: 0 12px 28px rgba(80, 45, 25, 0.12);
+}
+
+/* Responsif di HP */
+@media (max-width: 700px) {
+  #jk-branches {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Peralihan saat peta ditampilkan */
+@keyframes jk-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #jk-branches .branch {
+    animation: none;
+  }
+}
+
+#jk-branches[hidden],
+#jk-branches .branch[hidden] {
+  display: none !important;
+}
+
+#jk-branches {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 760px;
+  margin: 26px auto 0;
+}
+
+/* OUTLET KAMMARI INTERAKTIF */
+
+.jk-outlet {
+  cursor: pointer;
+}
+
+/* Area klik outlet, tidak terlihat */
+.jk-hitbox {
+  fill: transparent !important;
+  stroke: none !important;
+  outline: none !important;
+  pointer-events: all;
+}
+
+/* Hilangkan garis kotak ketika outlet diklik */
+.jk-outlet:focus .jk-hitbox,
+.jk-outlet:focus-visible .jk-hitbox,
+.jk-outlet.is-active .jk-hitbox {
+  stroke: none !important;
+  outline: none !important;
+}
+
+/* Tetap ada indikator saat navigasi keyboard */
+.jk-outlet:focus-visible .jk-svg-label {
+  fill: #a85035;
+  text-decoration: underline;
+}
+
+.jk-outlet use,
+.jk-outlet .jk-svg-label {
+  transition: filter .25s ease, fill .25s ease;
+}
+
+/* Saat gambar outlet disentuh mouse */
+.jk-outlet:hover use,
+.jk-outlet.is-active use {
+  filter: drop-shadow(0 5px 4px rgba(78, 43, 25, .16));
+}
+
+.jk-outlet:hover .jk-svg-label,
+.jk-outlet.is-active .jk-svg-label {
+  fill: #a85035;
+}
+
+/* Fokus untuk navigasi keyboard */
+.jk-outlet:focus-visible {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .jk-outlet use,
+  .jk-outlet .jk-svg-label {
+    transition: none;
+  }
+}
+
+/* DETAIL CABANG JELAJAHI KAMMARI */
+
+/* Jangan tampilkan kartu yang disembunyikan JS */
+#jk-branches[hidden],
+#jk-branches .branch[hidden] {
+  display: none !important;
+}
+
+/* Satu kartu di tengah, bukan dua bertumpuk */
+#jk-branches:not([hidden]) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 820px;
+  margin: 25px auto 0;
+  gap: 0;
+}
+
+/* Detail cabang */
+#jk-branches .branch {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Animasi kartu muncul */
+#jk-branches .branch:not([hidden]) {
+  animation: jk-map-appear .4s ease both;
+}
+
+@keyframes jk-map-appear {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #jk-branches .branch {
+    animation: none;
+  }
+}
+
+#jk-branches .jk-route-link {
+  display: inline-block;
+  margin-left: 24px;
+}
+
+@media (max-width: 480px) {
+  #jk-branches .jk-route-link {
+    margin-left: 14px;
+  }
+}
+
+/* LINK GOOGLE MAPS & PETUNJUK ARAH SEJAJAR */
+#jk-branches .jk-map-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  column-gap: 28px;
+  row-gap: 8px;
+  margin-top: 14px;
+}
+
+#jk-branches .jk-map-links>a.link {
+  display: inline-flex;
+  width: auto;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Area klik transparan tanpa garis pembatas */
+#jk-explore .jk-click-area {
+  fill: transparent !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+/* Seluruh outlet terasa interaktif */
+#jk-explore .jk-outlet {
+  cursor: pointer;
+}
+
+/* Jangan menggambar kotak saat dipilih */
+#jk-explore .jk-outlet:focus,
+#jk-explore .jk-outlet:focus-visible {
+  outline: none;
+}
+
+/* Penanda pilihan cukup lewat tulisan */
+#jk-explore .jk-outlet:hover .jk-svg-label,
+#jk-explore .jk-outlet.is-active .jk-svg-label,
+#jk-explore .jk-outlet:focus-visible .jk-svg-label {
+  fill: #a85035;
+  text-decoration: underline;
+}
+
+/* ==================================
+   SKETSA OUTLET KAMMARI
+================================== */
+
+.jk-art {
+  width: 100%;
+  margin: 10px auto 16px;
+}
+
+.jk-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+
+/* Gambar outlet interaktif */
+.jk-outlet {
+  cursor: pointer;
+}
+
+.jk-outlet image {
+  transition: opacity .25s ease,
+    filter .25s ease;
+}
+
+.jk-outlet:hover image,
+.jk-outlet.is-active image {
+  filter: drop-shadow(0 5px 6px rgba(85, 48, 28, .18));
+}
+
+/* Teks nama cabang */
+.jk-svg-label {
+  fill: #513627;
+  font-family: Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-anchor: middle;
+}
+
+.jk-outlet:hover .jk-svg-label,
+.jk-outlet.is-active .jk-svg-label {
+  fill: #ae573c;
+}
+
+/* Area klik tidak terlihat */
+.jk-outlet rect {
+  fill: transparent !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+}
+
+/* Tidak ada outline kotak di SVG */
+.jk-outlet:focus,
+.jk-outlet:focus-visible {
+  outline: none;
+}
+
+/* Indikator keyboard tetap ada */
+.jk-outlet:focus-visible .jk-svg-label {
+  fill: #ae573c;
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .jk-art {
+    margin: 5px auto 12px;
+  }
+
+  .jk-svg-label {
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jk-outlet image {
+    transition: none;
+  }
+}
+
+/* TOMBOL TRACKING JELAJAHI KAMMARI */
+
+.jk-actions {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto 12px;
+}
+
+#jk-nearest {
+  background: #432b1e;
+  color: #fffaf4;
+  border: none;
+  padding: 13px 28px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+#jk-nearest:hover {
+  background: #a85035;
+}
+
+#jk-nearest:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+/* ANIMASI ORANG BERLARI - KAMMARI */
+
+/* Badan naik turun saat berlari */
+#jk-runner.is-running .jk-runner-body {
+  animation: jk-bounce .24s ease-in-out infinite alternate;
+}
+
+/* Tangan */
+.jk-runner-arm {
+  transform-box: fill-box;
+}
+
+.jk-arm-front {
+  transform-origin: left top;
+}
+
+.jk-arm-back {
+  transform-origin: right top;
+}
+
+/* Kaki */
+.jk-runner-leg {
+  transform-box: fill-box;
+  transform-origin: center top;
+}
+
+/* Animasi aktif hanya ketika bergerak */
+#jk-runner.is-running .jk-arm-front {
+  animation: jk-swing-front .42s ease-in-out infinite;
+}
+
+#jk-runner.is-running .jk-arm-back {
+  animation: jk-swing-back .42s ease-in-out infinite;
+}
+
+#jk-runner.is-running .jk-leg-front {
+  animation: jk-swing-back .42s ease-in-out infinite;
+}
+
+#jk-runner.is-running .jk-leg-back {
+  animation: jk-swing-front .42s ease-in-out infinite;
+}
+
+/* Ayunan depan */
+@keyframes jk-swing-front {
+  0%, 100% {
+    transform: rotate(-28deg);
+  }
+
+  50% {
+    transform: rotate(28deg);
+  }
+}
+
+/* Ayunan belakang */
+@keyframes jk-swing-back {
+  0%, 100% {
+    transform: rotate(28deg);
+  }
+
+  50% {
+    transform: rotate(-28deg);
+  }
+}
+
+/* Gerak badan ringan */
+@keyframes jk-bounce {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-2px);
+  }
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  #jk-runner.is-running .jk-runner-body,
+  #jk-runner.is-running .jk-runner-arm,
+  #jk-runner.is-running .jk-runner-leg {
+    animation: none;
+  }
+}
+
+
+/* ADEGAN KEJAR-KEJARAN */
+
+#jk-runner {
+  pointer-events: none;
+}
+
+#jk-runner .jk-runner-body,
+#jk-runner .jk-runner-arm,
+#jk-runner .jk-runner-leg {
+  transform-box: fill-box;
+  transform-origin: center top;
+}
+
+#jk-runner.is-running .jk-runner-body {
+  animation: jk-chase-bounce .22s
+             ease-in-out infinite alternate;
+}
+
+#jk-runner.is-running .jk-arm-front,
+#jk-runner.is-running .jk-leg-back {
+  animation: jk-chase-swing-a .38s
+             ease-in-out infinite;
+}
+
+#jk-runner.is-running .jk-arm-back,
+#jk-runner.is-running .jk-leg-front {
+  animation: jk-chase-swing-b .38s
+             ease-in-out infinite;
+}
+
+/* Biar setiap orang tidak bergerak seragam */
+#jk-runner .jk-chaser:nth-child(2)
+.jk-runner-body {
+  animation-delay: -.12s;
+}
+
+#jk-runner .jk-chaser:nth-child(3)
+.jk-runner-body {
+  animation-delay: -.20s;
+}
+
+#jk-runner .jk-chaser:nth-child(4)
+.jk-runner-body {
+  animation-delay: -.08s;
+}
+
+/* Ayunan tangan dan kaki */
+@keyframes jk-chase-swing-a {
+  0%, 100% {
+    transform: rotate(-30deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+}
+
+@keyframes jk-chase-swing-b {
+  0%, 100% {
+    transform: rotate(30deg);
+  }
+  50% {
+    transform: rotate(-30deg);
+  }
+}
+
+/* Badan sedikit memantul */
+@keyframes jk-chase-bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2px);
+  }
+}
+
+/* Tulisan kecil di atas */
+.jk-chase-caption {
+  fill: #ad6547;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .6px;
+}
+
+/* Hormati pengaturan pengurangan animasi */
+@media (prefers-reduced-motion: reduce) {
+  #jk-runner.is-running .jk-runner-body,
+  #jk-runner.is-running .jk-runner-arm,
+  #jk-runner.is-running .jk-runner-leg {
+    animation: none;
+  }
+}
+

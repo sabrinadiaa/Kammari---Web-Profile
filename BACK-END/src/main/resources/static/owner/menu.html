@@ -1,24 +1,576 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="id">
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+  rel="stylesheet">
+
+<link
+  rel="stylesheet"
+  href="/owner/css/owner-unified.css">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kelola Menu | Kammari</title>
-  <script src="/owner/js/menu.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Kelola Menu | Kammari Café & Roastery</title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="/owner/css/owner-menu.css">
+
+  <script
+    src="/owner/js/owner-menu.js"
+    defer></script>
 </head>
+
 <body>
-  <main>
-    <a href="/owner/dashboard.html">Kembali ke dashboard</a>
-    <h1>Kelola Menu</h1>
 
-    <label for="branch">Cabang</label>
-    <select id="branch">
-      <option value="gresik">Gresik</option>
-      <option value="surabaya">Surabaya</option>
-    </select>
+  <div class="owner-layout">
 
-    <p id="status" role="status"></p>
-    <ul id="menu-list"></ul>
-  </main>
+
+<!-- SIDEBAR OWNER KAMMARI -->
+<aside class="sidebar" id="sidebar">
+
+  <div class="sidebar-main">
+
+    <!-- LOGO KAMMARI -->
+    <a
+      href="/owner/dashboard.html"
+      class="sidebar-brand"
+      aria-label="Kammari Owner Portal">
+
+      <img
+        src="/owner/assets/kammari-wordmark-transparent.png"
+        alt="KAMMARI"
+        class="brand-logo">
+
+      <span>OWNER PORTAL</span>
+    </a>
+
+    <!-- NAVIGASI -->
+    <p class="sidebar-label">MENU UTAMA</p>
+
+    <nav class="sidebar-nav" aria-label="Menu Owner">
+
+      <!-- BERANDA -->
+      <a
+        href="/owner/dashboard.html"
+        class="nav-link">
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m3 10 9-7 9 7v11H3z"/>
+          <path d="M9 21v-7h6v7"/>
+        </svg>
+
+        <span>Beranda</span>
+      </a>
+
+      <!-- KELOLA MENU -->
+      <a
+        href="/owner/menu.html"
+        class="nav-link">
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+
+        <span>Kelola Menu</span>
+      </a>
+
+      <!-- KELOLA EVENT -->
+      <a
+        href="/owner/event.html"
+        class="nav-link">
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="16" rx="2"/>
+          <path d="M7 3v4M17 3v4M3 10h18"/>
+        </svg>
+
+        <span>Kelola Event</span>
+      </a>
+
+      <!-- KELOLA FASILITAS -->
+      <a
+        href="/owner/facility.html"
+        class="nav-link">
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 21V7l8-4 8 4v14"/>
+          <path d="M9 21v-7h6v7"/>
+        </svg>
+
+        <span>Kelola Fasilitas</span>
+      </a>
+
+    </nav>
+  </div>
+
+  <!-- BAGIAN BAWAH SIDEBAR -->
+  <div class="sidebar-bottom">
+
+    <div class="sidebar-branch">
+      <span class="branch-dot"></span>
+      <span>Gresik &amp; Surabaya</span>
+    </div>
+
+    <a
+      href="/owner/dashboard.html"
+      class="back-dashboard">
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+        <path d="M9 12h12"/>
+      </svg>
+
+      <span>Kembali ke Beranda</span>
+    </a>
+
+    <small class="sidebar-copyright">
+      © 2026 Kammari
+    </small>
+  </div>
+
+</aside>
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <div class="main-wrapper">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+
+        <span class="topbar-title">
+          Pengelolaan Menu
+        </span>
+
+        <span class="owner-indicator">
+          Portal Owner
+        </span>
+
+      </header>
+
+
+      <main class="owner-content">
+
+        <!-- =================================
+             PAGE HEADING
+        ================================== -->
+
+        <section class="page-heading">
+
+          <div>
+
+            <p class="eyebrow">
+              KAMMARI MANAGEMENT
+            </p>
+
+            <h2>Kelola Menu</h2>
+
+            <p class="page-description">
+              Atur menu untuk setiap cabang Kammari.
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================
+             FILTER & ACTION
+        ================================== -->
+
+        <section class="menu-toolbar">
+
+          <!-- CABANG -->
+          <div class="field-group branch-field">
+
+            <label for="branch">
+              Cabang
+            </label>
+
+            <select id="branch">
+
+              <option value="gresik">
+                Gresik
+              </option>
+
+              <option value="surabaya">
+                Surabaya
+              </option>
+
+            </select>
+
+          </div>
+
+          <!-- SEARCH -->
+          <div class="field-group grow">
+
+            <label for="menuSearch">
+              Cari Menu
+            </label>
+
+            <input
+              type="search"
+              id="menuSearch"
+              placeholder="Cari nama menu..."
+              autocomplete="off">
+
+          </div>
+
+          <!-- ADD -->
+          <div class="menu-actions">
+
+            <button
+              type="button"
+              id="addMenuButton"
+              class="save-button add-button"
+              aria-controls="addMenuSection"
+              aria-expanded="false">
+
+              <span aria-hidden="true">＋</span>
+
+              Tambah Menu
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================
+             FORM TAMBAH / EDIT MENU
+        ================================== -->
+
+        <section
+          id="addMenuSection"
+          class="add-menu-section"
+          hidden>
+
+          <div class="form-header">
+
+            <div class="section-heading">
+
+              <h3>Tambah Menu Baru</h3>
+
+              <p>Lengkapi detail menu.</p>
+
+            </div>
+
+            <button
+              type="button"
+              id="closeAddMenu"
+              class="icon-button"
+              aria-label="Tutup form">
+
+              ×
+            </button>
+
+          </div>
+
+
+          <form id="addMenuForm">
+
+            <!-- NAMA MENU -->
+            <div class="field-group">
+
+              <label for="newMenuName">
+                Nama Menu
+              </label>
+
+              <input
+                type="text"
+                id="newMenuName"
+                maxlength="200"
+                placeholder="Nama menu"
+                required>
+
+            </div>
+
+
+            <!-- CABANG -->
+            <div class="field-group">
+
+              <label for="newMenuBranch">
+                Cabang
+              </label>
+
+              <select
+                id="newMenuBranch"
+                required>
+
+                <option value="gresik">
+                  Gresik
+                </option>
+
+                <option value="surabaya">
+                  Surabaya
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- KATEGORI -->
+            <div class="field-group">
+
+              <label for="newMenuCategory">
+                Kategori
+              </label>
+
+              <select
+                id="newMenuCategory"
+                required>
+
+                <option value="">
+                  Pilih kategori
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- HARGA -->
+            <div class="field-group">
+
+              <label for="newMenuPrice">
+                Harga (Rp)
+              </label>
+
+              <input
+                type="number"
+                id="newMenuPrice"
+                min="0"
+                max="99999999.99"
+                step="0.01"
+                placeholder="15000"
+                required>
+
+            </div>
+
+
+            <!-- DESKRIPSI -->
+            <div class="field-group full-width">
+
+              <label for="newMenuDescription">
+                Deskripsi
+              </label>
+
+              <textarea
+                id="newMenuDescription"
+                rows="3"
+                placeholder="Deskripsi singkat (opsional)"></textarea>
+
+            </div>
+
+
+            <!-- =================================
+                 FOTO MENU
+            ================================== -->
+
+            <div class="field-group full-width">
+
+              <label for="newMenuImage">
+                Foto Menu
+              </label>
+
+              <div class="image-upload-area">
+
+                <div class="upload-field">
+
+                  <input
+                    type="file"
+                    id="newMenuImage"
+                    accept="image/jpeg,image/png,image/webp">
+
+                  <small class="field-hint">
+                    JPG, PNG, WebP · Maks. 5 MB
+                  </small>
+
+                </div>
+
+
+                <!-- PREVIEW -->
+                <div
+                  id="menuImagePreviewContainer"
+                  class="image-preview-container"
+                  hidden>
+
+                  <img
+                    id="menuImagePreview"
+                    class="menu-image-preview"
+                    alt="Pratinjau foto menu">
+
+                  <p
+                    id="menuImageCaption"
+                    class="image-caption"></p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- =================================
+                 STATUS MENU
+            ================================== -->
+
+            <div class="menu-options full-width">
+
+              <label class="menu-checkbox">
+
+                <input
+                  type="checkbox"
+                  id="newMenuAvailable"
+                  checked>
+
+                <span>Menu tersedia</span>
+
+              </label>
+
+
+              <label class="menu-checkbox">
+
+                <input
+                  type="checkbox"
+                  id="newMenuRecommended">
+
+                <span>Menu rekomendasi</span>
+
+              </label>
+
+            </div>
+
+
+            <!-- =================================
+                 FORM ACTIONS
+            ================================== -->
+
+            <div class="form-actions">
+
+              <button
+                type="button"
+                id="cancelAddMenu"
+                class="secondary-button">
+
+                Batal
+              </button>
+
+
+              <button
+                type="submit"
+                id="submitAddMenu"
+                class="save-button">
+
+                Simpan Menu
+              </button>
+
+            </div>
+
+
+            <!-- STATUS FORM -->
+            <p
+              id="addMenuStatus"
+              class="status-text form-status"
+              role="status"
+              aria-live="polite"></p>
+
+          </form>
+
+        </section>
+
+
+        <!-- =================================
+             DAFTAR MENU
+        ================================== -->
+
+        <section class="menu-data-section">
+
+          <div class="table-heading">
+
+            <div class="section-heading">
+
+              <h3>Daftar Menu</h3>
+
+              <p
+                id="menuCount"
+                class="menu-count">
+
+                Memuat menu...
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- STATUS GLOBAL -->
+          <p
+            id="status"
+            class="status-text"
+            role="status"
+            aria-live="polite"></p>
+
+
+          <!-- TABLE -->
+          <div class="table-container">
+
+            <table class="menu-table">
+
+              <thead>
+
+                <tr>
+                  <th>Nama Menu</th>
+                  <th>Harga (Rp)</th>
+                  <th>Aksi</th>
+                </tr>
+
+              </thead>
+
+
+              <tbody id="menu-table-body">
+
+                <tr>
+
+                  <td
+                    colspan="3"
+                    class="empty-state">
+
+                    Memuat menu...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
 </body>
 </html>

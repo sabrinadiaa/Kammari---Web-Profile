@@ -313,11 +313,21 @@ if (!musicToggle) {
   musicToggle = document.createElement("button");
   musicToggle.id = "music-toggle";
   musicToggle.type = "button";
-  musicToggle.className = "music-fab";
+  musicToggle.className = "badge badge--float";
   musicToggle.setAttribute("aria-pressed", "false");
-  musicToggle.setAttribute("aria-label", "Putar musik");
-  musicToggle.innerHTML =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>';
+  musicToggle.setAttribute("aria-label", "Putar atau jeda musik Kammari");
+  musicToggle.innerHTML = `
+    <svg viewBox="0 0 148 148" aria-hidden="true">
+      <defs>
+        <path id="circ" d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" />
+      </defs>
+      <text>
+        <textPath href="#circ">Kopi Asik • Momen Manis • Aroma Rileks • Istimewa. •</textPath>
+      </text>
+    </svg>
+    <span class="badge__icon" aria-hidden="true">
+      <img src="assets/music.svg" alt="">
+    </span>`;
   document.body.appendChild(musicToggle);
 }
 

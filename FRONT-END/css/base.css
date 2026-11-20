@@ -611,47 +611,6 @@ p {
   }
 }
 
-/* TOMBOL MUSIK (halaman selain Beranda, dibuat otomatis oleh js/music.js) */
-.music-fab {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 60;
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: var(--paper);
-  color: var(--clay);
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(80, 40, 10, .18);
-  transition: transform .2s ease;
-}
-
-.music-fab:hover {
-  transform: scale(1.06);
-}
-
-.music-fab svg {
-  width: 22px;
-  height: 22px;
-}
-
-.music-fab.is-playing svg {
-  animation: music-fab-pulse .8s ease-in-out infinite alternate;
-}
-
-@keyframes music-fab-pulse {
-  from { transform: scale(1); }
-  to   { transform: scale(1.2); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .music-fab.is-playing svg { animation: none; }
-}
-
 /* ANIMASI SCROLL REVEAL (umum) */
 .reveal-on-scroll {
   opacity: 0;
@@ -801,4 +760,146 @@ p {
   .kammari-wa-content h2 {
     font-size: 29px;
   }
+}
+
+/* ===== Badge berputar (tombol musik) ===== */
+.badge {
+  position: absolute;
+  right: 2%;
+  bottom: 4%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--paper);
+  display: grid;
+  place-items: center;
+  color: var(--clay);
+  box-shadow: 0 10px 30px rgba(80, 40, 10, .18);
+  z-index: 3;
+}
+
+.badge svg {
+  width: 100%;
+  height: 100%;
+  animation: spin 26s linear infinite;
+}
+
+.badge text {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  fill: currentColor;
+}
+
+.badge .badge__icon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.badge .badge__icon img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(31%) sepia(34%) saturate(1550%) hue-rotate(342deg) brightness(88%);
+}
+
+
+/* Interaksi badge musik */
+button.badge {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+button.badge:hover {
+  transform: scale(1.05);
+}
+
+button.badge:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 5px;
+}
+
+/* Animasi ketika musik diputar */
+.badge.is-playing .badge__icon img {
+  animation: music-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes music-pulse {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.2);
+  }
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Ukuran badge musik: ubah di sini, berlaku di SEMUA halaman */
+:root {
+  --badge-size: 60px;
+  --badge-size-sm: 46px;   /* layar HP */
+}
+
+.badge {
+  width: var(--badge-size);
+  height: var(--badge-size);
+  min-width: var(--badge-size);
+  min-height: var(--badge-size);
+  aspect-ratio: 1 / 1;
+  flex: none;
+}
+
+.badge .badge__icon img {
+  width: calc(var(--badge-size) * .3);
+  height: calc(var(--badge-size) * .3);
+}
+
+/* Badge melayang di Menu dan Fasilitas */
+.badge--float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  top: auto;
+  left: auto;
+  z-index: 60;
+}
+
+@media (max-width: 760px) {
+  .badge,
+  .badge--float {
+    width: var(--badge-size-sm);
+    height: var(--badge-size-sm);
+    min-width: var(--badge-size-sm);
+    min-height: var(--badge-size-sm);
+  }
+
+  .badge .badge__icon img {
+    width: calc(var(--badge-size-sm) * .3);
+    height: calc(var(--badge-size-sm) * .3);
+  }
+
+  .badge--float {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+/* tombol kecil lama sudah tidak dipakai */
+.music-fab { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .badge svg { animation: none; }
+  .badge.is-playing .badge__icon img { animation: none; }
 }

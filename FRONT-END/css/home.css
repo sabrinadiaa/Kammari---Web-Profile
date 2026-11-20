@@ -154,10 +154,8 @@
 /* Badge musik di hero baru: pojok kanan atas */
 .scene .badge {
   top: clamp(14px, 2.4vw, 28px);
-  right: 0;
+  right: 24px;
   bottom: auto;
-  width: 84px;
-  height: 84px;
   z-index: 4;
 }
 
@@ -203,95 +201,6 @@
   .scene__cta .btn {
     padding: 9px 16px;
     font-size: .8rem;
-  }
-
-  .scene .badge {
-    width: 56px;
-    height: 56px;
-  }
-}
-
-/* ===== Badge berputar (tombol musik) ===== */
-.badge {
-  position: absolute;
-  right: 2%;
-  bottom: 4%;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: var(--paper);
-  display: grid;
-  place-items: center;
-  color: var(--clay);
-  box-shadow: 0 10px 30px rgba(80, 40, 10, .18);
-  z-index: 3;
-}
-
-.badge svg {
-  width: 100%;
-  height: 100%;
-  animation: spin 26s linear infinite;
-}
-
-.badge text {
-  font-family: var(--sans);
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: .14em;
-  fill: currentColor;
-}
-
-.badge .badge__icon {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-}
-
-.badge .badge__icon img {
-  width: 25px;
-  height: 25px;
-  object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(31%) sepia(34%) saturate(1550%) hue-rotate(342deg) brightness(88%);
-}
-
-
-/* Interaksi badge musik */
-button.badge {
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font: inherit;
-}
-
-button.badge:hover {
-  transform: scale(1.05);
-}
-
-button.badge:focus-visible {
-  outline: 2px solid var(--clay);
-  outline-offset: 5px;
-}
-
-/* Animasi ketika musik diputar */
-.badge.is-playing .badge__icon img {
-  animation: music-pulse 0.8s ease-in-out infinite alternate;
-}
-
-@keyframes music-pulse {
-  from {
-    transform: scale(1);
-  }
-
-  to {
-    transform: scale(1.2);
-  }
-}
-
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
   }
 }
 
@@ -619,9 +528,6 @@ button.badge:focus-visible {
 
 /* Reduced motion (beranda) */
 @media (prefers-reduced-motion: reduce) {
-  .badge svg {
-    animation: none;
-  }
 
   .scene [data-in] {
     animation: none;

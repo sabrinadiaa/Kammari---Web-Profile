@@ -316,8 +316,8 @@
 }
 /* ---------- Scroll halus ke bagian cabang ---------- */
 html:has(body[data-page="fasilitas"]) { scroll-behavior: smooth; }
-\#galeri-gresik,
-\#galeri-surabaya { scroll-margin-top: calc(var(--nav-h, 72px) + 20px); }
+#galeri-gresik,
+#galeri-surabaya { scroll-margin-top: calc(var(--nav-h, 72px) + 20px); }
 @media (prefers-reduced-motion: reduce) {
   html:has(body[data-page="fasilitas"]) { scroll-behavior: auto; }
 }

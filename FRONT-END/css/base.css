@@ -370,22 +370,6 @@ p {
   font-variation-settings: normal;
 }
 
-.logo__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--clay);
-  opacity: .4;
-  flex: none;
-}
-
-.logo small {
-  font: 500 .8125rem/1 var(--sans);
-  color: var(--soft);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
 .logo__text,
 .brand-word {
   font-family: "Playpen Sans Hebrew", "Segoe UI", system-ui, sans-serif;
@@ -902,4 +886,39 @@ button.badge:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .badge svg { animation: none; }
   .badge.is-playing .badge__icon img { animation: none; }
+}
+
+/* ===== Logo asli di header dan footer ===== */
+
+.logo__dot,
+.logo small {
+  display: none;
+}
+
+.logo__text {
+  display: block;
+  font-size: 0;
+  width: 128px;
+  height: 25px;
+  background: var(--clay);
+  -webkit-mask: url("../assets/logo_kammari_mask.svg") left center / contain no-repeat;
+          mask: url("../assets/logo_kammari_mask.svg") left center / contain no-repeat;
+}
+
+/* Footer: logo sedikit lebih besar */
+.site-footer .logo__text {
+  width: 150px;
+  height: 29px;
+}
+
+/* Menu Beranda / Menu / Fasilitas tepat di tengah (desktop) */
+@media (min-width: 761px) {
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .nav__actions {
+    justify-self: end;
+  }
 }

@@ -307,7 +307,6 @@ const STATE_KEY = "kammari-music-state"; // posisi lagu selama kunjungan (sessio
 const CHOICE_KEY = "kammari-music";      // pilihan pengunjung: "off" jika pernah dimatikan (localStorage)
 
 /* ---------- Tombol musik ---------- */
-// Di Beranda sudah ada badge #music-toggle. Di halaman lain tombol kecil dibuat otomatis.
 let musicToggle = document.getElementById("music-toggle");
 if (!musicToggle) {
   musicToggle = document.createElement("button");
@@ -322,7 +321,7 @@ if (!musicToggle) {
         <path id="circ" d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" />
       </defs>
       <text>
-        <textPath href="#circ">Kopi Asik • Momen Manis • Aroma Rileks • Istimewa. •</textPath>
+        <textPath href="#circ">Kopi Asli • Momen Manis • Aroma Rileks • Istimewa. •</textPath>
       </text>
     </svg>
     <span class="badge__icon" aria-hidden="true">

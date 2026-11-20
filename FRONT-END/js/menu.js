@@ -170,7 +170,26 @@ if (menuPage) {
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  
 
+  const priceK = n => {
+  if (n % 1000 === 0) return (n / 1000) + "K";
+  if (n % 100 === 0) return (n / 1000).toFixed(1).replace(".", ",") + "K";
+  return rupiah(n);
+};
+
+function itemHTML(it, i) {
+  return `
+    <article class="mi mc${it.available ? "" : " is-soldout"}" data-i="${i}">
+      <div class="mi__pic">
+        <div class="mi__img">${imgTag(it)}</div>
+        <span class="mi__badge"><b>${priceK(it.price)}</b></span>
+      </div>
+      <h3>${esc(it.name)}</h3>
+      ${it.available ? "" : `<span class="mi__tag">Habis</span>`}
+    </article>`;
+}
+  
   let branch = null;
   let reqId = 0;
   let items = [];
@@ -335,6 +354,7 @@ if (menuPage) {
       <article class="mi mc${it.available ? "" : " is-soldout"}" data-i="${i}">
         <div class="mi__img">${imgTag(it)}</div>
         <h3>${esc(it.name)}</h3>
+        <p class="mi__desc">${esc(it.desc)}</p>
         <span class="mi__price">${price}</span>
         ${it.available ? "" : `<span class="mi__tag">Habis</span>`}
       </article>`;

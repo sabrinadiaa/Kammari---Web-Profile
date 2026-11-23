@@ -922,3 +922,13 @@ button.badge:focus-visible {
     justify-self: end;
   }
 }
+
+/* Logo Kammari di dalam teks (ukuran ikut font di sekitarnya) */
+.kammari-logo {
+  display: inline-block;
+  width: 3.6em;
+  height: .7em;
+  background: var(--clay);
+  -webkit-mask: url("../assets/logo_kammari_mask.svg") center / contain no-repeat;
+          mask: url("../assets/logo_kammari_mask.svg") center / contain no-repeat;
+}

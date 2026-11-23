@@ -334,12 +334,12 @@ html { scroll-behavior: smooth; }
     width: 100%;
     max-width: none;
 
-    margin: 14px 0 18px;
+    margin: 12px 0 14px;
 
     color: #fff9f2;
     font-family: var(--serif);
 
-    font-size: clamp(3.2rem, 4.3vw, 4.5rem);
+    font-size: clamp(3.25rem, 6vw, 6.4rem);   /* sama dengan Fasilitas */
     font-weight: 600;
 
     line-height: 1.06;
@@ -347,9 +347,9 @@ html { scroll-behavior: smooth; }
 }
 
 .menu-hero .lede {
-    max-width: 48ch;
-    color: rgba(255, 249, 241, .91);
-    font: 400 clamp(.95rem, 1.2vw, 1.08rem)/1.65 var(--sans);
+  max-width: 48ch;
+  color: rgba(255, 249, 241, .91);
+  font: 400 clamp(1rem, 1.4vw, 1.16rem)/1.7 var(--sans);
 }
 
 .menu-hero h1 .brand-word { color: var(--clay); }
@@ -361,7 +361,11 @@ html { scroll-behavior: smooth; }
 
 /* Tombol cabang: sama dengan tombol fasilitas (aktif = warna clay) */
 .menu-hero__pick { margin-top: 22px; }
-.menu-hero__pick-label { font-size: .85rem; color: rgba(255,249,241,.7); margin-bottom: 10px; }
+.menu-hero__pick-label {
+  font: 400 clamp(1rem, 1.4vw, 1.16rem)/1.7 var(--sans);
+  color: rgba(255, 249, 241, .7);
+  margin-bottom: 10px;
+}
 
 .menu-hero .segmented {
   display: flex; flex-wrap: wrap; gap: 12px;

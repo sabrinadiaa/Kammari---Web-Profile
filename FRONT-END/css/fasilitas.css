@@ -421,6 +421,12 @@ body[data-page="fasilitas"] .kf-hero__footer {
   gap: 24px;
 }
 body[data-page="fasilitas"] .kf-hero__photo-info { text-align: right; }
+@media (min-width: 761px) {
+  body[data-page="fasilitas"] .kf-hero__photo-info {
+    margin-bottom: 18px;   /* makin besar, makin naik */
+  }
+}
+
 body[data-page="fasilitas"] .kf-hero__photo-info > span {
   display: block;
   color: rgba(255, 249, 241, .70);

@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="id">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,128 +7,139 @@
   <meta name="description" content="Menu kopi, non-kopi, roti, dan makanan Kammari di Gresik dan Surabaya.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap"
-    rel="stylesheet">
-
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/menu.css">
-  <link rel="icon" href="data:,">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- naikkan ?v= setiap CSS diubah -->
+  <link rel="stylesheet" href="css/base.css?v=9">
+  <link rel="stylesheet" href="css/menu.css?v=12">
 </head>
-
 <body data-page="menu">
   <header id="site-header"></header>
-
   <main>
 
-    <!-- ===== HERO ===== -->
-    <section class="menu-hero">
-      <div class="wrap menu-hero__grid">
-        <div class="menu-hero__text">
-        <h1 class="h-xl">
-          Nikmati Racikan<br>
-          Terbaik Setiap Hari di<br>
+  <!-- HERO: hapus seluruh blok <div class="spot">...</div> -->
+  <section class="menu-hero">
+    <div class="wrap menu-hero__grid">
+      <div class="menu-hero__text">
+        <h1>Racikan Terbaik<br>Setiap Hari di<br>
           <span class="kammari-logo" role="img" aria-label="Kammari"></span>
         </h1>
-          <p class="lede">
-            Dari biji kopi pilihan nusantara hingga hidangan dapur rumahan yang
-            menemani obrolan panjangmu di cabang Surabaya maupun Gresik.
-          </p>
-
-          <!-- Pemilih cabang (menggantikan tombol "Lihat Menu").
-               data-branch & aria-pressed dipakai menu.js, jangan diubah -->
-          <div class="menu-hero__pick">
-            <p class="menu-hero__pick-label">Pilih cabang untuk melihat menu</p>
-            <div class="segmented" id="branch-toggle" role="group" aria-label="Pilih cabang">
-              <button data-branch="surabaya" aria-pressed="false">Surabaya</button>
-              <button data-branch="gresik" aria-pressed="false">Gresik</button>
-            </div>
+        <p class="lede">Dari biji kopi pilihan nusantara hingga hidangan dapur rumahan...</p>
+        <div class="menu-hero__pick">
+          <p class="menu-hero__pick-label">Pilih cabang untuk melihat menu</p>
+          <div class="segmented" role="group" aria-label="Pilih cabang">
+            <button type="button" data-branch="surabaya" aria-pressed="false">Surabaya</button>
+            <button type="button" data-branch="gresik" aria-pressed="false">Gresik</button>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Spotlight foto menu: diisi otomatis dari database oleh menu.js,
-             geser sendiri ke kiri tiap beberapa detik (tanpa nama & harga) -->
-        <div class="spot" id="spot" aria-label="Foto menu pilihan">
-          <button type="button" class="spot__arrow spot__arrow--prev" id="spot-prev" aria-label="Sebelumnya">&lsaquo;</button>
+  <!-- BAR STICKY -->
+  <!-- MENU TOOLS: PENCARIAN SAJA -->
+  <div class="menu-tools" id="menu-tools">
+    <div class="wrap menu-tools__row">
+      <label class="menu-search">
+        <span class="visually-hidden">Cari menu</span>
+        <input
+          type="search"
+          id="menu-search"
+          placeholder="Cari menu..."
+          autocomplete="off">
+      </label>
+    </div>
 
-          <div class="spot__viewport">
-            <div class="spot__track" id="spot-track"></div>
+    <p class="wrap menu-status"
+      id="menu-status"
+      aria-live="polite"
+      hidden></p>
+  </div>
+  <!-- MAKANAN -->
+  <section class="section" id="menu-makanan">
+    <div class="wrap">
+
+      <div class="venue__intro">
+        <span class="kicker" data-count>Makanan</span>
+        <h2 class="h-lg">Makanan</h2>
+        <p class="lede">
+          Hidangan dapur rumahan untuk menemani obrolanmu.
+        </p>
+      </div>
+
+      <nav
+        class="menu-category-nav"
+        id="menu-cats-makanan"
+        aria-label="Kategori makanan">
+      </nav>
+
+      <div class="mlist"></div>
+
+    </div>
+  </section>
+
+      <!-- PEMISAH FOTO MAKANAN DAN MINUMAN -->
+    
+    <div class="menu-divider">
+        <img
+            class="menu-divider__image"
+            src="assets/menu-seasonal/heroPage1.jpg"
+            alt="Suasana Kammari Cafe"
+        >
+
+        <div class="menu-divider__overlay"></div>
+
+        <div class="menu-divider__content">
+            <span>KAMMARI CAFE & ROASTERY</span>
+            <h2>From Our Kitchen<br>To Your Table</h2>
+            <p>Nikmati hidangan terbaik dan racikan kopi khas Kammari.</p>
+        </div>
+    </div>
+
+    <!-- MINUMAN -->
+  <section class="section" id="menu-minuman">
+    <div class="wrap">
+
+      <div class="venue__intro">
+        <span class="kicker" data-count>Minuman</span>
+        <h2 class="h-lg">Minuman</h2>
+        <p class="lede">
+          Kopi, teh, dan racikan signature Kammari.
+        </p>
+      </div>
+
+      <nav
+        class="menu-category-nav"
+        id="menu-cats-minuman"
+        aria-label="Kategori minuman">
+      </nav>
+
+      <div class="mlist"></div>
+
+    </div>
+  </section>
+
+    <!-- CTA (lingkaran foto, selaras dengan hero menu) -->
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="cta">
+          <div>
+            <span class="kicker">Pesan untuk acara</span>
+            <h2 class="h-lg">Mau pesan menu untuk rapat atau acara di<br>
+              <span class="kammari-logo" role="img" aria-label="Kammari"></span><span class="brand-word">?</span></h2>
+            <div class="cta__btns">
+              <a class="btn btn--solid" href="" id="reserve-wa" target="_blank" rel="noopener">Hubungi kami lewat WhatsApp</a>
+            </div>
           </div>
-
-          <svg class="spot__arc" viewBox="0 0 600 36" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0 6 Q300 44 600 6" fill="none" stroke="rgba(255,214,170,.4)" stroke-width="2" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <div class="spot__dots" id="spot-dots" aria-hidden="true"></div>
-
-          <button type="button" class="spot__arrow spot__arrow--next" id="spot-next" aria-label="Berikutnya">&rsaquo;</button>
+          <div class="cta__circles" id="cta-circles" aria-hidden="true"></div>
         </div>
       </div>
     </section>
-
-    <div id="menu-page">
-
-      <!-- ===== Kartu "Daftar Menu" (muncul setelah memilih cabang) ===== -->
-      <section class="menu-head" id="branch-detail" aria-labelledby="mh-title" hidden>
-        <div class="wrap">
-          <div class="mh">
-            <div class="mh__photo" aria-hidden="true"></div>
-
-            <div class="mh__title">
-              <h2 id="mh-title">Makanan &amp; Minuman</h2>
-              <p class="mh__eyebrow">Cabang <span id="bd-branch"></span></p>
-            </div>
-
-            <label class="mh__search">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              <input type="search" id="menu-search" placeholder="  Cari menu..." aria-label="Cari menu" autocomplete="off">
-            </label>
-          </div>
-        </div>        <!-- ← penutup .wrap -->
-      </section>      <!-- ← penutup #branch-detail -->
-
-      <p class="wrap menu-status" id="menu-status" aria-live="polite" hidden></p>
-
-      <!-- ===== Daftar menu ===== -->
-      <section class="menu-list" id="menu-makanan" data-group="makanan">
-        <div class="wrap">
-          <div class="menu-list__head">
-            <h2 class="h-lg">Menu Makanan</h2>
-            <div class="mchips" role="group" aria-label="Kategori makanan"></div>
-          </div>
-          <div class="mslider">
-            <button class="mnav" data-dir="-1" aria-label="Sebelumnya">&lsaquo;</button>
-            <div class="mviewport"><div class="mtrack"></div></div>
-            <button class="mnav" data-dir="1" aria-label="Berikutnya">&rsaquo;</button>
-          </div>
-        </div>
-      </section>
-
-      <svg class="roof-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0 60 V40 L100 40 L150 10 L200 40 L330 40 L330 20 L400 20 L440 40 L560 40 L610 8 L660 40 L800 40 L800 24 L880 24 L920 40 L1050 40 L1100 12 L1150 40 L1200 40 V60 Z"/>
-      </svg>
-
-      <section class="menu-list" id="menu-minuman" data-group="minuman">
-        <div class="wrap">
-          <div class="menu-list__head">
-            <h2 class="h-lg">Menu Minuman</h2>
-            <div class="mchips" role="group" aria-label="Kategori minuman"></div>
-          </div>
-          <div class="mslider">
-            <button class="mnav" data-dir="-1" aria-label="Sebelumnya">&lsaquo;</button>
-            <div class="mviewport"><div class="mtrack"></div></div>
-            <button class="mnav" data-dir="1" aria-label="Berikutnya">&rsaquo;</button>
-          </div>
-        </div>
-      </section>
-
-      <div style="height:clamp(72px,10vw,140px)"></div>
-    </div>
   </main>
-
   <footer id="site-footer"></footer>
+
   <script src="js/core.js"></script>
   <script src="js/menu.js"></script>
   <script src="js/home.js"></script>
+  <script>document.getElementById("reserve-wa").href = WA_LINK;</script>
 </body>
-
 </html>

@@ -922,3 +922,40 @@ if (shouldStart) {
     }, 3000);
   }
 })();
+
+
+/* EVENT ARCHIVE - TAMPILKAN LEBIH BANYAK KHUSUS MOBILE */
+
+document.addEventListener("click", function (event) {
+  const button = event.target.closest(".kt-more");
+
+  if (!button) return;
+
+  // Hanya berlaku untuk HP
+  if (!window.matchMedia("(max-width: 720px)").matches) {
+    return;
+  }
+
+  const gallery = document.querySelector(
+    "#past-event-gallery.kt-collection"
+  );
+
+  if (!gallery) return;
+
+  const expanded = gallery.classList.toggle(
+    "kt-mobile-expanded"
+  );
+
+  if (expanded) {
+    // Tampilkan seluruh poster tambahan
+    gallery.querySelectorAll(".kt-ticket").forEach(ticket => {
+      ticket.hidden = false;
+    });
+  }
+
+  button.textContent = expanded
+    ? "Tampilkan lebih sedikit ↑"
+    : "Tampilkan lebih banyak ↓";
+
+  button.setAttribute("aria-expanded", String(expanded));
+});

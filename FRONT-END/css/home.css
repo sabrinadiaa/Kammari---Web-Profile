@@ -100,7 +100,8 @@
 
 /* Tiap huruf */
 .hero-logo .hl {
-  fill: var(--clay);              /* warna sama dengan web */
+  fill: var(--clay);
+  /* warna sama dengan web */
   transform-box: fill-box;
   transform-origin: center bottom;
   transition: fill .3s ease, transform .3s ease;
@@ -129,7 +130,8 @@
 /* Hover satu huruf: warna berubah dan huruf naik sedikit */
 .hero-logo .hl:hover {
   fill: var(--paper);
-  transform: translateY(-14px);   /* ukuran SVG lebih kecil dari layar, jadi angka dibuat lebih besar dari 8 */
+  transform: translateY(-14px);
+  /* ukuran SVG lebih kecil dari layar, jadi angka dibuat lebih besar dari 8 */
 }
 
 /* Keterangan kecil kiri & kanan */
@@ -1427,7 +1429,9 @@
 
 /* Ayunan depan */
 @keyframes jk-swing-front {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(-28deg);
   }
 
@@ -1438,7 +1442,9 @@
 
 /* Ayunan belakang */
 @keyframes jk-swing-back {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(28deg);
   }
 
@@ -1460,6 +1466,7 @@
 
 /* Aksesibilitas */
 @media (prefers-reduced-motion: reduce) {
+
   #jk-runner.is-running .jk-runner-body,
   #jk-runner.is-running .jk-runner-arm,
   #jk-runner.is-running .jk-runner-leg {
@@ -1482,52 +1489,52 @@
 }
 
 #jk-runner.is-running .jk-runner-body {
-  animation: jk-chase-bounce .22s
-             ease-in-out infinite alternate;
+  animation: jk-chase-bounce .22s ease-in-out infinite alternate;
 }
 
 #jk-runner.is-running .jk-arm-front,
 #jk-runner.is-running .jk-leg-back {
-  animation: jk-chase-swing-a .38s
-             ease-in-out infinite;
+  animation: jk-chase-swing-a .38s ease-in-out infinite;
 }
 
 #jk-runner.is-running .jk-arm-back,
 #jk-runner.is-running .jk-leg-front {
-  animation: jk-chase-swing-b .38s
-             ease-in-out infinite;
+  animation: jk-chase-swing-b .38s ease-in-out infinite;
 }
 
 /* Biar setiap orang tidak bergerak seragam */
-#jk-runner .jk-chaser:nth-child(2)
-.jk-runner-body {
+#jk-runner .jk-chaser:nth-child(2) .jk-runner-body {
   animation-delay: -.12s;
 }
 
-#jk-runner .jk-chaser:nth-child(3)
-.jk-runner-body {
+#jk-runner .jk-chaser:nth-child(3) .jk-runner-body {
   animation-delay: -.20s;
 }
 
-#jk-runner .jk-chaser:nth-child(4)
-.jk-runner-body {
+#jk-runner .jk-chaser:nth-child(4) .jk-runner-body {
   animation-delay: -.08s;
 }
 
 /* Ayunan tangan dan kaki */
 @keyframes jk-chase-swing-a {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(-30deg);
   }
+
   50% {
     transform: rotate(30deg);
   }
 }
 
 @keyframes jk-chase-swing-b {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(30deg);
   }
+
   50% {
     transform: rotate(-30deg);
   }
@@ -1538,6 +1545,7 @@
   from {
     transform: translateY(0);
   }
+
   to {
     transform: translateY(-2px);
   }
@@ -1554,6 +1562,7 @@
 
 /* Hormati pengaturan pengurangan animasi */
 @media (prefers-reduced-motion: reduce) {
+
   #jk-runner.is-running .jk-runner-body,
   #jk-runner.is-running .jk-runner-arm,
   #jk-runner.is-running .jk-runner-leg {
@@ -1618,7 +1627,7 @@
   box-shadow: none;
 }
 
-#past-event-gallery.kt-collection > [hidden] {
+#past-event-gallery.kt-collection>[hidden] {
   display: none !important;
 }
 
@@ -1640,7 +1649,7 @@
   text-align: center;
   box-shadow: 0 4px 10px rgba(86, 54, 32, .06);
   transition: transform .25s ease,
-              box-shadow .25s ease;
+    box-shadow .25s ease;
 }
 
 .kt-ticket:hover {
@@ -1664,10 +1673,7 @@
 }
 
 .kt-ticket__brand {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  color: #a45c40;
+  display: none !important;
 }
 
 .kt-ticket__poster {
@@ -1747,15 +1753,12 @@
   min-height: 48px;
   padding: 4px 8px 8px;
   transition: transform .35s ease,
-              opacity .35s ease;
+    opacity .35s ease;
 }
 
-.kt-ticket__number {
-  color: #573729;
-  font-family: Georgia, serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+/* Hilangkan nomor tiket KAMMARI / 01 dst. */
+#past-event-gallery .kt-ticket__number {
+  display: none !important;
 }
 
 .kt-ticket__date {
@@ -1779,9 +1782,11 @@
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-7px) rotate(-1deg);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -1801,7 +1806,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background .2s ease,
-              transform .2s ease;
+    transform .2s ease;
 }
 
 .kt-more:hover {
@@ -1835,31 +1840,8 @@
   }
 }
 
-/* MOBILE */
-
-@media (max-width: 600px) {
-  .kt-heading {
-    margin-bottom: 25px;
-    text-align: left;
-  }
-
-  #past-event-gallery.kt-collection {
-    grid-template-columns: 1fr;
-    max-width: 300px;
-    gap: 20px;
-    padding-inline: 4px;
-  }
-
-  .kt-ticket__poster {
-    min-height: 200px;
-  }
-
-  .kt-ticket__name {
-    font-size: 16px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
+
   .kt-ticket,
   .kt-ticket__stub,
   .kt-more {
@@ -1871,235 +1853,266 @@
   }
 }
 
-/*EVENT ARCHIVE*/
+
+/* ========================================
+   KAMMARI TICKET COLLECTION - FINAL
+======================================== */
+
+/* Background section */
 .event-archive {
   background: #e7dacb;
-  padding: 72px 0 84px;
+  padding: 64px 0 76px;
 }
 
 .event-archive .wrap {
   width: min(1500px, calc(100% - 48px));
-  margin: 0 auto;
+  margin-inline: auto;
 }
 
-/* Header */
-.event-archive__head {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 32px;
-  align-items: start;
-  margin-bottom: 42px;
+
+
+/* HEADER EVENT ARCHIVE KAMMARI */
+
+.kt-eyebrow {
+  display: none !important;
 }
 
-.event-archive__eyebrow {
-  font-size: 13px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: #b97855;
-  font-weight: 600;
-  padding-top: 14px;
+.kt-heading {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto 48px;
 }
 
-.event-archive__intro {
-  text-align: right;
-  max-width: 860px;
-  margin-left: auto;
+/* DESKTOP: deskripsi kiri, judul kanan */
+@media (min-width: 721px) {
+
+  .kt-heading {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 48px;
+    text-align: left !important;
+  }
+
+  /* KILAS BALIK DI KIRI */
+  .kt-heading > p {
+    order: 1;
+    flex: 0 1 370px;
+    min-width: 0;
+    max-width: 370px;
+    margin: 0 !important;
+
+    color: #846550;
+    font-size: 16px !important;
+    line-height: 1.7;
+    text-align: left !important;
+  }
+
+  /* CERITA YANG PERNAH HADIR DI KANAN */
+  .kt-heading > h2 {
+    order: 2;
+    flex: 1;
+    min-width: 0;
+    margin: 0 !important;
+
+    color: #402a1f;
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 4.3vw, 64px) !important;
+    font-weight: 400;
+    line-height: 1.12;
+    text-align: right !important;
+  }
+
+  .kt-heading > h2 em {
+    font-style: italic;
+    font-weight: 400;
+  }
 }
 
-.event-archive__title {
-  margin: 0 0 12px;
-  font-family: "Fraunces", serif;
-  font-size: clamp(48px, 5vw, 74px);
-  line-height: 1.05;
-  color: #3a2418;
-  font-weight: 500;
+/* MOBILE */
+@media (max-width: 720px) {
+
+  .kt-heading {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+
+  .kt-heading > h2 {
+    order: 1;
+    margin: 0 !important;
+    font-size: clamp(29px, 7vw, 40px) !important;
+    font-weight: 400;
+    text-align: left !important;
+  }
+
+  .kt-heading > p {
+    order: 2;
+    margin: 0 !important;
+    max-width: 100%;
+    font-size: 13px !important;
+    line-height: 1.6;
+    text-align: left !important;
+  }
 }
 
-.event-archive__title em {
-  font-style: italic;
-  font-weight: 400;
-}
 
-.event-archive__desc {
-  margin: 0;
-  font-size: 21px;
-  line-height: 1.7;
-  color: #8a6f60;
-}
-
-/* List tiket */
-.event-archive__list {
+/* Desktop: 5 poster */
+#past-event-gallery.kt-collection {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 20px;
-  align-items: stretch;
-}
-
-/* Card tiket */
-.event-ticket {
-  background: #f7f3ee;
-  border-radius: 28px;
-  padding: 18px 18px 16px;
-  box-shadow: 0 10px 24px rgba(58, 36, 24, 0.08);
-  position: relative;
-  overflow: visible;
-  min-height: 455px;
-}
-
-.event-ticket::before,
-.event-ticket::after {
-  content: "";
-  position: absolute;
-  bottom: 58px;
-  width: 22px;
-  height: 22px;
-  background: #e7dacb;
-  border-radius: 50%;
-  z-index: 2;
-}
-
-.event-ticket::before {
-  left: -11px;
-}
-
-.event-ticket::after {
-  right: -11px;
-}
-
-.event-ticket__topline {
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: #b97855;
-  margin-bottom: 12px;
-  font-weight: 700;
-}
-
-.event-ticket__poster {
+  gap: 18px;
+  max-width: 1280px;
   width: 100%;
-  height: 260px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #efe7de;
-  border: 1px solid #eadbcf;
-  margin-bottom: 14px;
 }
 
-.event-ticket__poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/* Poster tidak terpotong */
+.kt-ticket__poster img {
+  object-fit: contain;
 }
 
-/* Judul event */
-.event-ticket__name {
-  margin: 0 0 12px;
-  text-align: center;
-  font-family: "Fraunces", serif;
-  font-size: 18px;
-  line-height: 1.35;
-  color: #4a2c20;
-  min-height: 48px;
-}
+/* ========================================
+   TABLET
+======================================== */
 
-/* garis sobekan */
-.event-ticket__tear {
-  margin: 0 -18px 14px;
-  border-top: 2px dashed #c8a58e;
-  position: relative;
-}
-
-/* kode tiket */
-.event-ticket__code {
-  margin: 0 0 6px;
-  text-align: center;
-  font-family: "Fraunces", serif;
-  font-size: 16px;
-  letter-spacing: 0.14em;
-  color: #4a2c20;
-  text-transform: uppercase;
-}
-
-/* tanggal */
-.event-ticket__date {
-  margin: 0;
-  text-align: center;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #8a6f60;
-}
-
-.event-archive__cta {
-  margin-top: 38px;
-  display: flex;
-  justify-content: center;
-}
-
-.event-archive__cta .btn {
-  min-width: 220px;
-  justify-content: center;
-}
-
-/* Responsive */
-@media (max-width: 1280px) {
-  .event-archive__list {
+@media (min-width: 721px) and (max-width: 1100px) {
+  #past-event-gallery.kt-collection {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 900px) {
+/* ========================================
+   HP: HANYA 2 POSTER SEJAJAR
+======================================== */
+
+@media (max-width: 720px) {
+
+  .event-archive {
+    padding: 38px 0 48px;
+  }
+
   .event-archive .wrap {
-    width: min(100%, calc(100% - 28px));
+    width: calc(100% - 28px);
   }
 
-  .event-archive__head {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .event-archive__eyebrow {
-    padding-top: 0;
-    text-align: left;
-  }
-
-  .event-archive__intro {
-    text-align: left;
+  .kt-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 26px;
     max-width: 100%;
-    margin-left: 0;
   }
 
-  .event-archive__title {
-    font-size: clamp(34px, 8vw, 52px);
+  .kt-heading>h2 {
+    max-width: 100%;
+    margin: 0;
+    text-align: left;
+    font-size: clamp(29px, 7vw, 40px);
   }
 
-  .event-archive__desc {
-    font-size: 16px;
+  .kt-heading>p {
+    max-width: 100%;
+    margin: 0;
+    text-align: left;
+    font-size: 13px;
     line-height: 1.6;
   }
 
-  .event-archive__list {
+  /* Dua poster dalam satu baris */
+  #past-event-gallery.kt-collection {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    gap: 10px;
+    max-width: 100%;
+    padding: 8px 0 16px;
+    overflow: visible;
   }
 
-  .event-ticket {
-    min-height: auto;
+  /* HP: awalnya tampilkan 2 tiket */
+  #past-event-gallery.kt-collection:not(.kt-mobile-expanded)>.kt-ticket:nth-child(n+3) {
+    display: none !important;
   }
 
-  .event-ticket__poster {
-    height: 220px;
+  /* Ukuran bingkai menyesuaikan HP */
+  .kt-ticket {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 6px;
+    border-radius: 14px;
+  }
+
+  .kt-ticket__cover {
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .kt-ticket__poster {
+    min-height: 0;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    padding: 3px;
+    border-radius: 7px;
+  }
+
+  .kt-ticket__poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .kt-ticket__name {
+    min-height: 30px;
+    font-size: 11px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .kt-ticket__tearline {
+    margin: 9px 0;
+  }
+
+  .kt-ticket__tearline::before,
+  .kt-ticket__tearline::after {
+    width: 12px;
+    height: 12px;
+    top: -7px;
+  }
+
+  .kt-ticket__tearline::before {
+    left: -13px;
+  }
+
+  .kt-ticket__tearline::after {
+    right: -13px;
+  }
+
+  .kt-ticket__stub {
+    min-height: 0;
+    gap: 3px;
+    padding: 3px 2px 6px;
+  }
+
+  .kt-ticket__date {
+    font-size: 9px;
+    line-height: 1.35;
+  }
+
+  .kt-more {
+    margin-top: 22px;
   }
 }
 
-@media (max-width: 560px) {
-  .event-archive__list {
-    grid-template-columns: 1fr;
+@media (max-width: 360px) {
+  #past-event-gallery.kt-collection {
+    gap: 8px;
   }
 
-  .event-ticket__poster {
-    height: 260px;
+  .kt-ticket__name {
+    font-size: 10px;
   }
 }

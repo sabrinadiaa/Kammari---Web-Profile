@@ -1,0 +1,622 @@
+﻿
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Pengelolaan Event Kammari Café & Roastery"
+  >
+
+  <title>Kelola Event | Kammari Café & Roastery</title>
+
+  <!-- GOOGLE FONT -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS KHUSUS EVENT -->
+  <link
+    rel="stylesheet"
+    href="/owner/css/owner-event.css"
+  >
+
+  <!-- CSS BERSAMA OWNER -->
+  <link
+    rel="stylesheet"
+    href="/owner/css/owner-unified.css"
+  >
+
+  <!-- JAVASCRIPT KHUSUS EVENT -->
+  <script
+    src="/owner/js/owner-event.js"
+    defer
+  ></script>
+
+  <!-- JAVASCRIPT SIDEBAR OWNER -->
+  <script
+    src="/owner/js/owner-unified.js?v=event-fix-4"
+    defer
+  ></script>
+
+</head>
+
+<body>
+
+<div class="owner-layout">
+
+  <!-- =====================================
+       SIDEBAR OWNER
+  ====================================== -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-top">
+
+      <div class="sidebar-header">
+
+        <a
+          href="/owner/dashboard.html"
+          class="ku-brand-link"
+          aria-label="Beranda Kammari"
+        >
+          <img
+            src="/owner/assets/kammari-wordmark-transparent.png"
+            alt="Kammari"
+            class="ku-brand-img"
+          >
+        </a>
+
+        <span class="ku-brand-subtitle">
+          OWNER PORTAL
+        </span>
+
+      </div>
+
+      <p class="sidebar-label">
+        MENU UTAMA
+      </p>
+
+      <nav
+        class="sidebar-nav"
+        aria-label="Navigasi Owner"
+      >
+
+        <a
+          href="/owner/dashboard.html"
+          class="nav-link"
+        >
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="m3 10 9-7 9 7v11H3z"/>
+              <path d="M9 21v-7h6v7"/>
+            </svg>
+          </span>
+          <span>Beranda</span>
+        </a>
+
+        <a
+          href="/owner/owner-menu.html"
+          class="nav-link"
+        >
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 6h16"/>
+              <path d="M4 12h16"/>
+              <path d="M4 18h16"/>
+            </svg>
+          </span>
+          <span>Kelola Menu</span>
+        </a>
+
+        <a
+          href="/owner/owner-event.html"
+          class="nav-link active"
+          aria-current="page"
+        >
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="5"
+                    width="18" height="16"
+                    rx="2"/>
+              <path d="M7 3v4"/>
+              <path d="M17 3v4"/>
+              <path d="M3 10h18"/>
+            </svg>
+          </span>
+          <span>Kelola Event</span>
+        </a>
+
+        <a
+          href="/owner/owner-facility.html"
+          class="nav-link"
+        >
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 21V7l8-4 8 4v14"/>
+              <path d="M9 21v-7h6v7"/>
+            </svg>
+          </span>
+          <span>Kelola Fasilitas</span>
+        </a>
+
+      </nav>
+
+    </div>
+
+    <div class="sidebar-bottom">
+
+      <p class="sidebar-branch">
+        <span class="branch-dot"></span>
+        <span>Gresik &amp; Surabaya</span>
+      </p>
+
+      <a
+        href="/owner/dashboard.html"
+        class="back-dashboard"
+      >
+        Kembali ke Beranda
+      </a>
+
+      <small>© 2026 Kammari</small>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =====================================
+       MAIN WRAPPER
+  ====================================== -->
+
+  <div class="main-wrapper">
+
+    <header class="topbar">
+
+      <span class="topbar-title">
+        Pengelolaan Event
+      </span>
+
+      <span class="owner-indicator">
+        Portal Owner
+      </span>
+
+    </header>
+
+
+    <main class="owner-content">
+
+      <!-- PAGE HEADING -->
+
+      <section class="page-heading">
+
+        <p class="eyebrow">
+          KAMMARI MANAGEMENT
+        </p>
+
+        <h2>Kelola Event</h2>
+
+        <p class="page-description">
+          Kelola kegiatan dan acara Kammari.
+        </p>
+
+      </section>
+
+
+      <!-- =====================================
+           FILTER DAN TAMBAH EVENT
+      ====================================== -->
+
+      <section class="event-toolbar">
+
+        <div class="field-group">
+
+          <label for="branchFilter">
+            Cabang
+          </label>
+
+          <select id="branchFilter">
+            <option value="">Semua Cabang</option>
+            <option value="gresik">Gresik</option>
+            <option value="surabaya">Surabaya</option>
+          </select>
+
+        </div>
+
+        <div class="field-group grow">
+
+          <label for="eventSearch">
+            Cari Event
+          </label>
+
+          <input
+            type="search"
+            id="eventSearch"
+            placeholder="Cari nama event..."
+            autocomplete="off"
+          >
+
+        </div>
+
+        <button
+          type="button"
+          id="addEventButton"
+          class="primary-button ku-btn-add"
+          aria-controls="eventFormSection"
+          aria-expanded="false"
+        >
+          + Tambah Event
+        </button>
+
+      </section>
+
+
+      <!-- =====================================
+           FORM TAMBAH / EDIT EVENT
+      ====================================== -->
+
+      <section
+        id="eventFormSection"
+        class="event-form-section"
+        hidden
+      >
+
+        <div class="form-header">
+
+          <div>
+            <h3 id="eventFormTitle">
+              Tambah Event
+            </h3>
+            <p>
+              Lengkapi detail kegiatan Kammari.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            id="closeEventForm"
+            class="icon-button"
+            aria-label="Tutup form"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <form id="eventForm">
+
+          <!-- NAMA EVENT -->
+
+          <div class="field-group full-width">
+
+            <label for="eventTitle">
+              Nama Event
+            </label>
+
+            <input
+              type="text"
+              id="eventTitle"
+              maxlength="255"
+              placeholder="Nama event"
+              required
+            >
+
+          </div>
+
+
+          <!-- CABANG -->
+
+          <div class="field-group">
+
+            <label for="eventBranch">
+              Cabang
+            </label>
+
+            <select id="eventBranch">
+
+              <option value="">
+                Semua Cabang
+              </option>
+
+              <option value="1">
+                Gresik
+              </option>
+
+              <option value="2">
+                Surabaya
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- STATUS -->
+
+          <div class="field-group">
+
+            <label for="eventStatus">
+              Status
+            </label>
+
+            <select id="eventStatus" required>
+
+              <option value="draft">
+                Draft
+              </option>
+
+              <option value="upcoming">
+                Upcoming
+              </option>
+
+              <option value="ongoing">
+                Ongoing
+              </option>
+
+              <option value="completed">
+                Completed
+              </option>
+
+              <option value="cancelled">
+                Cancelled
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- TANGGAL MULAI -->
+
+          <div class="field-group">
+
+            <label for="eventStart">
+              Tanggal Mulai
+            </label>
+
+            <input
+              type="datetime-local"
+              id="eventStart"
+              required
+            >
+
+          </div>
+
+
+          <!-- TANGGAL SELESAI -->
+
+          <div class="field-group">
+
+            <label for="eventEnd">
+              Tanggal Selesai
+            </label>
+
+            <input
+              type="datetime-local"
+              id="eventEnd"
+              required
+            >
+
+          </div>
+
+
+          <!-- DESKRIPSI -->
+
+          <div class="field-group full-width">
+
+            <label for="eventDescription">
+              Deskripsi
+            </label>
+
+            <textarea
+              id="eventDescription"
+              rows="3"
+              placeholder="Deskripsi event..."
+            ></textarea>
+
+          </div>
+
+
+          <!-- POSTER EVENT -->
+
+          <div class="field-group full-width">
+
+            <label for="eventPoster">
+              Poster Event
+            </label>
+
+            <div class="event-media-upload">
+
+              <input
+                type="file"
+                id="eventPoster"
+                accept="image/jpeg,image/png,image/webp"
+              >
+
+              <small class="field-hint">
+                JPG, PNG, atau WebP · Maks. 5 MB
+              </small>
+
+              <img
+                id="eventPosterPreview"
+                class="event-poster-preview"
+                alt="Pratinjau poster event"
+                hidden
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- VIDEO EVENT -->
+
+          <div class="field-group full-width">
+
+            <label for="eventVideo">
+              Video Event
+            </label>
+
+            <div class="event-media-upload">
+
+              <input
+                type="file"
+                id="eventVideo"
+                accept="video/mp4,video/webm"
+              >
+
+              <small class="field-hint">
+                MP4 atau WebM · Maks. 50 MB
+              </small>
+
+              <video
+                id="eventVideoPreview"
+                class="event-video-preview"
+                controls
+                preload="metadata"
+                hidden
+              ></video>
+
+            </div>
+
+          </div>
+
+
+          <!-- LINK PENDAFTARAN -->
+
+          <div class="field-group full-width">
+
+            <label for="eventRegistration">
+              Link Pendaftaran
+            </label>
+
+            <input
+              type="url"
+              id="eventRegistration"
+              maxlength="1000"
+              placeholder="https://..."
+            >
+
+          </div>
+
+
+          <!-- FORM ACTIONS -->
+
+          <div class="form-actions">
+
+            <button
+              type="button"
+              id="cancelEvent"
+              class="secondary-button"
+            >
+              Batal
+            </button>
+
+            <button
+              type="submit"
+              id="saveEvent"
+              class="primary-button ku-btn-save"
+            >
+              Simpan Event
+            </button>
+
+          </div>
+
+
+          <!-- FORM STATUS -->
+
+          <p
+            id="eventFormMessage"
+            class="status-text full-width"
+            role="status"
+            aria-live="polite"
+          ></p>
+
+        </form>
+
+      </section>
+
+
+      <!-- =====================================
+           DAFTAR EVENT
+      ====================================== -->
+
+      <section class="event-list-section">
+
+        <div class="list-heading">
+
+          <h3>Daftar Event</h3>
+
+          <span id="eventCount">
+            Memuat event...
+          </span>
+
+        </div>
+
+
+        <p
+          id="eventStatusMessage"
+          class="status-text"
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <div class="table-container">
+
+          <table class="event-table">
+
+            <thead>
+              <tr>
+                <th scope="col">Event</th>
+                <th scope="col">Cabang</th>
+                <th scope="col">Jadwal</th>
+                <th scope="col">Status</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+
+            <tbody id="eventTableBody">
+
+              <tr>
+                <td colspan="5" class="empty-state">
+                  Memuat data event...
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
+
+</body>
+</html>

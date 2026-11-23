@@ -1561,3 +1561,545 @@
   }
 }
 
+/* ==========================================
+   KAMMARI TICKET COLLECTION
+   Vintage Tickets — Past Moments
+========================================== */
+
+.kt-heading {
+  max-width: 900px;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+
+.kt-eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  color: #a45c40;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.kt-heading h2 {
+  margin: 0 0 14px;
+  color: #402a1f;
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 4vw, 52px);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.kt-heading h2 em {
+  font-weight: 400;
+}
+
+.kt-heading p {
+  margin: 0 auto;
+  max-width: 550px;
+  color: #846550;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* GALERI: 3 TIKET SEJAJAR */
+
+#past-event-gallery.kt-collection {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px 0 24px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+#past-event-gallery.kt-collection > [hidden] {
+  display: none !important;
+}
+
+/* TIKET */
+
+.kt-ticket {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 8px;
+  overflow: visible;
+  appearance: none;
+  border: 1px solid #d9cbbb;
+  border-radius: 18px;
+  background: #fffdf9;
+  color: #482e21;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(86, 54, 32, .06);
+  transition: transform .25s ease,
+              box-shadow .25s ease;
+}
+
+.kt-ticket:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 18px rgba(86, 54, 32, .10);
+}
+
+.kt-ticket:focus-visible {
+  outline: 3px solid #ad6245;
+  outline-offset: 5px;
+}
+
+.kt-ticket__cover {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 12px 10px;
+  border-radius: 13px 13px 6px 6px;
+  background: #fff;
+  color: #4a3022;
+}
+
+.kt-ticket__brand {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #a45c40;
+}
+
+.kt-ticket__poster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #ece3d8;
+  padding: 6px;
+}
+
+.kt-ticket__poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.kt-ticket__poster--empty {
+  padding: 18px;
+  color: #674a36;
+  font-family: Georgia, serif;
+  font-size: 18px;
+}
+
+.kt-ticket__name {
+  display: block;
+  min-height: 34px;
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #4a3022;
+}
+
+/* GARIS SOBEK */
+
+.kt-ticket__tearline {
+  position: relative;
+  display: block;
+  height: 2px;
+  margin: 16px 0 12px;
+  border-top: 2px dashed #ac8061;
+}
+
+.kt-ticket__tearline::before,
+.kt-ticket__tearline::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f8f3ed;
+}
+
+.kt-ticket__tearline::before {
+  left: -21px;
+}
+
+.kt-ticket__tearline::after {
+  right: -21px;
+}
+
+/* BAGIAN BAWAH TIKET */
+
+.kt-ticket__stub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 48px;
+  padding: 4px 8px 8px;
+  transition: transform .35s ease,
+              opacity .35s ease;
+}
+
+.kt-ticket__number {
+  color: #573729;
+  font-family: Georgia, serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.kt-ticket__date {
+  color: #8d7361;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+/* EFEK TIKET DISOBEK */
+
+.kt-ticket.is-tearing .kt-ticket__stub {
+  transform: translateY(18px) rotate(5deg);
+  opacity: 0;
+}
+
+.kt-ticket.is-tearing .kt-ticket__cover {
+  animation: kt-paper-lift .35s ease-out both;
+}
+
+@keyframes kt-paper-lift {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* TOMBOL LIHAT SEMUA */
+
+.kt-more {
+  display: block;
+  margin: 10px auto 28px;
+  padding: 13px 27px;
+  border: 1px solid #593a29;
+  border-radius: 999px;
+  background: #4a3022;
+  color: #fffaf2;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease,
+              transform .2s ease;
+}
+
+.kt-more:hover {
+  background: #a45c40;
+  transform: translateY(-2px);
+}
+
+.kt-more:focus-visible {
+  outline: 3px solid #a45c40;
+  outline-offset: 3px;
+}
+
+.kt-empty {
+  grid-column: 1 / -1;
+  padding: 50px 20px;
+  color: #806450;
+  text-align: center;
+}
+
+/* TABLET */
+
+@media (max-width: 1100px) {
+  #past-event-gallery.kt-collection {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  #past-event-gallery.kt-collection {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .kt-heading {
+    margin-bottom: 25px;
+    text-align: left;
+  }
+
+  #past-event-gallery.kt-collection {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+    gap: 20px;
+    padding-inline: 4px;
+  }
+
+  .kt-ticket__poster {
+    min-height: 200px;
+  }
+
+  .kt-ticket__name {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kt-ticket,
+  .kt-ticket__stub,
+  .kt-more {
+    transition: none;
+  }
+
+  .kt-ticket.is-tearing .kt-ticket__cover {
+    animation: none;
+  }
+}
+
+/*EVENT ARCHIVE*/
+.event-archive {
+  background: #e7dacb;
+  padding: 72px 0 84px;
+}
+
+.event-archive .wrap {
+  width: min(1500px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* Header */
+.event-archive__head {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 42px;
+}
+
+.event-archive__eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #b97855;
+  font-weight: 600;
+  padding-top: 14px;
+}
+
+.event-archive__intro {
+  text-align: right;
+  max-width: 860px;
+  margin-left: auto;
+}
+
+.event-archive__title {
+  margin: 0 0 12px;
+  font-family: "Fraunces", serif;
+  font-size: clamp(48px, 5vw, 74px);
+  line-height: 1.05;
+  color: #3a2418;
+  font-weight: 500;
+}
+
+.event-archive__title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.event-archive__desc {
+  margin: 0;
+  font-size: 21px;
+  line-height: 1.7;
+  color: #8a6f60;
+}
+
+/* List tiket */
+.event-archive__list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* Card tiket */
+.event-ticket {
+  background: #f7f3ee;
+  border-radius: 28px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 10px 24px rgba(58, 36, 24, 0.08);
+  position: relative;
+  overflow: visible;
+  min-height: 455px;
+}
+
+.event-ticket::before,
+.event-ticket::after {
+  content: "";
+  position: absolute;
+  bottom: 58px;
+  width: 22px;
+  height: 22px;
+  background: #e7dacb;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.event-ticket::before {
+  left: -11px;
+}
+
+.event-ticket::after {
+  right: -11px;
+}
+
+.event-ticket__topline {
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #b97855;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.event-ticket__poster {
+  width: 100%;
+  height: 260px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #efe7de;
+  border: 1px solid #eadbcf;
+  margin-bottom: 14px;
+}
+
+.event-ticket__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Judul event */
+.event-ticket__name {
+  margin: 0 0 12px;
+  text-align: center;
+  font-family: "Fraunces", serif;
+  font-size: 18px;
+  line-height: 1.35;
+  color: #4a2c20;
+  min-height: 48px;
+}
+
+/* garis sobekan */
+.event-ticket__tear {
+  margin: 0 -18px 14px;
+  border-top: 2px dashed #c8a58e;
+  position: relative;
+}
+
+/* kode tiket */
+.event-ticket__code {
+  margin: 0 0 6px;
+  text-align: center;
+  font-family: "Fraunces", serif;
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  color: #4a2c20;
+  text-transform: uppercase;
+}
+
+/* tanggal */
+.event-ticket__date {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #8a6f60;
+}
+
+.event-archive__cta {
+  margin-top: 38px;
+  display: flex;
+  justify-content: center;
+}
+
+.event-archive__cta .btn {
+  min-width: 220px;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+  .event-archive__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .event-archive .wrap {
+    width: min(100%, calc(100% - 28px));
+  }
+
+  .event-archive__head {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .event-archive__eyebrow {
+    padding-top: 0;
+    text-align: left;
+  }
+
+  .event-archive__intro {
+    text-align: left;
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .event-archive__title {
+    font-size: clamp(34px, 8vw, 52px);
+  }
+
+  .event-archive__desc {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .event-archive__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .event-ticket {
+    min-height: auto;
+  }
+
+  .event-ticket__poster {
+    height: 220px;
+  }
+}
+
+@media (max-width: 560px) {
+  .event-archive__list {
+    grid-template-columns: 1fr;
+  }
+
+  .event-ticket__poster {
+    height: 260px;
+  }
+}

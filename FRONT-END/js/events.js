@@ -237,70 +237,160 @@ function renderPastEvents() {
   const viewer = document.getElementById("past-event-viewer");
   const viewerImage = document.getElementById("past-event-viewer-image");
 
-  if (!viewer || !viewerImage) return;
+  pastGallery.classList.add("kt-collection");
+  pastGallery.replaceChildren();
 
-  pastGallery.innerHTML = "";
+  // Data tetap berasal dari sistem event yang sudah ada
+  const pastEvents = EVENTS
+    .filter(isFinished)
+    .sort((a, b) =>
+      (b.dateISO || "").localeCompare(a.dateISO || "")
+    );
 
-  const pastEvents = EVENTS.filter(isFinished);
+  // Hapus tombol lama ketika render ulang
+  document.getElementById("kt-show-all")?.remove();
 
-  pastEvents.forEach(event => {
+  if (!pastEvents.length) {
+    const empty = document.createElement("p");
+    empty.className = "kt-empty";
+    empty.textContent = "Belum ada kenangan yang tersimpan. Nantikan cerita Kammari berikutnya!";
+    pastGallery.appendChild(empty);
+    return;
+  }
+
+  const buttons = [];
+
+  pastEvents.forEach((event, index) => {
     const button = document.createElement("button");
 
     button.type = "button";
-    button.className = "past-event-card";
+    button.className = "kt-ticket";
+    button.dataset.event = String(event.id);
+    button.hidden = index >= 5;
+
     button.setAttribute(
       "aria-label",
-      `Lihat poster ${event.title}`
+      `Lihat poster event ${event.title}`
     );
 
+    // Struktur tiket vintage
+    button.innerHTML = `
+      <span class="kt-ticket__cover">
+        <span class="kt-ticket__brand">KAMMARI</span>
+        <span class="kt-ticket__poster"></span>
+        <span class="kt-ticket__name"></span>
+      </span>
+
+      <span class="kt-ticket__tearline" aria-hidden="true"></span>
+
+      <span class="kt-ticket__stub">
+        <span class="kt-ticket__number"></span>
+        <span class="kt-ticket__date"></span>
+      </span>
+    `;
+
+    const posterBox = button.querySelector(
+      ".kt-ticket__poster"
+    );
+
+    // Gunakan poster asli dari database
     if (event.poster) {
       const img = document.createElement("img");
-
       img.src = event.poster;
       img.alt = `Poster ${event.title}`;
       img.loading = "lazy";
 
-      button.appendChild(img);
-    } else {
-      button.classList.add("past-event-card--empty");
+      img.onerror = () => {
+        img.remove();
+        posterBox.textContent = "POSTER BELUM TERSEDIA";
+        posterBox.classList.add("kt-ticket__poster--empty");
+      };
 
-      button.innerHTML = `
-        <span class="past-event-card__label">
-          <small>DOKUMENTASI MENYUSUL</small>
-          ${event.title}
-        </span>
-      `;
+      posterBox.appendChild(img);
+    } else {
+      posterBox.textContent = "POSTER BELUM TERSEDIA";
+      posterBox.classList.add("kt-ticket__poster--empty");
     }
 
-    button.addEventListener("click", () => {
-      if (event.poster) {
-        viewer.classList.remove("is-placeholder");
-        viewerImage.style.display = "block";
-        viewerImage.src = event.poster;
-        viewerImage.alt = `Poster ${event.title}`;
-      } else {
-        viewer.classList.add("is-placeholder");
-        viewerImage.removeAttribute("src");
-        viewerImage.style.display = "none";
-      }
+    button.querySelector(".kt-ticket__name").textContent =
+      event.title;
 
-      viewer.showModal();
+    button.querySelector(".kt-ticket__number").textContent =
+      `KAMMARI / ${String(index + 1).padStart(2, "0")}`;
+
+    button.querySelector(".kt-ticket__date").textContent =
+      event.date || event.location || "PAST MOMENTS";
+
+    // Klik tiket: efek sobek lalu buka poster
+    button.addEventListener("click", () => {
+      if (button.classList.contains("is-tearing")) return;
+      if (!viewer || !viewerImage || viewer.open) return;
+
+      button.classList.add("is-tearing");
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      window.setTimeout(() => {
+        button.classList.remove("is-tearing");
+
+        if (event.poster) {
+          viewer.classList.remove("is-placeholder");
+          viewerImage.style.display = "block";
+          viewerImage.src = event.poster;
+          viewerImage.alt = `Poster ${event.title}`;
+        } else {
+          viewer.classList.add("is-placeholder");
+          viewerImage.removeAttribute("src");
+          viewerImage.style.display = "none";
+        }
+
+        viewer.showModal();
+      }, reduceMotion ? 0 : 350);
     });
 
+    buttons.push(button);
     pastGallery.appendChild(button);
   });
 
-  // Tutup viewer saat area luar poster diklik
-  viewer.addEventListener("click", () => {
-    if (viewer.classList.contains("is-closing")) return;
+  // Tombol Lihat Semua Event
+  if (pastEvents.length > 5) {
+    const more = document.createElement("button");
 
-    viewer.classList.add("is-closing");
+    more.type = "button";
+    more.id = "kt-show-all";
+    more.className = "kt-more";
+    more.textContent = "Lihat semua event ↗";
+    more.setAttribute("aria-expanded", "false");
 
-    viewer.addEventListener("animationend", () => {
-      viewer.close();
-      viewer.classList.remove("is-closing");
-    }, { once: true });
-  });
+    let expanded = false;
+
+    more.addEventListener("click", () => {
+      expanded = !expanded;
+
+      buttons.forEach((button, index) => {
+        button.hidden = !expanded && index >= 5;
+      });
+
+      more.textContent = expanded
+        ? "Tampilkan lebih sedikit ↑"
+        : "Lihat semua event ↗";
+
+      more.setAttribute("aria-expanded", String(expanded));
+    });
+
+    pastGallery.insertAdjacentElement("afterend", more);
+  }
+
+  // Tutup viewer (dipasang satu kali saja)
+  if (viewer && !viewer.dataset.ktViewerBound) {
+    viewer.dataset.ktViewerBound = "true";
+
+    viewer.addEventListener("click", () => {
+      if (viewer.open) viewer.close();
+    });
+  }
 }
 
 

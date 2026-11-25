@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Nov 2026 pada 05.09
+-- Waktu pembuatan: 25 Nov 2026 pada 09.51
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -247,29 +247,30 @@ CREATE TABLE `events` (
   `registration_url` varchar(1000) DEFAULT NULL,
   `status` enum('draft','upcoming','ongoing','completed','cancelled') NOT NULL DEFAULT 'draft',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `schedule_text` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `events`
 --
 
-INSERT INTO `events` (`id`, `branch_id`, `title`, `slug`, `description`, `start_at`, `end_at`, `poster`, `video`, `registration_url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'A Letter to Myself', 'a-letter-to-myself', 'Kegiatan journaling bersama di Kammari Gresik.', '2026-11-28 09:30:00', '2026-11-28 12:00:00', 'assets/poster-event-mendatang/a-letter-to-myself.jpg', NULL, NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(2, 1, 'Open Mic Meskipun Hujan', 'open-mic-meskipun-hujan', 'Open Mic di Kammari.', '2026-11-13 19:30:00', NULL, 'assets/poster-event-mendatang/open-mic-meskipun-hujan.jpg', NULL, NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(3, 1, 'Walking Tour', 'walking-tour', 'Walking tour di Aston Gresik. Poster mencantumkan jadwal setiap Selasa.', NULL, NULL, 'assets/poster-event-mendatang/walking-tour.jpg', NULL, NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(4, 1, 'Crochet Workshop', 'crochet-workshop', 'Workshop crochet untuk pemula di Kammari Gresik.', '2026-11-08 15:00:00', '2026-11-08 17:00:00', 'assets/poster-event-mendatang/crochet_workshop.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(5, 1, 'Art Journaling', 'art-journaling', 'Kegiatan art journaling bersama Kammari.', NULL, NULL, 'assets/Poster-event-terlaksana/art_journaling.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00'),
-(6, 1, 'Junk Journaling', 'junk-journaling', 'Workshop kreatif junk journaling.', '2026-10-18 09:30:00', '2026-10-18 12:00:00', 'assets/Poster-event-terlaksana/Junk-Journaling.png', 'assets/video-animasi-poster/junk_journaling_creative_motion.mp4', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:10:24'),
-(7, 1, 'Open Mic Bola', 'open-mic-bola', 'Kegiatan Open Mic di Kammari.', '2026-07-10 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-bola.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(8, 1, 'Open Mic Jumpa Lagi', 'open-mic-jumpa-lagi', 'Kegiatan Open Mic bertema Jumpa Lagi.', '2026-09-04 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-jumpa-lagi.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(9, 1, 'Open Mic Lagi', 'open-mic-lagi', 'Kegiatan Open Mic bersama komunitas Stand Up Indo Gresik.', '2026-08-21 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-lagi.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(10, 1, 'Open Mic Listrik', 'open-mic-listrik', 'Kegiatan Open Mic bertema Listrik.', NULL, NULL, 'assets/Poster-event-terlaksana/open-mic-listrik.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(11, 1, 'Open Mic Perampasan Aset', 'open-mic-perampasan-aset', 'Kegiatan Open Mic bertema Perampasan Aset Sah.', '2026-09-11 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-perampasan-aset.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(12, 1, 'Open Mic Tasyakuran', 'open-mic-tasyakuran', 'Kegiatan Open Mic bertema Malam Tasyakuran.', '2026-08-07 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-tasyakuran.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(13, 1, 'Open Mic Tawa', 'open-mic-tawa', 'Kegiatan Open Mic Tawa-Tawa di Kammari.', '2026-07-24 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-tawa.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(14, 1, 'Open Mic', 'open-mic', 'Kegiatan Open Mic di Kammari.', '2026-10-30 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25'),
-(15, 1, 'Weekend Art Journaling', 'weekend-art-journaling', 'Kegiatan kreatif Weekend Art Journaling.', '2026-09-13 09:30:00', '2026-09-13 12:00:00', 'assets/Poster-event-terlaksana/weekend-art-journaling.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00');
+INSERT INTO `events` (`id`, `branch_id`, `title`, `slug`, `description`, `start_at`, `end_at`, `poster`, `video`, `registration_url`, `status`, `created_at`, `updated_at`, `schedule_text`) VALUES
+(1, 1, 'A Letter to Myself', 'a-letter-to-myself', 'Kegiatan journaling bersama di Kammari Gresik.', '2026-11-28 09:30:00', '2026-11-28 12:00:00', 'assets/poster-event-mendatang/a-letter-to-myself.jpg', NULL, NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-12 06:13:00', NULL),
+(2, 1, 'Open Mic Meskipun Hujan', 'open-mic-meskipun-hujan', 'Open Mic di Kammari.', '2026-11-13 19:30:00', NULL, 'assets/poster-event-mendatang/open-mic-meskipun-hujan.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-25 08:34:16', NULL),
+(3, 1, 'Walking Tour', 'walking-tour', 'Walking tour di Aston Gresik. Poster mencantumkan jadwal setiap Selasa.', NULL, NULL, 'assets/poster-event-mendatang/walking-tour.jpg', NULL, NULL, 'upcoming', '2026-11-12 06:13:00', '2026-11-25 08:38:13', 'Setiap Selasa, 15.00–18.00 WIB'),
+(4, 1, 'Crochet Workshop', 'crochet-workshop', 'Workshop crochet untuk pemula di Kammari Gresik.', '2026-11-08 15:00:00', '2026-11-08 17:00:00', 'assets/poster-event-mendatang/crochet_workshop.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00', NULL),
+(5, 1, 'Art Journaling', 'art-journaling', 'Kegiatan art journaling bersama Kammari.', '2026-09-13 09:30:00', NULL, 'assets/Poster-event-terlaksana/art_journaling.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-25 08:37:02', NULL),
+(6, 1, 'Junk Journaling', 'junk-journaling', 'Workshop kreatif junk journaling.', '2026-10-18 09:30:00', '2026-10-18 12:00:00', 'assets/Poster-event-terlaksana/Junk-Journaling.png', 'assets/video-animasi-poster/junk_journaling_creative_motion.mp4', NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:10:24', NULL),
+(7, 1, 'Open Mic Bola', 'open-mic-bola', 'Kegiatan Open Mic di Kammari.', '2026-07-10 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-bola.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25', NULL),
+(8, 1, 'Open Mic Jumpa Lagi', 'open-mic-jumpa-lagi', 'Kegiatan Open Mic bertema Jumpa Lagi.', '2026-09-04 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-jumpa-lagi.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25', NULL),
+(9, 1, 'Open Mic Lagi', 'open-mic-lagi', 'Kegiatan Open Mic bersama komunitas Stand Up Indo Gresik.', '2026-08-21 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-lagi.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25', NULL),
+(10, 1, 'Open Mic Listrik', 'open-mic-listrik', 'Kegiatan Open Mic bertema Listrik.', '2026-06-27 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-listrik.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-25 08:34:16', NULL),
+(11, 1, 'Open Mic Perampasan Aset', 'open-mic-perampasan-aset', 'Kegiatan Open Mic bertema Perampasan Aset Sah.', '2026-09-11 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-perampasan-aset.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25', NULL),
+(12, 1, 'Open Mic Tasyakuran', 'open-mic-tasyakuran', 'Kegiatan Open Mic bertema Malam Tasyakuran.', '2026-08-07 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-tasyakuran.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25', NULL),
+(13, 1, 'Open Mic Tawa', 'open-mic-tawa', 'Kegiatan Open Mic Tawa-Tawa di Kammari.', '2026-07-24 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic-tawa.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25', NULL),
+(14, 1, 'Open Mic', 'open-mic', 'Kegiatan Open Mic di Kammari.', '2026-10-30 19:30:00', NULL, 'assets/Poster-event-terlaksana/open-mic.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 07:06:25', NULL),
+(15, 1, 'Weekend Art Journaling', 'weekend-art-journaling', 'Kegiatan kreatif Weekend Art Journaling.', '2026-09-13 09:30:00', '2026-09-13 12:00:00', 'assets/Poster-event-terlaksana/weekend-art-journaling.jpg', NULL, NULL, 'completed', '2026-11-12 06:13:00', '2026-11-12 06:13:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -442,7 +443,8 @@ CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `full_name` varchar(150) NOT NULL,
   `email` varchar(190) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` varchar(30) NOT NULL DEFAULT 'USER'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -573,12 +575,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
--- TAMBAHAN PORTAL OWNER
-ALTER TABLE `users`
-ADD COLUMN IF NOT EXISTS `role`
-VARCHAR(30) NOT NULL DEFAULT 'USER';
-
--- Untuk akun Owner yang sudah ada:
--- UPDATE users SET role = 'OWNER'
--- WHERE email = 'email-owner@example.com';

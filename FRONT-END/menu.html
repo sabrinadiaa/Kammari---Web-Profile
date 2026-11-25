@@ -11,125 +11,80 @@
   <!-- naikkan ?v= setiap CSS diubah -->
   <link rel="stylesheet" href="css/base.css?v=9">
   <link rel="stylesheet" href="css/menu.css?v=14">
-  <link rel="stylesheet" href="css/menu-motion.css?v=2">
-
+  <link rel="stylesheet" href="css/menu-motion.css?v=4">
 </head>
 <body data-page="menu">
   <header id="site-header"></header>
   <main>
 
-  <!-- HERO: hapus seluruh blok <div class="spot">...</div> -->
-  <section class="menu-hero">
-    <div class="wrap menu-hero__grid">
-      <div class="menu-hero__text">
-        <h1>Racikan Terbaik<br>Setiap Hari di<br>
-          <span class="kammari-logo" role="img" aria-label="Kammari"></span>
-        </h1>
-        <p class="lede">Dari biji kopi pilihan nusantara hingga hidangan dapur rumahan...</p>
-        <div class="menu-hero__pick">
-          <p class="menu-hero__pick-label">Pilih cabang untuk melihat menu</p>
-          <div class="segmented" role="group" aria-label="Pilih cabang">
-            <button type="button" data-branch="surabaya" aria-pressed="false">Surabaya</button>
-            <button type="button" data-branch="gresik" aria-pressed="false">Gresik</button>
+    <!-- HERO -->
+    <section class="menu-hero">
+      <div class="wrap menu-hero__grid">
+        <div class="menu-hero__text">
+          <h1>Racikan Terbaik<br>Setiap Hari di<br>
+            <span class="kammari-logo" role="img" aria-label="Kammari"></span>
+          </h1>
+          <p class="lede">Dari biji kopi pilihan nusantara hingga hidangan dapur rumahan...</p>
+          <div class="menu-hero__pick">
+            <p class="menu-hero__pick-label">Pilih cabang untuk melihat menu</p>
+            <div class="segmented" role="group" aria-label="Pilih cabang">
+              <button type="button" data-branch="surabaya" aria-pressed="false">Surabaya</button>
+              <button type="button" data-branch="gresik" aria-pressed="false">Gresik</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- BAR STICKY -->
-  <!-- MENU TOOLS: PENCARIAN SAJA -->
-  <div class="menu-tools" id="menu-tools">
-    <div class="wrap menu-tools__row">
-      <label class="menu-search">
-        <span class="visually-hidden">Cari menu</span>
-        <input
-          type="search"
-          id="menu-search"
-          placeholder="Cari menu..."
-          autocomplete="off">
-      </label>
-    </div>
-
-    <p class="wrap menu-status"
-      id="menu-status"
-      aria-live="polite"
-      hidden></p>
-  </div>
-  <!-- MAKANAN -->
-  <section class="section" id="menu-makanan">
-    <div class="wrap">
-
-      <div class="venue__intro">
-        <span class="kicker" data-count>Makanan</span>
-        <h2 class="h-lg">Makanan</h2>
-        <p class="lede">
-          Hidangan dapur rumahan untuk menemani obrolanmu.
-        </p>
+    <!-- PENCARIAN -->
+    <div class="menu-tools" id="menu-tools">
+      <div class="wrap menu-tools__row">
+        <label class="menu-search">
+          <span class="visually-hidden">Cari menu</span>
+          <input type="search" id="menu-search" placeholder="Cari menu..." autocomplete="off">
+        </label>
       </div>
-
-      <nav
-        class="menu-category-nav"
-        id="menu-cats-makanan"
-        aria-label="Kategori makanan">
-      </nav>
-
-      <div class="mlist"></div>
-
+      <p class="wrap menu-status" id="menu-status" aria-live="polite" hidden></p>
     </div>
-  </section>
 
-      <!-- PEMISAH FOTO MAKANAN DAN MINUMAN -->
-    
-
-    <div class="menu-divider">
-        <img
-            class="menu-divider__image"
-            src="assets/menu-seasonal/heroPage1.jpg"
-            alt="Suasana Kammari Cafe"
-        >
-
-        <div class="menu-divider__overlay"></div>
-
-        <div class="menu-divider__content">
-          <span class="kammari-logo" role="img" aria-label="Kammari Cafe & Roastery"></span>
-          <h2>From Our Kitchen<br>To Your Table</h2>
-          <p>Nikmati hidangan terbaik dan racikan kopi khas Kammari.</p>
+    <!-- MAKANAN -->
+    <section class="section" id="menu-makanan">
+      <div class="wrap">
+        <div class="venue__intro">
+          <span class="kicker" data-count>Makanan</span>
+          <h2 class="h-lg">Makanan</h2>
+          <p class="lede">Hidangan dapur rumahan untuk menemani obrolanmu.</p>
         </div>
+        <nav class="menu-category-nav" id="menu-cats-makanan" aria-label="Kategori makanan"></nav>
+        <div class="mlist"></div>
+      </div>
+    </section>
 
+    <!-- PEMISAH FOTO (satu blok saja) -->
     <div class="menu-divider" id="menu-divider">
-      <img class="menu-divider__image" src="assets/menu-seasonal/heroPage1.jpeg" alt="" loading="lazy" decoding="async">
+      <img class="menu-divider__image" src="assets/menu-seasonal/heroPage1.jpeg" alt="" decoding="async">
       <div class="menu-divider__overlay"></div>
       <div class="menu-divider__content">
-        <span class="kammari-logo" role="img" aria-label="Kammari"></span>
+        <span class="kammari-logo" role="img" aria-label="Kammari Cafe & Roastery"></span>
         <h2>From Our Kitchen<br>To Your Table</h2>
         <p>Nikmati hidangan terbaik dan racikan kopi khas Kammari.</p>
       </div>
+    </div>
 
     <!-- MINUMAN -->
-  <section class="section" id="menu-minuman">
-    <div class="wrap">
-
-      <div class="venue__intro">
-        <span class="kicker" data-count>Minuman</span>
-        <h2 class="h-lg">Minuman</h2>
-        <p class="lede">
-          Kopi, teh, dan racikan signature Kammari.
-        </p>
+    <section class="section" id="menu-minuman">
+      <div class="wrap">
+        <div class="venue__intro">
+          <span class="kicker" data-count>Minuman</span>
+          <h2 class="h-lg">Minuman</h2>
+          <p class="lede">Kopi, teh, dan racikan signature Kammari.</p>
+        </div>
+        <nav class="menu-category-nav" id="menu-cats-minuman" aria-label="Kategori minuman"></nav>
+        <div class="mlist"></div>
       </div>
+    </section>
 
-      <nav
-        class="menu-category-nav"
-        id="menu-cats-minuman"
-        aria-label="Kategori minuman">
-      </nav>
-
-      <div class="mlist"></div>
-
-    </div>
-  </section>
-
-    <!-- CTA (lingkaran foto, selaras dengan hero menu) -->
+    <!-- CTA -->
     <section class="section" style="padding-top:0">
       <div class="wrap">
         <div class="cta">
@@ -145,12 +100,14 @@
         </div>
       </div>
     </section>
+
   </main>
   <footer id="site-footer"></footer>
 
+  <!-- Script: hanya di sini, satu kali, urutan ini -->
   <script src="js/core.js"></script>
-  <script src="js/menu.js?v=4"></script>
-  <script src="js/menu-motion.js?v=2"></script>
+  <script src="js/menu.js?v=5"></script>
+  <script src="js/menu-motion.js?v=4"></script>
   <script>document.getElementById("reserve-wa").href = WA_LINK;</script>
 </body>
 </html>

@@ -213,8 +213,6 @@ body[data-page="menu"] {
   outline: 2px solid var(--clay);
   outline-offset: 3px;
 }
-<<<<<<< HEAD
-
 /* ==========================================
    KAMMARI MENU DIVIDER - FINAL
 ========================================== */
@@ -407,5 +405,3 @@ body[data-page="menu"] .cta__q {
   color: var(--clay);
   font: 600 clamp(2.4rem, 4vw, 3.6rem) var(--serif);
 }
-=======
->>>>>>> e8ec864 (update menu)

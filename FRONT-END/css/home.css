@@ -1871,7 +1871,7 @@
 
 
 
-/* HEADER EVENT ARCHIVE KAMMARI */
+/*   HEADER EVENT ARCHIVE KAMMARI */
 
 .kt-eyebrow {
   display: none !important;
@@ -1896,7 +1896,7 @@
   }
 
   /* KILAS BALIK DI KIRI */
-  .kt-heading > p {
+  .kt-heading>p {
     order: 1;
     flex: 0 1 370px;
     min-width: 0;
@@ -1910,7 +1910,7 @@
   }
 
   /* CERITA YANG PERNAH HADIR DI KANAN */
-  .kt-heading > h2 {
+  .kt-heading>h2 {
     order: 2;
     flex: 1;
     min-width: 0;
@@ -1924,7 +1924,7 @@
     text-align: right !important;
   }
 
-  .kt-heading > h2 em {
+  .kt-heading>h2 em {
     font-style: italic;
     font-weight: 400;
   }
@@ -1941,7 +1941,7 @@
     margin-bottom: 26px;
   }
 
-  .kt-heading > h2 {
+  .kt-heading>h2 {
     order: 1;
     margin: 0 !important;
     font-size: clamp(29px, 7vw, 40px) !important;
@@ -1949,7 +1949,7 @@
     text-align: left !important;
   }
 
-  .kt-heading > p {
+  .kt-heading>p {
     order: 2;
     margin: 0 !important;
     max-width: 100%;
@@ -1960,13 +1960,54 @@
 }
 
 
-/* Desktop: 5 poster */
+
+/* Desktop: 5 poster lebih besar */
 #past-event-gallery.kt-collection {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 18px;
-  max-width: 1280px;
+  gap: 14px;
   width: 100%;
+  max-width: 1450px;
+}
+
+/* Perbesar tiket khusus desktop */
+@media (min-width: 1101px) {
+  #past-event-gallery.kt-collection {
+    width: min(1450px, calc(100vw - 36px));
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #past-event-gallery .kt-ticket {
+    padding: 10px;
+  }
+
+  #past-event-gallery .kt-ticket__cover {
+    padding: 9px 9px 11px;
+  }
+
+  #past-event-gallery .kt-ticket__poster {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  #past-event-gallery .kt-ticket__poster img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 7px;
+  }
+
+  #past-event-gallery .kt-ticket__name {
+    font-size: 15px;
+  }
 }
 
 /* Poster tidak terpotong */
@@ -1974,9 +2015,7 @@
   object-fit: contain;
 }
 
-/* ========================================
-   TABLET
-======================================== */
+/* TABLET */
 
 @media (min-width: 721px) and (max-width: 1100px) {
   #past-event-gallery.kt-collection {
@@ -2050,19 +2089,32 @@
     gap: 6px;
     padding: 6px;
   }
-
-  .kt-ticket__poster {
-    min-height: 0;
+  
+  /* Bingkai mengikuti ukuran asli poster */
+  #past-event-gallery .kt-ticket__poster {
+    display: block;
     width: 100%;
-    aspect-ratio: 4 / 5;
-    padding: 3px;
-    border-radius: 7px;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: auto;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #ece3d8;
+    border-radius: 8px;
+    background: transparent;
+    box-sizing: border-box;
   }
 
-  .kt-ticket__poster img {
+  /* Poster tampil utuh tanpa dipotong */
+  #past-event-gallery .kt-ticket__poster img {
+    display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
+    max-width: 100%;
+    aspect-ratio: auto;
     object-fit: contain;
+    border-radius: 7px;
   }
 
   .kt-ticket__name {

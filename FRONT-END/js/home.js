@@ -228,11 +228,12 @@ if (featured) {
   featured.innerHTML =
     `<p class="empty">Memuat pilihan menu...</p>`;
 
-  if (MENU.length) {
+  if (typeof MENU !== "undefined" && MENU.length > 0) {
     draw();
-  } else {
-    // Ambil menu Gresik dari API untuk carousel Beranda
+  } else if (typeof loadBranchMenu === "function") {
     loadBranchMenu("gresik");
+  } else {
+    console.error("Pemuat menu belum tersedia.");
   }
 
 }

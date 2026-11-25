@@ -361,7 +361,7 @@ function renderPastEvents() {
     more.type = "button";
     more.id = "kt-show-all";
     more.className = "kt-more";
-    more.textContent = "Lihat semua event ↗";
+    more.textContent = "Lihat semua event";
     more.setAttribute("aria-expanded", "false");
 
     let expanded = false;
@@ -374,8 +374,8 @@ function renderPastEvents() {
       });
 
       more.textContent = expanded
-        ? "Tampilkan lebih sedikit ↑"
-        : "Lihat semua event ↗";
+        ? "Tampilkan lebih sedikit"
+        : "Lihat semua event";
 
       more.setAttribute("aria-expanded", String(expanded));
     });
@@ -640,3 +640,51 @@ if (document.readyState === "loading") {
 } else {
   loadEventsFromDatabase();
 }
+
+/* EVENT ARCHIVE - LIHAT SEMUA DI TABLET */
+
+document.addEventListener("click", function (event) {
+
+  // Hanya aktif di tablet
+  const isTablet = window.matchMedia(
+    "(min-width: 721px) and (max-width: 1100px)"
+  ).matches;
+
+  if (!isTablet) return;
+
+  // Gunakan tombol yang sudah ada
+  const button = event.target.closest(".kt-more");
+  if (!button) return;
+
+  const gallery = document.getElementById(
+    "past-event-gallery"
+  );
+
+  if (!gallery) return;
+
+  // Tangani klik tablet tanpa menjalankan
+  // aksi tombol lain pada saat yang sama
+  event.preventDefault();
+  event.stopImmediatePropagation();
+
+  // Simpan tulisan awal tombol
+  if (!button.dataset.tabletOriginalLabel) {
+    button.dataset.tabletOriginalLabel =
+      button.textContent.trim();
+  }
+
+  // Buka atau tutup poster tambahan
+  const expanded = gallery.classList.toggle(
+    "kt-tablet-expanded"
+  );
+
+  button.textContent = expanded
+    ? "Tampilkan lebih sedikit"
+    : button.dataset.tabletOriginalLabel;
+
+  button.setAttribute(
+    "aria-expanded",
+    String(expanded)
+  );
+
+}, true);

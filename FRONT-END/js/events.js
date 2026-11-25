@@ -36,7 +36,7 @@ const isFinished = event => {
   return Boolean(lastDay && lastDay < todayJakarta());
 };
 
-/* ---------- Membuat kartu event otomatis ---------- */
+/* Membuat kartu event otomatis */
 
 function renderUpcomingEvents() {
   if (!eventGallery) return;
@@ -51,43 +51,83 @@ function renderUpcomingEvents() {
     !isFinished(event)
   );
 
+
   upcoming.forEach((event, index) => {
     const button = document.createElement("button");
 
     button.type = "button";
     button.className =
-      `photo event-tile g${(index % 5) + 1}`;
+      `photo event-tile upcoming-ticket g${(index % 5) + 1}`;
 
     button.dataset.event = event.id;
+    button.setAttribute(
+      "aria-label",
+      `Lihat detail event ${event.title}`
+    );
 
-    if (!event.poster) {
-      button.classList.add("event-tile--placeholder");
-    } else {
+    // Bagian atas tiket
+    const cover = document.createElement("span");
+    cover.className = "upcoming-ticket__cover";
+
+    // Bingkai poster
+    const posterFrame = document.createElement("span");
+    posterFrame.className = "upcoming-ticket__poster";
+
+    if (event.poster) {
       const img = document.createElement("img");
-
       img.className = "event-tile__image";
       img.src = event.poster;
       img.alt = `Poster ${event.title}`;
       img.loading = "lazy";
 
-      button.appendChild(img);
+      posterFrame.appendChild(img);
+    } else {
+      posterFrame.classList.add(
+        "upcoming-ticket__poster--empty"
+      );
+      posterFrame.textContent = "Poster segera hadir";
     }
 
-    const label = document.createElement("span");
-    label.className = "event-tile__label";
+    // Nama event
+    const title = document.createElement("span");
+    title.className = "upcoming-ticket__name";
+    title.textContent = event.title;
 
-    const small = document.createElement("small");
-    small.textContent = event.status;
+    cover.append(posterFrame, title);
 
-    const title = document.createTextNode(event.title);
+    // Garis sobekan tiket
+    const tearline = document.createElement("span");
+    tearline.className = "upcoming-ticket__tearline";
+    tearline.setAttribute("aria-hidden", "true");
 
-    label.appendChild(small);
-    label.appendChild(title);
+    // Bagian bawah tiket
+    const stub = document.createElement("span");
+    stub.className = "upcoming-ticket__stub";
 
-    button.appendChild(label);
+    const date = document.createElement("span");
+    date.className = "upcoming-ticket__date";
 
-    // Kartu diletakkan sebelum detail event
-    eventGallery.insertBefore(button, expanded);
+    const tanggalSaja = String(event.date || "")
+      .replace(/,\s*\d{1,2}:\d{2}(?::\d{2})?\s*(WIB|WITA|WIT)?/gi, "")
+      .trim();
+
+    date.textContent =
+      tanggalSaja || "Jadwal belum diumumkan";
+
+    stub.appendChild(date);
+
+    button.append(cover, tearline, stub);
+
+    // Masukkan ke wadah event mendatang
+    const rail = document.getElementById(
+      "event-spotlight-rail"
+    );
+
+    if (rail) {
+      rail.appendChild(button);
+    } else {
+      eventGallery.insertBefore(button, expanded);
+    }
   });
 }
 

@@ -1239,3 +1239,40 @@
 #past-events .kt-ticket__tearline::after {
   background: var(--ticket-bg-section) !important;
 }
+
+/* FIX TANGGAL TIKET EVENT KAMMARI */
+
+/* Tampilkan tanggal Event Mendatang */
+#event #event-spotlight-rail .upcoming-ticket__stub {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 4px 6px 8px;
+}
+
+#event #event-spotlight-rail .upcoming-ticket__date {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #765a46;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Tampilkan tanggal Event Terlaksana */
+#past-events #past-event-gallery .kt-ticket__stub {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+}
+
+#past-events #past-event-gallery .kt-ticket__date {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #8d7361;
+  font-size: 10px;
+  text-align: center;
+}

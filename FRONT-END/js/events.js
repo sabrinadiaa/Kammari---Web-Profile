@@ -112,11 +112,50 @@ function renderUpcomingEvents() {
       .trim();
 
     date.textContent =
-      tanggalSaja || "Jadwal belum diumumkan";
-
-    stub.appendChild(date);
+      String(event.title || "").trim().toLowerCase() === "walking tour"
+        ? "Setiap Selasa"
+        : String(event.date || "")
+          .replace(
+            /,\s*\d{1,2}[:.]\d{2}(?::\d{2})?\s*(WIB|WITA|WIT)?/gi,
+            ""
+          )
+          .trim() || "Jadwal belum diumumkan";
 
     button.append(cover, tearline, stub);
+
+    let bagianBawah = button.querySelector(
+      ".upcoming-ticket__stub"
+    );
+
+    if (!bagianBawah) {
+      bagianBawah = document.createElement("span");
+      bagianBawah.className = "upcoming-ticket__stub";
+      button.appendChild(bagianBawah);
+    }
+
+    const tanggalTiket = document.createElement("span");
+    tanggalTiket.className = "upcoming-ticket__date";
+
+    // Ambil tanggal dari database tanpa jam
+    const tanggalAsli = String(event.date || "").trim();
+
+    const tanggalTanpaJam = tanggalAsli
+      .replace(
+        /,\s*\d{1,2}[:.]\d{2}(?::\d{2})?\s*(WIB|WITA|WIT)?/gi,
+        ""
+      )
+      .trim();
+
+    // Event yang menggunakan jadwal rutin
+    tanggalTiket.textContent =
+      String(event.title || "").trim().toLowerCase() ===
+        "walking tour"
+        ? "Setiap Selasa"
+        : tanggalTanpaJam || "Jadwal belum diumumkan";
+
+    // Isi bagian bawah tiket tanpa duplikasi
+    bagianBawah.replaceChildren(tanggalTiket);
+
 
     // Masukkan ke wadah event mendatang
     const rail = document.getElementById(
@@ -130,7 +169,6 @@ function renderUpcomingEvents() {
     }
   });
 }
-
 
 /* ---------- Detail event ---------- */
 
@@ -593,17 +631,67 @@ async function loadEventsFromDatabase() {
 
     // Ambil data event dari MySQL
     EVENTS = data.events.map(item => {
-      const startDate = item.start_at
-        ? item.start_at.slice(0, 10)
-        : "";
 
-      const endDate = item.end_at
-        ? item.end_at.slice(0, 10)
-        : "";
+      function parseEventWIB(value) {
+        if (!value) {
+          return { date: "", time: "" };
+        }
 
-      const startTime = item.start_at
-        ? item.start_at.slice(11, 16)
-        : "";
+        const raw = String(value).trim();
+
+        // Kalau API menyertakan zona waktu,
+        // konversi ke WIB (Asia/Jakarta).
+        const hasTimezone =
+          /(?:Z|[+-]\d{2}:?\d{2})$/i.test(raw);
+
+        if (hasTimezone) {
+          const date = new Date(raw);
+
+          if (!Number.isNaN(date.getTime())) {
+            const parts = new Intl.DateTimeFormat("en-GB", {
+              timeZone: "Asia/Jakarta",
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              hourCycle: "h23"
+            }).formatToParts(date);
+
+            const get = type =>
+              parts.find(p => p.type === type)?.value;
+
+            return {
+              date: `${get("year")}-${get("month")}-${get("day")}`,
+              time: `${get("hour")}:${get("minute")}`
+            };
+          }
+        }
+
+        // Tanpa informasi zona waktu:
+        // pertahankan jam yang dikirim API.
+        return {
+          date: raw.slice(0, 10),
+          time: raw.slice(11, 16)
+        };
+      }
+
+      const start = parseEventWIB(item.start_at);
+      const end = parseEventWIB(item.end_at);
+
+      const startDate = start.date;
+      const endDate = end.date;
+      const startTime = start.time;
+
+      const jadwalRutin = String(
+        item.schedule_text ||
+        item.scheduleText ||
+        (
+          String(item.title || "").trim().toLowerCase() === "walking tour"
+            ? "Setiap Selasa, 15.00–18.00 WIB"
+            : ""
+        )
+      ).trim();
 
       return {
         id: String(item.id),
@@ -620,7 +708,7 @@ async function loadEventsFromDatabase() {
         date: startDate
           ? formatTanggal(startDate) +
           (startTime ? `, ${startTime} WIB` : "")
-          : "Jadwal belum diumumkan",
+          : jadwalRutin || "Jadwal belum diumumkan",
 
         dateISO: startDate,
         endDateISO: endDate || startDate,

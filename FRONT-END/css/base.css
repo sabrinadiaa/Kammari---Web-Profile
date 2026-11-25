@@ -370,8 +370,7 @@ p {
   font-variation-settings: normal;
 }
 
-.logo__text,
-.brand-word {
+.logo__text {
   font-family: "Playpen Sans Hebrew", "Segoe UI", system-ui, sans-serif;
   font-weight: 600;
   letter-spacing: 0;
@@ -923,12 +922,45 @@ button.badge:focus-visible {
   }
 }
 
-/* Logo Kammari di dalam teks (ukuran ikut font di sekitarnya) */
-.kammari-logo {
+/* ===== Logo Kammari di dalam teks (ukuran ikut font di sekitarnya) =====
+   Dipakai oleh:
+   - <span class="kammari-logo"></span>
+   - SEMUA <span class="brand-word">Kammari</span> (teks aslinya disembunyikan,
+     tetap terbaca screen reader dan Google)
+   Warna mengikuti --brand-color (default = warna logo header). */
+:root {
+  --brand-color: var(--clay);
+}
+
+.kammari-logo,
+.brand-word {
   display: inline-block;
   width: 3.6em;
   height: .7em;
-  background: var(--clay);
+  background: var(--brand-color);
   -webkit-mask: url("../assets/logo_kammari_mask.svg") center / contain no-repeat;
           mask: url("../assets/logo_kammari_mask.svg") center / contain no-repeat;
+}
+
+.brand-word {
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 150%;
+  color: transparent;
+  font-style: normal;
+  letter-spacing: 0;
+}
+
+/* Tanda baca setelah logo (titik / tanda tanya) ikut warna logo */
+.brand-dot {
+  color: var(--brand-color);
+}
+
+.scene__word {
+  --brand-color: var(--paper);
+}
+
+h1 em, h2 em, h3 em {
+  font-style: italic;
+  font-weight: 600;   /* sama dengan judul, seperti "cerita besar." di beranda */
 }

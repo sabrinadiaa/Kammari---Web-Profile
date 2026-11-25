@@ -357,10 +357,18 @@ body[data-page="menu"] .menu-divider__content {
   will-change: transform;
 }
 
-body[data-page="menu"] .menu-divider__content span {
+body[data-page="menu"] .menu-divider__content > span:not(.kammari-logo) {
   color: #f0c29e;
   font: 600 .8rem var(--sans);
   letter-spacing: .22em;
+}
+
+body[data-page="menu"] .menu-divider__content .kammari-logo {
+  display: block;
+  margin: 0 auto 8px;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);   /* ukuran logo */
+  letter-spacing: 0;
+  color: #fff9f2;                           /* warna logo (lihat catatan) */
 }
 
 body[data-page="menu"] .menu-divider__content h2 {
@@ -392,4 +400,9 @@ body[data-page="menu"] .menu-divider__content p {
   body[data-page="menu"] .menu-divider__content {
     will-change: auto;
   }
+}
+
+body[data-page="menu"] .cta__q {
+  color: var(--clay);
+  font: 600 clamp(2.4rem, 4vw, 3.6rem) var(--serif);
 }

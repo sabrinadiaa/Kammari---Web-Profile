@@ -94,7 +94,7 @@ let io;
 function observeCats() {
   if (io) io.disconnect();
 
-  const links = $$("#menu-cats a");
+  const links = $$("#menu-category-nav a");
 
   if (!links.length) return;
 
@@ -288,76 +288,99 @@ document.addEventListener("click", e => {
   });
 
 
-  /* ==========================================
-    SCROLL-DRIVEN PARALLAX MENU DIVIDER
-  ========================================== */
+  setBranch(null);
+})();
 
-  function initMenuParallax() {
-    const divider = document.querySelector(".menu-divider");
-    const image = document.querySelector(".menu-divider__image");
-    const content = document.querySelector(".menu-divider__content");
+/* menu-motion.js — script biasa (bukan module). Muat SETELAH menu.js.
+   Isi: parallax pemisah foto, header sembunyi/muncul saat scroll, sinkron --bar-h. */
+(() => {
+  if (document.body.dataset.page !== "menu") return;
 
-    if (!divider || !image) return;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const divider = document.querySelector("#menu-divider");
+  const tools = document.querySelector("#menu-tools");
+  const IMG_RANGE = 180;       // total gerak foto (px), maksimal 128 sesuai CSS
+  const CONTENT_RANGE = 70;   // total gerak logo (px), arah berlawanan dengan foto
 
-    // Hormati pengaturan reduced motion
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
+  /* ---------- Header0: elemen yang benar-benar menempel di layar ---------- */
+  let navEl = null;
+  function getNav() {
+    const h = document.querySelector("#site-header");
+    if (!h) return null;
+    const el = /fixed|sticky/.test(getComputedStyle(h).position) ? h : (h.firstElementChild || h);
+    if (el !== navEl) {
+      navEl = el;
+      if (!reduced) navEl.style.transition = "transform .35s ease";
     }
-
-    let ticking = false;
-
-    function updateParallax() {
-      const rect = divider.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-
-      // Progress pergerakan banner dalam viewport: 0 sampai 1
-      const progress = Math.max(
-        0,
-        Math.min(
-          1,
-          (viewportHeight - rect.top) /
-          (viewportHeight + rect.height)
-        )
-      );
-
-      // Foto bergerak lebih lambat daripada halaman
-      const imageMovement = (progress - 0.5) * -100;
-
-      // Konten bergerak dengan kecepatan berbeda
-      const contentMovement = (progress - 0.5) * 30;
-
-      image.style.setProperty(
-        "--parallax-y",
-        `${imageMovement}px`
-      );
-
-      if (content) {
-        content.style.setProperty(
-          "--content-y",
-          `${contentMovement}px`
-        );
-      }
-
-      ticking = false;
-    }
-
-    function requestUpdate() {
-      if (ticking) return;
-
-      ticking = true;
-      requestAnimationFrame(updateParallax);
-    }
-
-    window.addEventListener("scroll", requestUpdate, {
-      passive: true
-    });
-
-    window.addEventListener("resize", requestUpdate);
-
-    updateParallax();
+    return navEl;
   }
 
-  // Jalankan parallax
-  initMenuParallax();
-  setBranch(null);
+  let lastY = scrollY;
+  function updateHeader() {
+    const nav = getNav();
+    if (!nav) return;
+    const y = scrollY, d = y - lastY;
+    let hide = nav.classList.contains("nav-hide");
+    if (y < 80) hide = false;
+    else if (d > 6) hide = true;
+    else if (d < -6) hide = false;
+    if (Math.abs(d) > 6 || y < 80) lastY = y;
+    nav.classList.toggle("nav-hide", hide);
+    document.body.classList.toggle("nav-hidden", hide);
+  }
+
+  /* ---------- Parallax pemisah: foto lambat, logo cepat ---------- */
+  function updateParallax() {
+    if (!divider || reduced) return;
+    const r = divider.getBoundingClientRect(), vh = innerHeight;
+    if (r.bottom < -100 || r.top > vh + 100) return;       // di luar layar, lewati
+    const t = (vh - r.top) / (vh + r.height) - 0.5;        // -0.5 (masuk) .. +0.5 (keluar)
+    divider.style.setProperty("--img-y", `${(t * IMG_RANGE).toFixed(1)}px`);
+    divider.style.setProperty("--content-y", `${(-t * CONTENT_RANGE).toFixed(1)}px`);
+  }
+
+  /* ---------- --bar-h: jarak aman untuk lompat ke kategori ---------- */
+  function syncBarHeight() {
+    if (!tools) return;
+    const cs = getComputedStyle(tools);
+    const navH = parseFloat(cs.getPropertyValue("--nav-h")) || 72;
+    const sticky = cs.position === "sticky";
+    const h = navH + (sticky ? tools.offsetHeight : 0) + 12;
+    document.body.style.setProperty("--bar-h", h + "px");
+  }
+
+  /* ---------- Satu loop scroll untuk semuanya ---------- */
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateHeader();
+      updateParallax();
+      ticking = false;
+    });
+  }
+  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("resize", () => { syncBarHeight(); onScroll(); });
+
+  /* ---------- Muncul sekali saat banner masuk layar ---------- */
+  if (divider && !reduced && "IntersectionObserver" in window) {
+    divider.classList.add("is-armed");
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      divider.classList.add("is-in");
+      io.disconnect();
+    }, { threshold: 0.3 });
+    io.observe(divider);
+  }
+
+  /* Tinggi halaman berubah setelah menu dimuat dari API → hitung ulang */
+  const main = document.querySelector("main");
+  if (main && "ResizeObserver" in window) {
+    new ResizeObserver(() => { syncBarHeight(); onScroll(); }).observe(main);
+  }
+
+  syncBarHeight();
+  updateParallax();
+  updateHeader();
 })();

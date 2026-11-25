@@ -10,7 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
   <!-- naikkan ?v= setiap CSS diubah -->
   <link rel="stylesheet" href="css/base.css?v=9">
-  <link rel="stylesheet" href="css/menu.css?v=12">
+  <link rel="stylesheet" href="css/menu.css?v=14">
+  <link rel="stylesheet" href="css/menu-motion.css?v=2">
+
 </head>
 <body data-page="menu">
   <header id="site-header"></header>
@@ -79,6 +81,7 @@
 
       <!-- PEMISAH FOTO MAKANAN DAN MINUMAN -->
     
+
     <div class="menu-divider">
         <img
             class="menu-divider__image"
@@ -93,7 +96,15 @@
           <h2>From Our Kitchen<br>To Your Table</h2>
           <p>Nikmati hidangan terbaik dan racikan kopi khas Kammari.</p>
         </div>
-    </div>
+
+    <div class="menu-divider" id="menu-divider">
+      <img class="menu-divider__image" src="assets/menu-seasonal/heroPage1.jpeg" alt="" loading="lazy" decoding="async">
+      <div class="menu-divider__overlay"></div>
+      <div class="menu-divider__content">
+        <span class="kammari-logo" role="img" aria-label="Kammari"></span>
+        <h2>From Our Kitchen<br>To Your Table</h2>
+        <p>Nikmati hidangan terbaik dan racikan kopi khas Kammari.</p>
+      </div>
 
     <!-- MINUMAN -->
   <section class="section" id="menu-minuman">
@@ -138,8 +149,8 @@
   <footer id="site-footer"></footer>
 
   <script src="js/core.js"></script>
-  <script src="js/menu.js"></script>
-  <script src="js/home.js"></script>
+  <script src="js/menu.js?v=4"></script>
+  <script src="js/menu-motion.js?v=2"></script>
   <script>document.getElementById("reserve-wa").href = WA_LINK;</script>
 </body>
 </html>

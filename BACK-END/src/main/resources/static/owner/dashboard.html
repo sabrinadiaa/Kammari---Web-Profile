@@ -1,110 +1,182 @@
+
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Owner | Kammari Café & Roastery</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>Dashboard Owner | Kammari Café</title>
+
+  <meta
+    name="description"
+    content="Dashboard pengelolaan Kammari Café & Roastery"
+  >
+
+  <!-- FONT -->
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
   <link
-    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
-  <link rel="stylesheet" href="/owner/css/dashboard.css">
-  <script src="/owner/js/dashboard.js" defer></script>
+  <!-- CSS -->
+  <link rel="stylesheet"
+        href="css/owner-unified.css">
+
+  <link rel="stylesheet"
+        href="css/dashboard.css">
+
+  <!-- JAVASCRIPT -->
+  <script src="js/dashboard.js" defer></script>
 </head>
 
 <body>
+
   <div class="dashboard-layout">
 
-    <!-- SIDEBAR -->
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
     <aside class="sidebar" id="sidebar">
+
       <div class="sidebar-main">
 
+        <!-- LOGO ASLI KAMMARI -->
         <a
+          href="dashboard.html"
           class="sidebar-brand"
-          href="/owner/dashboard.html"
-          aria-label="Beranda Kammari">
-
-          <img
+          aria-label="Beranda Owner Kammari"
+        >
+          <span
             class="brand-logo"
-            src="/owner/assets/kammari-wordmark-transparent.png"
-            alt="KAMMARI">
+            role="img"
+            aria-label="Kammari"
+          ></span>
 
-          <span>OWNER PORTAL</span>
+          <span class="brand-subtitle">
+            OWNER PORTAL
+          </span>
         </a>
 
-        <p class="sidebar-label">MENU UTAMA</p>
+        <!-- NAVIGASI -->
+        <div class="navigation-group">
 
-        <nav class="sidebar-nav" aria-label="Navigasi Owner">
+          <p class="sidebar-label">
+            MENU UTAMA
+          </p>
 
-          <a
-            class="nav-link active"
-            href="/owner/dashboard.html"
-            aria-current="page">
+          <nav
+            class="sidebar-nav"
+            aria-label="Navigasi Owner"
+          >
 
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m3 10 9-7 9 7v11H3z"/>
-              <path d="M9 21v-7h6v7"/>
-            </svg>
+            <!-- BERANDA -->
+            <a
+              href="dashboard.html"
+              class="nav-link active"
+              aria-current="page"
+            >
+              <svg viewBox="0 0 24 24"
+                   aria-hidden="true">
+                <path
+                  d="m3 10 9-7 9 7v11H3z
+                     M9 21v-7h6v7"
+                />
+              </svg>
+              <span>Beranda</span>
+            </a>
 
-            <span>Beranda</span>
-          </a>
+            <!-- MENU -->
+            <a
+              href="owner-menu.html"
+              class="nav-link"
+            >
+              <svg viewBox="0 0 24 24"
+                   aria-hidden="true">
+                <path d="M4 6h16"/>
+                <path d="M4 12h16"/>
+                <path d="M4 18h16"/>
+              </svg>
+              <span>Kelola Menu</span>
+            </a>
 
-          <a class="nav-link" href="/owner/menu.html">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-            <span>Kelola Menu</span>
-          </a>
+            <!-- EVENT -->
+            <a
+              href="owner-event.html"
+              class="nav-link"
+            >
+              <svg viewBox="0 0 24 24"
+                   aria-hidden="true">
+                <rect
+                  x="3" y="5"
+                  width="18" height="16"
+                  rx="2"
+                />
+                <path d="M7 3v4"/>
+                <path d="M17 3v4"/>
+                <path d="M3 10h18"/>
+              </svg>
+              <span>Kelola Event</span>
+            </a>
 
-          <a class="nav-link" href="/owner/event.html">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="16" rx="2"/>
-              <path d="M7 3v4M17 3v4M3 10h18"/>
-            </svg>
-            <span>Kelola Event</span>
-          </a>
+            <!-- FASILITAS -->
+            <a
+              href="owner-facility.html"
+              class="nav-link"
+            >
+              <svg viewBox="0 0 24 24"
+                   aria-hidden="true">
+                <path d="M4 21V7l8-4 8 4v14"/>
+                <path d="M9 21v-7h6v7"/>
+              </svg>
+              <span>Kelola Fasilitas</span>
+            </a>
 
-          <a class="nav-link" href="/owner/facility.html">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 21V7l8-4 8 4v14"/>
-              <path d="M9 21v-7h6v7"/>
-            </svg>
-            <span>Kelola Fasilitas</span>
-          </a>
-
-        </nav>
+          </nav>
+        </div>
       </div>
 
-      <!-- SIDEBAR BOTTOM -->
+      <!-- SIDEBAR FOOTER -->
       <div class="sidebar-bottom">
 
         <p class="sidebar-branch">
           <span class="branch-dot"></span>
-          Gresik &amp; Surabaya
+          <span>Gresik & Surabaya</span>
         </p>
 
         <button
           type="button"
           class="logout-button"
-          id="logoutButton">
-
-          <svg viewBox="0 0 24 24" aria-hidden="true">
+          id="logoutButton"
+        >
+          <svg viewBox="0 0 24 24"
+               aria-hidden="true">
             <path d="M10 17l5-5-5-5"/>
             <path d="M15 12H3"/>
-            <path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"/>
+            <path d="M12 3h7a2 2 0 0 1 2 2v14
+                     a2 2 0 0 1-2 2h-7"/>
           </svg>
-
           <span>Keluar</span>
         </button>
 
         <small>© 2026 Kammari</small>
+
       </div>
+
     </aside>
 
-    <!-- MAIN WRAPPER -->
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
     <div class="main-wrapper">
 
       <!-- TOPBAR -->
@@ -118,10 +190,13 @@
             id="sidebarToggle"
             aria-label="Buka navigasi"
             aria-controls="sidebar"
-            aria-expanded="false">
-
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 6h16M4 12h16M4 18h16"/>
+            aria-expanded="false"
+          >
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+              <path d="M4 6h16"/>
+              <path d="M4 12h16"/>
+              <path d="M4 18h16"/>
             </svg>
           </button>
 
@@ -130,80 +205,107 @@
             <span class="slash">/</span>
             <strong>Beranda</strong>
           </div>
+
         </div>
 
         <div class="topbar-right">
 
           <a
+            href="../index.html"
             class="website-link"
-            href="/"
             target="_blank"
-            rel="noopener">
+            rel="noopener"
+          >
+            <span class="website-text">
+              Lihat Website
+            </span>
 
-            <span class="website-text">Lihat Website</span>
-
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M7 17 17 7M8 7h9v9"/>
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+              <path d="M7 17 17 7"/>
+              <path d="M8 7h9v9"/>
             </svg>
           </a>
 
+          <!-- PROFIL OWNER -->
           <div class="owner-profile">
 
-            <span class="owner-avatar">K</span>
+            <div class="owner-avatar">K</div>
 
             <div class="owner-info">
               <strong>Owner Kammari</strong>
-              <small id="ownerEmail">Memuat akun...</small>
+              <small id="ownerEmail">
+                Memuat akun...
+              </small>
             </div>
 
           </div>
+
         </div>
+
       </header>
+
 
       <!-- DASHBOARD -->
       <main class="dashboard-content">
 
-        <!-- SATU CONTAINER UNTUK SEMUA KONTEN -->
         <div class="content-inner">
 
-          <!-- PAGE HEADING -->
+          <!-- JUDUL -->
           <section class="page-heading">
-            <span class="eyebrow">KAMMARI MANAGEMENT</span>
+            <span class="eyebrow">
+              PORTAL PENGELOLAAN
+            </span>
             <h1>Dashboard</h1>
           </section>
+
 
           <!-- WELCOME BANNER -->
           <section class="welcome-banner">
 
             <div class="welcome-content">
 
-              <span class="welcome-label">OWNER WORKSPACE</span>
+              <span class="welcome-label">
+                KAMMARI CAFÉ & ROASTERY
+              </span>
 
-              <h2>Ruang Kelola Kammari</h2>
+              <h2>
+                Selamat datang kembali.
+              </h2>
 
               <p>
-                Menu, event, dan fasilitas dalam satu tempat.
+                Kelola menu, event, dan fasilitas
+                Kammari dalam satu tempat.
               </p>
 
-              <a class="welcome-button" href="/owner/menu.html">
-                Kelola Menu
+              <a
+                href="owner-menu.html"
+                class="welcome-button"
+              >
+                <span>Kelola Menu</span>
 
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M5 12h14m-6-6 6 6-6 6"/>
+                <svg viewBox="0 0 24 24"
+                     aria-hidden="true">
+                  <path d="M5 12h14"/>
+                  <path d="m13 6 6 6-6 6"/>
                 </svg>
               </a>
+
             </div>
 
+            <!-- FOTO KAMMARI -->
             <div class="welcome-image">
               <img
-                src="/assets/fasilitas/gresik/tampak-depan-dengan-tanaman.jpg"
-                alt="Area Kammari Gresik dengan tanaman"
-                loading="lazy">
+                src="../assets/fasilitas/gresik/tampak-depan-dengan-tanaman.jpg"
+                alt="Suasana Kammari Gresik"
+                loading="lazy"
+              >
             </div>
 
           </section>
 
-          <!-- STATISTICS -->
+
+          <!-- STATISTIK MENU -->
           <section class="statistics-section">
 
             <div class="section-heading">
@@ -213,21 +315,26 @@
                 id="dashboardStatus"
                 class="data-status"
                 role="status"
-                aria-live="polite">
+                aria-live="polite"
+              >
                 Memuat data...
               </p>
             </div>
+
 
             <div class="statistics-grid">
 
               <!-- TOTAL MENU -->
               <article class="stat-card">
 
-                <span class="stat-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 6h16M4 12h16M4 18h16"/>
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24"
+                       aria-hidden="true">
+                    <path d="M4 6h16"/>
+                    <path d="M4 12h16"/>
+                    <path d="M4 18h16"/>
                   </svg>
-                </span>
+                </div>
 
                 <div class="stat-data">
                   <span>Total Menu Aktif</span>
@@ -237,14 +344,17 @@
 
               </article>
 
+
               <!-- GRESIK -->
               <article class="stat-card">
 
-                <span class="stat-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 21V7l8-4 8 4v14M9 21v-7h6v7"/>
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24"
+                       aria-hidden="true">
+                    <path d="M4 21V7l8-4 8 4v14"/>
+                    <path d="M9 21v-7h6v7"/>
                   </svg>
-                </span>
+                </div>
 
                 <div class="stat-data">
                   <span>Menu Gresik</span>
@@ -254,14 +364,17 @@
 
               </article>
 
+
               <!-- SURABAYA -->
               <article class="stat-card">
 
-                <span class="stat-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 21V7l8-4 8 4v14M9 21v-7h6v7"/>
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24"
+                       aria-hidden="true">
+                    <path d="M4 21V7l8-4 8 4v14"/>
+                    <path d="M9 21v-7h6v7"/>
                   </svg>
-                </span>
+                </div>
 
                 <div class="stat-data">
                   <span>Menu Surabaya</span>
@@ -270,10 +383,13 @@
                 </div>
 
               </article>
+
             </div>
+
           </section>
 
-          <!-- MANAGEMENT -->
+
+          <!-- PENGELOLAAN -->
           <section class="management-section">
 
             <div class="section-heading">
@@ -282,83 +398,110 @@
 
             <div class="management-list">
 
+              <!-- MENU -->
               <a
-                href="/owner/menu.html"
-                class="management-item">
-
+                href="owner-menu.html"
+                class="management-item"
+              >
                 <span class="management-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 6h16M4 12h16M4 18h16"/>
+                  <svg viewBox="0 0 24 24"
+                       aria-hidden="true">
+                    <path d="M4 6h16"/>
+                    <path d="M4 12h16"/>
+                    <path d="M4 18h16"/>
                   </svg>
                 </span>
 
                 <span class="management-info">
                   <strong>Kelola Menu</strong>
-                  <small>Menu, kategori, dan harga.</small>
+                  <small>
+                    Kelola menu, kategori, dan harga.
+                  </small>
                 </span>
 
-                <span class="management-arrow" aria-hidden="true">
-                  →
-                </span>
+                <span
+                  class="management-arrow"
+                  aria-hidden="true"
+                >→</span>
               </a>
 
-              <a
-                href="/owner/event.html"
-                class="management-item">
 
+              <!-- EVENT -->
+              <a
+                href="owner-event.html"
+                class="management-item"
+              >
                 <span class="management-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"
+                       aria-hidden="true">
                     <rect
-                      x="3"
-                      y="5"
-                      width="18"
-                      height="16"
-                      rx="2"/>
-                    <path d="M7 3v4M17 3v4M3 10h18"/>
+                      x="3" y="5"
+                      width="18" height="16"
+                      rx="2"
+                    />
+                    <path d="M7 3v4"/>
+                    <path d="M17 3v4"/>
+                    <path d="M3 10h18"/>
                   </svg>
                 </span>
 
                 <span class="management-info">
                   <strong>Kelola Event</strong>
-                  <small>Jadwal dan publikasi.</small>
+                  <small>
+                    Kelola kegiatan dan jadwal event.
+                  </small>
                 </span>
 
-                <span class="management-arrow" aria-hidden="true">
-                  →
-                </span>
+                <span
+                  class="management-arrow"
+                  aria-hidden="true"
+                >→</span>
               </a>
 
-              <a
-                href="/owner/facility.html"
-                class="management-item">
 
+              <!-- FASILITAS -->
+              <a
+                href="owner-facility.html"
+                class="management-item"
+              >
                 <span class="management-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 21V7l8-4 8 4v14M9 21v-7h6v7"/>
+                  <svg viewBox="0 0 24 24"
+                       aria-hidden="true">
+                    <path d="M4 21V7l8-4 8 4v14"/>
+                    <path d="M9 21v-7h6v7"/>
                   </svg>
                 </span>
 
                 <span class="management-info">
                   <strong>Kelola Fasilitas</strong>
-                  <small>Fasilitas tiap cabang.</small>
+                  <small>
+                    Perbarui fasilitas setiap cabang.
+                  </small>
                 </span>
 
-                <span class="management-arrow" aria-hidden="true">
-                  →
-                </span>
+                <span
+                  class="management-arrow"
+                  aria-hidden="true"
+                >→</span>
               </a>
 
             </div>
+
           </section>
 
+
+          <!-- FOOTER -->
           <footer class="dashboard-footer">
-            Kammari Café &amp; Roastery · Owner Portal
+            © 2026 Kammari Café & Roastery.
           </footer>
 
         </div>
+
       </main>
 
     </div>
+
   </div>
+
 </body>
 </html>

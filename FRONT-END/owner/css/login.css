@@ -1,432 +1,656 @@
 
-/* =====================================
-   KAMMARI CAFE - OWNER LOGIN
-   ===================================== */
+/* =====================================================
+   KAMMARI CAFÉ & ROASTERY
+   OWNER PORTAL — CLEAN LOOK LOGIN
+   FINAL CSS — SVG WORDMARK
+   ===================================================== */
 
-/* WARNA UTAMA */
+/* 01. DESIGN TOKENS */
+
 :root {
-  --cream: #f8f4ed;
+  --coffee: #38291f;
+  --coffee-hover: #594235;
+  --coffee-light: #a96346;
+
+  --cream: #f7f4ee;
   --white: #ffffff;
-  --brown: #38251e;
-  --brown-light: #6d5548;
-  --terracotta: #ad6245;
-  --terracotta-hover: #915039;
-  --border: #e8ded2;
-  --muted: #8e8075;
+
+  --text: #38291f;
+  --muted: #81776f;
+  --border: #e7dfd7;
+  --danger: #ad3636;
+
+  --shadow: 0 16px 50px rgba(56, 41, 31, 0.08);
 }
 
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
+/* 02. RESET */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+}
+
 body {
-  font-family: 'DM Sans', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+
   background: var(--cream);
-  color: var(--brown);
-  min-height: 100vh;
+  color: var(--text);
+
+  font-family: "Hanken Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* =====================================
-   LAYOUT LOGIN
-   ===================================== */
-
-.login-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 100vh;
+button,
+input {
+  font: inherit;
 }
 
-/* =====================================
-   BAGIAN KIRI - BRAND
-   ===================================== */
+button {
+  cursor: pointer;
+}
 
-.login-brand {
-  background: var(--brown);
-  color: var(--cream);
-  padding: 65px;
+/* 03. MAIN PAGE */
+
+.login-page {
+  min-height: 100vh;
+  min-height: 100svh;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
 
-  position: relative;
-  overflow: hidden;
+  padding: 35px 24px 20px;
 }
 
-/* DEKORASI SEDERHANA */
-.login-brand::after {
-  content: "";
+/* 04. PAGE LABEL */
+
+.page-label {
+  width: min(100%, 1100px);
+  margin: 0 0 16px;
+
+  color: #7e7167;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* 05. LOGIN CARD */
+
+.login-shell {
+  width: min(100%, 1100px);
+  min-height: 610px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  overflow: hidden;
+
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+
+  box-shadow: var(--shadow);
+}
+
+/* =====================================================
+   LEFT PANEL — KAMMARI BRANDING
+   ===================================================== */
+
+/* 06. PHOTO PANEL */
+
+.login-visual {
+  position: relative;
+
+  min-width: 0;
+  min-height: 610px;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: #514137;
+}
+
+/* 07. PHOTO */
+
+.visual-image {
   position: absolute;
+  inset: 0;
 
-  width: 450px;
-  height: 450px;
+  display: block;
 
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
 
-  bottom: -220px;
-  right: -180px;
+  max-width: none;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 08. PHOTO OVERLAY */
+
+.visual-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background: linear-gradient(
+    180deg,
+    rgba(33, 23, 18, 0.18) 0%,
+    rgba(33, 23, 18, 0.28) 50%,
+    rgba(33, 23, 18, 0.45) 100%
+  );
 
   pointer-events: none;
 }
 
-/* LOGO */
-.brand-logo {
+/* 09. BRAND CONTAINER */
+
+.visual-brand {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  pointer-events: none;
+}
+
+/* 10. KAMMARI LOGO — WHITE SVG MASK */
+
+.kammari-wordmark-mask {
+  display: block;
+
+  width: min(100%, 420px);
+  height: 150px;
+
+  flex-shrink: 0;
+
+  background-color: #ffffff;
+
+  /* Lokasi SVG yang dapat diakses sebelum login */
+  -webkit-mask-image: url("/owner/css/assets/logo_kammari_mask.svg");
+  mask-image: url("/owner/css/assets/logo_kammari_mask.svg");
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  /* Mempertahankan transparansi SVG */
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
+}
+
+/* 11. LOCATION TEXT */
+
+.visual-location {
+  position: absolute;
+
+  left: 35px;
+  right: 35px;
+  bottom: 32px;
+
+  z-index: 2;
+
   display: flex;
   align-items: center;
   gap: 12px;
-}
 
-.logo-icon {
-  width: 43px;
-  height: 43px;
+  color: var(--white);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid #c5a98e;
-  border-radius: 50%;
-
-  font-family: 'Playfair Display', serif;
-  font-size: 23px;
-}
-
-.logo-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 25px;
-  letter-spacing: 2px;
-}
-
-/* CONTENT */
-.brand-content {
-  max-width: 470px;
-  position: relative;
-  z-index: 1;
-}
-
-.brand-label {
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #d9b89a;
-  margin-bottom: 22px;
-}
-
-.brand-content h1 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 500;
-  font-size: clamp(38px, 4vw, 56px);
-  line-height: 1.2;
-  margin-bottom: 22px;
-}
-
-.brand-content h1 span {
-  color: #d7af90;
-}
-
-.brand-description {
-  color: #cdbdb1;
-  font-size: 15px;
-  line-height: 1.9;
-  max-width: 390px;
-}
-
-.brand-footer {
-  font-size: 12px;
-  color: #ab9588;
-}
-
-/* =====================================
-   BAGIAN KANAN - LOGIN
-   ===================================== */
-
-.login-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 50px 30px;
-}
-
-.login-box {
-  width: 100%;
-  max-width: 410px;
-}
-
-/* HEADER */
-.login-header {
-  margin-bottom: 36px;
-}
-
-.welcome-label {
-  color: var(--terracotta);
-  text-transform: uppercase;
+  font-size: 10px;
   font-weight: 700;
-  font-size: 11px;
   letter-spacing: 2px;
-  margin-bottom: 13px;
+
+  text-transform: uppercase;
 }
 
-.login-header h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  font-size: 37px;
-  margin-bottom: 12px;
+.location-dot {
+  opacity: 0.65;
 }
 
-.login-header > p:not(.welcome-label) {
+/* =====================================================
+   RIGHT PANEL — LOGIN FORM
+   ===================================================== */
+
+/* 12. FORM PANEL */
+
+.login-panel {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 65px 55px;
+
+  background: var(--white);
+}
+
+/* 13. FORM CONTAINER */
+
+.login-panel-inner {
+  width: 100%;
+  max-width: 365px;
+
+  margin-inline: auto;
+}
+
+/* 14. LOGIN HEADER */
+
+.login-header {
+  margin: 0 0 38px;
+}
+
+.form-eyebrow {
+  margin: 0 0 15px;
+
+  color: var(--coffee-light);
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+}
+
+.form-title {
+  margin: 0 0 12px;
+
+  color: var(--coffee);
+
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+
+  line-height: 1.2;
+}
+
+.form-subtitle {
+  margin: 0;
+
   color: var(--muted);
-  font-size: 14px;
+
+  font-size: 13px;
+  font-weight: 400;
   line-height: 1.7;
 }
 
-/* =====================================
-   FORM LOGIN
-   ===================================== */
+/* 15. LOGIN FORM */
 
-.form-group {
-  margin-bottom: 23px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.input-wrapper {
-  position: relative;
-}
-
-.form-group input {
+.login-form {
   width: 100%;
-  height: 52px;
+  margin: 0;
+}
 
-  border: 1px solid var(--border);
-  border-radius: 10px;
+/* 16. FIELD GROUP */
+
+.field-group {
+  margin: 0 0 21px;
+}
+
+.field-group label {
+  display: block;
+
+  margin: 0 0 9px;
+
+  color: var(--coffee);
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 17. INPUT FIELD */
+
+.field-group input {
+  display: block;
+
+  width: 100%;
+  height: 49px;
 
   padding: 0 15px;
 
-  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
 
-  font-family: inherit;
-  font-size: 14px;
-  color: var(--brown);
+  background: var(--white);
+  color: var(--coffee);
+
+  font-size: 13px;
+  font-weight: 500;
 
   outline: none;
 
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.form-group input::placeholder {
-  color: #aa9d93;
+.field-group input::placeholder {
+  color: #a59b93;
+  font-weight: 400;
 }
 
-.form-group input:focus {
-  border-color: var(--terracotta);
-  box-shadow: 0 0 0 3px rgba(173,98,69,0.1);
+.field-group input:hover {
+  border-color: #d7c9bd;
 }
 
-/* PASSWORD */
-.password-input {
-  padding-right: 65px !important;
+.field-group input:focus {
+  border-color: var(--coffee-light);
+
+  box-shadow: 0 0 0 3px rgba(169, 99, 70, 0.10);
 }
+
+.field-group input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* 18. PASSWORD FIELD */
+
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+.password-field input {
+  padding-right: 78px;
+}
+
+/* 19. PASSWORD TOGGLE */
 
 .toggle-password {
   position: absolute;
-  right: 13px;
+
   top: 50%;
+  right: 12px;
 
   transform: translateY(-50%);
 
-  background: none;
-  border: none;
-
-  color: var(--terracotta);
-  font-size: 12px;
-  font-weight: 700;
-
-  padding: 7px;
-  cursor: pointer;
-}
-
-/* REMEMBER ME */
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-bottom: 29px;
-}
-
-.remember-me {
   display: flex;
   align-items: center;
-  gap: 9px;
+  justify-content: center;
 
-  color: var(--brown-light);
-  font-size: 12px;
-  cursor: pointer;
-}
+  min-width: 46px;
+  min-height: 34px;
 
-.remember-me input {
-  width: 15px;
-  height: 15px;
-  accent-color: var(--terracotta);
-}
+  padding: 5px 7px;
 
-/* =====================================
-   TOMBOL LOGIN
-   ===================================== */
+  border: 0;
+  border-radius: 5px;
 
-.login-button {
-  width: 100%;
-  height: 52px;
+  background: transparent;
+  color: var(--coffee-light);
 
-  background: var(--terracotta);
-  color: var(--white);
-
-  border: none;
-  border-radius: 10px;
-
-  font-family: inherit;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
 
-  cursor: pointer;
-  transition: background 0.2s;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
-.login-button:hover {
-  background: var(--terracotta-hover);
+.toggle-password:hover {
+  color: var(--coffee);
+  background: rgba(169, 99, 70, 0.06);
 }
 
-.login-button:focus-visible,
 .toggle-password:focus-visible {
-  outline: 3px solid #d9b89a;
-  outline-offset: 3px;
+  outline: 2px solid var(--coffee-light);
+  outline-offset: 2px;
 }
 
-/* PESAN LOGIN */
+/* 20. LOGIN MESSAGE */
+
 .login-message {
-  display: none;
+  margin: 0;
 
-  margin-top: 16px;
-  padding: 12px;
+  color: var(--danger);
 
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
 
-  color: #955234;
-  background: #fff6ed;
-
-  border: 1px solid #e5c8b5;
-  border-radius: 9px;
+.login-message:not(:empty) {
+  margin: 0 0 16px;
 }
 
 .login-message.show {
   display: block;
 }
 
-/* =====================================
-   FOOTER LOGIN
-   ===================================== */
+/* 21. LOGIN BUTTON */
 
-.login-footer {
-  text-align: center;
+.login-button {
+  width: 100%;
+  height: 51px;
 
-  margin-top: 35px;
-  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 
-  border-top: 1px solid var(--border);
-}
+  margin-top: 13px;
+  padding: 0 20px;
 
-.login-footer p {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.7;
-}
+  border: 0;
+  border-radius: 8px;
 
-.login-footer a {
-  color: var(--terracotta);
-  text-decoration: none;
+  background: var(--coffee);
+  color: var(--white);
+
+  font-size: 13px;
   font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.login-footer a:hover {
-  text-decoration: underline;
+.login-button:hover:not(:disabled) {
+  background: var(--coffee-hover);
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 15px rgba(56, 41, 31, 0.12);
 }
 
-/* =====================================
-   RESPONSIVE TABLET & MOBILE
-   ===================================== */
+.login-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-button:focus-visible {
+  outline: 2px solid var(--coffee-light);
+  outline-offset: 3px;
+}
+
+.login-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-button svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* 22. FORM FOOTER */
+
+.form-footer {
+  margin: 35px 0 0;
+
+  color: #a79c93;
+
+  font-size: 11px;
+  font-weight: 400;
+
+  text-align: center;
+}
+
+/* 23. COPYRIGHT */
+
+.copyright {
+  margin-top: 20px;
+
+  color: #978b81;
+
+  font-size: 10px;
+  text-align: center;
+}
+
+/* =====================================================
+   RESPONSIVE — TABLET
+   ===================================================== */
 
 @media (max-width: 850px) {
 
-  .login-container {
-    grid-template-columns: 1fr;
+  .login-shell {
+    grid-template-columns: 0.9fr 1.1fr;
+    min-height: 550px;
   }
 
-  .login-brand {
-    min-height: 230px;
-    padding: 30px;
-    gap: 35px;
+  .login-visual {
+    min-height: 550px;
   }
 
-  .brand-content h1 {
-    font-size: 30px;
-    margin-bottom: 10px;
+  .login-panel {
+    padding: 45px 32px;
   }
 
-  .brand-description {
-    font-size: 13px;
+  .visual-brand {
+    padding: 24px;
   }
 
-  .brand-label {
+  .kammari-wordmark-mask {
+    width: min(100%, 320px);
+    height: 115px;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE — MOBILE
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+  .login-page {
+    justify-content: flex-start;
+    padding: 16px 14px 20px;
+  }
+
+  .page-label {
     margin-bottom: 12px;
+    font-size: 9px;
+    letter-spacing: 2.5px;
   }
 
-  .brand-footer {
-    display: none;
+  .login-shell {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    border-radius: 15px;
   }
 
-  .login-section {
-    padding: 55px 25px;
+  .login-visual {
+    min-height: 210px;
+    height: 210px;
   }
 
-  .login-header h2 {
+  .visual-image {
+    object-position: center 45%;
+  }
+
+  .visual-brand {
+    padding: 20px;
+  }
+
+  .kammari-wordmark-mask {
+    width: min(85%, 270px);
+    height: 80px;
+  }
+
+  .visual-location {
+    left: 22px;
+    right: 22px;
+    bottom: 18px;
+
+    gap: 8px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  .login-panel {
+    padding: 36px 27px 40px;
+  }
+
+  .login-header {
+    margin-bottom: 28px;
+  }
+
+  .form-title {
     font-size: 32px;
   }
 
+  .form-footer {
+    margin-top: 25px;
+  }
 }
 
-@media (max-width: 480px) {
+/* =====================================================
+   RESPONSIVE — SMALL PHONE
+   ===================================================== */
 
-  .login-brand {
-    padding: 25px;
+@media (max-width: 380px) {
+
+  .login-panel {
+    padding-inline: 20px;
   }
 
-  .logo-text {
-    font-size: 21px;
-  }
-
-  .brand-content h1 {
-    font-size: 27px;
-  }
-
-  .login-section {
-    padding: 40px 22px;
-  }
-
-  .login-header h2 {
+  .form-title {
     font-size: 29px;
   }
 
+  .field-group input {
+    font-size: 12px;
+  }
+
+  .visual-location {
+    font-size: 8px;
+  }
+}
+
+/* =====================================================
+   ACCESSIBILITY
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

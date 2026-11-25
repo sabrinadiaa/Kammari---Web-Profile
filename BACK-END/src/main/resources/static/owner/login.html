@@ -10,9 +10,9 @@
 
   <meta
     name="description"
-    content="Portal Owner Kammari Café & Roastery">
+    content="Portal Pengelolaan Kammari Café & Roastery">
 
-  <title>Login Owner | Kammari </title>
+  <title>Login Owner | Kammari</title>
 
   <!-- GOOGLE FONTS -->
   <link
@@ -25,15 +25,15 @@
     crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <!-- CSS LOGIN OWNER -->
+  <!-- OWNER LOGIN CSS -->
   <link
     rel="stylesheet"
     href="/owner/css/login.css">
 
-  <!-- JAVASCRIPT LOGIN EXISTING -->
+  <!-- OWNER LOGIN JS -->
   <script
     src="/owner/js/login.js"
     defer></script>
@@ -48,62 +48,57 @@
       OWNER PORTAL
     </p>
 
-
     <!-- MAIN LOGIN CARD -->
     <section
       class="login-shell"
       aria-label="Login Owner Kammari">
 
-
-      <!-- =====================================
-           LEFT PANEL — KAMMARI BRANDING
-      ===================================== -->
+      <!-- =================================
+           LEFT — PHOTO & KAMMARI BRANDING
+      ================================== -->
       <div class="login-visual">
 
-        <!-- FOTO ASLI KAMMARI -->
+        <!-- FOTO KAMMARI -->
         <img
           class="visual-image"
           src="/assets/fasilitas/gresik/ruang-utama-dan-meja-bar.jpg"
           alt="Suasana interior Kammari Café"
           loading="eager">
 
-        <!-- PHOTO OVERLAY -->
+        <!-- OVERLAY -->
         <div
           class="visual-overlay"
           aria-hidden="true">
         </div>
 
-
-        <!-- CENTER BRANDING -->
+        <!-- LOGO KAMMARI SVG MASK -->
         <div class="visual-brand">
 
-          <!-- LOGO KAMMARI DARI ASSETS -->
-          <img
-            class="kammari-wordmark"
-            src="/owner/assets/kammari-wordmark-transparent.png"
-            alt="KAMMARI">
+          <div
+            class="kammari-wordmark-mask"
+            role="img"
+            aria-label="KAMMARI">
+          </div>
 
         </div>
 
-
         <!-- LOCATION -->
         <div class="visual-location">
-          GRESIK <span>·</span> SURABAYA
+          <span>GRESIK</span>
+          <span class="location-dot">·</span>
+          <span>SURABAYA</span>
         </div>
 
       </div>
 
-
-
-      <!-- =====================================
-           RIGHT PANEL — LOGIN FORM
-      ===================================== -->
+      <!-- =================================
+           RIGHT — LOGIN FORM
+      ================================== -->
       <div class="login-panel">
 
         <div class="login-panel-inner">
 
-
-          <!-- LOGIN HEADER -->
+          <!-- HEADER -->
           <header class="login-header">
 
             <p class="form-eyebrow">
@@ -120,13 +115,11 @@
 
           </header>
 
-
           <!-- LOGIN FORM -->
           <form
             id="loginForm"
             class="login-form"
             method="post">
-
 
             <!-- USERNAME -->
             <div class="field-group">
@@ -136,23 +129,20 @@
               </label>
 
               <!--
-                ID dan name email dipertahankan
-                karena backend existing masih
-                menggunakan autentikasi email.
+                ID email dipertahankan agar
+                kompatibel dengan login.js Owner.
               -->
-
               <input
                 type="text"
                 id="email"
                 name="email"
-                placeholder="Username"
+                placeholder="Masukkan username"
                 autocomplete="username"
                 spellcheck="false"
+                autocapitalize="none"
                 required>
 
             </div>
-
-
 
             <!-- PASSWORD -->
             <div class="field-group">
@@ -167,30 +157,25 @@
                   type="password"
                   id="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Masukkan password"
                   autocomplete="current-password"
                   required>
 
-
-                <!-- SHOW / HIDE PASSWORD -->
+                <!-- TOGGLE PASSWORD -->
                 <button
                   type="button"
                   id="togglePassword"
                   class="toggle-password"
                   aria-label="Tampilkan password"
                   aria-pressed="false">
-
                   Lihat
-
                 </button>
 
               </div>
 
             </div>
 
-
-
-            <!-- STATUS LOGIN -->
+            <!-- LOGIN MESSAGE -->
             <p
               id="loginMessage"
               class="login-message"
@@ -198,9 +183,7 @@
               aria-live="polite">
             </p>
 
-
-
-            <!-- LOGIN BUTTON -->
+            <!-- SUBMIT BUTTON -->
             <button
               type="submit"
               id="loginButton"
@@ -228,9 +211,7 @@
 
           </form>
 
-
-
-          <!-- FORM FOOTER -->
+          <!-- FOOTER -->
           <p class="form-footer">
             Kammari Café & Roastery
           </p>
@@ -241,13 +222,13 @@
 
     </section>
 
-
     <!-- COPYRIGHT -->
     <footer class="copyright">
-      © Kammari
+      © 2026 Kammari
     </footer>
 
   </main>
 
 </body>
 </html>
+  

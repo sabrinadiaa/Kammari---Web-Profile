@@ -575,3 +575,46 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- 1. Membuat tabel users
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `full_name` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(50) NOT NULL,
+    `email` VARCHAR(190) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `role` VARCHAR(20) NOT NULL DEFAULT 'USER',
+
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uq_users_username` (`username`),
+    UNIQUE KEY `uq_users_email` (`email`)
+);
+
+-- 2. Menambahkan akun Owner
+INSERT INTO `users` (
+    `id`,
+    `full_name`,
+    `username`,
+    `email`,
+    `password`,
+    `role`
+)
+VALUES (
+    3,
+    'Kammari Management',
+    'admin',
+    'admin@kammari',
+    '$2y$10$dWbSZ975JfWB4F6XWa/9pO.MPxIEyK5tPVbOSxIe9mT4PFLq57Vk2',
+    'OWNER'
+);
+
+-- 3. Memastikan akun Owner berhasil ditambahkan
+SELECT
+    `id`,
+    `full_name`,
+    `username`,
+    `email`,
+    `role`
+FROM `users`
+WHERE `username` = 'admin';

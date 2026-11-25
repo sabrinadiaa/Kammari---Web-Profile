@@ -1,4 +1,6 @@
+
 <!DOCTYPE html>
+<html lang="id">
 
 <link
   href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
@@ -8,28 +10,34 @@
   rel="stylesheet"
   href="/owner/css/owner-unified.css">
 
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Kelola Event | Kammari Café & Roastery</title>
+<!-- CSS KHUSUS FASILITAS -->
+<link
+  rel="stylesheet"
+  href="/owner/css/owner-facility.css"
+>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- CSS BERSAMA -->
+<link
+  rel="stylesheet"
+  href="/owner/css/owner-unified.css"
+>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
+<!-- JAVASCRIPT FASILITAS -->
+<script
+  src="/owner/js/owner-facility.js"
+  defer
+></script>
 
-  <link rel="stylesheet" href="css/owner-event.css">
-  <script src="js/owner-event.js" defer></script>
-</head>
+<!-- SIDEBAR OWNER -->
+<script
+  src="/owner/js/owner-unified.js?v=event-fix-4"
+  defer
+></script>
 
 <body>
   <div class="owner-layout">
 
-    <!-- SIDEBAR -->
 
 <!-- SIDEBAR OWNER KAMMARI -->
 <aside class="sidebar" id="sidebar">
@@ -137,32 +145,28 @@
 </aside>
 
 
-    <!-- MAIN CONTENT -->
     <div class="main-wrapper">
 
-      <!-- TOPBAR -->
       <header class="topbar">
-        <span class="topbar-title">Pengelolaan Event</span>
+        <span class="topbar-title">Pengelolaan Fasilitas</span>
         <span class="owner-indicator">Portal Owner</span>
       </header>
 
       <main class="owner-content">
 
-        <!-- PAGE TITLE -->
         <section class="page-heading">
           <p class="eyebrow">KAMMARI MANAGEMENT</p>
-          <h2>Kelola Event</h2>
+          <h2>Kelola Fasilitas</h2>
           <p class="page-description">
-            Kelola kegiatan dan acara Kammari.
+            Atur fasilitas dan ruang di setiap cabang.
           </p>
         </section>
 
         <!-- FILTER -->
-        <section class="event-toolbar">
+        <section class="facility-toolbar">
 
-          <div class="field-group">
+          <div class="field-group branch-filter">
             <label for="branchFilter">Cabang</label>
-
             <select id="branchFilter">
               <option value="">Semua Cabang</option>
               <option value="gresik">Gresik</option>
@@ -171,199 +175,154 @@
           </div>
 
           <div class="field-group grow">
-            <label for="eventSearch">Cari Event</label>
-
+            <label for="facilitySearch">Cari Fasilitas</label>
             <input
               type="search"
-              id="eventSearch"
-              placeholder="Cari nama event..."
+              id="facilitySearch"
+              placeholder="Cari fasilitas..."
               autocomplete="off">
           </div>
 
           <button
             type="button"
-            id="addEventButton"
+            id="addFacilityButton"
             class="primary-button"
-            aria-controls="eventFormSection"
+            aria-controls="facilityFormSection"
             aria-expanded="false">
-            + Tambah Event
+            + Tambah Fasilitas
           </button>
-
         </section>
 
-        <!-- FORM TAMBAH / EDIT EVENT -->
+        <!-- FORM -->
         <section
-          id="eventFormSection"
-          class="event-form-section"
+          id="facilityFormSection"
+          class="facility-form-section"
           hidden>
 
           <div class="form-header">
             <div>
-              <h3 id="eventFormTitle">Tambah Event</h3>
-              <p>Detail kegiatan Kammari</p>
+              <h3 id="facilityFormTitle">Tambah Fasilitas</h3>
+              <p>Detail fasilitas Kammari</p>
             </div>
 
             <button
               type="button"
-              id="closeEventForm"
+              id="closeFacilityForm"
               class="icon-button"
               aria-label="Tutup form">
               ×
             </button>
           </div>
 
-          <form id="eventForm">
+          <form id="facilityForm">
 
-            <!-- NAMA EVENT -->
-            <div class="field-group full-width">
-              <label for="eventTitle">Nama Event</label>
-
+            <div class="field-group">
+              <label for="facilityName">Nama Fasilitas</label>
               <input
                 type="text"
-                id="eventTitle"
-                maxlength="255"
-                placeholder="Nama event"
+                id="facilityName"
+                maxlength="200"
+                placeholder="Contoh: Indoor Area"
                 required>
             </div>
 
-            <!-- CABANG -->
             <div class="field-group">
-              <label for="eventBranch">Cabang</label>
-
-              <select id="eventBranch">
-                <option value="">Semua Cabang</option>
+              <label for="facilityBranch">Cabang</label>
+              <select id="facilityBranch" required>
+                <option value="">Pilih cabang</option>
                 <option value="1">Gresik</option>
                 <option value="2">Surabaya</option>
               </select>
             </div>
 
-            <!-- STATUS -->
             <div class="field-group">
-              <label for="eventStatus">Status</label>
-
-              <select id="eventStatus" required>
-                <option value="draft">Draft</option>
-                <option value="upcoming">Upcoming</option>
-                <option value="ongoing">Ongoing</option>
-                <option value="completed">Completed</option>
-                <option value="cancelled">Cancelled</option>
+              <label for="facilityType">Jenis</label>
+              <select id="facilityType" required>
+                <option value="facility">Fasilitas</option>
+                <option value="highlight">Highlight</option>
               </select>
             </div>
 
-            <!-- TANGGAL MULAI -->
             <div class="field-group">
-              <label for="eventStart">Tanggal Mulai</label>
-
+              <label for="facilityOrder">Urutan Tampilan</label>
               <input
-                type="datetime-local"
-                id="eventStart"
+                type="number"
+                id="facilityOrder"
+                min="0"
+                step="1"
+                value="0"
                 required>
             </div>
 
-            <!-- TANGGAL SELESAI -->
-            <div class="field-group">
-              <label for="eventEnd">Tanggal Selesai</label>
-
-              <input
-                type="datetime-local"
-                id="eventEnd"
-                required>
-            </div>
-
-            <!-- DESKRIPSI -->
             <div class="field-group full-width">
-              <label for="eventDescription">Deskripsi</label>
-
+              <label for="facilityDescription">Deskripsi</label>
               <textarea
-                id="eventDescription"
+                id="facilityDescription"
                 rows="3"
-                placeholder="Deskripsi event..."></textarea>
+                maxlength="5000"
+                placeholder="Deskripsi singkat (opsional)"></textarea>
             </div>
 
-            <!-- UPLOAD POSTER -->
             <div class="field-group full-width">
-              <label for="eventPoster">Poster Event</label>
+              <label for="facilityIcon">Ikon (opsional)</label>
+              <input
+                type="text"
+                id="facilityIcon"
+                maxlength="100"
+                placeholder="Contoh: wifi">
+            </div>
 
-              <div class="event-media-upload">
+            <!-- FOTO -->
+            <div class="field-group full-width">
+              <label for="facilityImage">Foto Fasilitas</label>
 
+              <div class="media-upload">
                 <input
                   type="file"
-                  id="eventPoster"
+                  id="facilityImage"
                   accept="image/jpeg,image/png,image/webp">
 
                 <small class="field-hint">
-                  JPG, PNG, atau WebP · Maks. 5 MB
+                  JPG, PNG, WebP · Maks. 5 MB
                 </small>
 
                 <img
-                  id="eventPosterPreview"
-                  class="event-poster-preview"
-                  alt="Pratinjau poster event"
+                  id="facilityImagePreview"
+                  class="facility-image-preview"
+                  alt="Pratinjau foto fasilitas"
                   hidden>
-
               </div>
             </div>
 
-            <!-- UPLOAD VIDEO -->
-            <div class="field-group full-width">
-              <label for="eventVideo">Video Event</label>
-
-              <div class="event-media-upload">
-
+            <!-- KETERSEDIAAN -->
+            <div class="facility-options full-width">
+              <label class="check-label">
                 <input
-                  type="file"
-                  id="eventVideo"
-                  accept="video/mp4,video/webm">
-
-                <small class="field-hint">
-                  MP4 atau WebM · Maks. 50 MB
-                </small>
-
-                <video
-                  id="eventVideoPreview"
-                  class="event-video-preview"
-                  controls
-                  preload="metadata"
-                  hidden>
-                </video>
-
-              </div>
-            </div>
-
-            <!-- LINK PENDAFTARAN -->
-            <div class="field-group full-width">
-              <label for="eventRegistration">
-                Link Pendaftaran
+                  type="checkbox"
+                  id="facilityAvailable"
+                  checked>
+                Fasilitas tersedia
               </label>
-
-              <input
-                type="url"
-                id="eventRegistration"
-                maxlength="1000"
-                placeholder="https://...">
             </div>
 
-            <!-- FORM BUTTONS -->
             <div class="form-actions">
-
               <button
                 type="button"
-                id="cancelEvent"
+                id="cancelFacility"
                 class="secondary-button">
                 Batal
               </button>
 
               <button
                 type="submit"
-                id="saveEvent"
+                id="saveFacility"
                 class="primary-button">
-                Simpan Event
+                Simpan Fasilitas
               </button>
-
             </div>
 
             <p
-              id="eventFormMessage"
+              id="facilityFormMessage"
               class="status-text full-width"
               role="status"
               aria-live="polite"></p>
@@ -371,44 +330,39 @@
           </form>
         </section>
 
-        <!-- DAFTAR EVENT -->
-        <section class="event-list-section">
+        <!-- DAFTAR -->
+        <section class="facility-list-section">
 
           <div class="list-heading">
-            <h3>Daftar Event</h3>
-
-            <span id="eventCount">
-              Memuat event...
-            </span>
+            <h3>Daftar Fasilitas</h3>
+            <span id="facilityCount">Memuat fasilitas...</span>
           </div>
 
           <p
-            id="eventStatusMessage"
+            id="facilityStatusMessage"
             class="status-text"
             role="status"
             aria-live="polite"></p>
 
           <div class="table-container">
-            <table class="event-table">
-
+            <table class="facility-table">
               <thead>
                 <tr>
-                  <th>Event</th>
+                  <th>Fasilitas</th>
                   <th>Cabang</th>
-                  <th>Jadwal</th>
+                  <th>Jenis</th>
                   <th>Status</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
 
-              <tbody id="eventTableBody">
+              <tbody id="facilityTableBody">
                 <tr>
                   <td colspan="5" class="empty-state">
-                    Memuat data event...
+                    Memuat fasilitas...
                   </td>
                 </tr>
               </tbody>
-
             </table>
           </div>
 

@@ -1,37 +1,29 @@
 
-/* =========================================
+/* =====================================================
    KAMMARI CAFÉ & ROASTERY
-   OWNER LOGIN — CLEAN PREMIUM DESIGN
-========================================= */
+   OWNER PORTAL — CLEAN LOOK LOGIN
+   FINAL CSS — SVG WORDMARK
+   ===================================================== */
 
-
-/* =========================================
-   1. COLORS & TYPOGRAPHY
-========================================= */
+/* 01. DESIGN TOKENS */
 
 :root {
-  --background: #F1ECE5;
-  --surface: #FBF8F4;
-  --white: #FFFFFF;
+  --coffee: #38291f;
+  --coffee-hover: #594235;
+  --coffee-light: #a96346;
 
-  --coffee: #35271F;
-  --coffee-hover: #4D392E;
+  --cream: #f7f4ee;
+  --white: #ffffff;
 
-  --text: #34271F;
-  --muted: #94877C;
+  --text: #38291f;
+  --muted: #81776f;
+  --border: #e7dfd7;
+  --danger: #ad3636;
 
-  --border: #E5DCD2;
-  --accent: #AE765B;
-
-  --shadow: 0 22px 65px rgba(53, 39, 31, .10);
-
-  --font-main: "Hanken Grotesk", sans-serif;
+  --shadow: 0 16px 50px rgba(56, 41, 31, 0.08);
 }
 
-
-/* =========================================
-   2. RESET
-========================================= */
+/* 02. RESET */
 
 *,
 *::before,
@@ -46,11 +38,12 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100svh;
 
-  background: var(--background);
+  background: var(--cream);
   color: var(--text);
 
-  font-family: var(--font-main);
+  font-family: "Hanken Grotesk", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -63,284 +56,234 @@ button {
   cursor: pointer;
 }
 
-img {
-  display: block;
-}
-
-[hidden] {
-  display: none !important;
-}
-
-
-/* =========================================
-   3. MAIN PAGE
-========================================= */
+/* 03. MAIN PAGE */
 
 .login-page {
+  min-height: 100vh;
+  min-height: 100svh;
+
   display: flex;
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
 
-  width: 100%;
-
-  min-height: 100vh;
-  min-height: 100dvh;
-
-  padding: 34px 24px;
+  padding: 35px 24px 20px;
 }
 
-
-/* TOP LABEL */
+/* 04. PAGE LABEL */
 
 .page-label {
-  margin: 0 0 22px;
+  width: min(100%, 1100px);
+  margin: 0 0 16px;
 
-  color: var(--coffee);
+  color: #7e7167;
 
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-
   letter-spacing: 3px;
-  line-height: 1.4;
-
-  text-align: center;
+  text-transform: uppercase;
 }
 
-
-/* =========================================
-   4. LOGIN CARD
-========================================= */
+/* 05. LOGIN CARD */
 
 .login-shell {
+  width: min(100%, 1100px);
+  min-height: 610px;
+
   display: grid;
-
-  grid-template-columns:
-    minmax(0, 1.08fr)
-    minmax(0, 0.92fr);
-
-  width: 100%;
-  max-width: 1115px;
-
-  min-height: 630px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 
   overflow: hidden;
 
-  border: 1px solid rgba(53, 39, 31, .06);
-  border-radius: 24px;
-
-  background: var(--surface);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
 
   box-shadow: var(--shadow);
 }
 
+/* =====================================================
+   LEFT PANEL — KAMMARI BRANDING
+   ===================================================== */
 
-/* =========================================
-   5. LEFT PANEL — PHOTO
-========================================= */
+/* 06. PHOTO PANEL */
 
 .login-visual {
   position: relative;
-  isolation: isolate;
 
   min-width: 0;
-  min-height: 630px;
+  min-height: 610px;
 
   overflow: hidden;
+  isolation: isolate;
 
-  background: #8B7967;
+  background: #514137;
 }
 
-
-/* INTERIOR PHOTO */
+/* 07. PHOTO */
 
 .visual-image {
   position: absolute;
   inset: 0;
-
-  z-index: 0;
 
   display: block;
 
   width: 100%;
   height: 100%;
 
+  max-width: none;
+
   object-fit: cover;
-  object-position: center 48%;
+  object-position: center;
 }
 
-
-/* PHOTO OVERLAY */
+/* 08. PHOTO OVERLAY */
 
 .visual-overlay {
   position: absolute;
   inset: 0;
-
   z-index: 1;
 
   background: linear-gradient(
     180deg,
-    rgba(22, 16, 12, .16) 0%,
-    rgba(22, 16, 12, .18) 40%,
-    rgba(22, 16, 12, .26) 100%
+    rgba(33, 23, 18, 0.18) 0%,
+    rgba(33, 23, 18, 0.28) 50%,
+    rgba(33, 23, 18, 0.45) 100%
   );
+
+  pointer-events: none;
 }
 
-
-/* =========================================
-   6. KAMMARI BRANDING
-========================================= */
-
-/*
-  Logo sengaja diperbesar dan ditempatkan
-  di tengah foto.
-
-  Tidak ada tulisan CAFÉ & ROASTERY
-  tambahan di bawahnya.
-*/
+/* 09. BRAND CONTAINER */
 
 .visual-brand {
   position: absolute;
+  inset: 0;
   z-index: 2;
 
-  top: 48%;
-  left: 50%;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  width: 90%;
-  max-width: 620px;
+  padding: 30px;
 
-  text-align: center;
-
-  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
+/* 10. KAMMARI LOGO — WHITE SVG MASK */
 
-/* WORDMARK KAMMARI */
-
-.kammari-wordmark {
+.kammari-wordmark-mask {
   display: block;
 
-  width: 100%;
-  max-width: 540px;
+  width: min(100%, 420px);
+  height: 150px;
 
-  height: auto;
+  flex-shrink: 0;
 
-  object-fit: contain;
+  background-color: #ffffff;
 
-  /*
-    Bentuk logo asli dipertahankan.
-    Warna hitam diubah menjadi putih
-    agar terlihat di atas foto.
-  */
+  /* Lokasi SVG yang dapat diakses sebelum login */
+  -webkit-mask-image: url("/owner/css/assets/logo_kammari_mask.svg");
+  mask-image: url("/owner/css/assets/logo_kammari_mask.svg");
 
-  filter:
-    brightness(0)
-    invert(1)
-    drop-shadow(0 2px 10px rgba(0, 0, 0, .28));
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 
-  opacity: 1;
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  /* Mempertahankan transparansi SVG */
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
 }
 
-
-/* LOCATION */
+/* 11. LOCATION TEXT */
 
 .visual-location {
   position: absolute;
+
+  left: 35px;
+  right: 35px;
+  bottom: 32px;
+
   z-index: 2;
 
-  bottom: 28px;
-  left: 20px;
-  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 
-  color: rgba(255,255,255,.95);
+  color: var(--white);
 
   font-size: 10px;
-  font-weight: 600;
-
+  font-weight: 700;
   letter-spacing: 2px;
-  text-align: center;
+
+  text-transform: uppercase;
 }
 
-.visual-location span {
-  display: inline-block;
-  margin: 0 5px;
+.location-dot {
+  opacity: 0.65;
 }
 
+/* =====================================================
+   RIGHT PANEL — LOGIN FORM
+   ===================================================== */
 
-/* =========================================
-   7. RIGHT PANEL — LOGIN
-========================================= */
+/* 12. FORM PANEL */
 
 .login-panel {
-  display: flex;
+  min-width: 0;
 
+  display: flex;
   align-items: center;
   justify-content: center;
 
-  min-width: 0;
-  min-height: 630px;
+  padding: 65px 55px;
 
-  padding: 48px 42px;
-
-  background: var(--surface);
+  background: var(--white);
 }
 
-
-/* FORM CONTAINER */
+/* 13. FORM CONTAINER */
 
 .login-panel-inner {
   width: 100%;
-  max-width: 360px;
+  max-width: 365px;
+
+  margin-inline: auto;
 }
 
-
-/* =========================================
-   8. LOGIN HEADER
-========================================= */
+/* 14. LOGIN HEADER */
 
 .login-header {
-  margin-bottom: 38px;
+  margin: 0 0 38px;
 }
-
-
-/* SMALL EYEBROW */
 
 .form-eyebrow {
   margin: 0 0 15px;
 
-  color: var(--accent);
+  color: var(--coffee-light);
 
   font-size: 10px;
   font-weight: 700;
-
   letter-spacing: 2px;
+
+  text-transform: uppercase;
 }
-
-
-/* MAIN TITLE */
 
 .form-title {
   margin: 0 0 12px;
 
   color: var(--coffee);
 
-  font-family: var(--font-main);
-
-  font-size: 35px;
-  font-weight: 600;
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 700;
+  letter-spacing: -1.5px;
 
   line-height: 1.2;
-  letter-spacing: -1.4px;
 }
-
-
-/* SUBTITLE */
 
 .form-subtitle {
   margin: 0;
@@ -349,89 +292,80 @@ img {
 
   font-size: 13px;
   font-weight: 400;
-
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
-
-/* =========================================
-   9. LOGIN FORM
-========================================= */
+/* 15. LOGIN FORM */
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-
-  gap: 22px;
+  width: 100%;
+  margin: 0;
 }
 
-
-/* FORM FIELD */
+/* 16. FIELD GROUP */
 
 .field-group {
-  display: flex;
-  flex-direction: column;
-
-  gap: 10px;
+  margin: 0 0 21px;
 }
 
 .field-group label {
-  color: var(--text);
+  display: block;
+
+  margin: 0 0 9px;
+
+  color: var(--coffee);
 
   font-size: 12px;
-  font-weight: 600;
-
-  line-height: 1.4;
+  font-weight: 700;
 }
 
-
-/* INPUT */
+/* 17. INPUT FIELD */
 
 .field-group input {
   display: block;
 
   width: 100%;
-  height: 51px;
+  height: 49px;
 
-  padding: 0 16px;
+  padding: 0 15px;
 
   border: 1px solid var(--border);
   border-radius: 8px;
-
-  outline: none;
 
   background: var(--white);
   color: var(--coffee);
 
   font-size: 13px;
+  font-weight: 500;
+
+  outline: none;
 
   transition:
-    border-color .2s ease,
-    box-shadow .2s ease;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
-
-
-/* PLACEHOLDER */
 
 .field-group input::placeholder {
-  color: #AEA198;
-  opacity: 1;
+  color: #a59b93;
+  font-weight: 400;
 }
 
-
-/* INPUT FOCUS */
+.field-group input:hover {
+  border-color: #d7c9bd;
+}
 
 .field-group input:focus {
-  border-color: var(--accent);
+  border-color: var(--coffee-light);
 
-  box-shadow:
-    0 0 0 3px rgba(174, 118, 91, .10);
+  box-shadow: 0 0 0 3px rgba(169, 99, 70, 0.10);
 }
 
+.field-group input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
 
-/* =========================================
-   10. PASSWORD
-========================================= */
+/* 18. PASSWORD FIELD */
 
 .password-field {
   position: relative;
@@ -439,329 +373,284 @@ img {
 }
 
 .password-field input {
-  padding-right: 75px;
+  padding-right: 78px;
 }
 
-
-/* SHOW / HIDE BUTTON */
+/* 19. PASSWORD TOGGLE */
 
 .toggle-password {
   position: absolute;
 
   top: 50%;
-  right: 9px;
-
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  min-width: 54px;
-  height: 35px;
-
-  padding: 0 8px;
-
-  border: none;
-  border-radius: 6px;
-
-  background: transparent;
-
-  color: var(--accent);
-
-  font-size: 12px;
-  font-weight: 600;
+  right: 12px;
 
   transform: translateY(-50%);
 
-  transition: background .2s ease;
-}
-
-.toggle-password:hover {
-  background: #F5EEE8;
-}
-
-
-/* =========================================
-   11. LOGIN STATUS
-========================================= */
-
-.login-message {
-  margin: -8px 0 0;
-
-  color: #A34C3E;
-
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.login-message:empty {
-  display: none;
-}
-
-
-/* =========================================
-   12. LOGIN BUTTON
-========================================= */
-
-.login-button {
   display: flex;
-
   align-items: center;
   justify-content: center;
 
+  min-width: 46px;
+  min-height: 34px;
+
+  padding: 5px 7px;
+
+  border: 0;
+  border-radius: 5px;
+
+  background: transparent;
+  color: var(--coffee-light);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: var(--coffee);
+  background: rgba(169, 99, 70, 0.06);
+}
+
+.toggle-password:focus-visible {
+  outline: 2px solid var(--coffee-light);
+  outline-offset: 2px;
+}
+
+/* 20. LOGIN MESSAGE */
+
+.login-message {
+  margin: 0;
+
+  color: var(--danger);
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.login-message:not(:empty) {
+  margin: 0 0 16px;
+}
+
+.login-message.show {
+  display: block;
+}
+
+/* 21. LOGIN BUTTON */
+
+.login-button {
+  width: 100%;
+  height: 51px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
 
-  width: 100%;
-  min-height: 51px;
-
-  margin-top: 2px;
+  margin-top: 13px;
   padding: 0 20px;
 
-  border: 1px solid var(--coffee);
+  border: 0;
   border-radius: 8px;
 
   background: var(--coffee);
   color: var(--white);
 
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
 
   transition:
-    background .2s ease,
-    border-color .2s ease;
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.login-button:hover {
+.login-button:hover:not(:disabled) {
   background: var(--coffee-hover);
-  border-color: var(--coffee-hover);
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 15px rgba(56, 41, 31, 0.12);
+}
+
+.login-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-button:focus-visible {
+  outline: 2px solid var(--coffee-light);
+  outline-offset: 3px;
 }
 
 .login-button:disabled {
-  opacity: .6;
+  opacity: 0.65;
   cursor: not-allowed;
+  transform: none;
 }
 
 .login-button svg {
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
 }
 
-
-/* =========================================
-   13. FOOTER
-========================================= */
+/* 22. FORM FOOTER */
 
 .form-footer {
-  margin: 36px 0 0;
+  margin: 35px 0 0;
 
-  color: #A89B8F;
+  color: #a79c93;
 
   font-size: 11px;
+  font-weight: 400;
+
   text-align: center;
 }
 
-.copyright {
-  margin: 20px 0 0;
+/* 23. COPYRIGHT */
 
-  color: #A89B8F;
+.copyright {
+  margin-top: 20px;
+
+  color: #978b81;
 
   font-size: 10px;
   text-align: center;
 }
 
+/* =====================================================
+   RESPONSIVE — TABLET
+   ===================================================== */
 
-/* =========================================
-   14. ACCESSIBILITY
-========================================= */
-
-button:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-
-/* =========================================
-   15. LAPTOP / TABLET
-========================================= */
-
-@media (max-width: 1000px) {
+@media (max-width: 850px) {
 
   .login-shell {
-    grid-template-columns:
-      minmax(0, 1fr)
-      minmax(0, 1fr);
-
-    min-height: 580px;
+    grid-template-columns: 0.9fr 1.1fr;
+    min-height: 550px;
   }
 
-  .login-visual,
-  .login-panel {
-    min-height: 580px;
+  .login-visual {
+    min-height: 550px;
   }
 
   .login-panel {
-    padding: 40px 30px;
-  }
-
-  .form-title {
-    font-size: 31px;
+    padding: 45px 32px;
   }
 
   .visual-brand {
-    width: 88%;
+    padding: 24px;
   }
 
-  .kammari-wordmark {
-    max-width: 470px;
+  .kammari-wordmark-mask {
+    width: min(100%, 320px);
+    height: 115px;
   }
 }
 
+/* =====================================================
+   RESPONSIVE — MOBILE
+   ===================================================== */
 
-/* =========================================
-   16. TABLET PORTRAIT / MOBILE
-========================================= */
-
-@media (max-width: 760px) {
+@media (max-width: 650px) {
 
   .login-page {
     justify-content: flex-start;
-    padding: 25px 18px;
+    padding: 16px 14px 20px;
   }
 
   .page-label {
-    margin-bottom: 17px;
+    margin-bottom: 12px;
+    font-size: 9px;
+    letter-spacing: 2.5px;
   }
 
   .login-shell {
-    grid-template-columns:
-      minmax(0, 1fr);
-
-    max-width: 520px;
+    grid-template-columns: 1fr;
     min-height: auto;
-
-    border-radius: 18px;
+    border-radius: 15px;
   }
 
   .login-visual {
-    min-height: 260px;
-    height: 260px;
+    min-height: 210px;
+    height: 210px;
   }
 
   .visual-image {
-    object-position: center 48%;
+    object-position: center 45%;
   }
 
   .visual-brand {
-    width: 82%;
-    max-width: 420px;
-    top: 50%;
+    padding: 20px;
   }
 
-  .kammari-wordmark {
-    max-width: 360px;
+  .kammari-wordmark-mask {
+    width: min(85%, 270px);
+    height: 80px;
   }
 
   .visual-location {
-    bottom: 16px;
+    left: 22px;
+    right: 22px;
+    bottom: 18px;
+
+    gap: 8px;
     font-size: 9px;
+    letter-spacing: 1.5px;
   }
 
   .login-panel {
-    min-height: auto;
-    padding: 42px 35px;
-  }
-
-  .login-panel-inner {
-    max-width: 390px;
+    padding: 36px 27px 40px;
   }
 
   .login-header {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
   }
 
   .form-title {
-    font-size: 30px;
+    font-size: 32px;
   }
 
   .form-footer {
-    margin-top: 32px;
+    margin-top: 25px;
   }
 }
 
+/* =====================================================
+   RESPONSIVE — SMALL PHONE
+   ===================================================== */
 
-/* =========================================
-   17. SMALL MOBILE
-========================================= */
-
-@media (max-width: 480px) {
-
-  .login-page {
-    padding: 18px 14px;
-  }
-
-  .page-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-  }
-
-  .login-shell {
-    border-radius: 14px;
-  }
-
-  .login-visual {
-    height: 205px;
-    min-height: 205px;
-  }
-
-  .visual-brand {
-    width: 84%;
-    max-width: 320px;
-    top: 50%;
-  }
-
-  .kammari-wordmark {
-    max-width: 280px;
-  }
+@media (max-width: 380px) {
 
   .login-panel {
-    padding: 35px 25px 38px;
-  }
-
-  .form-eyebrow {
-    font-size: 9px;
+    padding-inline: 20px;
   }
 
   .form-title {
-    font-size: 28px;
-  }
-
-  .form-subtitle {
-    font-size: 12px;
-  }
-
-  .login-form {
-    gap: 20px;
+    font-size: 29px;
   }
 
   .field-group input {
-    height: 49px;
+    font-size: 12px;
   }
 
-  .form-footer {
-    margin-top: 30px;
+  .visual-location {
+    font-size: 8px;
   }
 }
 
-
-/* =========================================
-   18. REDUCED MOTION
-========================================= */
+/* =====================================================
+   ACCESSIBILITY
+   ===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
   *,
   *::before,
   *::after {
-    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

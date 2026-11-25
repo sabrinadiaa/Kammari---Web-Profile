@@ -1,992 +1,752 @@
 
-/* ===========================================
+/* ============================================
    KAMMARI OWNER PORTAL
-   MENU • EVENT • FACILITY
-
-   Shared Visual Design
-   Matches Owner Dashboard
-=========================================== */
-
-/* DESIGN SYSTEM */
+   UNIFIED DESIGN
+   MENU - EVENT - FASILITAS
+============================================ */
 
 :root {
-  --owner-coffee: #35271F;
-  --owner-coffee-hover: #49372C;
-
-  --owner-accent: #984015;
-  --owner-accent-hover: #7D3515;
-
-  --owner-bg: #F8F3ED;
-  --owner-white: #FFFCF8;
-  --owner-soft: #F5EBE2;
-  --owner-cream: #EDE1D5;
-
-  --owner-text: #35271F;
-  --owner-muted: #857468;
-  --owner-border: #E7DBCF;
-
-  --owner-sidebar: 238px;
-
-  --owner-font:
-    "Hanken Grotesk", Arial, sans-serif;
+  --ku-coffee: #35271F;
+  --ku-accent: #984015;
+  --ku-background: #F8F3ED;
+  --ku-surface: #FFFCF8;
+  --ku-cream: #F5EADF;
+  --ku-text: #35271F;
+  --ku-muted: #857468;
+  --ku-border: #E7DBCF;
+  --ku-sidebar-width: 238px;
 }
 
-/* GLOBAL */
+/* ============================================
+   RESET
+============================================ */
 
-*,
-*::before,
-*::after {
+body:has(.owner-layout) {
+  margin: 0;
+  background: var(--ku-background);
+  color: var(--ku-text);
+  font-family: "Hanken Grotesk", Arial, sans-serif;
+}
+
+.owner-layout,
+.owner-layout *,
+.owner-layout *::before,
+.owner-layout *::after {
   box-sizing: border-box;
 }
 
-html {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-
-  font-family: var(--owner-font);
-  background: var(--owner-bg);
-  color: var(--owner-text);
-
-  -webkit-font-smoothing: antialiased;
-}
-
-body,
-button,
-input,
-select,
-textarea {
-  font-family: var(--owner-font);
-}
-
-a {
-  text-decoration: none;
-}
-
-[hidden] {
-  display: none !important;
-}
-
-:focus-visible {
-  outline: 2px solid var(--owner-accent);
-  outline-offset: 2px;
-}
-
-/* ===========================================
-   APPLICATION LAYOUT
-=========================================== */
-
 .owner-layout {
-  display: grid;
-  grid-template-columns:
-    var(--owner-sidebar) minmax(0, 1fr);
-
-  width: 100%;
   min-height: 100vh;
-
-  background: var(--owner-bg);
 }
 
-.owner-layout > :not(.sidebar) {
-  min-width: 0;
+.owner-layout button,
+.owner-layout input,
+.owner-layout select,
+.owner-layout textarea {
+  font-family: "Hanken Grotesk", Arial, sans-serif;
 }
 
-.owner-layout :is(
-  .owner-main,
-  .main-content,
-  .main-wrapper,
-  .owner-main-content
-) {
-  min-width: 0;
-}
-
-/* ===========================================
-   SIDEBAR — MATCH DASHBOARD
-=========================================== */
+/* ============================================
+   SIDEBAR - SAMA SEPERTI DASHBOARD
+============================================ */
 
 .owner-layout .sidebar {
-  position: sticky;
-  top: 0;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  z-index: 100;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
 
-  width: var(--owner-sidebar);
-  height: 100vh;
-  height: 100dvh;
+  width: 238px !important;
+  height: 100vh !important;
+  height: 100dvh !important;
 
-  padding: 30px 18px 22px;
+  padding: 30px 18px 22px !important;
 
+  background: #35271F !important;
+  color: #F8F2EC !important;
+
+  border: none !important;
+  border-radius: 0 !important;
+
+  overflow-x: hidden;
   overflow-y: auto;
-
-  background: var(--owner-coffee);
-  color: #F8F2EC;
 }
 
-.owner-layout .sidebar-header {
-  margin: 0 11px 54px;
-  padding: 0;
-  border: 0;
+.owner-layout .sidebar-top,
+.owner-layout .sidebar-main,
+.owner-layout .sidebar-bottom {
+  width: 100%;
+  min-width: 0;
 }
 
-.owner-layout .sidebar-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
+/* ============================================
+   KAMMARI LOGO
+============================================ */
 
-  margin: 0 11px 54px;
+.owner-layout .sidebar .sidebar-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+
+  gap: 12px !important;
+
+  margin: 0 11px 55px !important;
+  padding: 0 !important;
+
+  border: none !important;
 }
 
-.owner-layout .sidebar-brand .brand-logo {
-  display: block;
-  width: 182px;
-  max-width: 100%;
-  height: auto;
+.owner-layout .sidebar .ku-brand-link {
+  display: block !important;
+  width: 182px !important;
+  max-width: 100% !important;
+  line-height: 0 !important;
+  text-decoration: none !important;
+}
 
-  object-fit: contain;
-  object-position: left;
+.owner-layout .sidebar .ku-brand-img {
+  display: block !important;
+
+  width: 182px !important;
+  max-width: 100% !important;
+
+  height: auto !important;
+  max-height: 58px !important;
+
+  object-fit: contain !important;
+  object-position: left center !important;
 
   filter:
     brightness(0)
     invert(94%)
     sepia(8%)
     saturate(250%)
-    hue-rotate(337deg);
+    hue-rotate(337deg) !important;
 }
 
-.owner-layout .sidebar-brand > span {
-  color: #D5BBAB;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 2.8px;
+.owner-layout .sidebar .ku-brand-subtitle {
+  display: block !important;
+
+  color: #D5BBAB !important;
+
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2.8px !important;
+  line-height: 1.5 !important;
 }
 
-.owner-layout .sidebar-label,
-.owner-layout .nav-section-label {
-  margin: 0 12px 15px;
+/* ============================================
+   MENU UTAMA
+============================================ */
 
-  color: #C6A994;
+.owner-layout .sidebar .sidebar-label {
+  margin: 0 12px 15px !important;
+  padding: 0 !important;
 
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1.9px;
+  color: #C6A994 !important;
+
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.9px !important;
 }
 
-.owner-layout .sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+/* ============================================
+   SIDEBAR NAVIGATION
+============================================ */
 
-  padding: 0;
-  margin: 0;
+.owner-layout .sidebar .sidebar-nav {
+  display: flex !important;
+  flex-direction: column !important;
+
+  gap: 6px !important;
+  width: 100% !important;
+
+  padding: 0 !important;
 }
 
-.owner-layout .sidebar-nav .nav-link {
-  display: flex;
-  align-items: center;
-  gap: 13px;
+.owner-layout .sidebar .sidebar-nav .nav-link {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
 
-  width: 100%;
-  min-height: 47px;
+  gap: 13px !important;
 
-  padding: 0 14px;
+  width: 100% !important;
+  min-height: 47px !important;
 
-  border: 0;
-  border-radius: 9px;
+  margin: 0 !important;
+  padding: 0 14px !important;
 
-  background: transparent;
-  color: #EBDDD2;
+  background: transparent !important;
+  color: #EBDDD2 !important;
 
-  font-size: 12px;
-  font-weight: 500;
+  border: none !important;
+  border-radius: 9px !important;
 
-  transition:
-    color .18s ease,
-    background .18s ease;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+
+  white-space: nowrap !important;
+  text-decoration: none !important;
 }
 
-.owner-layout .sidebar-nav .nav-link:hover {
-  background: rgba(255,255,255,.07);
-  color: #FFFFFF;
+/* ============================================
+   SIDEBAR ICON - FIX UKURAN
+============================================ */
+
+.owner-layout .sidebar .nav-link .nav-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+
+  flex: 0 0 18px !important;
+  overflow: hidden !important;
 }
 
-.owner-layout .sidebar-nav .nav-link.active {
-  background: #F5EADF;
-  color: var(--owner-coffee);
-  font-weight: 700;
+.owner-layout .sidebar .nav-icon svg {
+  display: block !important;
+
+  width: 18px !important;
+  height: 18px !important;
+
+  min-width: 18px !important;
+  max-width: 18px !important;
+
+  min-height: 18px !important;
+  max-height: 18px !important;
+
+  flex: none !important;
+
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.7 !important;
+
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
 }
 
-.owner-layout .nav-link svg {
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.owner-layout .sidebar .nav-icon svg path,
+.owner-layout .sidebar .nav-icon svg rect {
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.7 !important;
 }
 
-.owner-layout .sidebar-bottom,
-.owner-layout .sidebar-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* Hover */
 
-  margin-top: auto;
-  padding-top: 24px;
+.owner-layout .sidebar .nav-link:hover {
+  background: rgba(255,255,255,.07) !important;
+  color: #FFFFFF !important;
 }
 
-.owner-layout .back-dashboard {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Active */
 
-  width: 100%;
-  min-height: 44px;
-
-  padding: 0 14px;
-
-  border: 1px solid #6B5548;
-  border-radius: 9px;
-
-  background: transparent;
-  color: #FFFFFF;
-
-  font-size: 12px;
-  font-weight: 600;
+.owner-layout .sidebar .nav-link.active,
+.owner-layout .sidebar .nav-link[aria-current="page"] {
+  background: #F5EADF !important;
+  color: #35271F !important;
+  font-weight: 700 !important;
 }
 
-.owner-layout .back-dashboard:hover {
-  background: rgba(255,255,255,.07);
+/* ============================================
+   SIDEBAR FOOTER
+============================================ */
+
+.owner-layout .sidebar-bottom {
+  display: flex !important;
+  flex-direction: column !important;
+
+  gap: 16px !important;
+  margin-top: 28px !important;
 }
 
-/* ===========================================
+.owner-layout .sidebar-branch {
+  display: flex !important;
+  align-items: center !important;
+
+  gap: 9px !important;
+
+  margin: 0 !important;
+  padding: 0 12px !important;
+
+  color: #D3BAA7 !important;
+  font-size: 11px !important;
+}
+
+.owner-layout .branch-dot {
+  width: 7px !important;
+  height: 7px !important;
+
+  border-radius: 50% !important;
+  background: #C99578 !important;
+}
+
+.owner-layout .back-dashboard,
+.owner-layout .logout-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+
+  gap: 12px !important;
+
+  width: 100% !important;
+  min-height: 45px !important;
+
+  padding: 0 14px !important;
+
+  background: transparent !important;
+  color: #FFFFFF !important;
+
+  border: 1px solid #6B5548 !important;
+  border-radius: 9px !important;
+
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+
+.owner-layout .back-dashboard:hover,
+.owner-layout .logout-button:hover {
+  background: rgba(255,255,255,.07) !important;
+}
+
+/* ============================================
+   MAIN CONTENT
+============================================ */
+
+.owner-layout .main-wrapper {
+  width: calc(100% - 238px);
+  min-width: 0;
+  min-height: 100vh;
+
+  margin-left: 238px;
+
+  background: var(--ku-background);
+}
+
+/* ============================================
    TOPBAR
-=========================================== */
+============================================ */
 
 .owner-layout .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
 
-  width: 100%;
+  gap: 18px;
+
   min-height: 74px;
-  padding: 13px 38px;
+  padding: 13px 34px;
 
-  border-bottom: 1px solid var(--owner-border);
+  background: var(--ku-surface);
 
-  background: var(--owner-white);
+  border-bottom: 1px solid var(--ku-border);
   box-shadow: none;
 }
 
-.owner-layout .topbar :is(
-  h1,
-  h2,
-  .topbar-title
-) {
-  margin: 0;
-
-  color: var(--owner-coffee);
-
-  font-family: var(--owner-font);
-  font-size: 13px;
+.owner-layout .topbar-title {
+  color: var(--ku-text);
+  font-size: 12px;
   font-weight: 700;
 }
 
 .owner-layout .owner-indicator {
+  padding: 9px 13px;
+
+  background: #F2E1D5;
+  color: var(--ku-coffee);
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ============================================
+   PAGE CONTENT
+============================================ */
+
+.owner-layout .owner-content {
+  width: 100%;
+  max-width: 1440px;
+
+  margin: 0 auto;
+  padding: 34px 41px 42px;
+
+  background: transparent;
+}
+
+.owner-layout .page-heading {
+  margin: 0 0 26px;
+}
+
+.owner-layout .page-heading .eyebrow {
+  margin: 0 0 8px;
+
+  color: var(--ku-accent);
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+
+.owner-layout .page-heading h1,
+.owner-layout .page-heading h2 {
+  margin: 0 0 8px;
+
+  color: var(--ku-coffee);
+
+  font-size: 29px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.owner-layout .page-description {
+  color: var(--ku-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ============================================
+   TOOLBAR
+============================================ */
+
+.owner-layout .menu-toolbar,
+.owner-layout .event-toolbar,
+.owner-layout .facility-toolbar {
+  margin-bottom: 24px;
+  padding: 20px 22px;
+
+  background: var(--ku-surface);
+
+  border: 1px solid var(--ku-border);
+  border-radius: 12px;
+
+  box-shadow: none;
+}
+
+.owner-layout .menu-toolbar label,
+.owner-layout .event-toolbar label,
+.owner-layout .facility-toolbar label {
+  color: var(--ku-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.owner-layout .menu-toolbar input,
+.owner-layout .menu-toolbar select,
+.owner-layout .event-toolbar input,
+.owner-layout .event-toolbar select,
+.owner-layout .facility-toolbar input,
+.owner-layout .facility-toolbar select {
+  min-height: 43px;
+
+  border: 1px solid var(--ku-border);
+  border-radius: 8px;
+
+  background: #FFFFFF;
+  color: var(--ku-text);
+
+  font-size: 13px;
+}
+
+/* ============================================
+   FORM TAMBAH / EDIT
+============================================ */
+
+.owner-layout #addMenuSection,
+.owner-layout #eventFormSection,
+.owner-layout #facilityFormSection {
+  background: var(--ku-surface);
+
+  border: 1px solid var(--ku-border);
+  border-radius: 12px;
+
+  box-shadow: none;
+}
+
+/* ============================================
+   SECTION HEADING
+============================================ */
+
+.owner-layout .table-heading,
+.owner-layout .section-heading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.owner-layout .table-heading h2,
+.owner-layout .table-heading h3,
+.owner-layout .section-heading h2,
+.owner-layout .section-heading h3 {
+  margin: 0;
+
+  color: var(--ku-coffee);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.owner-layout .menu-count,
+.owner-layout #eventCount,
+.owner-layout #facilityCount {
+  color: var(--ku-muted);
+  font-size: 12px;
+}
+
+/* ============================================
+   CRUD TABLE - COMPACT DESIGN
+============================================ */
+
+.owner-layout .table-container {
+  width: 100% !important;
+
+  padding: 0 !important;
+
+  overflow-x: auto !important;
+
+  background: var(--ku-surface) !important;
+
+  border: 1px solid var(--ku-border) !important;
+  border-radius: 12px !important;
+
+  box-shadow: none !important;
+}
+
+/* Table */
+
+.owner-layout table:has(> tbody#menu-table-body),
+.owner-layout table:has(> tbody#eventTableBody),
+.owner-layout table:has(> tbody#facilityTableBody) {
+  display: table !important;
+
+  width: 100% !important;
+  min-width: 650px;
+
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+
+  table-layout: auto !important;
+
+  background: var(--ku-surface);
+}
+
+/* Table Header */
+
+.owner-layout table:has(> tbody#menu-table-body) thead,
+.owner-layout table:has(> tbody#eventTableBody) thead,
+.owner-layout table:has(> tbody#facilityTableBody) thead {
+  display: table-header-group !important;
+  background: var(--ku-cream) !important;
+}
+
+.owner-layout .table-container th {
+  padding: 15px 18px !important;
+
+  color: #735D50 !important;
+
+  border-bottom: 1px solid var(--ku-border) !important;
+
+  font-size: 11px !important;
+  font-weight: 700 !important;
+
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* Table Body */
+
+.owner-layout #menu-table-body,
+.owner-layout #eventTableBody,
+.owner-layout #facilityTableBody {
+  display: table-row-group !important;
+  width: auto !important;
+}
+
+/* Rows */
+
+.owner-layout #menu-table-body > tr,
+.owner-layout #eventTableBody > tr,
+.owner-layout #facilityTableBody > tr {
+  display: table-row !important;
+
+  min-height: 0 !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  background: var(--ku-surface);
+
+  border: none !important;
+  border-radius: 0 !important;
+
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Hover */
+
+.owner-layout #menu-table-body > tr:hover,
+.owner-layout #eventTableBody > tr:hover,
+.owner-layout #facilityTableBody > tr:hover {
+  background: #FBF6F0;
+}
+
+/* Cells */
+
+.owner-layout #menu-table-body > tr > td,
+.owner-layout #eventTableBody > tr > td,
+.owner-layout #facilityTableBody > tr > td {
+  display: table-cell !important;
+
+  padding: 15px 18px !important;
+  margin: 0 !important;
+
+  background: transparent !important;
+  color: var(--ku-text) !important;
+
+  border: none !important;
+  border-bottom: 1px solid var(--ku-border) !important;
+
+  font-size: 13px !important;
+  line-height: 1.5;
+
+  vertical-align: middle !important;
+}
+
+/* Nama Data */
+
+.owner-layout #menu-table-body > tr > td:first-child,
+.owner-layout #eventTableBody > tr > td:first-child,
+.owner-layout #facilityTableBody > tr > td:first-child {
+  font-weight: 700 !important;
+}
+
+/* Hapus label mode card */
+
+.owner-layout #menu-table-body > tr > td::before,
+.owner-layout #eventTableBody > tr > td::before,
+.owner-layout #facilityTableBody > tr > td::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Tombol Aksi */
+
+.owner-layout #menu-table-body td:last-child,
+.owner-layout #eventTableBody td:last-child,
+.owner-layout #facilityTableBody td:last-child {
+  display: table-cell !important;
+
+  padding: 14px 18px !important;
+
+  white-space: nowrap;
+  border-top: none !important;
+}
+
+.owner-layout #menu-table-body td:last-child button,
+.owner-layout #eventTableBody td:last-child button,
+.owner-layout #facilityTableBody td:last-child button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  padding: 8px 15px;
+  min-height: 34px;
 
-  border: 1px solid var(--owner-border);
-  border-radius: 999px;
+  margin: 3px 5px 3px 0;
+  padding: 6px 12px;
 
-  background: var(--owner-soft);
-  color: var(--owner-coffee);
-
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* ===========================================
-   CONTENT SPACING
-=========================================== */
-
-.owner-layout :is(
-  .owner-content,
-  .main-content,
-  .page-content
-) {
-  width: 100%;
-  max-width: 1480px;
-
-  margin-inline: auto;
-  padding: 35px 42px 48px;
-
-  background: transparent;
-}
-
-.owner-layout :is(
-  .owner-content,
-  .main-content,
-  .page-content
-) > * {
-  min-width: 0;
-}
-
-/* ===========================================
-   PAGE HEADINGS
-=========================================== */
-
-.owner-layout .page-heading {
-  margin: 0 0 27px;
-}
-
-.owner-layout .page-heading :is(
-  .eyebrow,
-  .page-eyebrow,
-  .overline
-) {
-  display: block;
-
-  margin-bottom: 9px;
-
-  color: var(--owner-accent);
-
-  font-family: var(--owner-font);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.8px;
-}
-
-.owner-layout .page-heading :is(h1, h2) {
-  margin: 0;
-
-  font-family: var(--owner-font);
-  font-size: clamp(26px, 2.2vw, 32px);
-  font-weight: 700;
-
-  line-height: 1.2;
-  letter-spacing: -.8px;
-
-  color: var(--owner-coffee);
-}
-
-.owner-layout .page-heading p {
-  margin: 8px 0 0;
-
-  color: var(--owner-muted);
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-/* ===========================================
-   TOOLBARS
-=========================================== */
-
-.owner-layout :is(
-  .menu-toolbar,
-  .event-toolbar,
-  .facility-toolbar
-) {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  gap: 15px;
-
-  width: 100%;
-  margin-bottom: 30px;
-  padding: 20px 23px;
-
-  border: 1px solid var(--owner-border);
-  border-radius: 12px;
-
-  background: var(--owner-white);
-  box-shadow: none;
-}
-
-.owner-layout :is(
-  .menu-toolbar,
-  .event-toolbar,
-  .facility-toolbar
-) label {
-  display: block;
-  margin: 0 0 8px;
-
-  color: var(--owner-text);
-
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.owner-layout :is(
-  .menu-toolbar,
-  .event-toolbar,
-  .facility-toolbar
-) :is(input, select) {
-  height: 43px;
-  min-width: 0;
-
-  padding: 0 13px;
-
-  border: 1px solid var(--owner-border);
-  border-radius: 8px;
-
-  background: #FFFFFF;
-  color: var(--owner-text);
-
-  font-size: 12px;
-  box-shadow: none;
-}
-
-.owner-layout :is(
-  .menu-toolbar,
-  .event-toolbar,
-  .facility-toolbar
-) :is(input, select):focus {
-  border-color: var(--owner-accent);
-  outline: none;
-}
-
-/* Toolbar buttons */
-
-.owner-layout :is(
-  #addMenuButton,
-  #addEventButton,
-  #addFacilityButton
-) {
-  min-height: 43px;
-  padding: 0 17px;
-
-  border: 1px solid var(--owner-accent);
-  border-radius: 8px;
-
-  background: var(--owner-accent);
-  color: #FFFFFF;
-
-  font-size: 12px;
-  font-weight: 700;
-
-  white-space: nowrap;
-  box-shadow: none;
-}
-
-.owner-layout :is(
-  #addMenuButton,
-  #addEventButton,
-  #addFacilityButton
-):hover {
-  background: var(--owner-accent-hover);
-  border-color: var(--owner-accent-hover);
-}
-
-/* ===========================================
-   SECTION HEADINGS
-=========================================== */
-
-.owner-layout :is(
-  .table-heading,
-  .list-heading,
-  .section-heading,
-  .menu-list-heading,
-  .event-list-heading,
-  .facility-list-heading
-) {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 12px;
-
-  margin-bottom: 17px;
-}
-
-.owner-layout :is(
-  .table-heading,
-  .list-heading,
-  .section-heading,
-  .menu-list-heading,
-  .event-list-heading,
-  .facility-list-heading
-) :is(h2, h3) {
-  margin: 0;
-
-  color: var(--owner-coffee);
-  font-family: var(--owner-font);
-
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -.4px;
-}
-
-.owner-layout :is(
-  #menuCount,
-  #eventCount,
-  #facilityCount
-) {
-  color: var(--owner-muted);
-  font-size: 11px;
-  font-weight: 400;
-}
-
-/* ===========================================
-   LISTS — CARD PRESENTATION
-
-   Table elements are preserved so
-   the existing CRUD JavaScript still
-   works with tbody rows and buttons.
-=========================================== */
-
-.owner-layout table:has(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) {
-  display: block;
-
-  width: 100%;
-  margin: 0;
-
-  border: 0;
-  border-collapse: separate;
-  background: transparent;
-}
-
-.owner-layout table:has(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) thead {
-  display: none;
-}
-
-/* Two-column card grid */
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 14px;
-
-  width: 100%;
-  padding: 0;
-}
-
-/* Each dynamic table row becomes a card */
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) tr {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 10px;
-
-  min-width: 0;
-  margin: 0;
-  padding: 20px 21px;
-
-  border: 1px solid var(--owner-border);
-  border-radius: 12px;
-
-  background: var(--owner-white);
-  box-shadow: none;
-
-  transition:
-    border-color .18s ease,
-    background .18s ease;
-}
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) tr:hover {
-  border-color: #D7C0B1;
-  background: #FFFEFC;
-}
-
-/* Remove traditional table cell styling */
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) td {
-  display: block;
-
-  width: 100%;
-  min-width: 0;
-  height: auto;
-
-  padding: 0;
-  margin: 0;
-
-  border: 0;
-  background: transparent;
-
-  color: var(--owner-text);
-  font-size: 12px;
-  line-height: 1.6;
-
-  overflow-wrap: anywhere;
-}
-
-/* First column: card title */
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) td:first-child {
-  margin-bottom: 4px;
-
-  color: var(--owner-coffee);
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-/* Other columns: compact detail rows */
-
-.owner-layout :is(
-  #eventTableBody,
-  #facilityTableBody
-) td:not(:first-child) {
-  color: #6F5E52;
-}
-
-/* Card meta labels */
-
-.owner-layout #menu-table-body
-td:nth-child(2)::before {
-  content: "Harga";
-}
-
-.owner-layout #eventTableBody
-td:nth-child(2)::before {
-  content: "Cabang";
-}
-
-.owner-layout #eventTableBody
-td:nth-child(3)::before {
-  content: "Jadwal";
-}
-
-.owner-layout #eventTableBody
-td:nth-child(4)::before {
-  content: "Status";
-}
-
-.owner-layout #facilityTableBody
-td:nth-child(2)::before {
-  content: "Cabang";
-}
-
-.owner-layout #facilityTableBody
-td:nth-child(3)::before {
-  content: "Jenis";
-}
-
-.owner-layout #facilityTableBody
-td:nth-child(4)::before {
-  content: "Status";
-}
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) td::before {
-  display: block;
-  margin-bottom: 4px;
-
-  color: var(--owner-muted);
-  font-size: 10px;
-  font-weight: 600;
-}
-
-/* Price input */
-
-.owner-layout #menu-table-body
-input {
-  width: min(100%, 180px);
-  height: 40px;
-
-  padding: 0 12px;
-
-  border: 1px solid var(--owner-border);
-  border-radius: 8px;
-
-  background: #FFFFFF;
-  color: var(--owner-coffee);
-
-  font-size: 13px;
-}
-
-/* Action row at card bottom */
-
-.owner-layout #menu-table-body
-td:last-child,
-.owner-layout #eventTableBody
-td:last-child,
-.owner-layout #facilityTableBody
-td:last-child {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-
-  margin-top: auto;
-  padding-top: 14px;
-
-  border-top: 1px solid var(--owner-border);
-}
-
-/* Buttons within cards */
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) button {
-  min-height: 36px;
-  padding: 0 13px;
-
-  border: 1px solid var(--owner-border);
   border-radius: 7px;
 
-  background: #FFFFFF;
-  color: var(--owner-coffee);
-
   font-size: 11px;
-  font-weight: 600;
-
-  box-shadow: none;
-  cursor: pointer;
-
-  transition:
-    background .18s ease,
-    border-color .18s ease;
-}
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) button:hover {
-  background: var(--owner-soft);
-}
-
-/* Existing primary/save buttons */
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) :is(
-  .save-btn,
-  .btn-save,
-  .save-button,
-  .btn-primary,
-  .primary-button
-) {
-  background: var(--owner-accent);
-  border-color: var(--owner-accent);
-  color: #FFFFFF;
-}
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) :is(
-  .save-btn,
-  .btn-save,
-  .save-button,
-  .btn-primary,
-  .primary-button
-):hover {
-  background: var(--owner-accent-hover);
-}
-
-/* Delete or cancel buttons */
-
-.owner-layout :is(
-  #menu-table-body,
-  #eventTableBody,
-  #facilityTableBody
-) :is(
-  .delete-btn,
-  .btn-delete,
-  .delete-button,
-  .cancel-btn,
-  .btn-danger,
-  .danger-button
-) {
-  background: #FCF3F0;
-  border-color: #EED9D2;
-  color: #A04731;
-}
-
-/* Status badges */
-
-.owner-layout :is(
-  #eventTableBody,
-  #facilityTableBody
-) :is(
-  .status-badge,
-  .badge,
-  .status-pill
-) {
-  display: inline-flex;
-  align-items: center;
-
-  min-height: 26px;
-  padding: 4px 10px;
-
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* ===========================================
-   ADD / EDIT FORMS
-=========================================== */
-
-.owner-layout :is(
-  #addMenuSection,
-  #eventFormSection,
-  #facilityFormSection
-) {
-  width: 100%;
-  margin: 0 0 28px;
-  padding: 27px;
-
-  border: 1px solid var(--owner-border);
-  border-radius: 12px;
-
-  background: var(--owner-white);
-  box-shadow: none;
-}
-
-.owner-layout :is(
-  #addMenuSection,
-  #eventFormSection,
-  #facilityFormSection
-) :is(h2, h3) {
-  color: var(--owner-coffee);
-
-  font-family: var(--owner-font);
-  font-size: 20px;
   font-weight: 700;
+
+  box-shadow: none;
 }
 
-.owner-layout :is(
-  #addMenuSection,
-  #eventFormSection,
-  #facilityFormSection
-) label {
-  color: var(--owner-text);
-  font-size: 12px;
-  font-weight: 600;
+/* Input Harga */
+
+.owner-layout #menu-table-body input[type="number"] {
+  width: 120px !important;
+  min-height: 38px;
+
+  padding: 6px 10px;
+
+  background: #FFFFFF;
+  color: var(--ku-text);
+
+  border: 1px solid var(--ku-border);
+  border-radius: 7px;
 }
 
-.owner-layout :is(
-  #addMenuSection,
-  #eventFormSection,
-  #facilityFormSection
-) :is(
-  input,
-  select,
-  textarea
-) {
-  max-width: 100%;
+/* Loading / Empty */
 
-  border: 1px solid var(--owner-border);
+.owner-layout #menu-table-body tr:has(td[colspan]),
+.owner-layout #eventTableBody tr:has(td[colspan]),
+.owner-layout #facilityTableBody tr:has(td[colspan]) {
+  display: table-row !important;
+}
+
+.owner-layout td[colspan] {
+  padding: 24px !important;
+  text-align: center;
+  color: var(--ku-muted);
+}
+
+/* ============================================
+   MOBILE SIDEBAR BUTTON
+============================================ */
+
+.owner-layout .ku-mobile-toggle {
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  padding: 0;
+
+  background: var(--ku-surface);
+  color: var(--ku-coffee);
+
+  border: 1px solid var(--ku-border);
   border-radius: 8px;
 
-  background: #FFFFFF;
-  color: var(--owner-text);
-
-  font-size: 13px;
-  box-shadow: none;
+  font-size: 21px;
+  cursor: pointer;
 }
 
-.owner-layout :is(
-  #addMenuSection,
-  #eventFormSection,
-  #facilityFormSection
-) :is(input,select) {
-  min-height: 42px;
-}
-
-.owner-layout :is(
-  #addMenuSection,
-  #eventFormSection,
-  #facilityFormSection
-) textarea {
-  min-height: 110px;
-  padding: 12px 14px;
-  resize: vertical;
-}
-
-/* ===========================================
+/* ============================================
    RESPONSIVE
-=========================================== */
+============================================ */
 
 @media (max-width: 1100px) {
-  .owner-layout :is(
-    .owner-content,
-    .main-content,
-    .page-content
-  ) {
-    padding: 30px 27px 40px;
+  .owner-layout .owner-content {
+    padding: 28px 24px;
   }
 }
 
-@media (max-width: 950px) {
-  .owner-layout :is(
-    #menu-table-body,
-    #eventTableBody,
-    #facilityTableBody
-  ) {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 900px) {
-  .owner-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
+@media (max-width: 800px) {
   .owner-layout .sidebar {
-    position: fixed;
-    inset: 0 auto 0 0;
-    z-index: 100;
-
     transform: translateX(-100%);
-    transition: transform .25s ease;
-
-    box-shadow: 12px 0 28px rgba(0,0,0,.12);
+    transition: transform .22s ease;
   }
 
   .owner-layout .sidebar.open,
@@ -994,467 +754,747 @@ td:last-child {
     transform: translateX(0);
   }
 
-  .owner-layout .topbar {
-    padding: 14px 24px;
+  .owner-layout .main-wrapper {
+    width: 100%;
+    margin-left: 0;
   }
 
-  .owner-layout :is(
-    .owner-content,
-    .main-content,
-    .page-content
-  ) {
-    padding: 27px 24px 36px;
+  .owner-layout .topbar {
+    padding: 14px 18px;
+    justify-content: flex-start;
+  }
+
+  .owner-layout .owner-content {
+    padding: 25px 17px;
+  }
+
+  .owner-layout .ku-mobile-toggle {
+    display: inline-flex;
+  }
+
+  .owner-layout .owner-indicator {
+    margin-left: auto;
   }
 }
 
-@media (max-width: 600px) {
-  .owner-layout :is(
-    .owner-content,
-    .main-content,
-    .page-content
-  ) {
-    padding: 22px 16px 30px;
+@media (max-width: 500px) {
+  .owner-layout .page-heading h2 {
+    font-size: 27px;
   }
 
-  .owner-layout .page-heading :is(h1,h2) {
-    font-size: 26px;
-  }
-
-  .owner-layout :is(
-    .menu-toolbar,
-    .event-toolbar,
-    .facility-toolbar
-  ) {
-    padding: 17px;
-    gap: 13px;
-  }
-
-  .owner-layout :is(
-    .menu-toolbar,
-    .event-toolbar,
-    .facility-toolbar
-  ) > * {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .owner-layout :is(
-    .menu-toolbar,
-    .event-toolbar,
-    .facility-toolbar
-  ) :is(input,select,button) {
-    width: 100%;
-  }
-
-  .owner-layout :is(
-    #menu-table-body,
-    #eventTableBody,
-    #facilityTableBody
-  ) tr {
-    padding: 17px;
-  }
-
-  .owner-layout :is(
-    #addMenuSection,
-    #eventFormSection,
-    #facilityFormSection
-  ) {
-    padding: 19px;
+  .owner-layout .menu-toolbar,
+  .owner-layout .event-toolbar,
+  .owner-layout .facility-toolbar {
+    padding: 16px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition-duration: .01ms !important;
+  .owner-layout * {
+    transition: none !important;
   }
 }
 
+/* =========================================================
+   FINAL FIX - SIDEBAR + CRUD FONT + BUTTON COLOR
+========================================================= */
 
-/* ACTIVE NAVIGATION PER PAGE */
-
-body:has(#menu-table-body)
-.sidebar-nav a[href="/owner/menu.html"],
-
-body:has(#eventTableBody)
-.sidebar-nav a[href="/owner/event.html"],
-
-body:has(#facilityTableBody)
-.sidebar-nav a[href="/owner/facility.html"] {
-  background: #F5EADF;
-  color: #35271F;
-  font-weight: 700;
-}
-
-/* TABLET: navigasi tetap dapat diakses
-   tanpa bergantung pada toggle JavaScript */
-
-@media (max-width: 900px) {
-  .owner-layout .sidebar {
-    position: relative;
-    inset: auto;
-
-    width: 100%;
-    height: auto;
-
-    padding: 18px;
-    transform: none !important;
-    box-shadow: none;
-  }
-
-  .owner-layout .sidebar-brand {
-    margin-bottom: 18px;
-  }
-
-  .owner-layout .sidebar-nav {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .owner-layout .sidebar-nav .nav-link {
-    width: auto;
-  }
-
-  .owner-layout .sidebar-bottom {
-    display: none;
-  }
-}
-
-
-/* ==========================================
-   KAMMARI OWNER
-   SHARED SIDEBAR — MATCH DASHBOARD
-========================================== */
-
-:root {
-  --owner-sidebar-width: 238px;
-  --owner-sidebar-bg: #35271F;
-  --owner-sidebar-active: #F5EADF;
-  --owner-accent: #984015;
-}
-
-/* LAYOUT — MENGHINDARI DOUBLE OFFSET */
-
-.owner-layout {
-  display: grid !important;
-
-  grid-template-columns:
-    var(--owner-sidebar-width)
-    minmax(0, 1fr) !important;
-
-  width: 100%;
-  min-height: 100vh;
-}
-
-/* Hilangkan margin kiri lama pada wrapper konten */
-.owner-layout > :not(.sidebar) {
-  grid-column: 2;
-
-  width: 100% !important;
-  min-width: 0;
-
-  margin-left: 0 !important;
-}
-
-/* SIDEBAR UTAMA */
-
+/* --------- SIDEBAR --------- */
 .owner-layout .sidebar {
-  position: sticky;
-  top: 0;
-  left: 0;
-
-  grid-column: 1;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  width: var(--owner-sidebar-width);
-  height: 100vh;
-  height: 100dvh;
-
-  margin: 0;
-  padding: 30px 18px 22px;
-
-  background: var(--owner-sidebar-bg);
-  color: #F8F2EC;
-
-  overflow-y: auto;
-  transform: none;
+  width: 250px !important;
+  padding: 22px 18px 20px !important;
+  background: #35271F !important;
+  color: #F8F2EC !important;
+  overflow-x: hidden !important;
 }
 
-/* BRAND KAMMARI */
-
-.owner-layout .sidebar-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-
-  margin: 0 11px 55px;
-  padding: 0;
+.owner-layout .main-wrapper {
+  width: calc(100% - 250px) !important;
+  margin-left: 250px !important;
 }
 
-.owner-layout .sidebar-brand .brand-logo {
-  display: block;
-
-  width: 182px;
-  max-width: 100%;
-  height: auto;
-
-  object-fit: contain;
-  object-position: left center;
-
-  filter:
-    brightness(0)
-    invert(94%)
-    sepia(8%)
-    saturate(250%)
-    hue-rotate(337deg);
+/* hide title kecil di paling atas biar ga double */
+.owner-layout .topbar-title {
+  display: none !important;
 }
 
-.owner-layout .sidebar-brand > span {
-  color: #D5BBAB;
-
-  font-family: "Hanken Grotesk", Arial, sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 2.8px;
+.owner-layout .sidebar .ku-brand-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  margin: 0 10px 48px !important;
 }
 
-/* JUDUL NAVIGASI */
-
-.owner-layout .sidebar-label {
-  margin: 0 12px 15px;
-  padding: 0;
-
-  color: #C6A994;
-
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1.9px;
+.owner-layout .sidebar .ku-brand-link {
+  display: block !important;
+  width: 190px !important;
+  max-width: 100% !important;
+  text-decoration: none !important;
+  line-height: 0 !important;
 }
 
-/* NAVIGASI */
-
-.owner-layout .sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-
-  width: 100%;
-  margin: 0;
-  padding: 0;
+.owner-layout .sidebar .ku-brand-logo {
+  display: block !important;
+  width: 190px !important;
+  max-width: 100% !important;
+  height: 52px !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+  filter: brightness(0) invert(95%) !important;
 }
 
-.owner-layout .sidebar-nav .nav-link {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-
-  width: 100%;
-  min-height: 47px;
-
-  padding: 0 14px;
-  margin: 0;
-
-  border: 0;
-  border-radius: 9px;
-
-  background: transparent;
-  color: #EBDDD2;
-
-  font-family: "Hanken Grotesk", Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  text-decoration: none;
-
-  transition:
-    background .18s ease,
-    color .18s ease;
+.owner-layout .sidebar .ku-brand-subtitle {
+  display: block !important;
+  color: #D9B8A1 !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 3px !important;
 }
 
-.owner-layout .sidebar-nav .nav-link svg,
-.owner-layout .back-dashboard svg {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.owner-layout .sidebar .ku-menu-label {
+  display: block !important;
+  margin: 0 12px 15px !important;
+  color: #C9AA95 !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
 }
 
-.owner-layout .sidebar-nav .nav-link:hover {
-  background: rgba(255,255,255,.07);
-  color: #FFFFFF;
+.owner-layout .sidebar .ku-sidebar-nav {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
 }
 
-/* MENU AKTIF BERDASARKAN ID HALAMAN */
-
-body:has(#menu-table-body)
-.owner-layout .sidebar-nav
-a[href="/owner/menu.html"],
-
-body:has(#eventTableBody)
-.owner-layout .sidebar-nav
-a[href="/owner/event.html"],
-
-body:has(#facilityTableBody)
-.owner-layout .sidebar-nav
-a[href="/owner/facility.html"] {
-  background: var(--owner-sidebar-active);
-  color: var(--owner-sidebar-bg);
-  font-weight: 700;
+.owner-layout .sidebar .ku-nav-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  min-height: 48px !important;
+  padding: 0 14px !important;
+  border-radius: 10px !important;
+  color: #F2E5DC !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
 }
 
-/* FOOTER SIDEBAR */
-
-.owner-layout .sidebar-bottom {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  margin-top: auto;
-  padding-top: 30px;
+.owner-layout .sidebar .ku-nav-link:hover {
+  background: rgba(255,255,255,.06) !important;
+  color: #FFFFFF !important;
 }
 
-.owner-layout .sidebar-branch {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-
-  margin: 0;
-  padding: 0 12px;
-
-  color: #D3BAA7;
-  font-size: 11px;
+.owner-layout .sidebar .ku-nav-link.active {
+  background: #F5EADF !important;
+  color: #35271F !important;
 }
 
-.owner-layout .branch-dot {
-  display: block;
-  width: 7px;
-  height: 7px;
-  flex-shrink: 0;
-
-  border-radius: 50%;
-  background: #C99578;
+.owner-layout .sidebar .ku-nav-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 18px !important;
+  height: 18px !important;
+  flex: 0 0 18px !important;
 }
 
-/* TOMBOL KEMBALI */
-
-.owner-layout .back-dashboard {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-
-  width: 100%;
-  min-height: 45px;
-
-  padding: 0 14px;
-  margin: 0;
-
-  border: 1px solid #6B5548;
-  border-radius: 9px;
-
-  background: transparent;
-  color: #FFFFFF;
-
-  font-family: "Hanken Grotesk", Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-
-  text-decoration: none;
+.owner-layout .sidebar .ku-nav-icon svg {
+  width: 18px !important;
+  height: 18px !important;
+  display: block !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
 }
 
-.owner-layout .back-dashboard:hover {
-  background: rgba(255,255,255,.07);
+.owner-layout .sidebar .ku-nav-icon svg rect,
+.owner-layout .sidebar .ku-nav-icon svg path {
+  fill: none !important;
+  stroke: currentColor !important;
 }
 
-.owner-layout .sidebar-copyright {
-  color: #B09A8A;
-  font-size: 10px;
-  text-align: center;
+.owner-layout .sidebar .ku-sidebar-bottom {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  margin-top: 28px !important;
 }
 
-/* KONTEN HALAMAN — SPACING */
-
-.owner-layout :is(
-  .owner-content,
-  .main-content,
-  .page-content
-) {
-  width: 100%;
-  max-width: 1440px;
-
-  margin-inline: auto;
-  padding: 34px 42px 42px;
+.owner-layout .sidebar .ku-branches {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+  color: #D5BAA7 !important;
+  font-size: 12px !important;
 }
 
-/* TABLET / MOBILE */
+.owner-layout .sidebar .ku-branch-dot {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: #D29A78 !important;
+}
 
-@media (max-width: 900px) {
-  .owner-layout {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
+.owner-layout .sidebar .ku-logout-btn {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  min-height: 46px !important;
+  padding: 0 14px !important;
+  background: transparent !important;
+  color: #FFFFFF !important;
+  border: 1px solid #70584B !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+}
 
+.owner-layout .sidebar .ku-logout-btn:hover {
+  background: rgba(255,255,255,.06) !important;
+}
+
+.owner-layout .sidebar .ku-sidebar-copy {
+  display: block !important;
+  text-align: center !important;
+  color: #B39C8B !important;
+  font-size: 10px !important;
+}
+
+/* --------- FONT CRUD SAMAKAN DASHBOARD --------- */
+.owner-layout,
+.owner-layout input,
+.owner-layout select,
+.owner-layout textarea,
+.owner-layout button,
+.owner-layout .owner-content,
+.owner-layout .table-container,
+.owner-layout table,
+.owner-layout th,
+.owner-layout td {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+}
+
+.owner-layout .page-heading h1,
+.owner-layout .page-heading h2,
+.owner-layout .table-heading h2,
+.owner-layout .section-heading h2 {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: #2F221B !important;
+}
+
+/* --------- TOMBOL CRUD --------- */
+.owner-layout button.ku-btn-save {
+  background: #2E8B57 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #2E8B57 !important;
+}
+
+.owner-layout button.ku-btn-save:hover {
+  background: #267349 !important;
+  border-color: #267349 !important;
+}
+
+.owner-layout button.ku-btn-edit {
+  background: #FFF8F2 !important;
+  color: #5B3B2C !important;
+  border: 1px solid #DCC8BA !important;
+}
+
+.owner-layout button.ku-btn-edit:hover {
+  background: #F4E9DE !important;
+}
+
+.owner-layout button.ku-btn-delete {
+  background: #FFF9F8 !important;
+  color: #C35A4B !important;
+  border: 1px solid #E8C5BF !important;
+}
+
+.owner-layout button.ku-btn-delete:hover {
+  background: #FDEEEB !important;
+}
+
+.owner-layout button.ku-btn-add {
+  background: #4A3126 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #4A3126 !important;
+}
+
+.owner-layout button.ku-btn-add:hover {
+  background: #3B271E !important;
+}
+
+/* ukuran tombol */
+.owner-layout #menu-table-body td:last-child button,
+.owner-layout #eventTableBody td:last-child button,
+.owner-layout #facilityTableBody td:last-child button {
+  min-height: 36px !important;
+  padding: 7px 14px !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+/* input harga */
+.owner-layout #menu-table-body input[type="number"] {
+  min-height: 40px !important;
+  border-radius: 8px !important;
+  border: 1px solid #E0D1C5 !important;
+  font-size: 14px !important;
+}
+
+/* --------- RESPONSIVE --------- */
+.owner-layout .ku-mobile-toggle {
+  display: none;
+}
+
+@media (max-width: 800px) {
   .owner-layout .sidebar {
-    position: relative;
-    grid-column: 1;
-
-    width: 100%;
-    height: auto;
-    min-height: 0;
-
-    padding: 19px;
-
-    transform: none !important;
-    box-shadow: none;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    z-index: 1000 !important;
   }
 
-  .owner-layout > :not(.sidebar) {
-    grid-column: 1;
+  .owner-layout .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .owner-layout .main-wrapper {
+    width: 100% !important;
     margin-left: 0 !important;
   }
 
-  .owner-layout .sidebar-brand {
-    margin-bottom: 20px;
-  }
-
-  .owner-layout .sidebar-nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .owner-layout .sidebar-nav .nav-link {
-    width: auto;
-    min-height: 40px;
-  }
-
-  .owner-layout .sidebar-bottom {
-    display: none;
-  }
-
-  .owner-layout :is(
-    .owner-content,
-    .main-content,
-    .page-content
-  ) {
-    padding: 26px 24px 35px;
+  .owner-layout .ku-mobile-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    border: 1px solid #E0D4C9;
+    border-radius: 8px;
+    background: #FFFDF9;
+    color: #35271F;
+    font-size: 21px;
+    cursor: pointer;
   }
 }
 
-@media (max-width: 600px) {
-  .owner-layout :is(
-    .owner-content,
-    .main-content,
-    .page-content
-  ) {
-    padding: 22px 16px 30px;
+
+/* ==============================================
+   KAMMARI OWNER - FINAL CRUD REFINEMENT
+   Menu, Event & Facility
+============================================== */
+
+/* 1. FONT KONSISTEN SEPERTI DASHBOARD */
+
+.owner-layout .owner-content,
+.owner-layout .owner-content h1,
+.owner-layout .owner-content h2,
+.owner-layout .owner-content h3,
+.owner-layout .owner-content p,
+.owner-layout .owner-content label,
+.owner-layout .owner-content input,
+.owner-layout .owner-content select,
+.owner-layout .owner-content textarea,
+.owner-layout .owner-content button,
+.owner-layout .owner-content table,
+.owner-layout .owner-content th,
+.owner-layout .owner-content td {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+}
+
+/* 2. TOMBOL CRUD */
+
+/* SIMPAN - HIJAU */
+.owner-layout button.ku-btn-save {
+  background: #278653 !important;
+  border: 1px solid #278653 !important;
+  color: #FFFFFF !important;
+}
+
+.owner-layout button.ku-btn-save:hover {
+  background: #206F45 !important;
+  border-color: #206F45 !important;
+}
+
+/* EDIT - AMBER */
+.owner-layout button.ku-btn-edit {
+  background: #F7E7CF !important;
+  border: 1px solid #E9C99B !important;
+  color: #885316 !important;
+}
+
+.owner-layout button.ku-btn-edit:hover {
+  background: #EFDBBB !important;
+  border-color: #D9B581 !important;
+}
+
+/* HAPUS - MERAH */
+.owner-layout button.ku-btn-delete {
+  background: #BA4D45 !important;
+  border: 1px solid #BA4D45 !important;
+  color: #FFFFFF !important;
+}
+
+.owner-layout button.ku-btn-delete:hover {
+  background: #983A34 !important;
+  border-color: #983A34 !important;
+}
+
+/* TAMBAH - COKELAT */
+.owner-layout button.ku-btn-add {
+  background: #35271F !important;
+  border: 1px solid #35271F !important;
+  color: #FFFFFF !important;
+}
+
+.owner-layout button.ku-btn-add:hover {
+  background: #49372C !important;
+}
+
+/* UKURAN TOMBOL KONSISTEN */
+.owner-layout :is(
+  #menu-table-body,
+  #eventTableBody,
+  #facilityTableBody
+) button {
+  min-height: 35px !important;
+  padding: 7px 13px !important;
+  border-radius: 7px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+/* ==============================================
+   3. EVENT & FASILITAS MENGIKUTI MENU
+============================================== */
+
+/* JUDUL HALAMAN */
+.owner-layout:has(#eventTableBody) .page-heading,
+.owner-layout:has(#facilityTableBody) .page-heading {
+  display: block !important;
+  text-align: left !important;
+  width: 100% !important;
+  margin: 0 0 25px !important;
+}
+
+.owner-layout:has(#eventTableBody) .page-heading > *,
+.owner-layout:has(#facilityTableBody) .page-heading > * {
+  text-align: left !important;
+  justify-self: start !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.owner-layout:has(#eventTableBody) .page-heading .eyebrow,
+.owner-layout:has(#facilityTableBody) .page-heading .eyebrow {
+  display: block !important;
+  margin: 0 0 9px !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.7px !important;
+  color: #984015 !important;
+}
+
+.owner-layout:has(#eventTableBody) .page-heading h1,
+.owner-layout:has(#eventTableBody) .page-heading h2,
+.owner-layout:has(#facilityTableBody) .page-heading h1,
+.owner-layout:has(#facilityTableBody) .page-heading h2 {
+  display: block !important;
+  margin: 0 0 8px !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  color: #35271F !important;
+}
+
+.owner-layout:has(#eventTableBody) .page-description,
+.owner-layout:has(#facilityTableBody) .page-description {
+  display: block !important;
+  margin: 0 !important;
+  font-size: 12px !important;
+  color: #857468 !important;
+}
+
+/* TOOLBAR EVENT DAN FASILITAS */
+.owner-layout .event-toolbar,
+.owner-layout .facility-toolbar {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: flex-end !important;
+
+  gap: 14px !important;
+  width: 100% !important;
+  padding: 20px 22px !important;
+  margin-bottom: 24px !important;
+
+  background: #FFFCF8 !important;
+  border: 1px solid #E7DBCF !important;
+  border-radius: 12px !important;
+}
+
+/* KELOMPOK FILTER CABANG */
+.owner-layout :is(
+  .event-toolbar,
+  .facility-toolbar
+) > :has(select) {
+  flex: 0 1 185px !important;
+  min-width: 160px !important;
+  max-width: 230px !important;
+}
+
+/* KELOMPOK PENCARIAN */
+.owner-layout :is(
+  .event-toolbar,
+  .facility-toolbar
+) > :has(input[type="search"]),
+.owner-layout :is(
+  .event-toolbar,
+  .facility-toolbar
+) > :has(input[id*="Search"]) {
+  flex: 1 1 260px !important;
+  min-width: 200px !important;
+  max-width: none !important;
+}
+
+/* KELOMPOK TOMBOL TAMBAH */
+.owner-layout :is(
+  .event-toolbar,
+  .facility-toolbar
+) > :has(button),
+.owner-layout :is(
+  .event-toolbar,
+  .facility-toolbar
+) > button {
+  flex: 0 0 auto !important;
+  align-self: flex-end !important;
+  margin-left: auto !important;
+}
+
+/* INPUT DAN SELECT */
+.owner-layout :is(
+  .event-toolbar,
+  .facility-toolbar
+) input,
+.owner-layout :is(
+  .event-toolbar,
+  .facility-toolbar
+) select {
+  width: 100% !important;
+  min-height: 43px !important;
+  padding: 9px 12px !important;
+
+  background: #FFFFFF !important;
+  border: 1px solid #E7DBCF !important;
+  border-radius: 8px !important;
+
+  color: #35271F !important;
+  font-size: 13px !important;
+}
+
+/* TOMBOL TAMBAH SEJAJAR */
+.owner-layout :is(
+  .event-toolbar,
+  .facility-toolbar
+) button.ku-btn-add {
+  min-height: 43px !important;
+  padding: 0 18px !important;
+  border-radius: 8px !important;
+  white-space: nowrap !important;
+}
+
+/* JUDUL DAFTAR DATA */
+.owner-layout :is(
+  .event-data-section,
+  .facility-data-section,
+  .event-list-section,
+  .facility-list-section
+) .section-heading,
+.owner-layout :is(
+  .event-data-section,
+  .facility-data-section,
+  .event-list-section,
+  .facility-list-section
+) .table-heading {
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+}
+
+/* TABEL EVENT & FASILITAS */
+.owner-layout table:has(> #eventTableBody),
+.owner-layout table:has(> #facilityTableBody) {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: #FFFCF8 !important;
+}
+
+.owner-layout :is(
+  #eventTableBody,
+  #facilityTableBody
+) > tr > td {
+  vertical-align: middle !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .owner-layout .event-toolbar,
+  .owner-layout .facility-toolbar {
+    padding: 16px !important;
+    gap: 12px !important;
   }
+
+  .owner-layout :is(
+    .event-toolbar,
+    .facility-toolbar
+  ) > :has(select),
+  .owner-layout :is(
+    .event-toolbar,
+    .facility-toolbar
+  ) > :has(input),
+  .owner-layout :is(
+    .event-toolbar,
+    .facility-toolbar
+  ) > :has(button) {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+  }
+
+  .owner-layout :is(
+    .event-toolbar,
+    .facility-toolbar
+  ) button.ku-btn-add {
+    width: 100% !important;
+  }
+}
+
+
+/* ============================================
+   KAMMARI OWNER
+   TYPOGRAPHY CONSISTENCY FIX
+   MENU - EVENT - FASILITAS
+============================================ */
+
+/* Font utama seluruh halaman CRUD */
+.owner-layout .owner-content,
+.owner-layout .owner-content h1,
+.owner-layout .owner-content h2,
+.owner-layout .owner-content h3,
+.owner-layout .owner-content p,
+.owner-layout .owner-content span,
+.owner-layout .owner-content label,
+.owner-layout .owner-content button,
+.owner-layout .owner-content input,
+.owner-layout .owner-content select,
+.owner-layout .owner-content textarea,
+.owner-layout .owner-content table {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+}
+
+/* Judul halaman Kelola Menu/Event/Fasilitas */
+.owner-layout .page-heading h1,
+.owner-layout .page-heading h2 {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.5px !important;
+  color: #35271F !important;
+}
+
+/* Judul Daftar Menu, Daftar Event, Daftar Fasilitas */
+.owner-layout .table-heading h2,
+.owner-layout .table-heading h3,
+.owner-layout .list-heading h2,
+.owner-layout .list-heading h3,
+.owner-layout .section-heading h2,
+.owner-layout .section-heading h3 {
+  margin: 0 !important;
+
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.4px !important;
+
+  color: #35271F !important;
+}
+
+/* Heading daftar sejajar dengan jumlah data */
+.owner-layout .table-heading,
+.owner-layout .list-heading {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: baseline !important;
+  justify-content: flex-start !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+
+  margin-bottom: 16px !important;
+}
+
+/* Jumlah data */
+.owner-layout #menuCount,
+.owner-layout #eventCount,
+.owner-layout #facilityCount {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: #857468 !important;
+}
+
+/* Header kolom tabel */
+.owner-layout .table-container th {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #735D50 !important;
+  letter-spacing: 0.2px !important;
+}
+
+/* Isi tabel */
+.owner-layout .table-container td {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #35271F !important;
+}
+
+/* Nama Menu, Event, dan Fasilitas */
+.owner-layout #menu-table-body td:first-child,
+.owner-layout #eventTableBody td:first-child,
+.owner-layout #facilityTableBody td:first-child {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #35271F !important;
+}
+
+/* Tombol Edit, Hapus, Simpan */
+.owner-layout .table-container button {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+/* Deskripsi halaman */
+.owner-layout .page-description {
+  font-family: "Hanken Grotesk", Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+  color: #857468 !important;
 }

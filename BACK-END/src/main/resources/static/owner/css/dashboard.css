@@ -1,35 +1,24 @@
-
-/* ============================================
-   KAMMARI OWNER DASHBOARD
-   CLEAN LAYOUT — SINGLE STYLESHEET
-============================================ */
-
-/* 1. DESIGN TOKENS */
-
 :root {
   --coffee: #35271F;
   --coffee-hover: #49372C;
 
   --accent: #984015;
   --accent-hover: #7D3515;
+  --accent-soft: #F2E1D5;
 
   --background: #F8F3ED;
   --surface: #FFFCF8;
   --cream: #EDE1D5;
 
-  --accent-soft: #F2E1D5;
-
   --text: #35271F;
   --muted: #857468;
   --border: #E7DBCF;
-  --white: #FFFFFF;
 
   --sidebar-width: 238px;
-
   --font-main: "Hanken Grotesk", Arial, sans-serif;
 }
 
-/* 2. RESET */
+/* RESET */
 
 *,
 *::before,
@@ -44,12 +33,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-
   background: var(--background);
   color: var(--text);
-
   font-family: var(--font-main);
-  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -70,11 +56,9 @@ img {
 svg {
   width: 19px;
   height: 19px;
-
   fill: none;
   stroke: currentColor;
   stroke-width: 1.7;
-
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -89,23 +73,14 @@ button:focus-visible {
   display: none !important;
 }
 
-/* 3. APPLICATION LAYOUT */
-
-/*
-  Sidebar dan main content adalah
-  dua kolom terpisah.
-
-  Tidak menggunakan margin negatif
-  atau positioning yang membuat
-  konten bertumpuk.
-*/
+/* ==========================================
+   MAIN LAYOUT
+========================================== */
 
 .dashboard-layout {
   display: grid;
-
   grid-template-columns:
-    var(--sidebar-width)
-    minmax(0, 1fr);
+    var(--sidebar-width) minmax(0, 1fr);
 
   min-height: 100vh;
 }
@@ -119,66 +94,79 @@ button:focus-visible {
   flex-direction: column;
   justify-content: space-between;
 
-  width: 100%;
   height: 100vh;
   height: 100dvh;
 
   padding: 30px 18px 22px;
 
+  overflow-y: auto;
+
   background: var(--coffee);
   color: #F8F2EC;
-
-  overflow-y: auto;
 }
 
+.sidebar-main,
 .main-wrapper {
   min-width: 0;
-  width: 100%;
 }
 
-/* 4. SIDEBAR BRAND */
+/* ==========================================
+   SIDEBAR LOGO ASLI KAMMARI
+========================================== */
 
 .sidebar-brand {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
   gap: 12px;
-  margin: 0 11px 55px;
+
+  margin: 0 11px 48px;
 }
 
 .sidebar-brand .brand-logo {
+  display: block;
+
   width: 182px;
-  height: auto;
   max-width: 100%;
+  height: 54px;
 
-  object-fit: contain;
-  object-position: left center;
+  background-color: #F8F2EC;
 
-  filter:
-    brightness(0)
-    invert(94%)
-    sepia(8%)
-    saturate(250%)
-    hue-rotate(337deg);
+  /* Logo SVG dari frontend pengunjung */
+  -webkit-mask-image:
+    url("../../assets/logo_kammari_mask.svg");
+
+  mask-image:
+    url("../../assets/logo_kammari_mask.svg");
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  -webkit-mask-position: left center;
+  mask-position: left center;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
-.sidebar-brand > span {
+.sidebar-brand .brand-subtitle {
   color: #D5BBAB;
 
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 2.8px;
+  letter-spacing: 2.5px;
 }
 
-/* 5. SIDEBAR NAVIGATION */
+/* ==========================================
+   SIDEBAR NAVIGATION
+========================================== */
 
 .sidebar-label {
   margin: 0 12px 15px;
 
   color: #C6A994;
 
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.9px;
 }
@@ -200,8 +188,7 @@ button:focus-visible {
   border-radius: 9px;
 
   color: #EBDDD2;
-
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
 
   transition:
@@ -226,13 +213,15 @@ button:focus-visible {
   font-weight: 700;
 }
 
-/* 6. SIDEBAR FOOTER */
+/* ==========================================
+   SIDEBAR FOOTER
+========================================== */
 
 .sidebar-bottom {
   display: flex;
   flex-direction: column;
-
   gap: 16px;
+
   margin-top: 28px;
 }
 
@@ -262,8 +251,9 @@ button:focus-visible {
   align-items: center;
   gap: 12px;
 
-  min-height: 45px;
   width: 100%;
+  min-height: 45px;
+
   padding: 0 14px;
 
   border: 1px solid #6B5548;
@@ -292,7 +282,9 @@ button:focus-visible {
   text-align: center;
 }
 
-/* 7. TOPBAR */
+/* ==========================================
+   TOPBAR
+========================================== */
 
 .topbar {
   display: flex;
@@ -353,7 +345,9 @@ button:focus-visible {
   height: 15px;
 }
 
-/* 8. OWNER PROFILE */
+/* ==========================================
+   OWNER PROFILE
+========================================== */
 
 .owner-profile {
   display: flex;
@@ -361,7 +355,6 @@ button:focus-visible {
   gap: 11px;
 
   padding-left: 20px;
-
   border-left: 1px solid var(--border);
 }
 
@@ -388,7 +381,7 @@ button:focus-visible {
 }
 
 .owner-info strong {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .owner-info small {
@@ -400,7 +393,7 @@ button:focus-visible {
   white-space: nowrap;
 
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .sidebar-toggle {
@@ -419,35 +412,17 @@ button:focus-visible {
   color: var(--coffee);
 }
 
-/* 9. MAIN CONTENT SPACING */
-
-/*
-  Penting:
-
-  Semua elemen dashboard berada
-  di dalam .content-inner.
-
-  Jadi jarak kiri dan kanan selalu
-  konsisten untuk:
-  - Dashboard heading
-  - Welcome banner
-  - Ringkasan Menu
-  - Pengelolaan
-*/
+/* ==========================================
+   MAIN CONTENT
+========================================== */
 
 .dashboard-content {
-  display: block;
-
   width: 100%;
   min-width: 0;
-
-  margin: 0;
-  padding: 0;
 }
 
 .content-inner {
   width: min(100%, 1440px);
-
   margin-inline: auto;
 
   padding:
@@ -460,7 +435,9 @@ button:focus-visible {
   min-width: 0;
 }
 
-/* 10. PAGE HEADING */
+/* ==========================================
+   PAGE HEADING
+========================================== */
 
 .page-heading {
   margin-bottom: 23px;
@@ -486,7 +463,9 @@ button:focus-visible {
   line-height: 1.2;
 }
 
-/* 11. WELCOME BANNER */
+/* ==========================================
+   WELCOME BANNER
+========================================== */
 
 .welcome-banner {
   display: grid;
@@ -498,7 +477,7 @@ button:focus-visible {
   width: 100%;
   min-height: 218px;
 
-  margin: 0 0 31px;
+  margin-bottom: 31px;
 
   overflow: hidden;
 
@@ -541,7 +520,7 @@ button:focus-visible {
   max-width: 420px;
 
   color: #6F5E52;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.65;
 }
 
@@ -559,10 +538,8 @@ button:focus-visible {
   background: var(--accent);
   color: #FFFFFF;
 
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-
-  transition: background .18s;
 }
 
 .welcome-button:hover {
@@ -574,15 +551,13 @@ button:focus-visible {
   height: 16px;
 }
 
-/* 12. WELCOME PHOTO */
-
 .welcome-image {
   position: relative;
   min-width: 0;
   min-height: 218px;
 
-  background: #C9B8A8;
   overflow: hidden;
+  background: #C9B8A8;
 }
 
 .welcome-image img {
@@ -596,7 +571,9 @@ button:focus-visible {
   object-position: center 48%;
 }
 
-/* 13. SECTION TITLES */
+/* ==========================================
+   SECTION HEADINGS
+========================================== */
 
 .statistics-section,
 .management-section {
@@ -607,8 +584,8 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 18px;
+
   margin-bottom: 16px;
 }
 
@@ -624,17 +601,17 @@ button:focus-visible {
   margin: 0;
 
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
-
   text-align: right;
 }
 
-/* 14. STATISTICS GRID */
+/* ==========================================
+   STATISTICS GRID
+========================================== */
 
 .statistics-grid {
   display: grid;
-
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
@@ -662,6 +639,7 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
+
   flex-shrink: 0;
 
   border-radius: 9px;
@@ -681,14 +659,13 @@ button:focus-visible {
   height: 19px;
 }
 
-/* 15. STATISTICS DATA */
-
 .stat-data {
   min-width: 0;
 }
 
 .stat-data > span {
   color: #77675B;
+
   font-size: 12px;
   font-weight: 600;
 }
@@ -713,7 +690,9 @@ button:focus-visible {
   font-size: 11px;
 }
 
-/* 16. MANAGEMENT LIST */
+/* ==========================================
+   MANAGEMENT
+========================================== */
 
 .management-list {
   overflow: hidden;
@@ -772,7 +751,6 @@ button:focus-visible {
 .management-arrow {
   color: var(--accent);
   font-size: 20px;
-
   transition: transform .18s;
 }
 
@@ -780,7 +758,9 @@ button:focus-visible {
   transform: translateX(4px);
 }
 
-/* 17. FOOTER */
+/* ==========================================
+   FOOTER
+========================================== */
 
 .dashboard-footer {
   padding-top: 20px;
@@ -788,12 +768,13 @@ button:focus-visible {
   border-top: 1px solid var(--border);
 
   color: #A09387;
-
   text-align: center;
   font-size: 11px;
 }
 
-/* 18. SMALLER LAPTOP */
+/* ==========================================
+   RESPONSIVE - SMALL LAPTOP
+========================================== */
 
 @media (max-width: 1100px) {
 
@@ -821,7 +802,9 @@ button:focus-visible {
   }
 }
 
-/* 19. TABLET */
+/* ==========================================
+   RESPONSIVE - TABLET
+========================================== */
 
 @media (max-width: 900px) {
 
@@ -867,7 +850,9 @@ button:focus-visible {
   }
 }
 
-/* 20. MOBILE */
+/* ==========================================
+   RESPONSIVE - MOBILE
+========================================== */
 
 @media (max-width: 680px) {
 
@@ -913,7 +898,9 @@ button:focus-visible {
   }
 }
 
-/* 21. SMALL MOBILE */
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE
+========================================== */
 
 @media (max-width: 420px) {
 
@@ -956,8 +943,6 @@ button:focus-visible {
     height: 39px;
   }
 }
-
-/* 22. REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
 

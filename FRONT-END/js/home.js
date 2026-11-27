@@ -1753,6 +1753,48 @@ document.addEventListener("click", function (event) {
     numberEl.textContent = `${num} / ${total} — MOST LOVED`;
     counterEl.textContent = `${num} / ${total}`;
 
+    // Indikator titik galeri favorit
+    let dots = document.getElementById("fg-dots");
+
+    if (!dots) {
+      dots = document.createElement("div");
+      dots.id = "fg-dots";
+      dots.className = "fg-dots";
+      dots.setAttribute("aria-label", "Navigasi menu favorit");
+
+      // Letakkan di antara tombol kiri dan kanan
+      prev.insertAdjacentElement("afterend", dots);
+    }
+
+    dots.replaceChildren();
+
+    menus.forEach((menu, index) => {
+      const dot = document.createElement("button");
+
+      dot.type = "button";
+      dot.className = "fg-dot";
+
+      if (index === current) {
+        dot.classList.add("is-active");
+      }
+
+      dot.setAttribute(
+        "aria-label",
+        `Tampilkan ${menu.name}`
+      );
+
+      dot.setAttribute(
+        "aria-current",
+        index === current ? "true" : "false"
+      );
+
+      dot.addEventListener("click", () => {
+        showMenu(index);
+      });
+
+      dots.appendChild(dot);
+    });
+
     // Foto utama
     const src = getImage(item.image);
     image.alt = `Foto ${item.name}`;

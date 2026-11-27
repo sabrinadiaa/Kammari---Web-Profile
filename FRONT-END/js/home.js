@@ -960,3 +960,456 @@ document.addEventListener("click", function (event) {
 
   button.setAttribute("aria-expanded", String(expanded));
 });
+
+/* ==========================================================
+   OUR STORY — SLIDE MENGIKUTI SCROLL + JEJAK KAKI
+   Desktop : scroll halaman, papan sticky
+   HP      : scroll halaman, papan sticky + otomatis diperkecil
+             agar muat di layar
+   Layar lain (mis. HP landscape pendek): swipe kiri/kanan
+========================================================== */
+
+(function initStorySlider() {
+  const wrap = document.getElementById("story-scroll");
+  const board = document.getElementById("story-board");
+
+  if (!wrap || !board) return;
+
+  const sticky = wrap.querySelector(".story-sticky");
+  const slides = [...board.querySelectorAll(".story-slide")];
+  const N = slides.length;
+
+  if (!sticky || N === 0) return;
+
+  // HARUS sama dengan media query di CSS
+  const mqDesktop = window.matchMedia(
+    "(min-width: 761px) and (min-height: 600px)"
+  );
+  const mqMobile = window.matchMedia("(max-width: 760px)");
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  // true = slide dikendalikan scroll (desktop & HP)
+  const scrollMode = () => mqDesktop.matches || mqMobile.matches;
+
+  const MOBILE_MIN_SCALE = 0.62;   // papan HP tidak diperkecil lebih dari ini
+  const MOBILE_SHELF = 50;         // ruang untuk rak kayu di bawah papan (px)
+
+  let index = -1;
+  let ticking = false;
+  let startX = null;
+  let lastDesktop = null;
+  let lastW = 0;
+  let lastH = 0;
+  let rafId = 0;
+
+  const clamp = (v, min = 0, max = 1) => Math.max(min, Math.min(max, v));
+
+
+  /* ========================================================
+     KONFIGURASI JALUR JEJAK
+     Satu array per slide (urutan sama dengan slide di HTML).
+     Tiap titik = [x, y] dalam pecahan 0–1 dari ukuran slide:
+       x: 0 = kiri,  1 = kanan
+       y: 0 = atas,  1 = bawah
+  ======================================================== */
+
+  const TRAILS = [
+    // Slide 1 — dari label "About Kammari" turun ke kanan
+    [
+      [0.18, 0.14],
+      [0.28, 0.18],
+      [0.35, 0.28],
+      [0.43, 0.43],
+      [0.51, 0.57],
+      [0.63, 0.61],
+      [0.82, 0.62],
+      [1.0, 0.64],
+    ],
+
+    // Slide 2 — masuk dari kiri bawah, naik, lalu ke kanan
+    [
+      [0.0, 0.6],
+      [0.06, 0.57],
+      [0.05, 0.43],
+      [0.06, 0.28],
+      [0.1, 0.18],
+      [0.16, 0.16],
+      [0.21, 0.24],
+      [0.25, 0.33],
+      [0.33, 0.36],
+      [0.55, 0.36],
+      [0.78, 0.34],
+      [0.9, 0.28],
+      [1.0, 0.26],
+    ],
+
+    // Slide 3 — masuk dari kiri bawah, naik ke label "Brand Architecture"
+    [
+      [0.0, 0.6],
+      [0.07, 0.58],
+      [0.1, 0.5],
+      [0.1, 0.36],
+      [0.12, 0.25],
+      [0.14, 0.18],
+    ],
+  ];
+
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const DURATION = 3200;      // ms, jejak muncul otomatis (mode swipe)
+  const STEP_GAP = 40;        // jarak antar jejak (px) di desktop
+  const STEP_GAP_SMALL = 28;  // jarak antar jejak (px) di layar sempit
+  const FOOT_OFFSET = 6;      // jarak kiri/kanan dari garis tengah (px)
+  const MAX_OPACITY = 0.5;    // kepekatan jejak
+
+
+  /* ========================================================
+     JEJAK
+  ======================================================== */
+
+  function svgEl(name, attrs) {
+    const node = document.createElementNS(SVG_NS, name);
+    if (attrs) {
+      for (const key in attrs) node.setAttribute(key, attrs[key]);
+    }
+    return node;
+  }
+
+  // Titik-titik -> kurva halus (Catmull-Rom ke Bezier)
+  function toPath(pts) {
+    let d = `M${pts[0][0]},${pts[0][1]}`;
+
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1] || pts[i];
+      const p1 = pts[i];
+      const p2 = pts[i + 1];
+      const p3 = pts[i + 2] || p2;
+
+      const c1x = p1[0] + (p2[0] - p0[0]) / 6;
+      const c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      const c2x = p2[0] - (p3[0] - p1[0]) / 6;
+      const c2y = p2[1] - (p3[1] - p1[1]) / 6;
+
+      d += ` C${c1x},${c1y} ${c2x},${c2y} ${p2[0]},${p2[1]}`;
+    }
+
+    return d;
+  }
+
+  const trails = slides.map((slide, k) => {
+    const pts = TRAILS[k];
+    if (!pts) return null;
+
+    const svg = svgEl("svg", {
+      class: "story-trail",
+      "aria-hidden": "true",
+    });
+
+    const guide = svgEl("path", { class: "story-trail__guide" });
+    const steps = svgEl("g");
+
+    svg.append(guide, steps);
+    slide.prepend(svg);
+
+    return { slide, pts, svg, guide, steps, items: [], p: 0 };
+  });
+
+  // Satu telapak kaki: bagian depan + tumit
+  function makeFoot(x, y, angle, scale) {
+    const outer = svgEl("g", {
+      transform:
+        `translate(${x.toFixed(1)} ${y.toFixed(1)}) ` +
+        `rotate(${angle.toFixed(1)}) scale(${scale})`,
+    });
+
+    const foot = svgEl("g", { class: "story-step" });
+
+    foot.append(
+      svgEl("ellipse", { cx: 0, cy: -5, rx: 4.2, ry: 7 }),
+      svgEl("ellipse", { cx: 0, cy: 6.5, rx: 3.2, ry: 3.6 })
+    );
+
+    outer.append(foot);
+    return { outer, foot };
+  }
+
+  function buildTrail(t) {
+    const w = t.slide.clientWidth;
+    const h = t.slide.clientHeight;
+    if (!w || !h) return;
+
+    t.svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    t.guide.setAttribute(
+      "d",
+      toPath(t.pts.map(([x, y]) => [x * w, y * h]))
+    );
+
+    const len = t.guide.getTotalLength();
+    const small = w < 600;
+    const gap = small ? STEP_GAP_SMALL : STEP_GAP;
+    const scale = small ? 0.8 : 1;
+    const n = Math.max(1, Math.floor(len / gap));
+    const spacing = len / n;
+
+    t.steps.textContent = "";
+    t.items = [];
+
+    for (let k = 0; k < n; k++) {
+      const dist = (k + 0.5) * spacing;
+
+      const a = t.guide.getPointAtLength(dist);
+      const b = t.guide.getPointAtLength(Math.min(len, dist + 2));
+      const c = t.guide.getPointAtLength(Math.max(0, dist - 2));
+
+      const dx = b.x - c.x;
+      const dy = b.y - c.y;
+      const mag = Math.hypot(dx, dy) || 1;
+
+      // kaki kiri & kanan bergantian, bergeser tegak lurus dari garis
+      const side = k % 2 ? 1 : -1;
+      const x = a.x + (-dy / mag) * side * FOOT_OFFSET;
+      const y = a.y + (dx / mag) * side * FOOT_OFFSET;
+
+      // telapak digambar menghadap atas, jadi +90°
+      const angle = (Math.atan2(dy, dx) * 180) / Math.PI + 90 + side * 8;
+
+      const { outer, foot } = makeFoot(x, y, angle, scale);
+      t.steps.append(outer);
+      t.items.push(foot);
+    }
+
+    applyProgress(t, t.p);
+  }
+
+  function rebuildTrails() {
+    trails.forEach((t) => t && buildTrail(t));
+  }
+
+  // p: 0–1 -> jejak yang sudah dipijak tetap terlihat (tidak memudar).
+  // Kalau scroll balik ke atas, jejaknya hilang lagi satu per satu.
+  function applyProgress(t, p) {
+    t.p = clamp(p);
+
+    const count = Math.floor(t.p * t.items.length + 1e-6);
+
+    t.items.forEach((foot, k) => {
+      const stepped = k < count;
+
+      foot.classList.toggle("is-on", stepped);
+      foot.style.opacity = stepped ? String(MAX_OPACITY) : "0";
+    });
+  }
+
+  function setProgress(i, p) {
+    const t = trails[i];
+    if (t) applyProgress(t, p);
+  }
+
+  // Mode swipe: jejak muncul otomatis saat slide aktif
+  function playTrail(i) {
+    cancelAnimationFrame(rafId);
+
+    const t = trails[i];
+    if (!t) return;
+
+    if (reduceMotion) {
+      setProgress(i, 1);
+      return;
+    }
+
+    setProgress(i, 0);
+
+    const start = performance.now();
+
+    const step = (now) => {
+      const x = clamp((now - start) / DURATION);
+      const eased = x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+
+      setProgress(i, eased);
+
+      if (x < 1) rafId = requestAnimationFrame(step);
+    };
+
+    rafId = requestAnimationFrame(step);
+  }
+
+
+  /* ========================================================
+     HP: PERKECIL PAPAN AGAR MUAT DI LAYAR
+     Papan dilebarkan (100% / scale) lalu di-scale kembali,
+     jadi isi tetap utuh dan tinggi papan = tinggi layar.
+  ======================================================== */
+
+  function fitBoard() {
+    if (!mqMobile.matches) {
+      board.style.width = "";
+      board.style.transform = "";
+      sticky.style.height = "";
+      return;
+    }
+
+    const top = parseFloat(getComputedStyle(sticky).top) || 0;
+    const avail = window.innerHeight - top - MOBILE_SHELF - 8;
+
+    let s = 1;
+
+    // tinggi papan tergantung lebarnya, jadi hitung beberapa kali
+    for (let i = 0; i < 5; i++) {
+      board.style.width = `${100 / s}%`;
+      board.style.transform = "none";
+
+      const h = board.offsetHeight;
+      const next = clamp(avail / h, MOBILE_MIN_SCALE, 1);
+
+      if (Math.abs(next - s) < 0.01) {
+        s = next;
+        break;
+      }
+      s = next;
+    }
+
+    board.style.width = `${100 / s}%`;
+    board.style.transform = `scale(${s})`;
+    sticky.style.height = `${Math.ceil(board.offsetHeight * s)}px`;
+  }
+
+
+  /* ========================================================
+     SLIDE
+  ======================================================== */
+
+  function showSlide(i) {
+    const next = Math.max(0, Math.min(N - 1, i));
+    if (next === index) return;
+    index = next;
+
+    slides.forEach((slide, k) => {
+      const active = k === index;
+      slide.classList.toggle("is-active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+    });
+
+    if (!scrollMode()) playTrail(index);
+  }
+
+  function onScroll() {
+    if (!scrollMode()) return;
+
+    const rect = wrap.getBoundingClientRect();
+    const total = wrap.offsetHeight - sticky.offsetHeight;
+    if (total <= 0) return;
+
+    const topOffset = parseFloat(getComputedStyle(sticky).top) || 0;
+    const progress = clamp((topOffset - rect.top) / total);
+
+    const raw = progress * N;
+    const idx = Math.min(N - 1, Math.floor(raw));
+    const local = raw - idx;                    // 0–1 di dalam slide ini
+
+    // jejak mulai muncul sedikit setelah slide tampil,
+    // lengkap sebelum slide berganti
+    const walkP = clamp((local - 0.05) / 0.8);
+
+    showSlide(idx);
+    setProgress(idx, walkP);
+  }
+
+  function requestTick() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      onScroll();
+      ticking = false;
+    });
+  }
+
+  function updateMode() {
+    const scrolling = scrollMode();
+
+    wrap.classList.toggle("is-scroll", scrolling);
+
+    fitBoard();
+    rebuildTrails();
+
+    if (scrolling) {
+      onScroll();
+    } else if (lastDesktop !== false) {
+      playTrail(index < 0 ? 0 : index);
+    }
+
+    lastDesktop = scrolling;
+  }
+
+  window.addEventListener("scroll", requestTick, { passive: true });
+
+  window.addEventListener("resize", () => {
+    // abaikan resize kecil (address bar HP muncul/hilang)
+    const dw = Math.abs(window.innerWidth - lastW);
+    const dh = Math.abs(window.innerHeight - lastH);
+
+    if (dw > 0 || dh > 120) {
+      lastW = window.innerWidth;
+      lastH = window.innerHeight;
+      updateMode();
+    }
+
+    requestTick();
+  });
+
+  window.addEventListener("load", () => {
+    fitBoard();
+    rebuildTrails();
+    requestTick();
+  });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      fitBoard();
+      rebuildTrails();
+      requestTick();
+    });
+  }
+
+  [mqDesktop, mqMobile].forEach((mq) => {
+    if (mq.addEventListener) mq.addEventListener("change", updateMode);
+    else mq.addListener(updateMode);
+  });
+
+
+  /* Swipe (hanya mode non-scroll) */
+
+  board.addEventListener("touchstart", (e) => {
+    if (scrollMode()) return;
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  board.addEventListener("touchend", (e) => {
+    if (scrollMode() || startX === null) { startX = null; return; }
+
+    const diff = e.changedTouches[0].clientX - startX;
+    startX = null;
+
+    if (Math.abs(diff) < 50) return;
+    showSlide(diff < 0 ? index + 1 : index - 1);
+  }, { passive: true });
+
+
+  /* Keyboard (hanya mode non-scroll) */
+
+  board.addEventListener("keydown", (e) => {
+    if (scrollMode()) return;
+    if (e.key === "ArrowRight") showSlide(index + 1);
+    if (e.key === "ArrowLeft") showSlide(index - 1);
+  });
+
+
+  /* Init */
+
+  lastW = window.innerWidth;
+  lastH = window.innerHeight;
+
+  showSlide(0);
+  updateMode();
+})();

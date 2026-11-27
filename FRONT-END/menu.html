@@ -7,11 +7,11 @@
   <meta name="description" content="Menu kopi, non-kopi, roti, dan makanan Kammari di Gresik dan Surabaya.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- naikkan ?v= setiap CSS diubah -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600&family=Rethink+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- naikkan ?v= setiap CSS diubah. Jangan taruh tag script di head -->
   <link rel="stylesheet" href="css/base.css?v=9">
-  <link rel="stylesheet" href="css/menu.css?v=14">
-  <link rel="stylesheet" href="css/menu-motion.css?v=4">
+  <link rel="stylesheet" href="css/menu.css?v=15">
+  <link rel="stylesheet" href="css/menu-motion.css?v=9">
 </head>
 <body data-page="menu">
   <header id="site-header"></header>
@@ -21,10 +21,17 @@
     <section class="menu-hero">
       <div class="wrap menu-hero__grid">
         <div class="menu-hero__text">
-          <h1>Racikan Terbaik<br>Setiap Hari di<br>
-            <span class="kammari-logo" role="img" aria-label="Kammari"></span>
+          <h1>
+            <span class="menu-hero__title-top">
+              Dari Dapur
+              <span class="kammari-logo" role="img" aria-label="Kammari"></span>
+            </span>
+            <span class="menu-hero__title-bottom">
+              Mengalun Rasa dalam<br>
+              Setiap Hidangan
+            </span>
           </h1>
-          <p class="lede">Dari biji kopi pilihan nusantara hingga hidangan dapur rumahan...</p>
+          <p class="lede">Kaki555 menghadirkan hidangan lezat dengan harga bersahabat, serta penawaran spesial melalui paket menu yang menarik.</p>
           <div class="menu-hero__pick">
             <p class="menu-hero__pick-label">Pilih cabang untuk melihat menu</p>
             <div class="segmented" role="group" aria-label="Pilih cabang">
@@ -36,16 +43,7 @@
       </div>
     </section>
 
-    <!-- PENCARIAN -->
-    <div class="menu-tools" id="menu-tools">
-      <div class="wrap menu-tools__row">
-        <label class="menu-search">
-          <span class="visually-hidden">Cari menu</span>
-          <input type="search" id="menu-search" placeholder="Cari menu..." autocomplete="off">
-        </label>
-      </div>
-      <p class="wrap menu-status" id="menu-status" aria-live="polite" hidden></p>
-    </div>
+    <p class="wrap menu-status" id="menu-status" aria-live="polite" hidden></p>
 
     <!-- MAKANAN -->
     <section class="section" id="menu-makanan">
@@ -53,7 +51,6 @@
         <div class="venue__intro">
           <span class="kicker" data-count>Makanan</span>
           <h2 class="h-lg">Makanan</h2>
-          <p class="lede">Hidangan dapur rumahan untuk menemani obrolanmu.</p>
         </div>
         <nav class="menu-category-nav" id="menu-cats-makanan" aria-label="Kategori makanan"></nav>
         <div class="mlist"></div>
@@ -66,8 +63,6 @@
       <div class="menu-divider__overlay"></div>
       <div class="menu-divider__content">
         <span class="kammari-logo" role="img" aria-label="Kammari Cafe & Roastery"></span>
-        <h2>From Our Kitchen<br>To Your Table</h2>
-        <p>Nikmati hidangan terbaik dan racikan kopi khas Kammari.</p>
       </div>
     </div>
 
@@ -77,37 +72,35 @@
         <div class="venue__intro">
           <span class="kicker" data-count>Minuman</span>
           <h2 class="h-lg">Minuman</h2>
-          <p class="lede">Kopi, teh, dan racikan signature Kammari.</p>
         </div>
         <nav class="menu-category-nav" id="menu-cats-minuman" aria-label="Kategori minuman"></nav>
         <div class="mlist"></div>
       </div>
     </section>
-
-    <!-- CTA -->
-    <section class="section" style="padding-top:0">
-      <div class="wrap">
-        <div class="cta">
-          <div>
-            <span class="kicker">Pesan untuk acara</span>
-            <h2 class="h-lg">Mau pesan menu untuk rapat atau acara di<br>
-              <span class="kammari-logo" role="img" aria-label="Kammari"></span><span class="cta__q">?</span></h2>
-            <div class="cta__btns">
-              <a class="btn btn--solid" href="" id="reserve-wa" target="_blank" rel="noopener">Hubungi kami lewat WhatsApp</a>
-            </div>
-          </div>
-          <div class="cta__circles" id="cta-circles" aria-hidden="true"></div>
-        </div>
+    <section class="menu-endnote" aria-label="Penutup menu Kammari">
+      <div class="wrap menu-endnote__art">
+        <img
+          src="assets/menu-seasonal/menu-line-art.png"
+          alt=""
+          loading="lazy"
+          decoding="async"
+        >
       </div>
-    </section>
 
+      <a class="menu-endnote__banner" href="#menu-makanan">
+        <span class="menu-endnote__title">Dari dapur ke meja.</span>
+      </a>
+</section>
   </main>
   <footer id="site-footer"></footer>
 
   <!-- Script: hanya di sini, satu kali, urutan ini -->
   <script src="js/core.js"></script>
-  <script src="js/menu.js?v=5"></script>
-  <script src="js/menu-motion.js?v=4"></script>
-  <script>document.getElementById("reserve-wa").href = WA_LINK;</script>
+  <script src="js/menu.js?v=6"></script>
+  <script src="js/menu-motion.js?v=10"></script>
+  <script>
+    const wa = document.getElementById("reserve-wa");
+    if (wa && typeof WA_LINK !== "undefined") wa.href = WA_LINK;
+  </script>
 </body>
 </html>

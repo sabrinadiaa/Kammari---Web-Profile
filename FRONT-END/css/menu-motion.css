@@ -1,5 +1,5 @@
 /* menu-motion.css — muat SETELAH menu.css.
-   Isi: hero seukuran Fasilitas, header sembunyi/muncul, pemisah foto parallax setinggi layar. */
+   Isi: hero seukuran Fasilitas, header selalu menempel, pemisah foto parallax, font daftar menu. */
 
 /* ---------- Hero: ukuran sama dengan .kf-hero di Fasilitas ---------- */
 body[data-page="menu"] .menu-hero {
@@ -20,27 +20,29 @@ body[data-page="menu"] .menu-hero__grid {
   body[data-page="menu"] .menu-hero .segmented button { flex: 1 1 100%; }
 }
 
-/* ---------- Bar pencarian tidak menempel ---------- */
-body[data-page="menu"] .menu-tools { position: static; }
-body[data-page="menu"] #menu-tools { scroll-margin-top: calc(var(--nav-h, 72px) + 8px); }
+/* ---------- Header: selalu terlihat saat scroll ---------- */
+body[data-page="menu"] #site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+body[data-page="menu"] #menu-makanan { scroll-margin-top: var(--bar-h, 84px); }
 
-/* ---------- Header: sembunyi saat scroll turun, muncul saat scroll naik ---------- */
-body[data-page="menu"] .nav-hide { transform: translateY(-110%) !important; }
-
-/* ---------- Pemisah foto: efek jendela ----------
-   Foto = satu gambar layar penuh yang diam (position: fixed).
-   Banner ini jendela yang memotongnya (clip-path), jadi foto terbuka saat di-scroll.
-   JANGAN beri transform/filter/will-change/contain pada elemen induk foto,
-   karena itu membuat foto ikut ter-scroll dan efeknya hilang. */
+/* ---------- Pemisah foto: foto diam di layar, banner = jendela ----------
+   Diukur dari videomu: isi foto 0px bergeser saat halaman di-scroll (foto menempel di layar),
+   sedangkan banner dan logo bergerak 1:1 dengan halaman. Jadi foto "terbuka" lewat jendela.
+   Tanpa JS. JANGAN beri transform/filter/will-change/contain pada induk foto
+   (main, body, wrapper), karena itu membuat foto ikut ter-scroll. */
 body[data-page="menu"] .menu-divider {
   position: relative;
+  isolation: isolate;
   display: grid;
   place-items: center;
   width: 100%;
-  height: clamp(420px, 78vh, 760px);
-  margin: 70px 0;
-  background: rgb(24, 16, 12);        /* cadangan sebelum foto termuat */
-  clip-path: inset(0);
+  height: clamp(420px, 80vh, 820px);   /* di video ±81% tinggi layar */
+  margin: clamp(32px, 5vw, 70px) 0;
+  background: var(--espresso);          /* cadangan sebelum foto termuat */
+  clip-path: inset(0);                  /* memotong foto fixed agar hanya terlihat di banner ini */
 }
 
 body[data-page="menu"] .menu-divider__image {
@@ -59,47 +61,50 @@ body[data-page="menu"] .menu-divider__overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(24, 16, 12, .35);
+  background: rgb(24 16 12 / 48%);
+  pointer-events: none;
 }
 
 body[data-page="menu"] .menu-divider__content {
   position: relative;
   z-index: 2;
-  max-width: 760px;
-  padding: 24px;
+  width: min(100%, 760px);
+  padding: clamp(12px, 3vw, 24px);
   text-align: center;
   color: #fff9f2;
 }
 
-/* Logo besar sebagai titik fokus; hapus baris filter untuk warna asli */
+/* Logo besar dan putih agar kontras di atas foto; hapus baris filter untuk warna asli */
 body[data-page="menu"] .menu-divider__content .kammari-logo {
   display: inline-block;
-  font-size: clamp(3.5rem, 8.5vw, 7rem);
+  font-size: clamp(2.4rem, 7vw, 6rem);
   filter: brightness(0) invert(1);
 }
-
 body[data-page="menu"] .menu-divider__content h2 {
-  margin: 18px 0 8px;
+  margin: 14px 0 8px;
   color: #fff9f2;
-  font: 600 clamp(1.5rem, 3vw, 2.4rem)/1.15 var(--serif);
+  font: 600 clamp(1.4rem, 3vw, 2.4rem)/1.15 var(--serif);
   letter-spacing: -.02em;
-  text-shadow: 0 2px 18px rgba(24, 16, 12, .5);
+  text-shadow: 0 2px 18px rgb(24 16 12 / 50%);
 }
-
 body[data-page="menu"] .menu-divider__content p {
   margin: 0;
-  color: rgba(255, 249, 242, .92);
-  font: 400 1rem/1.7 var(--sans);
-  text-shadow: 0 1px 12px rgba(24, 16, 12, .5);
+  color: rgb(255 249 242 / 92%);
+  font: 400 clamp(.85rem, 1.4vw, 1rem)/1.6 var(--sans);
+  text-shadow: 0 1px 12px rgb(24 16 12 / 50%);
 }
 
 @media (max-width: 600px) {
-  body[data-page="menu"] .menu-divider { height: clamp(360px, 70vh, 560px); margin: 45px 0; }
-  body[data-page="menu"] .menu-divider__content { padding: 20px; }
+  body[data-page="menu"] .menu-divider { height: clamp(360px, 70vh, 560px); }
 }
 
-/* Reduced motion: foto ikut banner, tanpa efek jendela */
+/* Reduced motion: foto ikut banner (tanpa efek jendela) */
 @media (prefers-reduced-motion: reduce) {
   body[data-page="menu"] .menu-divider__image { position: absolute; inset: 0; height: 100%; }
-  body[data-page="menu"] .nav-hide { transition: none !important; }
+}
+
+/* ---------- Font nama dan deskripsi menu: Rethink Sans ---------- */
+body[data-page="menu"] .mrow h4,
+body[data-page="menu"] .mrow__desc {
+  font-family: "Rethink Sans", system-ui, sans-serif;
 }

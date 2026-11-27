@@ -36,7 +36,7 @@ const isFinished = event => {
   return Boolean(lastDay && lastDay < todayJakarta());
 };
 
-/* ---------- Membuat kartu event otomatis ---------- */
+/* Membuat kartu event otomatis */
 
 function renderUpcomingEvents() {
   if (!eventGallery) return;
@@ -51,46 +51,124 @@ function renderUpcomingEvents() {
     !isFinished(event)
   );
 
+
   upcoming.forEach((event, index) => {
     const button = document.createElement("button");
 
     button.type = "button";
     button.className =
-      `photo event-tile g${(index % 5) + 1}`;
+      `photo event-tile upcoming-ticket g${(index % 5) + 1}`;
 
     button.dataset.event = event.id;
+    button.setAttribute(
+      "aria-label",
+      `Lihat detail event ${event.title}`
+    );
 
-    if (!event.poster) {
-      button.classList.add("event-tile--placeholder");
-    } else {
+    // Bagian atas tiket
+    const cover = document.createElement("span");
+    cover.className = "upcoming-ticket__cover";
+
+    // Bingkai poster
+    const posterFrame = document.createElement("span");
+    posterFrame.className = "upcoming-ticket__poster";
+
+    if (event.poster) {
       const img = document.createElement("img");
-
       img.className = "event-tile__image";
       img.src = event.poster;
       img.alt = `Poster ${event.title}`;
       img.loading = "lazy";
 
-      button.appendChild(img);
+      posterFrame.appendChild(img);
+    } else {
+      posterFrame.classList.add(
+        "upcoming-ticket__poster--empty"
+      );
+      posterFrame.textContent = "Poster segera hadir";
     }
 
-    const label = document.createElement("span");
-    label.className = "event-tile__label";
+    // Nama event
+    const title = document.createElement("span");
+    title.className = "upcoming-ticket__name";
+    title.textContent = event.title;
 
-    const small = document.createElement("small");
-    small.textContent = event.status;
+    cover.append(posterFrame, title);
 
-    const title = document.createTextNode(event.title);
+    // Garis sobekan tiket
+    const tearline = document.createElement("span");
+    tearline.className = "upcoming-ticket__tearline";
+    tearline.setAttribute("aria-hidden", "true");
 
-    label.appendChild(small);
-    label.appendChild(title);
+    // Bagian bawah tiket
+    const stub = document.createElement("span");
+    stub.className = "upcoming-ticket__stub";
 
-    button.appendChild(label);
+    const date = document.createElement("span");
+    date.className = "upcoming-ticket__date";
 
-    // Kartu diletakkan sebelum detail event
-    eventGallery.insertBefore(button, expanded);
+    const tanggalSaja = String(event.date || "")
+      .replace(/,\s*\d{1,2}:\d{2}(?::\d{2})?\s*(WIB|WITA|WIT)?/gi, "")
+      .trim();
+
+    date.textContent =
+      String(event.title || "").trim().toLowerCase() === "walking tour"
+        ? "Setiap Selasa"
+        : String(event.date || "")
+          .replace(
+            /,\s*\d{1,2}[:.]\d{2}(?::\d{2})?\s*(WIB|WITA|WIT)?/gi,
+            ""
+          )
+          .trim() || "Jadwal belum diumumkan";
+
+    button.append(cover, tearline, stub);
+
+    let bagianBawah = button.querySelector(
+      ".upcoming-ticket__stub"
+    );
+
+    if (!bagianBawah) {
+      bagianBawah = document.createElement("span");
+      bagianBawah.className = "upcoming-ticket__stub";
+      button.appendChild(bagianBawah);
+    }
+
+    const tanggalTiket = document.createElement("span");
+    tanggalTiket.className = "upcoming-ticket__date";
+
+    // Ambil tanggal dari database tanpa jam
+    const tanggalAsli = String(event.date || "").trim();
+
+    const tanggalTanpaJam = tanggalAsli
+      .replace(
+        /,\s*\d{1,2}[:.]\d{2}(?::\d{2})?\s*(WIB|WITA|WIT)?/gi,
+        ""
+      )
+      .trim();
+
+    // Event yang menggunakan jadwal rutin
+    tanggalTiket.textContent =
+      String(event.title || "").trim().toLowerCase() ===
+        "walking tour"
+        ? "Setiap Selasa"
+        : tanggalTanpaJam || "Jadwal belum diumumkan";
+
+    // Isi bagian bawah tiket tanpa duplikasi
+    bagianBawah.replaceChildren(tanggalTiket);
+
+
+    // Masukkan ke wadah event mendatang
+    const rail = document.getElementById(
+      "event-spotlight-rail"
+    );
+
+    if (rail) {
+      rail.appendChild(button);
+    } else {
+      eventGallery.insertBefore(button, expanded);
+    }
   });
 }
-
 
 /* ---------- Detail event ---------- */
 
@@ -237,70 +315,160 @@ function renderPastEvents() {
   const viewer = document.getElementById("past-event-viewer");
   const viewerImage = document.getElementById("past-event-viewer-image");
 
-  if (!viewer || !viewerImage) return;
+  pastGallery.classList.add("kt-collection");
+  pastGallery.replaceChildren();
 
-  pastGallery.innerHTML = "";
+  // Data tetap berasal dari sistem event yang sudah ada
+  const pastEvents = EVENTS
+    .filter(isFinished)
+    .sort((a, b) =>
+      (b.dateISO || "").localeCompare(a.dateISO || "")
+    );
 
-  const pastEvents = EVENTS.filter(isFinished);
+  // Hapus tombol lama ketika render ulang
+  document.getElementById("kt-show-all")?.remove();
 
-  pastEvents.forEach(event => {
+  if (!pastEvents.length) {
+    const empty = document.createElement("p");
+    empty.className = "kt-empty";
+    empty.textContent = "Belum ada kenangan yang tersimpan. Nantikan cerita Kammari berikutnya!";
+    pastGallery.appendChild(empty);
+    return;
+  }
+
+  const buttons = [];
+
+  pastEvents.forEach((event, index) => {
     const button = document.createElement("button");
 
     button.type = "button";
-    button.className = "past-event-card";
+    button.className = "kt-ticket";
+    button.dataset.event = String(event.id);
+    button.hidden = index >= 5;
+
     button.setAttribute(
       "aria-label",
-      `Lihat poster ${event.title}`
+      `Lihat poster event ${event.title}`
     );
 
+    // Struktur tiket vintage
+    button.innerHTML = `
+      <span class="kt-ticket__cover">
+        <span class="kt-ticket__brand">KAMMARI</span>
+        <span class="kt-ticket__poster"></span>
+        <span class="kt-ticket__name"></span>
+      </span>
+
+      <span class="kt-ticket__tearline" aria-hidden="true"></span>
+
+      <span class="kt-ticket__stub">
+        <span class="kt-ticket__number"></span>
+        <span class="kt-ticket__date"></span>
+      </span>
+    `;
+
+    const posterBox = button.querySelector(
+      ".kt-ticket__poster"
+    );
+
+    // Gunakan poster asli dari database
     if (event.poster) {
       const img = document.createElement("img");
-
       img.src = event.poster;
       img.alt = `Poster ${event.title}`;
       img.loading = "lazy";
 
-      button.appendChild(img);
-    } else {
-      button.classList.add("past-event-card--empty");
+      img.onerror = () => {
+        img.remove();
+        posterBox.textContent = "POSTER BELUM TERSEDIA";
+        posterBox.classList.add("kt-ticket__poster--empty");
+      };
 
-      button.innerHTML = `
-        <span class="past-event-card__label">
-          <small>DOKUMENTASI MENYUSUL</small>
-          ${event.title}
-        </span>
-      `;
+      posterBox.appendChild(img);
+    } else {
+      posterBox.textContent = "POSTER BELUM TERSEDIA";
+      posterBox.classList.add("kt-ticket__poster--empty");
     }
 
-    button.addEventListener("click", () => {
-      if (event.poster) {
-        viewer.classList.remove("is-placeholder");
-        viewerImage.style.display = "block";
-        viewerImage.src = event.poster;
-        viewerImage.alt = `Poster ${event.title}`;
-      } else {
-        viewer.classList.add("is-placeholder");
-        viewerImage.removeAttribute("src");
-        viewerImage.style.display = "none";
-      }
+    button.querySelector(".kt-ticket__name").textContent =
+      event.title;
 
-      viewer.showModal();
+    button.querySelector(".kt-ticket__number").textContent =
+      `KAMMARI / ${String(index + 1).padStart(2, "0")}`;
+
+    button.querySelector(".kt-ticket__date").textContent =
+      event.date || event.location || "PAST MOMENTS";
+
+    // Klik tiket: efek sobek lalu buka poster
+    button.addEventListener("click", () => {
+      if (button.classList.contains("is-tearing")) return;
+      if (!viewer || !viewerImage || viewer.open) return;
+
+      button.classList.add("is-tearing");
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      window.setTimeout(() => {
+        button.classList.remove("is-tearing");
+
+        if (event.poster) {
+          viewer.classList.remove("is-placeholder");
+          viewerImage.style.display = "block";
+          viewerImage.src = event.poster;
+          viewerImage.alt = `Poster ${event.title}`;
+        } else {
+          viewer.classList.add("is-placeholder");
+          viewerImage.removeAttribute("src");
+          viewerImage.style.display = "none";
+        }
+
+        viewer.showModal();
+      }, reduceMotion ? 0 : 350);
     });
 
+    buttons.push(button);
     pastGallery.appendChild(button);
   });
 
-  // Tutup viewer saat area luar poster diklik
-  viewer.addEventListener("click", () => {
-    if (viewer.classList.contains("is-closing")) return;
+  // Tombol Lihat Semua Event
+  if (pastEvents.length > 5) {
+    const more = document.createElement("button");
 
-    viewer.classList.add("is-closing");
+    more.type = "button";
+    more.id = "kt-show-all";
+    more.className = "kt-more";
+    more.textContent = "Lihat semua event";
+    more.setAttribute("aria-expanded", "false");
 
-    viewer.addEventListener("animationend", () => {
-      viewer.close();
-      viewer.classList.remove("is-closing");
-    }, { once: true });
-  });
+    let expanded = false;
+
+    more.addEventListener("click", () => {
+      expanded = !expanded;
+
+      buttons.forEach((button, index) => {
+        button.hidden = !expanded && index >= 5;
+      });
+
+      more.textContent = expanded
+        ? "Tampilkan lebih sedikit"
+        : "Lihat semua event";
+
+      more.setAttribute("aria-expanded", String(expanded));
+    });
+
+    pastGallery.insertAdjacentElement("afterend", more);
+  }
+
+  // Tutup viewer (dipasang satu kali saja)
+  if (viewer && !viewer.dataset.ktViewerBound) {
+    viewer.dataset.ktViewerBound = "true";
+
+    viewer.addEventListener("click", () => {
+      if (viewer.open) viewer.close();
+    });
+  }
 }
 
 
@@ -463,17 +631,67 @@ async function loadEventsFromDatabase() {
 
     // Ambil data event dari MySQL
     EVENTS = data.events.map(item => {
-      const startDate = item.start_at
-        ? item.start_at.slice(0, 10)
-        : "";
 
-      const endDate = item.end_at
-        ? item.end_at.slice(0, 10)
-        : "";
+      function parseEventWIB(value) {
+        if (!value) {
+          return { date: "", time: "" };
+        }
 
-      const startTime = item.start_at
-        ? item.start_at.slice(11, 16)
-        : "";
+        const raw = String(value).trim();
+
+        // Kalau API menyertakan zona waktu,
+        // konversi ke WIB (Asia/Jakarta).
+        const hasTimezone =
+          /(?:Z|[+-]\d{2}:?\d{2})$/i.test(raw);
+
+        if (hasTimezone) {
+          const date = new Date(raw);
+
+          if (!Number.isNaN(date.getTime())) {
+            const parts = new Intl.DateTimeFormat("en-GB", {
+              timeZone: "Asia/Jakarta",
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              hourCycle: "h23"
+            }).formatToParts(date);
+
+            const get = type =>
+              parts.find(p => p.type === type)?.value;
+
+            return {
+              date: `${get("year")}-${get("month")}-${get("day")}`,
+              time: `${get("hour")}:${get("minute")}`
+            };
+          }
+        }
+
+        // Tanpa informasi zona waktu:
+        // pertahankan jam yang dikirim API.
+        return {
+          date: raw.slice(0, 10),
+          time: raw.slice(11, 16)
+        };
+      }
+
+      const start = parseEventWIB(item.start_at);
+      const end = parseEventWIB(item.end_at);
+
+      const startDate = start.date;
+      const endDate = end.date;
+      const startTime = start.time;
+
+      const jadwalRutin = String(
+        item.schedule_text ||
+        item.scheduleText ||
+        (
+          String(item.title || "").trim().toLowerCase() === "walking tour"
+            ? "Setiap Selasa, 15.00–18.00 WIB"
+            : ""
+        )
+      ).trim();
 
       return {
         id: String(item.id),
@@ -490,7 +708,7 @@ async function loadEventsFromDatabase() {
         date: startDate
           ? formatTanggal(startDate) +
           (startTime ? `, ${startTime} WIB` : "")
-          : "Jadwal belum diumumkan",
+          : jadwalRutin || "Jadwal belum diumumkan",
 
         dateISO: startDate,
         endDateISO: endDate || startDate,
@@ -550,3 +768,51 @@ if (document.readyState === "loading") {
 } else {
   loadEventsFromDatabase();
 }
+
+/* EVENT ARCHIVE - LIHAT SEMUA DI TABLET */
+
+document.addEventListener("click", function (event) {
+
+  // Hanya aktif di tablet
+  const isTablet = window.matchMedia(
+    "(min-width: 721px) and (max-width: 1100px)"
+  ).matches;
+
+  if (!isTablet) return;
+
+  // Gunakan tombol yang sudah ada
+  const button = event.target.closest(".kt-more");
+  if (!button) return;
+
+  const gallery = document.getElementById(
+    "past-event-gallery"
+  );
+
+  if (!gallery) return;
+
+  // Tangani klik tablet tanpa menjalankan
+  // aksi tombol lain pada saat yang sama
+  event.preventDefault();
+  event.stopImmediatePropagation();
+
+  // Simpan tulisan awal tombol
+  if (!button.dataset.tabletOriginalLabel) {
+    button.dataset.tabletOriginalLabel =
+      button.textContent.trim();
+  }
+
+  // Buka atau tutup poster tambahan
+  const expanded = gallery.classList.toggle(
+    "kt-tablet-expanded"
+  );
+
+  button.textContent = expanded
+    ? "Tampilkan lebih sedikit"
+    : button.dataset.tabletOriginalLabel;
+
+  button.setAttribute(
+    "aria-expanded",
+    String(expanded)
+  );
+
+}, true);

@@ -816,3 +816,463 @@
     gap: 12px;
   }
 }
+
+/*HEADER PAST EVENTS*/
+
+.past-events-section .past-events-heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  max-width: 1280px;
+  gap: clamp(24px, 4vw, 64px);
+  margin: 0 auto 44px;
+}
+
+/* DESKRIPSI DI KIRI */
+.past-events-section .past-events-heading__desc {
+  order: 1;
+  flex: 0 1 400px;
+  max-width: 400px;
+  min-width: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* JUDUL BESAR DI KANAN */
+.past-events-section .past-events-heading__title {
+  order: 2;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  text-align: right;
+}
+
+/* Mempertahankan kata hadir dalam italic */
+.past-events-section .past-events-heading__title em {
+  font-style: italic;
+  font-weight: inherit;
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 720px) {
+
+  .past-events-section .past-events-heading {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+
+  .past-events-section .past-events-heading__title {
+    order: 1;
+    flex: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .past-events-section .past-events-heading__desc {
+    order: 2;
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+  }
+}
+
+/* FIX POSTER KHUSUS TABLET */
+
+@media (min-width: 721px) and (max-width: 1100px) {
+
+  /* Tetap 3 tiket per baris */
+  #past-event-gallery.kt-collection {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  /* Bingkai luar */
+  #past-event-gallery .kt-ticket {
+    min-width: 0;
+    padding: 8px;
+  }
+
+  /* Kurangi ruang putih di sekitar poster */
+  #past-event-gallery .kt-ticket__cover {
+    padding: 6px;
+    gap: 8px;
+  }
+
+  /* Bingkai gambar */
+  #past-event-gallery .kt-ticket__poster {
+    position: relative;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 4 / 5 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  /* Poster memenuhi seluruh bingkai */
+  #past-event-gallery .kt-ticket__poster img {
+    position: absolute;
+    inset: 0;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    object-fit: cover !important;
+    object-position: center;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* TABLET: 3 POSTER SAJA SAAT AWAL */
+
+@media (min-width: 721px) and (max-width: 1100px) {
+
+  /* Tiga tiket dalam satu baris */
+  #past-event-gallery.kt-collection {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  /* Sembunyikan tiket ke-4 dan seterusnya */
+  #past-event-gallery:not(.kt-tablet-expanded)
+  > .kt-ticket:nth-child(n+4) {
+    display: none !important;
+  }
+
+  /* Tampilkan kembali setelah tombol diklik */
+  #past-event-gallery.kt-tablet-expanded
+  > .kt-ticket:nth-child(n+4) {
+    display: flex !important;
+  }
+}
+
+
+/* KAMMARI UPCOMING TICKET COLLECTION */
+#event #event-gallery.event-gallery {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Dua tiket di tengah */
+#event #event-spotlight-rail {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 360px));
+  justify-content: center;
+  align-items: stretch;
+  gap: 24px;
+
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 10px 0 28px;
+}
+
+/* Bingkai tiket - tetap krem */
+#event #event-spotlight-rail > .upcoming-ticket {
+  display: flex !important;
+  flex-direction: column;
+
+  position: relative !important;
+  inset: auto !important;
+  grid-area: auto !important;
+  grid-column: auto !important;
+  grid-row: auto !important;
+
+  width: 100%;
+  height: 100% !important;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  aspect-ratio: auto !important;
+
+  margin: 0;
+  padding: 12px;
+
+  background: #eadbc9 !important;
+  border: 1px solid #d5bfa9;
+  border-radius: 18px;
+  box-sizing: border-box;
+  overflow: visible !important;
+
+  color: #482e21;
+  text-align: center;
+  cursor: pointer;
+
+  box-shadow: 0 5px 16px rgba(65, 41, 27, .07);
+  transition: transform .25s, box-shadow .25s;
+}
+
+#event #event-spotlight-rail > .upcoming-ticket:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(65, 41, 27, .12);
+}
+
+/* Hilangkan dekorasi kartu lama */
+#event #event-spotlight-rail > .upcoming-ticket::before,
+#event #event-spotlight-rail > .upcoming-ticket::after {
+  content: none !important;
+}
+
+/* Bagian atas tiket */
+#event .upcoming-ticket__cover {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+
+  width: 100%;
+  padding: 0;
+  background: transparent;
+}
+
+/* Bingkai poster */
+#event .upcoming-ticket__poster {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: auto;
+  padding: 0;
+  overflow: hidden;
+
+  background: transparent;
+  border: 1px solid #d7c3af;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+/* Poster utuh dan mengikuti bingkai */
+#event .upcoming-ticket__poster img {
+  display: block !important;
+  position: static !important;
+
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0;
+  max-height: none !important;
+
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+
+  margin: 0;
+  padding: 0;
+  border-radius: 9px;
+}
+
+/* Nama event */
+#event .upcoming-ticket__name {
+  display: block;
+  min-height: 44px;
+
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #482e21;
+  text-align: center;
+}
+
+/* Garis sobekan tiket */
+#event .upcoming-ticket__tearline {
+  position: relative;
+  display: block;
+  flex: none;
+
+  height: 0;
+  margin: 15px -12px 13px;
+  border-top: 2px dashed #a98770;
+}
+
+/* Bulatan kiri dan kanan */
+#event .upcoming-ticket__tearline::before,
+#event .upcoming-ticket__tearline::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  background: #f7f2ec;
+}
+
+#event .upcoming-ticket__tearline::before {
+  left: -10px;
+}
+
+#event .upcoming-ticket__tearline::after {
+  right: -10px;
+}
+
+/* Bagian bawah tiket */
+#event .upcoming-ticket__stub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 5px 6px;
+}
+
+/* Tanggal */
+#event .upcoming-ticket__date {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #765a46;
+  text-align: center;
+}
+
+/* Event tanpa poster */
+#event .upcoming-ticket__poster--empty {
+  display: grid;
+  place-items: center;
+  min-height: 260px;
+  padding: 20px;
+  color: #765a46;
+}
+
+/* Detail event tetap tersembunyi saat awal */
+#event #event-expanded[hidden] {
+  display: none !important;
+}
+
+/* TABLET */
+
+@media (min-width: 721px) and (max-width: 1100px) {
+  #event #event-spotlight-rail {
+    grid-template-columns: repeat(2, minmax(0, 330px));
+    gap: 18px;
+    max-width: 710px;
+  }
+
+  #event .upcoming-ticket__name {
+    font-size: 15px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 720px) {
+  #event #event-spotlight-rail {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(80vw, 310px);
+    justify-content: start;
+    gap: 14px;
+
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 4px 20px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #event #event-spotlight-rail > .upcoming-ticket {
+    padding: 9px;
+    border-radius: 14px;
+    scroll-snap-align: start;
+  }
+
+  #event .upcoming-ticket__name {
+    font-size: 14px;
+    min-height: 38px;
+  }
+
+  #event .upcoming-ticket__tearline {
+    margin: 12px -9px 10px;
+  }
+
+  #event .upcoming-ticket__date {
+    font-size: 10px;
+  }
+}
+
+/* EVENT TICKET DETAILS*/
+
+/* Warna mengikuti background masing-masing section */
+#event {
+  --ticket-bg-section: #f7f2ec;
+}
+
+#past-events {
+  --ticket-bg-section: #e7dacb;
+}
+
+/* EVENT MENDATANG - Garis sesuai background */
+#event .upcoming-ticket__tearline {
+  border-top-color: var(--ticket-bg-section) !important;
+}
+
+#event .upcoming-ticket__tearline::before,
+#event .upcoming-ticket__tearline::after {
+  background: var(--ticket-bg-section) !important;
+}
+
+/* EVENT SELESAI - Garis sesuai background */
+#past-events .kt-ticket__tearline {
+  border-top-color: var(--ticket-bg-section) !important;
+}
+
+/* EVENT SELESAI - Bulatan sesuai background */
+#past-events .kt-ticket__tearline::before,
+#past-events .kt-ticket__tearline::after {
+  background: var(--ticket-bg-section) !important;
+}
+
+/* FIX TANGGAL TIKET EVENT KAMMARI */
+
+/* Tampilkan tanggal Event Mendatang */
+#event #event-spotlight-rail .upcoming-ticket__stub {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 4px 6px 8px;
+}
+
+#event #event-spotlight-rail .upcoming-ticket__date {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #765a46;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Tampilkan tanggal Event Terlaksana */
+#past-events #past-event-gallery .kt-ticket__stub {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+}
+
+#past-events #past-event-gallery .kt-ticket__date {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #8d7361;
+  font-size: 10px;
+  text-align: center;
+}

@@ -228,9 +228,14 @@ if (featured) {
   featured.innerHTML =
     `<p class="empty">Memuat pilihan menu...</p>`;
 
-  if (MENU.length) {
+  if (typeof MENU !== "undefined" && MENU.length > 0) {
     draw();
+  } else if (typeof loadBranchMenu === "function") {
+    loadBranchMenu("gresik");
+  } else {
+    console.error("Pemuat menu belum tersedia.");
   }
+
 }
 
 
@@ -303,17 +308,26 @@ const STATE_KEY = "kammari-music-state"; // posisi lagu selama kunjungan (sessio
 const CHOICE_KEY = "kammari-music";      // pilihan pengunjung: "off" jika pernah dimatikan (localStorage)
 
 /* ---------- Tombol musik ---------- */
-// Di Beranda sudah ada badge #music-toggle. Di halaman lain tombol kecil dibuat otomatis.
 let musicToggle = document.getElementById("music-toggle");
 if (!musicToggle) {
   musicToggle = document.createElement("button");
   musicToggle.id = "music-toggle";
   musicToggle.type = "button";
-  musicToggle.className = "music-fab";
+  musicToggle.className = "badge badge--float";
   musicToggle.setAttribute("aria-pressed", "false");
-  musicToggle.setAttribute("aria-label", "Putar musik");
-  musicToggle.innerHTML =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>';
+  musicToggle.setAttribute("aria-label", "Putar atau jeda musik Kammari");
+  musicToggle.innerHTML = `
+    <svg viewBox="0 0 148 148" aria-hidden="true">
+      <defs>
+        <path id="circ" d="M74,74 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" />
+      </defs>
+      <text>
+        <textPath href="#circ">Kopi Asli • Momen Manis • Aroma Rileks • Istimewa. •</textPath>
+      </text>
+    </svg>
+    <span class="badge__icon" aria-hidden="true">
+      <img src="assets/music.svg" alt="">
+    </span>`;
   document.body.appendChild(musicToggle);
 }
 
@@ -490,32 +504,105 @@ if (shouldStart) {
 
   // Tempatkan mobil di atas jalan
   // Tempatkan runner di atas jalan
+
+  let arahRunner = 1;
+
   function drawRunner(progress) {
-    const distance = progress * length;
-    const p = road.getPointAtLength(distance);
 
-    const prev = road.getPointAtLength(
-      Math.max(0, distance - 2)
-    );
+    const panjangJalan = road.getTotalLength();
+    const jarakUtama = progress * panjangJalan;
 
-    const next = road.getPointAtLength(
-      Math.min(length, distance + 2)
-    );
+    // Tentukan arah gerakan
+    if (progress > position + 0.00001) {
+      arahRunner = 1;
+    } else if (progress < position - 0.00001) {
+      arahRunner = -1;
+    }
 
-    const angle = Math.atan2(
-      next.y - prev.y,
-      next.x - prev.x
-    ) * 180 / Math.PI;
+    // Jarak antar karakter dalam satuan SVG
+    // Urutan: pengejar 1, 2, 3, pembawa kopi
+    const jarakPengejar = [185, 145, 100, 0];
 
-    runner.setAttribute(
-      "transform",
-      `translate(${p.x} ${p.y - 18}) rotate(${angle})`
-    );
+    // Hapus transform rombongan lama,
+    // karena sekarang setiap orang mengikuti jalan sendiri
+    runner.removeAttribute("transform");
+
+    const rombongan = runner.querySelector(".jk-chase-pack");
+
+    if (rombongan) {
+      rombongan.removeAttribute("transform");
+    }
+
+    const orangOrang = runner.querySelectorAll(".jk-chaser");
+
+    orangOrang.forEach((orang, index) => {
+
+      const jarakBelakang = jarakPengejar[index] ?? 0;
+
+      // Pengejar selalu berada di belakang pembawa kopi
+      const jarakOrang = Math.max(
+        0,
+        Math.min(
+          panjangJalan,
+          jarakUtama - arahRunner * jarakBelakang
+        )
+      );
+
+      // Titik posisi masing-masing orang di jalan
+      const titik = road.getPointAtLength(jarakOrang);
+
+      const titikSebelum = road.getPointAtLength(
+        Math.max(0, jarakOrang - 2)
+      );
+
+      const titikSesudah = road.getPointAtLength(
+        Math.min(panjangJalan, jarakOrang + 2)
+      );
+
+      // Kemiringan mengikuti lengkungan jalan
+      const sudut = Math.atan2(
+        titikSesudah.y - titikSebelum.y,
+        titikSesudah.x - titikSebelum.x
+      ) * 180 / Math.PI;
+
+      // Hadap kiri ketika berlari menuju Gresik
+      const hadap = arahRunner === -1 ? -1 : 1;
+
+      // Posisi kaki dibuat mendekati permukaan jalan
+      orang.setAttribute(
+        "transform",
+        `translate(${titik.x} ${titik.y - 15})
+       rotate(${sudut})
+       scale(${hadap} 1)`
+      );
+
+    });
+
+    // Tulisan mengikuti orang pembawa kopi
+    const tulisan = runner.querySelector(".jk-chase-caption");
+
+    if (tulisan) {
+      const titikDepan = road.getPointAtLength(
+        Math.max(0, Math.min(panjangJalan, jarakUtama))
+      );
+
+      tulisan.setAttribute(
+        "x",
+        titikDepan.x - arahRunner * 35
+      );
+
+      tulisan.setAttribute(
+        "y",
+        titikDepan.y - 52
+      );
+    }
 
     position = progress;
   }
 
-  // Gerakkan runner mengikuti jalan
+
+  /* 4 ORANG KEJAR-KEJARAN*/
+
   function moveRunner(destination) {
     cancelAnimationFrame(animationId);
 
@@ -523,12 +610,13 @@ if (shouldStart) {
     const duration = 1800;
     let start = null;
 
-    // Tangan dan kaki mulai bergerak
+    // Mulai animasi tangan dan kaki
     runner.classList.add("is-running");
 
     if (reduceMotion) {
       drawRunner(destination);
       runner.classList.remove("is-running");
+      animationId = null;
       return;
     }
 
@@ -542,6 +630,7 @@ if (shouldStart) {
 
       const easing = t * t * (3 - 2 * t);
 
+      // Gerakkan semua karakter sesuai jalannya
       drawRunner(
         from + (destination - from) * easing
       );
@@ -833,4 +922,968 @@ if (shouldStart) {
 
     }, 3000);
   }
+})();
+
+
+/* EVENT ARCHIVE - TAMPILKAN LEBIH BANYAK KHUSUS MOBILE */
+
+document.addEventListener("click", function (event) {
+  const button = event.target.closest(".kt-more");
+
+  if (!button) return;
+
+  // Hanya berlaku untuk HP
+  if (!window.matchMedia("(max-width: 720px)").matches) {
+    return;
+  }
+
+  const gallery = document.querySelector(
+    "#past-event-gallery.kt-collection"
+  );
+
+  if (!gallery) return;
+
+  const expanded = gallery.classList.toggle(
+    "kt-mobile-expanded"
+  );
+
+  if (expanded) {
+    // Tampilkan seluruh poster tambahan
+    gallery.querySelectorAll(".kt-ticket").forEach(ticket => {
+      ticket.hidden = false;
+    });
+  }
+
+  button.textContent = expanded
+    ? "Tampilkan lebih sedikit ↑"
+    : "Tampilkan lebih banyak ↓";
+
+  button.setAttribute("aria-expanded", String(expanded));
+});
+
+/* ==========================================================
+   OUR STORY — SLIDE MENGIKUTI SCROLL + JEJAK KAKI
+   Desktop : scroll halaman, papan sticky
+   HP      : scroll halaman, papan sticky + otomatis diperkecil
+             agar muat di layar
+   Layar lain (mis. HP landscape pendek): swipe kiri/kanan
+========================================================== */
+
+(function initStorySlider() {
+  const wrap = document.getElementById("story-scroll");
+  const board = document.getElementById("story-board");
+
+  if (!wrap || !board) return;
+
+  const sticky = wrap.querySelector(".story-sticky");
+  const slides = [...board.querySelectorAll(".story-slide")];
+  const N = slides.length;
+
+  if (!sticky || N === 0) return;
+
+  // HARUS sama dengan media query di CSS
+  const mqDesktop = window.matchMedia(
+    "(min-width: 761px) and (min-height: 600px)"
+  );
+  const mqMobile = window.matchMedia("(max-width: 760px)");
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  // true = slide dikendalikan scroll (desktop & HP)
+  const scrollMode = () => mqDesktop.matches || mqMobile.matches;
+
+  const MOBILE_MIN_SCALE = 0.62;   // papan HP tidak diperkecil lebih dari ini
+  const MOBILE_SHELF = 50;         // ruang untuk rak kayu di bawah papan (px)
+
+  let index = -1;
+  let ticking = false;
+  let startX = null;
+  let lastDesktop = null;
+  let lastW = 0;
+  let lastH = 0;
+  let rafId = 0;
+
+  const clamp = (v, min = 0, max = 1) => Math.max(min, Math.min(max, v));
+
+
+  /* ========================================================
+     KONFIGURASI JALUR JEJAK
+     Satu array per slide (urutan sama dengan slide di HTML).
+     Tiap titik = [x, y] dalam pecahan 0–1 dari ukuran slide:
+       x: 0 = kiri,  1 = kanan
+       y: 0 = atas,  1 = bawah
+  ======================================================== */
+
+  const TRAILS = [
+    // Slide 1 — dari label "About Kammari" turun ke kanan
+    [
+      [0.18, 0.14],
+      [0.28, 0.18],
+      [0.35, 0.28],
+      [0.43, 0.43],
+      [0.51, 0.57],
+      [0.63, 0.61],
+      [0.82, 0.62],
+      [1.0, 0.64],
+    ],
+
+    // Slide 2 — masuk dari kiri bawah, naik, lalu ke kanan
+    [
+      [0.0, 0.6],
+      [0.06, 0.57],
+      [0.05, 0.43],
+      [0.06, 0.28],
+      [0.1, 0.18],
+      [0.16, 0.16],
+      [0.21, 0.24],
+      [0.25, 0.33],
+      [0.33, 0.36],
+      [0.55, 0.36],
+      [0.78, 0.34],
+      [0.9, 0.28],
+      [1.0, 0.26],
+    ],
+
+    // Slide 3 — masuk dari kiri bawah, naik ke label "Brand Architecture"
+    [
+      [0.0, 0.6],
+      [0.07, 0.58],
+      [0.1, 0.5],
+      [0.1, 0.36],
+      [0.12, 0.25],
+      [0.14, 0.18],
+    ],
+  ];
+
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const DURATION = 3200;      // ms, jejak muncul otomatis (mode swipe)
+  const STEP_GAP = 40;        // jarak antar jejak (px) di desktop
+  const STEP_GAP_SMALL = 28;  // jarak antar jejak (px) di layar sempit
+  const FOOT_OFFSET = 6;      // jarak kiri/kanan dari garis tengah (px)
+  const MAX_OPACITY = 0.5;    // kepekatan jejak
+
+
+  /* ========================================================
+     JEJAK
+  ======================================================== */
+
+  function svgEl(name, attrs) {
+    const node = document.createElementNS(SVG_NS, name);
+    if (attrs) {
+      for (const key in attrs) node.setAttribute(key, attrs[key]);
+    }
+    return node;
+  }
+
+  // Titik-titik -> kurva halus (Catmull-Rom ke Bezier)
+  function toPath(pts) {
+    let d = `M${pts[0][0]},${pts[0][1]}`;
+
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1] || pts[i];
+      const p1 = pts[i];
+      const p2 = pts[i + 1];
+      const p3 = pts[i + 2] || p2;
+
+      const c1x = p1[0] + (p2[0] - p0[0]) / 6;
+      const c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      const c2x = p2[0] - (p3[0] - p1[0]) / 6;
+      const c2y = p2[1] - (p3[1] - p1[1]) / 6;
+
+      d += ` C${c1x},${c1y} ${c2x},${c2y} ${p2[0]},${p2[1]}`;
+    }
+
+    return d;
+  }
+
+  const trails = slides.map((slide, k) => {
+    const pts = TRAILS[k];
+    if (!pts) return null;
+
+    const svg = svgEl("svg", {
+      class: "story-trail",
+      "aria-hidden": "true",
+    });
+
+    const guide = svgEl("path", { class: "story-trail__guide" });
+    const steps = svgEl("g");
+
+    svg.append(guide, steps);
+    slide.prepend(svg);
+
+    return { slide, pts, svg, guide, steps, items: [], p: 0 };
+  });
+
+  // Satu telapak kaki: bagian depan + tumit
+  function makeFoot(x, y, angle, scale) {
+    const outer = svgEl("g", {
+      transform:
+        `translate(${x.toFixed(1)} ${y.toFixed(1)}) ` +
+        `rotate(${angle.toFixed(1)}) scale(${scale})`,
+    });
+
+    const foot = svgEl("g", { class: "story-step" });
+
+    foot.append(
+      svgEl("ellipse", { cx: 0, cy: -5, rx: 4.2, ry: 7 }),
+      svgEl("ellipse", { cx: 0, cy: 6.5, rx: 3.2, ry: 3.6 })
+    );
+
+    outer.append(foot);
+    return { outer, foot };
+  }
+
+  function buildTrail(t) {
+    const w = t.slide.clientWidth;
+    const h = t.slide.clientHeight;
+    if (!w || !h) return;
+
+    t.svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    t.guide.setAttribute(
+      "d",
+      toPath(t.pts.map(([x, y]) => [x * w, y * h]))
+    );
+
+    const len = t.guide.getTotalLength();
+    const small = w < 600;
+    const gap = small ? STEP_GAP_SMALL : STEP_GAP;
+    const scale = small ? 0.8 : 1;
+    const n = Math.max(1, Math.floor(len / gap));
+    const spacing = len / n;
+
+    t.steps.textContent = "";
+    t.items = [];
+
+    for (let k = 0; k < n; k++) {
+      const dist = (k + 0.5) * spacing;
+
+      const a = t.guide.getPointAtLength(dist);
+      const b = t.guide.getPointAtLength(Math.min(len, dist + 2));
+      const c = t.guide.getPointAtLength(Math.max(0, dist - 2));
+
+      const dx = b.x - c.x;
+      const dy = b.y - c.y;
+      const mag = Math.hypot(dx, dy) || 1;
+
+      // kaki kiri & kanan bergantian, bergeser tegak lurus dari garis
+      const side = k % 2 ? 1 : -1;
+      const x = a.x + (-dy / mag) * side * FOOT_OFFSET;
+      const y = a.y + (dx / mag) * side * FOOT_OFFSET;
+
+      // telapak digambar menghadap atas, jadi +90°
+      const angle = (Math.atan2(dy, dx) * 180) / Math.PI + 90 + side * 8;
+
+      const { outer, foot } = makeFoot(x, y, angle, scale);
+      t.steps.append(outer);
+      t.items.push(foot);
+    }
+
+    applyProgress(t, t.p);
+  }
+
+  function rebuildTrails() {
+    trails.forEach((t) => t && buildTrail(t));
+  }
+
+  // p: 0–1 -> jejak yang sudah dipijak tetap terlihat (tidak memudar).
+  // Kalau scroll balik ke atas, jejaknya hilang lagi satu per satu.
+  function applyProgress(t, p) {
+    t.p = clamp(p);
+
+    const count = Math.floor(t.p * t.items.length + 1e-6);
+
+    t.items.forEach((foot, k) => {
+      const stepped = k < count;
+
+      foot.classList.toggle("is-on", stepped);
+      foot.style.opacity = stepped ? String(MAX_OPACITY) : "0";
+    });
+  }
+
+  function setProgress(i, p) {
+    const t = trails[i];
+    if (t) applyProgress(t, p);
+  }
+
+  // Mode swipe: jejak muncul otomatis saat slide aktif
+  function playTrail(i) {
+    cancelAnimationFrame(rafId);
+
+    const t = trails[i];
+    if (!t) return;
+
+    if (reduceMotion) {
+      setProgress(i, 1);
+      return;
+    }
+
+    setProgress(i, 0);
+
+    const start = performance.now();
+
+    const step = (now) => {
+      const x = clamp((now - start) / DURATION);
+      const eased = x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+
+      setProgress(i, eased);
+
+      if (x < 1) rafId = requestAnimationFrame(step);
+    };
+
+    rafId = requestAnimationFrame(step);
+  }
+
+
+  /* ========================================================
+     HP: PERKECIL PAPAN AGAR MUAT DI LAYAR
+     Papan dilebarkan (100% / scale) lalu di-scale kembali,
+     jadi isi tetap utuh dan tinggi papan = tinggi layar.
+  ======================================================== */
+
+  function fitBoard() {
+    if (!mqMobile.matches) {
+      board.style.width = "";
+      board.style.transform = "";
+      sticky.style.height = "";
+      return;
+    }
+
+    const top = parseFloat(getComputedStyle(sticky).top) || 0;
+    const avail = window.innerHeight - top - MOBILE_SHELF - 8;
+
+    let s = 1;
+
+    // tinggi papan tergantung lebarnya, jadi hitung beberapa kali
+    for (let i = 0; i < 5; i++) {
+      board.style.width = `${100 / s}%`;
+      board.style.transform = "none";
+
+      const h = board.offsetHeight;
+      const next = clamp(avail / h, MOBILE_MIN_SCALE, 1);
+
+      if (Math.abs(next - s) < 0.01) {
+        s = next;
+        break;
+      }
+      s = next;
+    }
+
+    board.style.width = `${100 / s}%`;
+    board.style.transform = `scale(${s})`;
+    sticky.style.height = `${Math.ceil(board.offsetHeight * s)}px`;
+  }
+
+
+  /* ========================================================
+     SLIDE
+  ======================================================== */
+
+  function showSlide(i) {
+    const next = Math.max(0, Math.min(N - 1, i));
+    if (next === index) return;
+    index = next;
+
+    slides.forEach((slide, k) => {
+      const active = k === index;
+      slide.classList.toggle("is-active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+    });
+
+    if (!scrollMode()) playTrail(index);
+  }
+
+  function onScroll() {
+    if (!scrollMode()) return;
+
+    const rect = wrap.getBoundingClientRect();
+    const total = wrap.offsetHeight - sticky.offsetHeight;
+    if (total <= 0) return;
+
+    const topOffset = parseFloat(getComputedStyle(sticky).top) || 0;
+    const progress = clamp((topOffset - rect.top) / total);
+
+    const raw = progress * N;
+    const idx = Math.min(N - 1, Math.floor(raw));
+    const local = raw - idx;                    // 0–1 di dalam slide ini
+
+    // jejak mulai muncul sedikit setelah slide tampil,
+    // lengkap sebelum slide berganti
+    const walkP = clamp((local - 0.05) / 0.8);
+
+    showSlide(idx);
+    setProgress(idx, walkP);
+  }
+
+  function requestTick() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      onScroll();
+      ticking = false;
+    });
+  }
+
+  function updateMode() {
+    const scrolling = scrollMode();
+
+    wrap.classList.toggle("is-scroll", scrolling);
+
+    fitBoard();
+    rebuildTrails();
+
+    if (scrolling) {
+      onScroll();
+    } else if (lastDesktop !== false) {
+      playTrail(index < 0 ? 0 : index);
+    }
+
+    lastDesktop = scrolling;
+  }
+
+  window.addEventListener("scroll", requestTick, { passive: true });
+
+  window.addEventListener("resize", () => {
+    // abaikan resize kecil (address bar HP muncul/hilang)
+    const dw = Math.abs(window.innerWidth - lastW);
+    const dh = Math.abs(window.innerHeight - lastH);
+
+    if (dw > 0 || dh > 120) {
+      lastW = window.innerWidth;
+      lastH = window.innerHeight;
+      updateMode();
+    }
+
+    requestTick();
+  });
+
+  window.addEventListener("load", () => {
+    fitBoard();
+    rebuildTrails();
+    requestTick();
+  });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      fitBoard();
+      rebuildTrails();
+      requestTick();
+    });
+  }
+
+  [mqDesktop, mqMobile].forEach((mq) => {
+    if (mq.addEventListener) mq.addEventListener("change", updateMode);
+    else mq.addListener(updateMode);
+  });
+
+
+  /* Swipe (hanya mode non-scroll) */
+
+  board.addEventListener("touchstart", (e) => {
+    if (scrollMode()) return;
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  board.addEventListener("touchend", (e) => {
+    if (scrollMode() || startX === null) { startX = null; return; }
+
+    const diff = e.changedTouches[0].clientX - startX;
+    startX = null;
+
+    if (Math.abs(diff) < 50) return;
+    showSlide(diff < 0 ? index + 1 : index - 1);
+  }, { passive: true });
+
+
+  /* Keyboard (hanya mode non-scroll) */
+
+  board.addEventListener("keydown", (e) => {
+    if (scrollMode()) return;
+    if (e.key === "ArrowRight") showSlide(index + 1);
+    if (e.key === "ArrowLeft") showSlide(index - 1);
+  });
+
+
+  /* Init */
+
+  lastW = window.innerWidth;
+  lastH = window.innerHeight;
+
+  showSlide(0);
+  updateMode();
+})();
+
+/* KAMMARI - INTERACTIVE MENU BOOK */
+
+(function initKammariMenuBook() {
+
+  async function initialize() {
+    const book = document.getElementById("kmb-book");
+    if (!book) return;
+
+    const prev = document.getElementById("kmb-prev");
+    const next = document.getElementById("kmb-next");
+
+    const photo = document.getElementById("kmb-photo");
+    const photoPlaceholder =
+      document.getElementById("kmb-photo-placeholder");
+
+    const nameEl = document.getElementById("kmb-name");
+    const priceEl = document.getElementById("kmb-price");
+    const descEl = document.getElementById("kmb-description");
+    const indexEl = document.getElementById("kmb-index");
+    const progressEl = document.getElementById("kmb-progress");
+    const captionEl = document.getElementById(
+      "kmb-photo-caption"
+    );
+
+    const pageNumbers = book.querySelectorAll(
+      ".kmb-page-number"
+    );
+
+    // Urutan menu favorit yang diutamakan
+    const favoriteNames = [
+      "Thai Basil Chicken",
+      "Mee Nyedas Kami",
+      "Kentang Goreng Masala",
+      "Milo Malaysia Ashoy",
+      "Teh Jasmine"
+    ];
+
+    const rupiah = value =>
+      "Rp " + Number(value || 0).toLocaleString("id-ID");
+
+    let menus = [];
+    let currentIndex = 0;
+    let isTurning = false;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    const mobileLayout = window.matchMedia(
+      "(max-width: 650px)"
+    );
+
+    // MENAMPILKAN SATU MENU PADA BUKU
+    function renderPage() {
+      if (!menus.length) return;
+
+      const item = menus[currentIndex];
+
+      nameEl.textContent = item.name || "Menu Kammari";
+      priceEl.textContent = rupiah(item.price);
+
+      descEl.textContent =
+        item.description ||
+        "Pilihan favorit untuk menemani cerita di Kammari.";
+
+      indexEl.textContent =
+        `${String(currentIndex + 1).padStart(2, "0")} / ` +
+        String(menus.length).padStart(2, "0");
+
+      progressEl.textContent =
+        `Halaman ${String(currentIndex + 1)
+          .padStart(2, "0")} dari ${String(menus.length)
+          .padStart(2, "0")}`;
+
+      captionEl.textContent =
+        "A little taste of Kammari.";
+
+      // Nomor halaman buku fisik
+      const leftPage = 6 + currentIndex * 2;
+
+      if (pageNumbers[0]) {
+        pageNumbers[0].textContent =
+          `— ${String(leftPage).padStart(2, "0")} —`;
+      }
+
+      if (pageNumbers[1]) {
+        pageNumbers[1].textContent =
+          `— ${String(leftPage + 1).padStart(2, "0")} —`;
+      }
+
+      // Foto tetap berasal dari database
+      photo.hidden = true;
+      photoPlaceholder.hidden = false;
+      photoPlaceholder.textContent = "Memuat foto menu...";
+
+      if (item.image) {
+        try {
+          const imageUrl = new URL(
+            String(item.image),
+            document.baseURI
+          ).href;
+
+          photo.onload = function () {
+            photo.hidden = false;
+            photoPlaceholder.hidden = true;
+          };
+
+          photo.onerror = function () {
+            photo.hidden = true;
+            photoPlaceholder.hidden = false;
+            photoPlaceholder.textContent =
+              "Foto menu belum tersedia";
+          };
+
+          photo.alt = `Foto ${item.name}`;
+          photo.src = imageUrl;
+
+          if (photo.complete && photo.naturalWidth > 0) {
+            photo.hidden = false;
+            photoPlaceholder.hidden = true;
+          }
+        } catch (error) {
+          photoPlaceholder.textContent =
+            "Foto menu belum tersedia";
+        }
+      } else {
+        photo.removeAttribute("src");
+        photoPlaceholder.textContent =
+          "Foto menu belum tersedia";
+      }
+    }
+
+    // ANIMASI MEMBALIK HALAMAN
+    function turnPage(direction) {
+      if (!menus.length || isTurning) return;
+
+      const nextIndex =
+        (currentIndex + direction + menus.length) %
+        menus.length;
+
+      if (
+        reducedMotion.matches ||
+        mobileLayout.matches
+      ) {
+        currentIndex = nextIndex;
+        renderPage();
+        return;
+      }
+
+      isTurning = true;
+
+      book.classList.remove("is-next", "is-prev");
+
+      // Mulai animasi membalik
+      void book.offsetWidth;
+
+      book.classList.add(
+        direction > 0 ? "is-next" : "is-prev"
+      );
+
+      // Ganti isi saat lembar berada di tengah putaran
+      setTimeout(() => {
+        currentIndex = nextIndex;
+        renderPage();
+      }, 340);
+
+      // Selesai membalik halaman
+      setTimeout(() => {
+        book.classList.remove("is-next", "is-prev");
+        isTurning = false;
+      }, 700);
+    }
+
+    prev.addEventListener("click", () => turnPage(-1));
+    next.addEventListener("click", () => turnPage(1));
+
+    // Bisa juga menggunakan panah keyboard
+    book.addEventListener("keydown", event => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        turnPage(1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        turnPage(-1);
+      }
+    });
+
+    // AMBIL DATA DARI SPRING BOOT
+    try {
+      const response = await fetch(
+        "/api/menu?branch=gresik",
+        { cache: "no-store" }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      const items = Array.isArray(data.items)
+        ? data.items
+        : [];
+
+      // Cari menu favorit berdasarkan nama
+      const selected = favoriteNames
+        .map(favorite =>
+          items.find(item =>
+            String(item.name || "").trim().toLowerCase() ===
+            favorite.toLowerCase()
+          )
+        )
+        .filter(Boolean);
+
+      // Lengkapi sampai maksimal 5 menu dari database
+      const selectedIds = new Set(
+        selected.map(item => String(item.id))
+      );
+
+      const remaining = items.filter(item =>
+        !selectedIds.has(String(item.id))
+      );
+
+      menus = [...selected, ...remaining].slice(0, 5);
+
+      if (!menus.length) {
+        throw new Error("Belum ada menu dalam database.");
+      }
+
+      renderPage();
+
+      prev.disabled = menus.length < 2;
+      next.disabled = menus.length < 2;
+
+      console.log(
+        "Buku menu Kammari berhasil dimuat:",
+        menus.length,
+        "menu"
+      );
+
+    } catch (error) {
+      console.error(
+        "Gagal memuat buku menu Kammari:",
+        error
+      );
+
+      nameEl.textContent = "Menu belum tersedia";
+      priceEl.textContent = "";
+      descEl.textContent =
+        "Pilihan menu belum dapat dimuat. Coba muat ulang halaman.";
+      photoPlaceholder.textContent =
+        "Foto belum tersedia";
+
+      prev.disabled = true;
+      next.disabled = true;
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initialize,
+      { once: true }
+    );
+  } else {
+    initialize();
+  }
+
+})();
+
+/* ==========================================
+   KAMMARI FOOD GALLERY — BERANDA
+   Data langsung dari Spring Boot API
+========================================== */
+
+(function initKammariFoodGallery() {
+  const gallery = document.getElementById("food-gallery");
+  if (!gallery) return;
+
+  const $ = id => document.getElementById(id);
+
+  const status = $("fg-status");
+  const layout = $("fg-layout");
+  const image = $("fg-main-img");
+  const fallback = $("fg-image-fallback");
+  const nameEl = $("fg-name");
+  const priceEl = $("fg-price");
+  const descEl = $("fg-description");
+  const numberEl = $("fg-number");
+  const counterEl = $("fg-counter");
+  const previews = $("fg-previews");
+  const prev = $("fg-prev");
+  const next = $("fg-next");
+
+  const FAVORITES = [
+    "Thai Basil Chicken",
+    "Mee Nyedas Kami",
+    "Kentang Goreng Masala",
+    "Milo Malaysia Ashoy",
+    "Teh Jasmine"
+  ];
+
+  let menus = [];
+  let current = 0;
+
+  const rupiah = n =>
+    "Rp " + Number(n || 0).toLocaleString("id-ID");
+
+  function getImage(path) {
+    if (!path) return "";
+
+    try {
+      const url = new URL(path, document.baseURI);
+      return ["http:", "https:"].includes(url.protocol)
+        ? url.href : "";
+    } catch {
+      return "";
+    }
+  }
+
+  function showMenu(index) {
+    if (!menus.length) return;
+
+    current = (index + menus.length) % menus.length;
+
+    const item = menus[current];
+    const num = String(current + 1).padStart(2, "0");
+    const total = String(menus.length).padStart(2, "0");
+
+    nameEl.textContent = item.name;
+    priceEl.textContent = rupiah(item.price);
+    descEl.textContent = item.description ||
+      "Pilihan rasa dari Kammari.";
+
+    numberEl.textContent = `${num} / ${total} — MOST LOVED`;
+    counterEl.textContent = `${num} / ${total}`;
+
+    // Foto utama
+    const src = getImage(item.image);
+    image.alt = `Foto ${item.name}`;
+    fallback.textContent = item.name;
+
+    image.hidden = !src;
+    fallback.hidden = !!src;
+
+    image.onerror = () => {
+      if (image.src !== src) return;
+      image.hidden = true;
+      fallback.hidden = false;
+    };
+
+    if (src) {
+      image.style.animation = "none";
+      void image.offsetWidth;
+      image.style.animation = "";
+      image.src = src;
+    } else {
+      image.removeAttribute("src");
+    }
+
+    // Dua foto menu berikutnya
+    previews.replaceChildren();
+
+    for (let offset = 1;
+         offset <= Math.min(2, menus.length - 1);
+         offset++) {
+
+      const target = (current + offset) % menus.length;
+      const menu = menus[target];
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "fg-thumb";
+      button.setAttribute(
+        "aria-label",
+        `Tampilkan ${menu.name}`
+      );
+
+      const url = getImage(menu.image);
+
+      if (url) {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "";
+        img.loading = "lazy";
+        img.onerror = () => img.remove();
+        button.appendChild(img);
+      }
+
+      const label = document.createElement("span");
+      label.className = "fg-thumb__name";
+      label.textContent = menu.name;
+
+      button.appendChild(label);
+      button.addEventListener("click", () => showMenu(target));
+      previews.appendChild(button);
+    }
+
+    prev.disabled = menus.length <= 1;
+    next.disabled = menus.length <= 1;
+  }
+
+  prev.addEventListener("click", () => showMenu(current - 1));
+  next.addEventListener("click", () => showMenu(current + 1));
+
+  async function load() {
+    try {
+      const response = await fetch(
+        "/api/menu?branch=gresik",
+        { cache: "no-store" }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      const all = Array.isArray(data.items) ? data.items : [];
+
+      const chosen = [];
+      const used = new Set();
+
+      function add(item) {
+        if (!item) return;
+
+        const id = String(item.id ?? item.name);
+        if (used.has(id)) return;
+
+        used.add(id);
+        chosen.push(item);
+      }
+
+      // Prioritaskan menu favorit
+      FAVORITES.forEach(name => {
+        add(all.find(item =>
+          String(item.name || "").trim().toLowerCase()
+          === name.toLowerCase()
+        ));
+      });
+
+      // Lengkapi hingga lima menu
+      all.forEach(item => {
+        if (chosen.length < 5) add(item);
+      });
+
+      menus = chosen.slice(0, 5);
+
+      if (!menus.length) {
+        status.textContent = "Menu belum tersedia.";
+        return;
+      }
+
+      showMenu(0);
+      status.hidden = true;
+      layout.hidden = false;
+
+      console.log(
+        "Food Gallery berhasil dimuat:",
+        menus.length,
+        "menu"
+      );
+
+    } catch (error) {
+      console.error("Food Gallery:", error);
+      status.textContent =
+        "Gagal memuat menu favorit dari database.";
+    }
+  }
+
+  load();
 })();

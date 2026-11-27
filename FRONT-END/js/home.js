@@ -1413,3 +1413,477 @@ document.addEventListener("click", function (event) {
   showSlide(0);
   updateMode();
 })();
+
+/* KAMMARI - INTERACTIVE MENU BOOK */
+
+(function initKammariMenuBook() {
+
+  async function initialize() {
+    const book = document.getElementById("kmb-book");
+    if (!book) return;
+
+    const prev = document.getElementById("kmb-prev");
+    const next = document.getElementById("kmb-next");
+
+    const photo = document.getElementById("kmb-photo");
+    const photoPlaceholder =
+      document.getElementById("kmb-photo-placeholder");
+
+    const nameEl = document.getElementById("kmb-name");
+    const priceEl = document.getElementById("kmb-price");
+    const descEl = document.getElementById("kmb-description");
+    const indexEl = document.getElementById("kmb-index");
+    const progressEl = document.getElementById("kmb-progress");
+    const captionEl = document.getElementById(
+      "kmb-photo-caption"
+    );
+
+    const pageNumbers = book.querySelectorAll(
+      ".kmb-page-number"
+    );
+
+    // Urutan menu favorit yang diutamakan
+    const favoriteNames = [
+      "Thai Basil Chicken",
+      "Mee Nyedas Kami",
+      "Kentang Goreng Masala",
+      "Milo Malaysia Ashoy",
+      "Teh Jasmine"
+    ];
+
+    const rupiah = value =>
+      "Rp " + Number(value || 0).toLocaleString("id-ID");
+
+    let menus = [];
+    let currentIndex = 0;
+    let isTurning = false;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    const mobileLayout = window.matchMedia(
+      "(max-width: 650px)"
+    );
+
+    // MENAMPILKAN SATU MENU PADA BUKU
+    function renderPage() {
+      if (!menus.length) return;
+
+      const item = menus[currentIndex];
+
+      nameEl.textContent = item.name || "Menu Kammari";
+      priceEl.textContent = rupiah(item.price);
+
+      descEl.textContent =
+        item.description ||
+        "Pilihan favorit untuk menemani cerita di Kammari.";
+
+      indexEl.textContent =
+        `${String(currentIndex + 1).padStart(2, "0")} / ` +
+        String(menus.length).padStart(2, "0");
+
+      progressEl.textContent =
+        `Halaman ${String(currentIndex + 1)
+          .padStart(2, "0")} dari ${String(menus.length)
+          .padStart(2, "0")}`;
+
+      captionEl.textContent =
+        "A little taste of Kammari.";
+
+      // Nomor halaman buku fisik
+      const leftPage = 6 + currentIndex * 2;
+
+      if (pageNumbers[0]) {
+        pageNumbers[0].textContent =
+          `— ${String(leftPage).padStart(2, "0")} —`;
+      }
+
+      if (pageNumbers[1]) {
+        pageNumbers[1].textContent =
+          `— ${String(leftPage + 1).padStart(2, "0")} —`;
+      }
+
+      // Foto tetap berasal dari database
+      photo.hidden = true;
+      photoPlaceholder.hidden = false;
+      photoPlaceholder.textContent = "Memuat foto menu...";
+
+      if (item.image) {
+        try {
+          const imageUrl = new URL(
+            String(item.image),
+            document.baseURI
+          ).href;
+
+          photo.onload = function () {
+            photo.hidden = false;
+            photoPlaceholder.hidden = true;
+          };
+
+          photo.onerror = function () {
+            photo.hidden = true;
+            photoPlaceholder.hidden = false;
+            photoPlaceholder.textContent =
+              "Foto menu belum tersedia";
+          };
+
+          photo.alt = `Foto ${item.name}`;
+          photo.src = imageUrl;
+
+          if (photo.complete && photo.naturalWidth > 0) {
+            photo.hidden = false;
+            photoPlaceholder.hidden = true;
+          }
+        } catch (error) {
+          photoPlaceholder.textContent =
+            "Foto menu belum tersedia";
+        }
+      } else {
+        photo.removeAttribute("src");
+        photoPlaceholder.textContent =
+          "Foto menu belum tersedia";
+      }
+    }
+
+    // ANIMASI MEMBALIK HALAMAN
+    function turnPage(direction) {
+      if (!menus.length || isTurning) return;
+
+      const nextIndex =
+        (currentIndex + direction + menus.length) %
+        menus.length;
+
+      if (
+        reducedMotion.matches ||
+        mobileLayout.matches
+      ) {
+        currentIndex = nextIndex;
+        renderPage();
+        return;
+      }
+
+      isTurning = true;
+
+      book.classList.remove("is-next", "is-prev");
+
+      // Mulai animasi membalik
+      void book.offsetWidth;
+
+      book.classList.add(
+        direction > 0 ? "is-next" : "is-prev"
+      );
+
+      // Ganti isi saat lembar berada di tengah putaran
+      setTimeout(() => {
+        currentIndex = nextIndex;
+        renderPage();
+      }, 340);
+
+      // Selesai membalik halaman
+      setTimeout(() => {
+        book.classList.remove("is-next", "is-prev");
+        isTurning = false;
+      }, 700);
+    }
+
+    prev.addEventListener("click", () => turnPage(-1));
+    next.addEventListener("click", () => turnPage(1));
+
+    // Bisa juga menggunakan panah keyboard
+    book.addEventListener("keydown", event => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        turnPage(1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        turnPage(-1);
+      }
+    });
+
+    // AMBIL DATA DARI SPRING BOOT
+    try {
+      const response = await fetch(
+        "/api/menu?branch=gresik",
+        { cache: "no-store" }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      const items = Array.isArray(data.items)
+        ? data.items
+        : [];
+
+      // Cari menu favorit berdasarkan nama
+      const selected = favoriteNames
+        .map(favorite =>
+          items.find(item =>
+            String(item.name || "").trim().toLowerCase() ===
+            favorite.toLowerCase()
+          )
+        )
+        .filter(Boolean);
+
+      // Lengkapi sampai maksimal 5 menu dari database
+      const selectedIds = new Set(
+        selected.map(item => String(item.id))
+      );
+
+      const remaining = items.filter(item =>
+        !selectedIds.has(String(item.id))
+      );
+
+      menus = [...selected, ...remaining].slice(0, 5);
+
+      if (!menus.length) {
+        throw new Error("Belum ada menu dalam database.");
+      }
+
+      renderPage();
+
+      prev.disabled = menus.length < 2;
+      next.disabled = menus.length < 2;
+
+      console.log(
+        "Buku menu Kammari berhasil dimuat:",
+        menus.length,
+        "menu"
+      );
+
+    } catch (error) {
+      console.error(
+        "Gagal memuat buku menu Kammari:",
+        error
+      );
+
+      nameEl.textContent = "Menu belum tersedia";
+      priceEl.textContent = "";
+      descEl.textContent =
+        "Pilihan menu belum dapat dimuat. Coba muat ulang halaman.";
+      photoPlaceholder.textContent =
+        "Foto belum tersedia";
+
+      prev.disabled = true;
+      next.disabled = true;
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initialize,
+      { once: true }
+    );
+  } else {
+    initialize();
+  }
+
+})();
+
+/* ==========================================
+   KAMMARI FOOD GALLERY — BERANDA
+   Data langsung dari Spring Boot API
+========================================== */
+
+(function initKammariFoodGallery() {
+  const gallery = document.getElementById("food-gallery");
+  if (!gallery) return;
+
+  const $ = id => document.getElementById(id);
+
+  const status = $("fg-status");
+  const layout = $("fg-layout");
+  const image = $("fg-main-img");
+  const fallback = $("fg-image-fallback");
+  const nameEl = $("fg-name");
+  const priceEl = $("fg-price");
+  const descEl = $("fg-description");
+  const numberEl = $("fg-number");
+  const counterEl = $("fg-counter");
+  const previews = $("fg-previews");
+  const prev = $("fg-prev");
+  const next = $("fg-next");
+
+  const FAVORITES = [
+    "Thai Basil Chicken",
+    "Mee Nyedas Kami",
+    "Kentang Goreng Masala",
+    "Milo Malaysia Ashoy",
+    "Teh Jasmine"
+  ];
+
+  let menus = [];
+  let current = 0;
+
+  const rupiah = n =>
+    "Rp " + Number(n || 0).toLocaleString("id-ID");
+
+  function getImage(path) {
+    if (!path) return "";
+
+    try {
+      const url = new URL(path, document.baseURI);
+      return ["http:", "https:"].includes(url.protocol)
+        ? url.href : "";
+    } catch {
+      return "";
+    }
+  }
+
+  function showMenu(index) {
+    if (!menus.length) return;
+
+    current = (index + menus.length) % menus.length;
+
+    const item = menus[current];
+    const num = String(current + 1).padStart(2, "0");
+    const total = String(menus.length).padStart(2, "0");
+
+    nameEl.textContent = item.name;
+    priceEl.textContent = rupiah(item.price);
+    descEl.textContent = item.description ||
+      "Pilihan rasa dari Kammari.";
+
+    numberEl.textContent = `${num} / ${total} — MOST LOVED`;
+    counterEl.textContent = `${num} / ${total}`;
+
+    // Foto utama
+    const src = getImage(item.image);
+    image.alt = `Foto ${item.name}`;
+    fallback.textContent = item.name;
+
+    image.hidden = !src;
+    fallback.hidden = !!src;
+
+    image.onerror = () => {
+      if (image.src !== src) return;
+      image.hidden = true;
+      fallback.hidden = false;
+    };
+
+    if (src) {
+      image.style.animation = "none";
+      void image.offsetWidth;
+      image.style.animation = "";
+      image.src = src;
+    } else {
+      image.removeAttribute("src");
+    }
+
+    // Dua foto menu berikutnya
+    previews.replaceChildren();
+
+    for (let offset = 1;
+         offset <= Math.min(2, menus.length - 1);
+         offset++) {
+
+      const target = (current + offset) % menus.length;
+      const menu = menus[target];
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "fg-thumb";
+      button.setAttribute(
+        "aria-label",
+        `Tampilkan ${menu.name}`
+      );
+
+      const url = getImage(menu.image);
+
+      if (url) {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "";
+        img.loading = "lazy";
+        img.onerror = () => img.remove();
+        button.appendChild(img);
+      }
+
+      const label = document.createElement("span");
+      label.className = "fg-thumb__name";
+      label.textContent = menu.name;
+
+      button.appendChild(label);
+      button.addEventListener("click", () => showMenu(target));
+      previews.appendChild(button);
+    }
+
+    prev.disabled = menus.length <= 1;
+    next.disabled = menus.length <= 1;
+  }
+
+  prev.addEventListener("click", () => showMenu(current - 1));
+  next.addEventListener("click", () => showMenu(current + 1));
+
+  async function load() {
+    try {
+      const response = await fetch(
+        "/api/menu?branch=gresik",
+        { cache: "no-store" }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      const all = Array.isArray(data.items) ? data.items : [];
+
+      const chosen = [];
+      const used = new Set();
+
+      function add(item) {
+        if (!item) return;
+
+        const id = String(item.id ?? item.name);
+        if (used.has(id)) return;
+
+        used.add(id);
+        chosen.push(item);
+      }
+
+      // Prioritaskan menu favorit
+      FAVORITES.forEach(name => {
+        add(all.find(item =>
+          String(item.name || "").trim().toLowerCase()
+          === name.toLowerCase()
+        ));
+      });
+
+      // Lengkapi hingga lima menu
+      all.forEach(item => {
+        if (chosen.length < 5) add(item);
+      });
+
+      menus = chosen.slice(0, 5);
+
+      if (!menus.length) {
+        status.textContent = "Menu belum tersedia.";
+        return;
+      }
+
+      showMenu(0);
+      status.hidden = true;
+      layout.hidden = false;
+
+      console.log(
+        "Food Gallery berhasil dimuat:",
+        menus.length,
+        "menu"
+      );
+
+    } catch (error) {
+      console.error("Food Gallery:", error);
+      status.textContent =
+        "Gagal memuat menu favorit dari database.";
+    }
+  }
+
+  load();
+})();

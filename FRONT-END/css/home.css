@@ -3401,3 +3401,1624 @@
   }
 
 }
+
+/* KAMMARI — THE LITTLE MENU BOOK */
+
+.kmb-section {
+  background: #eadccc;
+  padding: 74px 0 76px;
+  overflow: hidden;
+  color: #41291d;
+}
+
+/* HEADER */
+.kmb-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, .75fr);
+  align-items: center;
+  gap: 46px;
+  margin-bottom: 36px;
+}
+
+.kmb-eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  font: 700 10px/1.4 Arial, sans-serif;
+  letter-spacing: .26em;
+  color: #a46442;
+}
+
+.kmb-header h2 {
+  margin: 0;
+  max-width: 720px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(32px, 3.4vw, 50px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -.03em;
+  color: #42291c;
+}
+
+.kmb-header > p {
+  max-width: 370px;
+  margin: 0 0 0 auto;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #80614f;
+}
+
+/* AREA BUKU */
+.kmb-stage {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 52px;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1270px;
+  margin: 0 auto;
+}
+
+/* TOMBOL PANAH */
+.kmb-arrow {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+
+  border: 1px solid #704a32;
+  border-radius: 50%;
+  background: #704a32;
+  color: #fff6e9;
+
+  font-family: Georgia, serif;
+  font-size: 36px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .25s ease,
+              transform .25s ease;
+}
+
+.kmb-arrow:hover {
+  background: #a46340;
+  transform: scale(1.08);
+}
+
+.kmb-arrow:focus-visible {
+  outline: 3px solid #a46340;
+  outline-offset: 4px;
+}
+
+.kmb-arrow:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* SAMPUL BUKU FISIK */
+
+.kmb-book {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  width: 100%;
+  min-width: 0;
+  min-height: 480px;
+  padding: 12px;
+
+  border: 3px solid #704429;
+  border-radius: 22px;
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      145deg,
+      #875535 0%,
+      #5c341e 45%,
+      #75472c 100%
+    );
+
+  box-shadow:
+    0 8px 0 #b28c65,
+    0 12px 0 #d6b48d,
+    0 17px 0 #e4cba8,
+    0 28px 35px rgba(60, 35, 20, .23);
+
+  perspective: 1700px;
+}
+
+/* TUMPUKAN LEMBARAN KERTAS */
+.kmb-book::before {
+  content: "";
+  position: absolute;
+  inset: 8px 7px 5px;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 13px;
+
+  box-shadow:
+    0 3px 0 #fff1d9,
+    0 6px 0 #e7d0ab,
+    0 9px 0 #c9a47c;
+}
+
+/* HALAMAN KERTAS */
+.kmb-page {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 456px;
+
+  padding: 32px clamp(18px, 3.5vw, 48px) 30px;
+  box-sizing: border-box;
+
+  background-color: #f6e6cc;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(121, 80, 47, .013) 0,
+      rgba(121, 80, 47, .013) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    radial-gradient(
+      ellipse at 42% 33%,
+      #fff4df 0%,
+      #f7e7ce 57%,
+      #e8cda7 100%
+    );
+
+  overflow: hidden;
+}
+
+/* HALAMAN KIRI - MELENGKUNG KE TENGAH */
+.kmb-page--left {
+  border-radius: 12px 4px 4px 15px;
+
+  box-shadow:
+    inset 14px 0 16px rgba(113, 71, 41, .09),
+    inset -19px 0 22px rgba(105, 67, 37, .16),
+    inset 0 8px 15px rgba(255, 255, 255, .35);
+}
+
+/* HALAMAN KANAN */
+.kmb-page--right {
+  border-radius: 4px 12px 15px 4px;
+
+  box-shadow:
+    inset 19px 0 22px rgba(105, 67, 37, .19),
+    inset -12px 0 14px rgba(113, 71, 41, .08),
+    inset 0 8px 15px rgba(255, 255, 255, .35);
+}
+
+.kmb-page-top {
+  position: relative;
+  z-index: 1;
+
+  padding-bottom: 13px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(106, 67, 40, .35);
+
+  color: #67412c;
+  text-align: center;
+  font: 700 10px/1.5 Georgia, serif;
+  letter-spacing: .27em;
+}
+
+/* HALAMAN KIRI - FOTO MAKANAN */
+
+.kmb-photo {
+  position: relative;
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  aspect-ratio: 1.27 / 1;
+
+  margin: 0;
+  padding: 9px;
+  border: 1px solid #dfc6a3;
+  box-sizing: border-box;
+
+  background: #f8eedb;
+
+  box-shadow:
+    0 5px 12px rgba(74, 46, 28, .17),
+    0 1px 0 rgba(255, 255, 255, .7);
+
+  transform: rotate(-1deg);
+}
+
+/* Foto seperti ditempel dalam jurnal */
+.kmb-photo::before,
+.kmb-photo::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+
+  border: 5px solid #92633d;
+  pointer-events: none;
+}
+
+.kmb-photo::before {
+  top: -3px;
+  left: -3px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.kmb-photo::after {
+  right: -3px;
+  bottom: -3px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.kmb-photo img:not([hidden]) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.kmb-photo img[hidden] {
+  display: none !important;
+}
+
+.kmb-photo-placeholder {
+  padding: 25px;
+  text-align: center;
+  color: #8c7159;
+  font-size: 14px;
+}
+
+.kmb-photo-placeholder[hidden] {
+  display: none;
+}
+
+.kmb-handwriting {
+  align-self: center;
+  margin: 23px 0 4px;
+  padding: 6px 14px;
+
+  background: #f2dcb9;
+  box-shadow: 0 2px 5px rgba(83, 53, 34, .09);
+
+  color: #785239;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(13px, 1.5vw, 19px);
+  text-align: center;
+  transform: rotate(-3deg);
+}
+
+/* NOMOR HALAMAN */
+.kmb-page-number {
+  display: block;
+  margin-top: auto;
+  padding-top: 18px;
+
+  color: #846345;
+  text-align: center;
+  font: 12px Georgia, serif;
+  letter-spacing: .18em;
+}
+
+/* HALAMAN KANAN - CERITA MENU */
+
+.kmb-details {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+  padding: 34px 8px 35px;
+}
+
+.kmb-index {
+  margin-bottom: 18px;
+  color: #a36543;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+
+.kmb-details h3 {
+  max-width: 95%;
+  margin: 0 0 13px;
+
+  color: #472a1b;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(28px, 3.1vw, 45px);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -.035em;
+  overflow-wrap: anywhere;
+}
+
+.kmb-price {
+  margin: 0;
+  color: #804b32;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(21px, 2vw, 29px);
+  font-style: italic;
+}
+
+.kmb-rule {
+  width: 100%;
+  height: 1px;
+  margin: 25px 0 20px;
+  background: #b18b69;
+}
+
+.kmb-description {
+  max-width: 390px;
+  margin: 0;
+  color: #664a38;
+  font-family: Georgia, serif;
+  font-size: clamp(13px, 1.3vw, 17px);
+  line-height: 1.7;
+}
+
+/* CAP MOST LOVED */
+.kmb-stamp {
+  position: absolute;
+  top: 82px;
+  right: 23px;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 72px;
+  height: 72px;
+  border: 2px dotted #c29c72;
+  border-radius: 50%;
+
+  background: #78462b;
+  color: #fff2db;
+
+  font: 11px/1.1 Georgia, serif;
+  text-align: center;
+
+  transform: rotate(11deg);
+  box-shadow: 0 3px 7px rgba(83, 50, 31, .13);
+}
+
+.kmb-stamp span {
+  margin-top: 3px;
+  font-size: 19px;
+}
+
+/* ILUSTRASI DAUN */
+.kmb-botanical {
+  position: absolute;
+  right: 24px;
+  bottom: 34px;
+  width: 155px;
+  height: 88px;
+  color: #b3906e;
+  opacity: .55;
+  pointer-events: none;
+}
+
+/* LIPATAN TENGAH BUKU */
+
+.kmb-spine {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  bottom: 12px;
+  left: 50%;
+
+  width: 42px;
+  transform: translateX(-50%);
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(75, 43, 24, .04) 23%,
+    rgba(75, 43, 24, .23) 48%,
+    rgba(255, 251, 235, .28) 53%,
+    transparent 100%
+  );
+}
+
+/* ==============================================
+   ANIMASI MEMBALIK HALAMAN
+============================================== */
+
+.kmb-flip-sheet {
+  position: absolute;
+  z-index: 10;
+  top: 12px;
+  bottom: 12px;
+  right: 12px;
+  width: calc(50% - 12px);
+
+  border-radius: 4px 12px 12px 4px;
+  opacity: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      #dcc19b 0%,
+      #faf0dc 18%,
+      #f5e5cb 75%,
+      #dec09a 100%
+    );
+
+  box-shadow: -5px 0 18px rgba(75, 43, 24, .19);
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Membalik ke kiri */
+.kmb-book.is-next .kmb-flip-sheet {
+  opacity: 1;
+  transform-origin: left center;
+  animation: kmb-turn-next .68s ease-in-out forwards;
+}
+
+/* Membalik ke kanan */
+.kmb-book.is-prev .kmb-flip-sheet {
+  opacity: 1;
+  left: 12px;
+  right: auto;
+  transform-origin: right center;
+  animation: kmb-turn-prev .68s ease-in-out forwards;
+}
+
+@keyframes kmb-turn-next {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(-180deg); }
+}
+
+@keyframes kmb-turn-prev {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(180deg); }
+}
+
+/* FOOTER BUKU */
+
+.kmb-footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+
+  max-width: 1110px;
+  margin: 39px auto 0;
+}
+
+.kmb-progress,
+.kmb-hint {
+  color: #856852;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.kmb-hint {
+  text-align: right;
+}
+
+.kmb-all-menu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+
+  min-height: 46px;
+  padding: 10px 28px;
+  box-sizing: border-box;
+
+  border: 1px solid #65422c;
+  border-radius: 999px;
+
+  background: transparent;
+  color: #503321;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: background .25s ease,
+              color .25s ease;
+}
+
+.kmb-all-menu:hover {
+  background: #65422c;
+  color: #fff8ef;
+}
+
+/* TABLET */
+
+@media (max-width: 1024px) {
+  .kmb-section {
+    padding: 60px 0 66px;
+  }
+
+  .kmb-stage {
+    grid-template-columns: 40px minmax(0,1fr) 40px;
+    gap: 10px;
+  }
+
+  .kmb-arrow {
+    width: 39px;
+    height: 39px;
+    font-size: 30px;
+  }
+
+  .kmb-book {
+    min-height: 365px;
+    padding: 9px;
+  }
+
+  .kmb-page {
+    min-height: 345px;
+    padding: 23px 18px;
+  }
+
+  .kmb-page-top {
+    font-size: 8px;
+    letter-spacing: .16em;
+    margin-bottom: 15px;
+  }
+
+  .kmb-details {
+    padding: 22px 4px 34px;
+  }
+
+  .kmb-details h3 {
+    font-size: clamp(23px, 3.3vw, 35px);
+  }
+
+  .kmb-stamp {
+    width: 51px;
+    height: 51px;
+    top: 67px;
+    right: 12px;
+    font-size: 9px;
+  }
+
+  .kmb-botanical {
+    width: 100px;
+    right: 8px;
+  }
+
+  .kmb-spine {
+    top: 9px;
+    bottom: 9px;
+  }
+
+  .kmb-flip-sheet {
+    top: 9px;
+    bottom: 9px;
+    right: 9px;
+    width: calc(50% - 9px);
+  }
+
+  .kmb-book.is-prev .kmb-flip-sheet {
+    left: 9px;
+  }
+}
+
+/* MOBILE - BUKU POTRET */
+
+@media (max-width: 650px) {
+  .kmb-section {
+    padding: 44px 0 50px;
+  }
+
+  .kmb-header {
+    grid-template-columns: 1fr;
+    gap: 13px;
+    margin-bottom: 24px;
+  }
+
+  .kmb-header h2 {
+    font-size: clamp(29px, 7vw, 38px);
+  }
+
+  .kmb-header > p {
+    max-width: 100%;
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .kmb-stage {
+    grid-template-columns: minmax(0,1fr);
+    gap: 0;
+  }
+
+  .kmb-book {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 9px;
+    border-radius: 16px;
+  }
+
+  .kmb-page {
+    min-height: 0;
+    padding: 21px 19px;
+  }
+
+  .kmb-page--left {
+    border-radius: 9px 9px 0 0;
+    box-shadow:
+      inset 10px 0 12px rgba(113,71,41,.07),
+      inset -10px 0 12px rgba(113,71,41,.07);
+  }
+
+  .kmb-page--right {
+    border-radius: 0 0 9px 9px;
+    padding-top: 10px;
+    box-shadow:
+      inset 10px 0 12px rgba(113,71,41,.07),
+      inset -10px 0 12px rgba(113,71,41,.07);
+  }
+
+  .kmb-page--left .kmb-page-number {
+    display: none;
+  }
+
+  .kmb-page--right .kmb-page-top {
+    display: none;
+  }
+
+  .kmb-photo {
+    max-width: 100%;
+    aspect-ratio: 1.45 / 1;
+    transform: none;
+  }
+
+  .kmb-handwriting {
+    margin: 14px 0 6px;
+    font-size: 15px;
+  }
+
+  .kmb-details {
+    padding: 10px 0 22px;
+  }
+
+  .kmb-index {
+    margin-bottom: 9px;
+  }
+
+  .kmb-details h3 {
+    font-size: clamp(27px, 7vw, 38px);
+    max-width: 100%;
+  }
+
+  .kmb-price {
+    font-size: 21px;
+  }
+
+  .kmb-rule {
+    margin: 15px 0;
+  }
+
+  .kmb-description {
+    font-size: 13px;
+  }
+
+  .kmb-stamp,
+  .kmb-spine,
+  .kmb-flip-sheet,
+  .kmb-botanical {
+    display: none;
+  }
+
+  /* Garis lipatan halaman pada buku potret */
+  .kmb-page--right::before {
+    content: "";
+    display: block;
+    height: 12px;
+    margin: 0 -19px 15px;
+    background: linear-gradient(
+      to bottom,
+      rgba(85,54,31,.15),
+      transparent
+    );
+  }
+
+  .kmb-arrow {
+    position: relative;
+    z-index: 5;
+    width: 42px;
+    height: 42px;
+    margin-top: 15px;
+  }
+
+  .kmb-arrow--prev {
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .kmb-arrow--next {
+    grid-row: 2;
+    justify-self: end;
+    margin-top: -42px;
+  }
+
+  .kmb-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    margin-top: 14px;
+  }
+
+  .kmb-hint {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kmb-flip-sheet {
+    animation: none !important;
+  }
+
+  .kmb-arrow,
+  .kmb-all-menu {
+    transition: none;
+  }
+}
+
+/* KAMMARI FOOD GALLERY */
+
+body[data-page="home"] .fg-section {
+  --fg-ink: #432d22;
+  --fg-muted: #806553;
+  --fg-accent: #9b5b3d;
+  --fg-line: #c8b19d;
+
+  background: #eadccc;
+  padding: 85px 0 72px;
+  overflow: hidden;
+  color: var(--fg-ink);
+}
+
+.fg-section *,
+.fg-section *::before,
+.fg-section *::after {
+  box-sizing: border-box;
+}
+
+/* HEADER */
+.fg-heading {
+  display: grid;
+  grid-template-columns: 1.5fr .8fr;
+  align-items: end;
+  gap: 55px;
+  margin-bottom: 42px;
+}
+
+.fg-kicker {
+  display: block;
+  color: #a46547;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  margin-bottom: 16px;
+}
+
+.fg-heading h2 {
+  margin: 0;
+  font-family: var(--serif, Georgia, serif);
+  font-size: clamp(38px, 4.3vw, 64px);
+  font-weight: 400;
+  line-height: 1.07;
+  letter-spacing: -.035em;
+  color: #432d22;
+}
+
+.fg-heading h2 em {
+  font-weight: 400;
+  color: #985a3c;
+}
+
+.fg-heading__desc {
+  max-width: 360px;
+  margin: 0;
+  padding-left: 24px;
+  border-left: 1px solid #b28d74;
+  color: #806553;
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+/* GALERI UTAMA */
+.fg-gallery {
+  width: 100%;
+}
+
+.fg-status {
+  margin: 0;
+  color: #806553;
+  font-size: 14px;
+}
+
+.fg-layout[hidden],
+.fg-image-fallback[hidden],
+.fg-status[hidden],
+.fg-main img[hidden] {
+  display: none !important;
+}
+
+.fg-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .9fr);
+  align-items: stretch;
+  gap: clamp(28px, 4.5vw, 65px);
+}
+
+/* FOTO BESAR KIRI */
+.fg-main {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+  height: clamp(385px, 42vw, 545px);
+  overflow: hidden;
+  background: #d6bba4;
+  border-radius: 160px 12px 12px 12px;
+  isolation: isolate;
+}
+
+.fg-main img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: fg-enter .55s ease both;
+}
+
+.fg-main::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 50% 0 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(39, 24, 16, .58)
+  );
+}
+
+.fg-image-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 25px;
+  background: linear-gradient(135deg, #e8d5bf, #bea089);
+  color: #624431;
+  font: italic 30px Georgia, serif;
+  text-align: center;
+}
+
+.fg-main__caption {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #fff8ee;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .19em;
+}
+
+.fg-main__line {
+  display: block;
+  width: 29px;
+  height: 1px;
+  background: currentColor;
+}
+
+/* KOLOM KANAN */
+.fg-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 0 0;
+}
+
+.fg-number {
+  display: block;
+  margin-bottom: 30px;
+  color: #9b5b3d;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .17em;
+}
+
+.fg-detail h3 {
+  margin: 0;
+  color: #432d22;
+  font-family: var(--serif, Georgia, serif);
+  font-size: clamp(35px, 3.6vw, 55px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  overflow-wrap: anywhere;
+}
+
+.fg-price {
+  display: block;
+  margin: 16px 0 20px;
+  color: #a05b3c;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.fg-divider {
+  height: 1px;
+  width: 100%;
+  background: #cab5a1;
+}
+
+.fg-description {
+  max-width: 440px;
+  margin: 19px 0 0;
+  color: #806553;
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+/* PREVIEW 2 MENU BERIKUTNYA */
+.fg-more__label {
+  margin: 28px 0 13px;
+  color: #9b5b3d;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .17em;
+}
+
+.fg-previews {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.fg-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.65 / 1;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #cbb19b;
+  text-align: left;
+  cursor: pointer;
+}
+
+.fg-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.fg-thumb:hover img {
+  transform: scale(1.07);
+}
+
+.fg-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 25% 0 0;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(38, 23, 16, .72)
+  );
+}
+
+.fg-thumb__name {
+  position: absolute;
+  z-index: 1;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  color: #fffaf2;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* PANAH NAVIGASI */
+.fg-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 22px;
+}
+
+.fg-counter {
+  color: #806553;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .12em;
+}
+
+.fg-arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.fg-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #523728;
+  border-radius: 50%;
+  background: transparent;
+  color: #523728;
+  font-size: 22px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+
+.fg-arrow:hover {
+  background: #523728;
+  color: #fff8ed;
+}
+
+.fg-arrow:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
+.fg-arrow:focus-visible,
+.fg-thumb:focus-visible,
+.fg-all-link:focus-visible {
+  outline: 3px solid #a05b3c;
+  outline-offset: 3px;
+}
+
+/* FOOTER SECTION */
+.fg-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 23px;
+  margin-top: 32px;
+  border-top: 1px solid #c8b19d;
+}
+
+.fg-bottom > span {
+  color: #886c58;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+}
+
+.fg-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 17px;
+  padding: 10px 0;
+  color: #432d22;
+  border-bottom: 1px solid currentColor;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: gap .2s;
+}
+
+.fg-all-link:hover {
+  gap: 23px;
+}
+
+/* ANIMASI */
+@keyframes fg-enter {
+  from {
+    opacity: .5;
+    transform: scale(1.04);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+  body[data-page="home"] .fg-section {
+    padding: 65px 0;
+  }
+
+  .fg-layout {
+    gap: 28px;
+  }
+
+  .fg-main {
+    height: 430px;
+    border-top-left-radius: 115px;
+  }
+
+  .fg-number {
+    margin-bottom: 18px;
+  }
+
+  .fg-detail h3 {
+    font-size: clamp(30px, 4vw, 42px);
+  }
+
+  .fg-previews {
+    gap: 10px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 680px) {
+  body[data-page="home"] .fg-section {
+    padding: 52px 0;
+  }
+
+  .fg-heading {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .fg-heading h2 {
+    font-size: clamp(34px, 8vw, 48px);
+  }
+
+  .fg-heading__desc {
+    padding: 0;
+    border: none;
+    max-width: 100%;
+    font-size: 13px;
+  }
+
+  .fg-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .fg-main {
+    height: clamp(320px, 78vw, 450px);
+    border-radius: 115px 10px 10px 10px;
+  }
+
+  .fg-info {
+    padding: 0;
+  }
+
+  .fg-number {
+    margin-bottom: 12px;
+  }
+
+  .fg-detail h3 {
+    font-size: clamp(32px, 8vw, 45px);
+  }
+
+  .fg-price {
+    margin: 12px 0 14px;
+  }
+
+  .fg-description {
+    margin-top: 14px;
+    font-size: 13px;
+  }
+
+  .fg-more__label {
+    margin-top: 30px;
+  }
+
+  .fg-thumb {
+    aspect-ratio: 1.5 / 1;
+  }
+
+  .fg-bottom {
+    margin-top: 28px;
+  }
+
+  .fg-bottom > span {
+    font-size: 10px;
+  }
+
+  .fg-all-link {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fg-main img {
+    animation: none;
+  }
+
+  .fg-thumb img,
+  .fg-arrow,
+  .fg-all-link {
+    transition: none;
+  }
+}
+
+/* FOOD GALLERY */
+
+/* 1. Sembunyikan semua label yang tidak diperlukan */
+.fg-section .fg-kicker,
+.fg-section .fg-number,
+.fg-section .fg-main__caption,
+.fg-section .fg-counter {
+  display: none !important;
+}
+
+/* 2. Deskripsi di kiri, judul di kanan */
+.fg-section .fg-heading,
+.fg-section .fg-head {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(30px, 5vw, 80px);
+}
+
+/* Judul pindah ke kanan */
+.fg-section .fg-heading > div:first-child,
+.fg-section .fg-head .fg-title-wrap {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+}
+
+.fg-section .fg-heading h2,
+.fg-section .fg-head h2 {
+  text-align: right;
+}
+
+/* Deskripsi pindah ke kiri */
+.fg-section .fg-heading__desc,
+.fg-section .fg-head .fg-intro {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+
+  width: 100%;
+  max-width: 380px;
+
+  border: none !important;
+  border-left: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  text-align: left;
+}
+
+.fg-section .fg-head .fg-intro p {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0;
+  color: #806553;
+  line-height: 1.8;
+}
+
+/* 3. Hilangkan panah di Lihat semua menu */
+.fg-section .fg-all-link > span,
+.fg-section .fg-all-link::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* 4. Desain panah lebih modern:
+      dua panah dalam satu navigasi berbentuk pill */
+.fg-section .fg-arrows,
+.fg-section .fg-nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+
+  overflow: hidden;
+  border: 1px solid #aa8c76;
+  border-radius: 999px;
+  background: #f7eee3;
+}
+
+.fg-section .fg-arrow,
+.fg-section .fg-nav button {
+  position: relative;
+  display: grid;
+  place-items: center;
+
+  width: 58px;
+  height: 44px;
+  padding: 0;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+
+  transition: background .2s ease;
+}
+
+/* Garis pemisah antara tombol kiri dan kanan */
+.fg-section #fg-prev {
+  border-right: 1px solid #c8b19d;
+}
+
+/* Bentuk chevron minimalis */
+.fg-section #fg-prev::after,
+.fg-section #fg-next::after {
+  content: "";
+  display: block;
+
+  width: 10px;
+  height: 10px;
+
+  border-top: 1.8px solid #513626;
+  border-right: 1.8px solid #513626;
+}
+
+.fg-section #fg-prev::after {
+  transform: rotate(-135deg);
+  margin-left: 5px;
+}
+
+.fg-section #fg-next::after {
+  transform: rotate(45deg);
+  margin-right: 5px;
+}
+
+.fg-section .fg-arrow:hover,
+.fg-section .fg-nav button:hover {
+  background: #e2cfbd;
+  color: transparent;
+}
+
+.fg-section .fg-arrow:focus-visible,
+.fg-section .fg-nav button:focus-visible {
+  outline: 2px solid #a05b3c;
+  outline-offset: -3px;
+}
+
+/* 5. Responsive HP */
+@media (max-width: 680px) {
+  .fg-section .fg-heading,
+  .fg-section .fg-head {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .fg-section .fg-heading__desc,
+  .fg-section .fg-head .fg-intro {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 100%;
+  }
+
+  .fg-section .fg-heading > div:first-child,
+  .fg-section .fg-head .fg-title-wrap {
+    grid-column: 1;
+    grid-row: 2;
+    text-align: left;
+  }
+
+  .fg-section .fg-heading h2,
+  .fg-section .fg-head h2 {
+    text-align: left;
+  }
+}
+
+/* ==========================================
+   FOOD GALLERY — HEADER & NAVIGATION
+   Selaras dengan Event Archive / Fasilitas
+========================================== */
+
+/* HEADER: deskripsi kiri, judul kanan */
+body[data-page="home"] .fg-section .fg-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 70px);
+  margin-bottom: 38px;
+}
+
+/* Ukuran judul seperti "Momen yang tersimpan" */
+body[data-page="home"] .fg-section .fg-heading h2 {
+  font-family: var(--serif, Georgia, serif);
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 400;
+  line-height: 1.13;
+  letter-spacing: -0.025em;
+  color: #402b20;
+  text-align: right;
+}
+
+/* Deskripsi kiri, tanpa garis */
+body[data-page="home"] .fg-section .fg-heading__desc {
+  max-width: 380px;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #806553;
+  text-align: left;
+}
+
+/* Hapus label yang tidak diperlukan */
+.fg-section .fg-kicker,
+.fg-section .fg-number,
+.fg-section .fg-main__caption,
+.fg-section .fg-counter {
+  display: none !important;
+}
+
+/* NAVIGASI: panah kiri - titik - panah kanan */
+body[data-page="home"] .fg-section .fg-navigation {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+body[data-page="home"] .fg-section .fg-arrows {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+/* Tombol bundar seperti carousel Fasilitas */
+body[data-page="home"] .fg-section .fg-arrow {
+  display: grid;
+  place-items: center;
+
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+
+  padding: 0;
+  background: #fffaf3;
+  border: 1px solid rgba(83, 54, 38, 0.1);
+  border-radius: 50%;
+
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+
+  box-shadow: 0 3px 12px rgba(65, 41, 26, 0.07);
+  transition: background .25s ease, transform .25s ease;
+}
+
+/* Hilangkan garis pemisah model lama */
+body[data-page="home"] .fg-section #fg-prev {
+  border: 1px solid rgba(83, 54, 38, 0.1);
+}
+
+/* Chevron kiri dan kanan */
+body[data-page="home"] .fg-section #fg-prev::after,
+body[data-page="home"] .fg-section #fg-next::after {
+  content: "";
+  display: block;
+
+  width: 11px;
+  height: 11px;
+
+  border-top: 2px solid #4b3326;
+  border-right: 2px solid #4b3326;
+}
+
+body[data-page="home"] .fg-section #fg-prev::after {
+  transform: rotate(-135deg);
+  margin-left: 5px;
+}
+
+body[data-page="home"] .fg-section #fg-next::after {
+  transform: rotate(45deg);
+  margin-right: 5px;
+}
+
+body[data-page="home"] .fg-section .fg-arrow:hover {
+  background: #f0e3d4;
+  transform: scale(1.06);
+}
+
+/* Indikator titik */
+body[data-page="home"] .fg-section .fg-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+body[data-page="home"] .fg-section .fg-dot {
+  display: block;
+  width: 9px;
+  height: 9px;
+  padding: 0;
+
+  border: 0;
+  border-radius: 999px;
+  background: #bea994;
+
+  cursor: pointer;
+  transition: width .25s ease, background .25s ease;
+}
+
+/* Titik aktif menjadi garis pendek */
+body[data-page="home"] .fg-section .fg-dot.is-active {
+  width: 32px;
+  background: #694734;
+}
+
+/* Hapus panah pada Lihat semua menu */
+.fg-section .fg-all-link > span,
+.fg-section .fg-all-link::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 680px) {
+  body[data-page="home"] .fg-section .fg-heading {
+    grid-template-columns: 1fr;
+    gap: 17px;
+    margin-bottom: 28px;
+  }
+
+  body[data-page="home"] .fg-section .fg-heading__desc {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 100%;
+    font-size: 13px;
+  }
+
+  body[data-page="home"] .fg-section .fg-heading > div:first-child {
+    grid-column: 1;
+    grid-row: 2;
+    text-align: left;
+  }
+
+  body[data-page="home"] .fg-section .fg-heading h2 {
+    font-size: clamp(34px, 8vw, 43px);
+    text-align: left;
+  }
+
+  body[data-page="home"] .fg-section .fg-arrow {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  body[data-page="home"] .fg-section .fg-arrows {
+    gap: 10px;
+  }
+}

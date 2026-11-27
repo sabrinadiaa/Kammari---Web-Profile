@@ -1,5 +1,127 @@
 /* Kammari Café & Roastery — menu.js (script biasa, bukan type="module")
    API: GET /api/menu?branch=gresik|surabaya */
+   
+window.MENU = window.MENU || [];
+window.CATEGORIES = window.CATEGORIES || [];
+
+let latestMenuRequest = 0;
+
+window.loadBranchMenu = async function (branch = "gresik") {
+  const requestId = ++latestMenuRequest;
+
+  try {
+    const response = await fetch(
+      `/api/menu?branch=${encodeURIComponent(branch)}`,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    if (requestId !== latestMenuRequest) return;
+
+    const items = Array.isArray(data.items)
+      ? data.items
+      : [];
+
+    const categories = new Map();
+
+    items.forEach(item => {
+      if (!categories.has(item.category_slug)) {
+        categories.set(item.category_slug, {
+          id: item.category_slug,
+          title: item.category_name,
+          note: item.category_description || ""
+        });
+      }
+    });
+
+    window.CATEGORIES.splice(
+      0,
+      window.CATEGORIES.length,
+      ...categories.values()
+    );
+
+    window.MENU.splice(
+      0,
+      window.MENU.length,
+      ...items.map(item => ({
+        id: Number(item.id),
+        cat: item.category_slug,
+        name: item.name,
+        desc: item.description || "",
+        price: Number(item.price) || 0,
+        image: item.image || "",
+        b: [branch],
+        mood: ["main-course", "snack", "makanan-penutup"]
+          .includes(item.category_slug)
+            ? ["lapar", "santai"]
+            : ["santai", "fokus"]
+      }))
+    );
+
+    document.dispatchEvent(
+      new CustomEvent("kammari-menu-loaded", {
+        detail: { branch }
+      })
+    );
+
+    console.log("Menu berhasil dimuat:", window.MENU.length);
+
+  } catch (error) {
+    console.error("Gagal memuat menu:", error);
+
+    document.dispatchEvent(
+      new CustomEvent("kammari-menu-error", {
+        detail: { branch }
+      })
+    );
+  }
+};
+
+/* Helper untuk kartu rekomendasi */
+if (typeof window.dishCard !== "function") {
+  window.dishCard = function (item) {
+    const escapeHTML = value =>
+      String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+
+    const image = item.image
+      ? `style="--src: url('${new URL(
+          item.image,
+          document.baseURI
+        ).href.replace(/'/g, "%27")}')"`
+      : "";
+
+    return `
+      <article class="dish">
+        <figure class="photo arch"
+                role="img"
+                aria-label="Foto ${escapeHTML(item.name)}"
+                ${image}>
+          <figcaption>${escapeHTML(item.name)}</figcaption>
+        </figure>
+
+        <div class="dish__top">
+          <h3>${escapeHTML(item.name)}</h3>
+          <span class="price">
+            Rp ${Number(item.price).toLocaleString("id-ID")}
+          </span>
+        </div>
+
+        <p>${escapeHTML(item.desc)}</p>
+      </article>
+    `;
+  };
+}
+
 (() => {
   if (document.body.dataset.page !== "menu") return;
 
